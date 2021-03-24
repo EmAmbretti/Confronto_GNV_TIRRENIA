@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite failures="0" name="cucumber.runtime.formatter.JUnitFormatter" skipped="0" tests="1" time="101.378971">
+    <testcase classname="GNV" name="GNV" time="101.378971">
+        <system-out><![CDATA[Given utente apre browser GNV...............................................passed
+When utente seleziona viaggio...............................................passed
+And utente compila campi....................................................passed
+And utente seleziona sistemazione...........................................passed
+And recupero totale offerta.................................................passed
+And utente chiude browser...................................................passed
+And utente apre browser TIRRENIA............................................passed
+And utente inserisce dati viaggio TIRRENIA..................................passed
+And controllo prezzo TIRRENIA...............................................passed
+Then confronto prezzi.......................................................passed
+]]></system-out>
+    </testcase>
+</testsuite>

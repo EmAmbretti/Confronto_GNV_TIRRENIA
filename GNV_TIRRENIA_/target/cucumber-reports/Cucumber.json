@@ -1,0 +1,170 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 3593847500,
+              "status": "passed"
+            },
+            "match": {
+              "location": "BeforeAndAfter.before(Scenario)"
+            }
+          }
+        ],
+        "line": 4,
+        "name": "GNV",
+        "description": "",
+        "id": "gnv;gnv",
+        "after": [
+          {
+            "result": {
+              "duration": 7010103400,
+              "status": "passed"
+            },
+            "match": {
+              "location": "BeforeAndAfter.after(Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 5582984300,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "utente apre browser GNV",
+            "match": {
+              "location": "ConfrontoGNV_TIRRENIA.utente_apre_browser_GNV()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 3170224700,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "utente seleziona viaggio",
+            "match": {
+              "location": "ConfrontoGNV_TIRRENIA.utente_seleziona_destinazioni()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 35302614300,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "utente compila campi",
+            "match": {
+              "location": "ConfrontoGNV_TIRRENIA.utente_compila_campi()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 21440325900,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "utente seleziona sistemazione",
+            "match": {
+              "location": "ConfrontoGNV_TIRRENIA.utente_seleziona_sistemazione()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 25029600,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "recupero totale offerta",
+            "match": {
+              "location": "ConfrontoGNV_TIRRENIA.recupero_totale_offerta()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1009677300,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "utente chiude browser",
+            "match": {
+              "location": "ConfrontoGNV_TIRRENIA.utente_chiude_browser()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 7031764000,
+              "status": "passed"
+            },
+            "line": 11,
+            "name": "utente apre browser TIRRENIA",
+            "match": {
+              "location": "ConfrontoGNV_TIRRENIA.utente_apre_browser_TIRRENIA()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 6876241700,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "utente inserisce dati viaggio TIRRENIA",
+            "match": {
+              "location": "ConfrontoGNV_TIRRENIA.utente_inserisce_dati_viaggio()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 10336110500,
+              "status": "passed"
+            },
+            "line": 13,
+            "name": "controllo prezzo TIRRENIA",
+            "match": {
+              "location": "ConfrontoGNV_TIRRENIA.controllo_prezzo_Tirrenia()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 47800,
+              "status": "passed"
+            },
+            "line": 14,
+            "name": "confronto prezzi",
+            "match": {
+              "location": "ConfrontoGNV_TIRRENIA.confrontoPrezzi()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "line": 3,
+            "name": "@apreGNV"
+          }
+        ]
+      }
+    ],
+    "name": "GNV",
+    "description": "",
+    "id": "gnv",
+    "keyword": "Feature",
+    "uri": "GNV.feature"
+  }
+]
