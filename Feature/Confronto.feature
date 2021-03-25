@@ -3,12 +3,13 @@ Feature: GNV
 @confronto
 Scenario: GNV
 	Given utente apre browser GNV
-	When utente seleziona viaggio
-	And utente compila campi
-	And utente seleziona sistemazione
-	And recupero totale offerta
-	And utente chiude browser
+	When utente seleziona viaggio GNV
+	And utente compila campi GNV
+	And utente seleziona sistemazione GNV
+	And recupero totale offerta GNV
+	And utente chiude browser GNV
 	And utente apre browser TIRRENIA
+	And utente bypassa frame TIRRENIA
 	And utente inserisce dati viaggio TIRRENIA
-	And controllo prezzo TIRRENIA
+	And recupera prezzo TIRRENIA
 	Then confronto prezzi
