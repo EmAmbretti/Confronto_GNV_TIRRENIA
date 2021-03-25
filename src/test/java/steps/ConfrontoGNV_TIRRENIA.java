@@ -32,7 +32,7 @@ public class ConfrontoGNV_TIRRENIA {
 		
 		if(driver.findElement(By.xpath("//*[@id=\"closeXButton\"]/span/p/span")).isDisplayed()) {
 			driver.findElement(By.xpath("//*[@id=\"closeXButton\"]/span/p/span")).click();
-		}
+		} 
 		Thread.sleep(3000);
 	 
 	}
