@@ -3,7 +3,7 @@ Feature: GNV
 @confronto
 Scenario: GNV
 	Given utente apre browser GNV
-	When utente seleziona viaggio GNV
+	When utente chiude popup GNV
 	And utente compila campi GNV
 	And utente seleziona sistemazione GNV
 	And recupero totale offerta GNV

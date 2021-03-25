@@ -23,7 +23,7 @@ public class ConfrontoGNV_TIRRENIA {
 		Generic.utente_apre_browser(driver);
 	}
 
-	@When("^utente seleziona viaggio GNV$") 
+	@When("^utente chiude popup GNV$") 
 	public void utente_seleziona_destinazioni() throws Throwable {
 		if(driver.findElement(By.xpath("//*[@id=\"iubenda-cs-banner\"]/div/div/div/div[2]/div[2]/button[2]")).isDisplayed()) {
 			driver.findElement(By.xpath("//*[@id=\"iubenda-cs-banner\"]/div/div/div/div[2]/div[2]/button[2]")).click();
