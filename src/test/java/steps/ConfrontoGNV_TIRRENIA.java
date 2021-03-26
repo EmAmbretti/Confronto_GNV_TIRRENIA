@@ -25,15 +25,17 @@ public class ConfrontoGNV_TIRRENIA {
 
 	@When("^utente chiude popup GNV$") 
 	public void utente_seleziona_destinazioni() throws Throwable {
+		Thread.sleep(3000);
 		if(driver.findElement(By.xpath("//*[@id=\"iubenda-cs-banner\"]/div/div/div/div[2]/div[2]/button[2]")).isDisplayed()) {
 			driver.findElement(By.xpath("//*[@id=\"iubenda-cs-banner\"]/div/div/div/div[2]/div[2]/button[2]")).click();
+			Thread.sleep(5000);
 		}
-		Thread.sleep(3000);
+		
 		
 		if(driver.findElement(By.xpath("//*[@id=\"closeXButton\"]/span/p/span")).isDisplayed()) {
 			driver.findElement(By.xpath("//*[@id=\"closeXButton\"]/span/p/span")).click();
+			Thread.sleep(5000);
 		} 
-		Thread.sleep(3000);
 	 
 	}
 
