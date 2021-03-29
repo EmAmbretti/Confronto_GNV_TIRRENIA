@@ -1,7 +1,10 @@
 package steps;
 
+import java.awt.Window;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -14,13 +17,16 @@ public class TraghettiLines {
 	
 	WebDriver driver = BeforeAndAfter.driver;
 	int prezzoGNV, prezzoTIRRENIA;
+	int ripetizioni=0;
+	int controlloPersone=0;
 	
 	@Given("^utente apre browser TRAGHETTILINES$")
 	public void utente_apre_browser_TRAGHETTILINES() throws Throwable{
+		///////////////////////
+		System.out.println("Test numero: "+(ripetizioni+1));
+		/////////////////////////
 		driver.get("https://www.traghettilines.it");
 		driver.manage().window().maximize();
-	
-		
 	}
 	@When("^utente inserisce dati viaggio TRAGHETTILINES$")
 	public void utente_inserisce_dati_viaggio_TRAGHETTILINES() throws Throwable{
@@ -48,7 +54,15 @@ public class TraghettiLines {
 		Thread.sleep(1000);
 		Generic.clickById(driver, "select_NumeroAdultiTipo2Andata");
 		Thread.sleep(1000);
-		HomePage.scrollDropListById(driver, "select_NumeroAdultiTipo2Andata", 1);
+		
+		//////////////////////////
+		if(controlloPersone<1) {
+			HomePage.scrollDropListById(driver, "select_NumeroAdultiTipo2Andata", 1);
+			controlloPersone++;
+		}
+		////////////////////////////
+		Generic.clickByXPath(driver, "//*[@id=\"select_NumeroAdultiTipo2Andata\"]/option[2]");
+		
 		Thread.sleep(1000);
 		HomePage.clickEnterDropListById(driver, "select_NumeroAdultiTipo2Andata");
 		Thread.sleep(1000);
@@ -76,10 +90,25 @@ public class TraghettiLines {
 	}
 	
 	@Then("^confronto prezzi TRAGHETTILINES$")
-	public void confronto_prezzi_TRAGHETTILINES() {
+	public void confronto_prezzi_TRAGHETTILINES() throws Throwable {
+		Thread.sleep(5000);
 		Double imp1=Double.valueOf(prezzoGNV);
 		Double imp2=Double.valueOf(prezzoTIRRENIA);
 		Generic.confrontoPrezzi(driver, imp1, "GNV", imp2, "TIRRENIA");
+		
+		while(ripetizioni<2) {
+			ripetizioni++;
+			driver=BeforeAndAfter.driver;
+			driver.manage().deleteAllCookies();
+			Thread.sleep(3000);
+			utente_apre_browser_TRAGHETTILINES();
+			Thread.sleep(3000);
+			utente_inserisce_dati_viaggio_TRAGHETTILINES();
+			Thread.sleep(3000);
+			confronto_prezzi_TRAGHETTILINES();
+		}
+		
+		System.out.println(ripetizioni+" test compleati.");
 		driver.quit();
 	}
 }

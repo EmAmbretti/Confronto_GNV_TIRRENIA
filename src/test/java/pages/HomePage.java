@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class HomePage {
 	
@@ -38,12 +39,33 @@ public class HomePage {
 	
 	public static void cliccaFrecciaAvanti(WebDriver driver) {
 		driver.findElement(By.xpath("//i[@class='gnv-fe-icon-arrow-light-right']")).click();
+	}
+	
+	public static void controlloMese(WebDriver driver, String month) {
+		do {
+			WebElement element = driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[1]/span"));
+			if(element.getText().contains(month)) {
+				break;
+			}else {
+				cliccaFrecciaAvanti(driver);
+			}
+		}while(true);
 		
 	}
 	
-	public static void cliccaDataScelta(WebDriver driver) {
-		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/div[1]/div")).click();
-
+	public static void cliccaDataScelta(WebDriver driver, String giorno) throws Throwable {
+		for(int j=1;j<=5;j++) {
+			for(int i=1;i<=7;i++) {
+				WebElement element= driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div["+j+"]/div["+i+"]/div"));
+				if(element.getText().equals(giorno)) {
+					System.out.println("riga: "+i+" colonna: "+j);
+					Thread.sleep(2000);
+					element.click();
+												   //*[@id="main-container"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/div[2]/div
+				
+				}
+			}
+		}
 	}
 	
 	public static void cliccaTastoPiu(WebDriver driver) {

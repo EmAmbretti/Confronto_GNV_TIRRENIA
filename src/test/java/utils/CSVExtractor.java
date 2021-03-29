@@ -14,7 +14,7 @@ public class CSVExtractor {
 			List<String[]> list = new ArrayList<>();
 			String line = "";
 			while ((line = reader.readLine()) != null) {
-				String[] array = line.split(";");
+				String[] array = line.split(",");
 				list.add(array);
 			}
 			for (int x = 1; x < list.size(); x++) {

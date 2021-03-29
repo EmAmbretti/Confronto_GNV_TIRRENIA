@@ -10,36 +10,39 @@ import pages.HomePage;
 import pages.Recap;
 import pages.RecuperaImporto;
 import utils.BeforeAndAfter;
+import utils.CSVData;
+import utils.CSVExtractor;
 import utils.Generic;
+import utils.Path;
 
 
-public class ConfrontoGNV_TIRRENIA {
+public class ConfrontoCSV_GNV_TIRR {
 	
 	Double importoNumerico, prezzoTirreniaNumerico;
 	WebDriver driver = BeforeAndAfter.driver;
+	CSVData testData;
 	
-	@Given("^utente apre browser GNV_TIRR$")
+	@Given("^utente apre browser GNV GNV_TIRR$")
 	public void utente_apre_browser_GNV() throws Throwable {
+		testData=CSVExtractor.getTestDataByOffer("GNVTIRR1PNAPPAL", Path.PATH);
 		Generic.utente_apre_browser(driver);
 	}
 
-	@When("^utente chiude popup GNV$") 
+	@When("^utente chiude popup GNV_TIRR$") 
 	public void utente_seleziona_destinazioni() throws Throwable {
 		Thread.sleep(3000);
 		if(driver.findElement(By.xpath("//*[@id=\"iubenda-cs-banner\"]/div/div/div/div[2]/div[2]/button[2]")).isDisplayed()) {
 			driver.findElement(By.xpath("//*[@id=\"iubenda-cs-banner\"]/div/div/div/div[2]/div[2]/button[2]")).click();
 			Thread.sleep(5000);
 		}
-		
-		
 		if(driver.findElement(By.xpath("//*[@id=\"closeXButton\"]/span/p/span")).isDisplayed()) {
 			driver.findElement(By.xpath("//*[@id=\"closeXButton\"]/span/p/span")).click();
 			Thread.sleep(5000);
-		} 
+		}
 	 
 	}
 
-	@When("^utente compila campi GNV$")
+	@When("^utente compila campi GNV_TIRR$")
 	public void utente_compila_campi() throws Throwable {
 		HomePage.selezionaViaggio(driver);
 	    Thread.sleep(3000);
@@ -51,15 +54,13 @@ public class ConfrontoGNV_TIRRENIA {
 	    Thread.sleep(3000);
 	    HomePage.cliccaContinua(driver);
 	    Thread.sleep(3000);
-	    HomePage.cliccaFrecciaAvanti(driver);
-	    Thread.sleep(1000);
-	    HomePage.cliccaFrecciaAvanti(driver);
-	    Thread.sleep(1000);
-	    HomePage.cliccaFrecciaAvanti(driver);
-	    Thread.sleep(1000);
-	    HomePage.cliccaFrecciaAvanti(driver);
-	    Thread.sleep(1000);
-	    //HomePage.cliccaDataScelta(driver);
+	    HomePage.controlloMese(driver, testData.getMeseAndata()); 
+	    
+	  //*[@id="main-container"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/div[1]/div
+	  //*[@id="main-container"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/div[2]/div  
+	  //*[@id="main-container"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div[3]/div[6]/div
+	    
+	    HomePage.cliccaDataScelta(driver,testData.getGiornoAndata());
 	    Thread.sleep(3000);
 	    HomePage.cliccaContinua(driver);
 	    Thread.sleep(3000);
@@ -71,7 +72,7 @@ public class ConfrontoGNV_TIRRENIA {
 	    Thread.sleep(3000);
 	}
 
-	@When("^utente seleziona sistemazione GNV$")
+	@When("^utente seleziona sistemazione GNV_TIRR$")
 	public void utente_seleziona_sistemazione() throws Throwable {
 		Thread.sleep(5000);
 		Recap.selezionaSistemazione(driver);
@@ -85,7 +86,7 @@ public class ConfrontoGNV_TIRRENIA {
 		
 	}
 
-	@When("^recupero totale offerta GNV$")
+	@When("^recupero totale offerta GNV_TIRR$")
 	public void recupero_totale_offerta() throws Throwable {
 	    String importo = RecuperaImporto.recuperaImporto(driver);
 	    System.out.println("Prezzo sito GNV: " + importo);
@@ -93,13 +94,13 @@ public class ConfrontoGNV_TIRRENIA {
 	    //System.out.println("L'importo dell'offerta scelta (di tipo double) è: " + importoNumerico);
 	}
 	
-	@When("^utente chiude browser GNV$")
+	@When("^utente chiude browser GNV_TIRR$")
 	public void utente_chiude_browser() throws Throwable {
 		Thread.sleep(1000);
 		
 	}
 	
-	@When("^utente apre browser TIRRENIA$")
+	@When("^utente apre browser TIRR GNV_TIRR$")
 	public void utente_apre_browser_TIRRENIA() throws Throwable {
 		System.out.println("Opening URL TIRRENIA");
 		driver.get("https://www.tirrenia-prenotazioni.it/");
@@ -108,13 +109,13 @@ public class ConfrontoGNV_TIRRENIA {
 		
 	}
 	
-	@When("^utente bypassa frame TIRRENIA$")
+	@When("^utente bypassa frame GNV_TIRR$")
 	public void utente_bypassa_frame() throws Throwable {
 		HomePage.bypassFrame(driver);
 		Thread.sleep(3000);
 	}
 	
-	@When("^utente inserisce dati viaggio TIRRENIA$")
+	@When("^utente inserisce dati viaggio GNV_TIRR$")
 	public void utente_inserisce_dati_viaggio() throws Throwable {
 		HomePage.scrollDropListById(driver, "ContentPlaceHolder1_motore_ddl_destinazioni", 3);
 		HomePage.clickEnterDropListById(driver, "ContentPlaceHolder1_motore_ddl_destinazioni");
@@ -145,7 +146,7 @@ public class ConfrontoGNV_TIRRENIA {
 		Generic.clickById(driver, "ContentPlaceHolder1_motore_Button_Cerca");
 	}
 	
-	@When("^recupera prezzo TIRRENIA$")
+	@When("^recupera prezzo GNV_TIRR$")
 	public void recupera_prezzo_Tirrenia() throws Throwable{
 		Recap.switchPage(driver);
 		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_ascx_andata_RepeaterPartenze_Panel_SistemazionePoltrona_0\"]/div");
@@ -157,7 +158,7 @@ public class ConfrontoGNV_TIRRENIA {
 		//System.out.println("Prezzo numerico TIRRENIA: "+prezzoTirreniaNumerico);
 	}
 	
-	@Then("^confronto prezzi$")
+	@Then("^confronto prezzi GNV_TIRR$")
 	public void confrontoPrezzi() {
 		Generic.confrontoPrezzi(driver, importoNumerico, "GNV", prezzoTirreniaNumerico, "TIRRENIA");
 		driver.quit();
