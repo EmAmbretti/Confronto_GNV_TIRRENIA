@@ -55,16 +55,12 @@ public class ConfrontoCSV_GNV_TIRR {
 	    HomePage.cliccaContinua(driver);
 	    Thread.sleep(3000);
 	    HomePage.controlloMese(driver, testData.getMeseAndata()); 
-	    
-	  //*[@id="main-container"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/div[1]/div
-	  //*[@id="main-container"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/div[2]/div  
-	  //*[@id="main-container"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div[3]/div[6]/div
-	    
+	    Thread.sleep(3000); 
 	    HomePage.cliccaDataScelta(driver,testData.getGiornoAndata());
 	    Thread.sleep(3000);
 	    HomePage.cliccaContinua(driver);
-	    Thread.sleep(3000);
-	    HomePage.cliccaTastoPiu(driver);
+	    Thread.sleep(3000); 
+	    HomePage.inserisciPersone(driver, testData.getPasseggeriAdulti(), testData.getPasseggeriBambini(), testData.getPasseggeriAnimali());
 	    Thread.sleep(3000);
 	    HomePage.cliccaContinua(driver);
 	    Thread.sleep(3000);

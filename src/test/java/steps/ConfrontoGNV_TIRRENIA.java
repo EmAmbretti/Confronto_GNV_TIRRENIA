@@ -63,7 +63,7 @@ public class ConfrontoGNV_TIRRENIA {
 	    Thread.sleep(3000);
 	    HomePage.cliccaContinua(driver);
 	    Thread.sleep(3000);
-	    HomePage.cliccaTastoPiu(driver);
+	    //HomePage.cliccaTastoPiu(driver);
 	    Thread.sleep(3000);
 	    HomePage.cliccaContinua(driver);
 	    Thread.sleep(3000);

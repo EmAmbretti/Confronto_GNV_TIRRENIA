@@ -58,19 +58,23 @@ public class HomePage {
 			for(int i=1;i<=7;i++) {
 				WebElement element= driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div["+j+"]/div["+i+"]/div"));
 				if(element.getText().equals(giorno)) {
-					System.out.println("riga: "+i+" colonna: "+j);
 					Thread.sleep(2000);
 					element.click();
-												   //*[@id="main-container"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/div[2]/div
-				
 				}
 			}
 		}
 	}
 	
-	public static void cliccaTastoPiu(WebDriver driver) {
+	public static void cliccaTastoPiuAdulti(WebDriver driver) {
 		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[3]/app-booking-wizard-step3/div/div/app-travel-viewer-numbers/div/div[2]/div[1]/app-counter-wrapper[1]/div[1]/app-counter/div/button[2]")).click();
+	}
 	
+	public static void cliccaTastoPiuBambini(WebDriver driver) {
+		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[3]/app-booking-wizard-step3/div/div/app-travel-viewer-numbers/div/div[2]/div[1]/app-counter-wrapper[2]/div/app-counter/div/button[2]")).click();
+	}
+	
+	public static void cliccaTastoPiuAnimali(WebDriver driver) {
+		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[3]/app-booking-wizard-step3/div/div/app-travel-viewer-numbers/div/div[2]/div[1]/app-counter-wrapper[4]/div/app-counter/div/button[2]")).click();
 	}
 	
 	public static void cliccaTastoCerca(WebDriver driver) {
@@ -104,6 +108,19 @@ public class HomePage {
 	
 	public static void clickEnterDropListByXPath(WebDriver driver, String xPath) {
 		driver.findElement(By.xpath(xPath)).sendKeys(Keys.ENTER);
+		
+	}
+	
+	public static void inserisciPersone(WebDriver driver, String adulti, String bambini,String animali) {
+		for(int i=0;i<Integer.valueOf(adulti);i++) {
+			cliccaTastoPiuAdulti(driver);
+		}
+		for(int i=0;i<Integer.valueOf(bambini);i++) {
+			cliccaTastoPiuBambini(driver);
+		}
+		for(int i=0;i<Integer.valueOf(animali);i++) {
+			cliccaTastoPiuAnimali(driver);
+		}
 		
 	}
 	
