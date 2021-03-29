@@ -2,6 +2,7 @@ package utils;
 
 public class CSVData {
 
+		private String tipologia = null;
 		private String collegamento = null;
 		private String trattaAndata = null;
 		private String meseAndata = null;
@@ -16,22 +17,24 @@ public class CSVData {
 				if (data[i].isEmpty())
 					data[i] = null;
 
-			this.collegamento = data[0];
-			this.trattaAndata = data[1];
-			this.meseAndata = data[2];
-			this.giornoAndata = data[3];
-			this.passeggeriAdulti = data[4];
-			this.passeggeriBambini = data[5];
-			this.passeggeriAnimali = data[6];
-			this.veicolo = data[7];
+			this.tipologia = data[0];
+			this.collegamento = data[1];
+			this.trattaAndata = data[2];
+			this.meseAndata = data[3];
+			this.giornoAndata = data[4];
+			this.passeggeriAdulti = data[5];
+			this.passeggeriBambini = data[6];
+			this.passeggeriAnimali = data[7];
+			this.veicolo = data[8];
 		}
 
 		public CSVData() {
 
 		}
 
-		public CSVData(String collegamento, String trattaAndata, String meseAndata, String giornoAndata, String passeggeriAdulti, String passeggeriBambini, String passeggeriAnimali,
+		public CSVData(String tipologia, String collegamento, String trattaAndata, String meseAndata, String giornoAndata, String passeggeriAdulti, String passeggeriBambini, String passeggeriAnimali,
 				String veicolo) {
+			this.tipologia = tipologia;
 			this.collegamento = collegamento;
 			this.trattaAndata = trattaAndata;
 			this.meseAndata = meseAndata;
@@ -39,10 +42,17 @@ public class CSVData {
 			this.passeggeriAdulti = passeggeriAdulti;
 			this.passeggeriBambini = passeggeriBambini;
 			this.passeggeriAnimali = passeggeriAnimali;
-			this.veicolo = veicolo;
-			
+			this.veicolo = veicolo;	
 		}
 
+		public String getTipologia() {
+			return tipologia;
+		}
+		
+		public void setTipologia(String tipologia) {
+			this.tipologia=tipologia;
+		}
+		
 		public String getCollegamento() {
 			return collegamento;
 		}
@@ -109,11 +119,13 @@ public class CSVData {
 
 		@Override
 		public String toString() {
-			return "CSVData [collegamento=" + collegamento + ", trattaAndata=" + trattaAndata + ", meseAndata="
-					+ meseAndata + ", giornoAndata=" + giornoAndata + ", passeggeriAdulti=" + passeggeriAdulti
-					+ ", passeggeriBambini=" + passeggeriBambini + ", passeggeriAnimali=" + passeggeriAnimali
-					+ ", veicolo=" + veicolo + "]";
+			return "CSVData [tipologia=" + tipologia + ", collegamento=" + collegamento + ", trattaAndata="
+					+ trattaAndata + ", meseAndata=" + meseAndata + ", giornoAndata=" + giornoAndata
+					+ ", passeggeriAdulti=" + passeggeriAdulti + ", passeggeriBambini=" + passeggeriBambini
+					+ ", passeggeriAnimali=" + passeggeriAnimali + ", veicolo=" + veicolo + "]";
 		}
+
+		
 		
 
 
