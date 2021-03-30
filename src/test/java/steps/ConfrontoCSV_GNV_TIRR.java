@@ -129,7 +129,10 @@ public class ConfrontoCSV_GNV_TIRR {
 		Thread.sleep(2000);
 		Generic.clickById(driver, "arrival");
 		Thread.sleep(2000);
-		Generic.clickByXPath(driver, "//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]");
+		HomePage.selezionaMeseTirrenia(driver, testData.getMeseAndata());
+		Thread.sleep(2000);
+		
+		//Generic.clickByXPath(driver, "//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]");
 		//*[@id="arrival_root"]/div/div/div/div/div[1]/select[2]/option[1]
 		//*[@id="arrival_root"]/div/div/div/div/div[1]/select[2]/option[2]
 		
