@@ -2,6 +2,7 @@ package pages;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -61,7 +62,13 @@ public class HomePage {
 				WebElement element= driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div["+j+"]/div["+i+"]/div"));
 				if(element.getText().equals(giorno)) {
 					Thread.sleep(2000);
-					element.click();
+					try {
+						element.click();
+					} catch (Exception e) {
+						System.out.println("La data selezionata non è valida!");
+						driver.close();
+					}
+					
 				}
 			}
 		}
@@ -144,6 +151,7 @@ public class HomePage {
 	}
 	
 	public static void selezionaMeseTirrenia(WebDriver driver, String text){
+		//DateTime dataOdierna = new DateTime();
 		for(int i=1;i<=12;i++) {
 			WebElement element = driver.findElement(By.xpath("//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]/option["+i+"]"));
 			if(element.getText().equalsIgnoreCase(text)) {
@@ -156,8 +164,10 @@ public class HomePage {
 				}
 				
 			}
+			//i<dataOdierna.getMonthOfYear()
 			if(i==12) {
 				System.out.println("Il mese inserito non è valido!");
+				driver.close();
 			}
 		}
 	}
