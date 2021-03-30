@@ -8,6 +8,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import utils.Generic;
+
 public class HomePage {
 	
 	public static void cliccaDestinazioni(WebDriver driver) {
@@ -64,6 +66,7 @@ public class HomePage {
 					Thread.sleep(2000);
 					try {
 						element.click();
+						break;
 					} catch (Exception e) {
 						System.out.println("La data selezionata non è valida!");
 						driver.close();
@@ -170,5 +173,52 @@ public class HomePage {
 				driver.close();
 			}
 		}
+	}
+	
+	public static void selezionaGiornoTirrenia(WebDriver driver,String giorno) throws Throwable{
+		for(int i=1;i<=6;i++) {
+			for(int j=1;j<=7;j++) {
+				WebElement element=driver.findElement(By.xpath("//*[@id=\"arrival_table\"]/tbody/tr["+i+"]/td["+j+"]/div"));
+				if(element.getText().equals(giorno)&&(Integer.valueOf(giorno)<20||i>1)) {
+					Thread.sleep(2000);
+					element.click();
+				}
+			}
+		}
+	}
+	
+	public static void selezionaAdultiTirrenia(WebDriver driver, String adulti) {
+		driver.findElement(By.xpath("//*[@id=\"select_NumeroAdultiTipo2Andata\"]/option["+(Integer.valueOf(adulti)+1)+"]")).click();
+	}
+	
+	public static void selezionaBambiniTirrenia(WebDriver driver,String bambini) throws Throwable{
+		driver.findElement(By.xpath("//*[@id=\"select_NumeroPasseggeriAndata\"]/option["+(Integer.valueOf(bambini)+1)+"]")).click();
+		for(int i=0;i<Integer.valueOf(bambini);i++) {
+			Thread.sleep(1000);
+			driver.findElement(By.id("eta_"+i+"_Andata")).sendKeys("10");
+		}
+	}
+	
+	public static void selezionaAnimaliTirrenia(WebDriver driver, String animali) {
+		driver.findElement(By.xpath("//*[@id=\"select_NumeroAnimaliAndata\"]/option["+(Integer.valueOf(animali)+1)+"]")).click();
+	}
+	
+	public static void selezionaVeicoloTirrenia(WebDriver driver, String veicolo) {
+		if(veicolo.equalsIgnoreCase("No")) {
+			driver.findElement(By.xpath("//*[@id=\"a_\"]/div")).click();
+		}else {
+			driver.findElement(By.xpath("//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[4]/div[4]/a[2]/div/label")).click();
+		}
+	}
+	
+	public static void selezionaTrattaGNV(WebDriver driver, String tratta) throws Throwable{
+		String[] tratte=tratta.split(" - ");
+		String partenza=tratte[0];
+		String arrivo=tratte[1];
+		List<WebElement> elementList=driver.findElements(By.xpath("//label/span[contains(text(),'"+partenza+"')]"));
+		elementList.get(0).click();
+		Thread.sleep(2000);
+		elementList=driver.findElements(By.xpath("//label/span[contains(text(),'"+arrivo+"')]"));
+		elementList.get(elementList.size()-1).click();
 	}
 }

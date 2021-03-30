@@ -48,10 +48,13 @@ public class ConfrontoCSV_GNV_TIRR {
 	    Thread.sleep(3000);
 	    HomePage.cliccaSoloAndata(driver);
 	    Thread.sleep(3000);
-	    HomePage.selezionaPartenza(driver);
-	    Thread.sleep(3000);
-	    HomePage.selezionaDestinazione(driver);
-	    Thread.sleep(3000);
+//	    HomePage.selezionaPartenza(driver);
+//	    Thread.sleep(3000);
+//	    HomePage.selezionaDestinazione(driver);
+//	    Thread.sleep(3000);
+	    
+	    HomePage.selezionaTrattaGNV(driver, testData.getTrattaAndata());
+	    
 	    HomePage.cliccaContinua(driver);
 	    Thread.sleep(3000);
 	    HomePage.controlloMese(driver, testData.getMeseAndata()); 
@@ -131,27 +134,26 @@ public class ConfrontoCSV_GNV_TIRR {
 		Thread.sleep(2000);
 		HomePage.selezionaMeseTirrenia(driver, testData.getMeseAndata());
 		Thread.sleep(2000);
-		
-		//Generic.clickByXPath(driver, "//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]");
-		//*[@id="arrival_root"]/div/div/div/div/div[1]/select[2]/option[1]
-		//*[@id="arrival_root"]/div/div/div/div/div[1]/select[2]/option[2]
-		
-		
-		HomePage.scrollDropListByXPath(driver, "//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]", 5);
-		HomePage.clickEnterDropListByXPath(driver, "//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]");
-		Thread.sleep(2000);
-		Generic.clickByXPath(driver, "//*[@id=\"arrival_table\"]/tbody/tr[1]/td[7]/div");
+		HomePage.selezionaGiornoTirrenia(driver, testData.getGiornoAndata());
 		Generic.clickById(driver, "input_NumeroPaxAndata");
 		Generic.clickByXPath(driver, "//*[@id=\"select_NumeroAdultiTipo2Andata\"]");
 		Thread.sleep(2000);
-		HomePage.scrollDropListByXPath(driver, "//*[@id=\"select_NumeroAdultiTipo2Andata\"]", 1);
-		HomePage.clickEnterDropListByXPath(driver, "//*[@id=\"select_NumeroAdultiTipo2Andata\"]");
+		HomePage.selezionaAdultiTirrenia(driver, testData.getPasseggeriAdulti());
+		Thread.sleep(2000);
+		Generic.clickById(driver, "select_NumeroPasseggeriAndata");
+		HomePage.selezionaBambiniTirrenia(driver, testData.getPasseggeriBambini());
+		Generic.clickById(driver, "select_NumeroAnimaliAndata");
+		Thread.sleep(2000);
+		HomePage.selezionaAnimaliTirrenia(driver, testData.getPasseggeriAnimali());
 		Thread.sleep(2000);
 		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[2]/div[3]/button");
+		Thread.sleep(2000);
 		Generic.clickById(driver, "input_VeicoliAndata");
-		Generic.clickByXPath(driver, "//*[@id=\"a_\"]/div/label");
+		Thread.sleep(2000);
+		HomePage.selezionaVeicoloTirrenia(driver, testData.getVeicolo());
 		Thread.sleep(2000); 
 		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[4]/div[17]/button");
+		Thread.sleep(2000);
 		Generic.clickById(driver, "ContentPlaceHolder1_motore_Button_Cerca");
 	}
 	
@@ -173,8 +175,8 @@ public class ConfrontoCSV_GNV_TIRR {
 		driver.quit();
 		
 	}
-	//*[@id="eta_0_Andata"]
-	//*[@id="eta_1_Andata"]
-	//*[@id="ContentPlaceHolder1_motore_ddl_destinazioni"]/option[1]
-	//*[@id="ContentPlaceHolder1_motore_ddl_destinazioni"]/option[2]
+	//*[@id="NAP-source"]/label/span
+	//*[@id="NAP-source"]/label/span
+	//*[@id="BRI-source"]/label/span
+	
 }

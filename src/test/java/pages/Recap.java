@@ -14,8 +14,7 @@ public class Recap {
 		JavascriptExecutor jse = (JavascriptExecutor)driver;
 		jse.executeScript("window.scrollBy(0,1120)");
 		Thread.sleep(4000);
-		driver.findElement(By.xpath("//*[@id=\"nav-tabContent\"]/div[3]/div[3]/div[2]/div/app-card-solution/div/div[2]/app-button/button")).click();
-		
+		driver.findElement(By.xpath("//*[@id=\"nav-tabContent\"]/div[3]/div[2]/div[2]/div/app-card-solution/div/div[2]/app-button/button")).click();
 	}
 	
 	public static void cliccaTastoContinua(WebDriver driver) {
