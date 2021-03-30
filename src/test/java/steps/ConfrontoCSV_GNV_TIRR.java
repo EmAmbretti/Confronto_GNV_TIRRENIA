@@ -93,7 +93,6 @@ public class ConfrontoCSV_GNV_TIRR {
 	@When("^utente chiude browser GNV_TIRR$")
 	public void utente_chiude_browser() throws Throwable {
 		Thread.sleep(1000);
-		
 	}
 	
 	@When("^utente apre browser TIRR GNV_TIRR$")
@@ -113,9 +112,16 @@ public class ConfrontoCSV_GNV_TIRR {
 	
 	@When("^utente inserisce dati viaggio GNV_TIRR$")
 	public void utente_inserisce_dati_viaggio() throws Throwable {
-		HomePage.scrollDropListById(driver, "ContentPlaceHolder1_motore_ddl_destinazioni", 3);
-		HomePage.clickEnterDropListById(driver, "ContentPlaceHolder1_motore_ddl_destinazioni");
+		//HomePage.scrollDropListById(driver, "ContentPlaceHolder1_motore_ddl_destinazioni", 3);
+		//HomePage.clickEnterDropListById(driver, "ContentPlaceHolder1_motore_ddl_destinazioni");
+		
+		HomePage.cliccaTratte(driver);
+		Thread.sleep(1000);
+		HomePage.controlloTratta(driver, testData.getCollegamento());
 		Thread.sleep(2000);
+		
+		/////////////////////////////////////////////////////////////////////////////////////////
+		
 		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[1]/div[2]/div[1]/label[2]");
 		Generic.clickById(driver, "tratte_andata");
 		Thread.sleep(2000);
@@ -160,5 +166,8 @@ public class ConfrontoCSV_GNV_TIRR {
 		driver.quit();
 		
 	}
-
+	//*[@id="eta_0_Andata"]
+	//*[@id="eta_1_Andata"]
+	//*[@id="ContentPlaceHolder1_motore_ddl_destinazioni"]/option[1]
+	//*[@id="ContentPlaceHolder1_motore_ddl_destinazioni"]/option[2]
 }

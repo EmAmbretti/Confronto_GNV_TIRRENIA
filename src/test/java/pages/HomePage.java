@@ -124,5 +124,16 @@ public class HomePage {
 		
 	}
 	
-
+	public static void controlloTratta(WebDriver driver, String tratta) {
+		for(int i=1;i<=4;i++) {
+			WebElement element = driver.findElement(By.xpath("//*[@id=\"ContentPlaceHolder1_motore_ddl_destinazioni\"]/option["+i+"]"));
+			if(element.getText().equalsIgnoreCase(tratta)) {
+				element.click();
+			}
+		}
+	}
+	
+	public static void cliccaTratte(WebDriver driver) {
+		driver.findElement(By.id("ContentPlaceHolder1_motore_ddl_destinazioni"));
+	}
 }
