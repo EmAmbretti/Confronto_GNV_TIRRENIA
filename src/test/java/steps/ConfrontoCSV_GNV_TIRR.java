@@ -177,16 +177,7 @@ public class ConfrontoCSV_GNV_TIRR {
 	@Then("^confronto prezzi GNV_TIRR$")
 	public void confrontoPrezzi() {
 		Double prezzoMigliore=Generic.confrontoPrezzi(driver, importoNumerico, "GNV", prezzoTirreniaNumerico, "TIRRENIA");
-		try {
-			BufferedWriter bw= new BufferedWriter(new FileWriter("nuovoFile"));
-			bw.write("ITINERARIO: "+testData.getTipologia()+"\nTRATTA: "+testData.getTrattaAndata()+ "\nMESE: "+testData.getMeseAndata()+"\nGIORNO: "+testData.getGiornoAndata()+"\nNUMERO PASSEGGERI ADULTI: "+testData.getPasseggeriAdulti()+"\nNUMERO PASSEGGERI BAMBINI: "+testData.getPasseggeriBambini()+"\nNUMERO PASSEGGERI ANIMALI: "+testData.getPasseggeriAnimali()+"\nVEICOLO: "+testData.getVeicolo()
-			+"\nPREZZO TIRRENIA: "+prezzoTirreniaNumerico+" - PREZZO GNV: "+importoNumerico+"\nPREZZO CONVENIENTE: "+prezzoMigliore);
-			String path=new File ("automationFiles\\"+"Report").getAbsolutePath();
-			File destinazione = new File(path+"\\" + "nomeFile" + "1" + ".png");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Generic.generaFileTxt(testData.getTipologia(), testData.getTrattaAndata(), testData.getMeseAndata(), testData.getGiornoAndata(), testData.getPasseggeriAdulti(), testData.getPasseggeriBambini(), testData.getPasseggeriAnimali(), testData.getVeicolo(), prezzoTirreniaNumerico, importoNumerico, prezzoMigliore);
 		driver.quit();
 		
 	}

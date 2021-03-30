@@ -101,30 +101,41 @@ public class Generic {
 
 	}
 	
-	public static void generaFileTxt(String tipologia, String tratta, String mese,String giorno, String passAdulti, String passBambini, String passAnimali, String veicolo,String prezzoTirrenia, String prezzoGNV,String prezzoMigliore) {
+	public static void generaFileTxt(String tipologia, String tratta, String mese,String giorno, String passAdulti, String passBambini, String passAnimali, String veicolo,Double prezzoTirrenia, Double prezzoGNV,Double prezzoMigliore) {
 		int numero=1;
 		boolean flag=false;
-		String path=new File ("automationFiles\\"+"Report").getAbsolutePath();
+		String path=new File ("reportFiles\\").getAbsolutePath();
 		File itinerario = new File(path+"\\" + "File" + numero + ".txt");
 		try {
 			//File myObj = new File(path);
-			FileWriter fw = new FileWriter(itinerario,true);
-			//BufferedWriter bw= new BufferedWriter(new FileWriter("nuovoFile"));
-			fw.write("ITINERARIO: "+tipologia+"\nTRATTA: "+tratta+ "\nMESE: "+mese+"\nGIORNO: "+giorno+"\nNUMERO PASSEGGERI ADULTI: "+passAdulti+"\nNUMERO PASSEGGERI BAMBINI: "+passBambini+"\nNUMERO PASSEGGERI ANIMALI: "+passAnimali+"\nVEICOLO: "+veicolo
-			+"\nPREZZO TIRRENIA: "+prezzoTirrenia+" - PREZZO GNV: "+prezzoGNV+"\nPREZZO CONVENIENTE: "+prezzoMigliore);
+			
 			
 			do {	
 				if (itinerario.exists()) {
 					numero ++;					
 					itinerario = new File(path+"\\" + "File" + numero + ".txt");
-					flag=false;
 				} else {
-					flag = true;
-					
-					FileUtils.copyFile(itinerario, new File(itinerario.toString()));
-					System.out.println(itinerario.toString());
+					FileWriter fw = new FileWriter(itinerario);
+					BufferedWriter bw= new BufferedWriter(fw);
+					bw.write("ITINERARIO: "+tipologia+"\nTRATTA: "+tratta+ "\nMESE: "+mese+"\nGIORNO: "+giorno+"\nNUMERO PASSEGGERI ADULTI: "+passAdulti+"\nNUMERO PASSEGGERI BAMBINI: "+passBambini+"\nNUMERO PASSEGGERI ANIMALI: "+passAnimali+"\nVEICOLO: "+veicolo
+					+"\nPREZZO TIRRENIA: "+prezzoTirrenia+" - PREZZO GNV: "+prezzoGNV+"\nPREZZO CONVENIENTE: "+prezzoMigliore);
+					bw.flush();
+					bw.close();
+					flag=true;
 				}
-			}while(flag);
+			}while(!flag);
+//			String path = "C:\\Users\\mirko.terracciano\\Desktop\\Nuova cartella (2)\\nuovoFile.txt";
+//			try {
+//			File file = new File(path);
+//			FileWriter fw = new FileWriter(file);
+//			BufferedWriter bw = new BufferedWriter(fw);
+//			bw.write("Questo è il nostro primo file");
+//			
+//			}
+//			catch(IOException e) {
+//			e.printStackTrace();
+			
+			
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
