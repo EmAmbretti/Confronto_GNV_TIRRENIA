@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -135,5 +137,28 @@ public class HomePage {
 	
 	public static void cliccaTratte(WebDriver driver) {
 		driver.findElement(By.id("ContentPlaceHolder1_motore_ddl_destinazioni"));
+	}
+	
+	public static void selezionaAndataTirrenia(WebDriver driver, String text) throws Throwable{
+		driver.findElement(By.xpath("//*[@id=\"tratte_andata\"]/optgroup/option[contains(text(),'"+text+"')]")).click();
+	}
+	
+	public static void selezionaMeseTirrenia(WebDriver driver, String text){
+		for(int i=1;i<=12;i++) {
+			WebElement element = driver.findElement(By.xpath("//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]/option["+i+"]"));
+			if(element.getText().equalsIgnoreCase(text)) {
+				try {
+					element.click();
+					break;
+				}catch(Exception e) {
+					System.out.println("Il mese inserito non è valido!");
+					driver.close();
+				}
+				
+			}
+			if(i==12) {
+				System.out.println("Il mese inserito non è valido!");
+			}
+		}
 	}
 }

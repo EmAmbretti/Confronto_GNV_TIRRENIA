@@ -125,11 +125,15 @@ public class ConfrontoCSV_GNV_TIRR {
 		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[1]/div[2]/div[1]/label[2]");
 		Generic.clickById(driver, "tratte_andata");
 		Thread.sleep(2000);
-		HomePage.scrollDropListById(driver, "tratte_andata", 2);
-		HomePage.clickEnterDropListById(driver, "tratte_andata");
+		HomePage.selezionaAndataTirrenia(driver, testData.getTrattaAndata());
+		Thread.sleep(2000);
 		Generic.clickById(driver, "arrival");
 		Thread.sleep(2000);
 		Generic.clickByXPath(driver, "//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]");
+		//*[@id="arrival_root"]/div/div/div/div/div[1]/select[2]/option[1]
+		//*[@id="arrival_root"]/div/div/div/div/div[1]/select[2]/option[2]
+		
+		
 		HomePage.scrollDropListByXPath(driver, "//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]", 5);
 		HomePage.clickEnterDropListByXPath(driver, "//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]");
 		Thread.sleep(2000);
