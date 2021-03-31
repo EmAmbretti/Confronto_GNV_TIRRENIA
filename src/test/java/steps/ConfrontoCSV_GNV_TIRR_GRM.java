@@ -186,6 +186,13 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		HomePage.cliccaSoloAndataGrimaldi(driver);
 		Generic.clickById(driver, "start-route");
 		HomePage.selezionaAndataGrimaldi(driver, testData.getTrattaAndata());
+		driver.findElement(By.id("start-date")).click();
+		Generic.clickById(driver, "confirmRouteForm");
+		Thread.sleep(2000);
+		Recap.switchPage(driver);
+		Generic.clickById(driver, "dateLeg1");
+		HomePage.selezionaMeseGrimaldi(driver, testData.getMeseAndata());
+		
 	}
 
 	@When("^recupera prezzo GRM GNV_TIRR_GRM$")

@@ -2,13 +2,10 @@ package pages;
 
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import utils.Generic;
 
 public class HomePage {
 	
@@ -223,13 +220,32 @@ public class HomePage {
 	}
 	
 	public static void cliccaSoloAndataGrimaldi(WebDriver driver) throws Throwable {
-		driver.findElement(By.id("checkReturn"));
+		driver.findElement(By.id("checkReturn")).click();
 		Thread.sleep(1000);
 	}
 	
 	public static void selezionaAndataGrimaldi(WebDriver driver, String text) throws Throwable {
 		driver.findElement(By.xpath("//option[contains(text(),'" + text.toUpperCase() + "')]")).click();
-
-		
+	}
+	
+	public static void selezionaMeseGrimaldi(WebDriver driver, String text){
+		for(int i=1;i<=12;i++) {
+			WebElement element = driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/div/select[1]/option[" + i + "]]"));
+			if(element.getText().equalsIgnoreCase(text)) {
+				try {
+					element.click();
+					break;
+				}catch(Exception e) {
+					System.out.println("Il mese inserito non è valido!");
+					driver.close();
+				}
+				
+			}
+			//i<dataOdierna.getMonthOfYear()
+			if(i==12) {
+				System.out.println("Il mese inserito non è valido!");
+				//driver.close();
+			}
+		}
 	}
 }
