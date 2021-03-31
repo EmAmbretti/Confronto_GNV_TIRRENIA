@@ -7,6 +7,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import utils.Generic;
+
 public class HomePage {
 	
 	public static void cliccaDestinazioni(WebDriver driver) {
@@ -179,6 +181,7 @@ public class HomePage {
 				if(element.getText().equals(giorno)&&(Integer.valueOf(giorno)<20||i>1)) {
 					Thread.sleep(2000);
 					element.click();
+					break;
 				}
 			}
 		}
@@ -229,8 +232,9 @@ public class HomePage {
 	}
 	
 	public static void selezionaMeseGrimaldi(WebDriver driver, String text){
+		text=text.substring(0, 3);
 		for(int i=1;i<=12;i++) {
-			WebElement element = driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/div/select[1]/option[" + i + "]]"));
+			WebElement element = driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/div/select[1]/option[" + i + "]"));
 			if(element.getText().equalsIgnoreCase(text)) {
 				try {
 					element.click();
@@ -247,5 +251,66 @@ public class HomePage {
 				//driver.close();
 			}
 		}
+	}
+	public static void selezionaGiornoGimaldi(WebDriver driver,String giorno) throws Throwable{
+		boolean controllo=false;
+		for(int i=1;i<=6;i++) {
+			for(int j=1;j<=7;j++) {
+				WebElement element=driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr["+i+"]/td["+j+"]"));
+				if(element.getText().equals(giorno)) {
+					Thread.sleep(2000);
+					element.click();
+					controllo=true;
+					break;
+				}
+			}
+			if(controllo) {
+				break;
+			}
+		}
+	}
+	
+	public static void selezionaSistemazioneGrimaldi(WebDriver driver) {
+		List<WebElement> elementList = driver.findElements(By.xpath("//ul/li[contains(text(),'Poltrona')]"));
+		elementList.get(0).click();
+	}
+	
+	public static void inseriscoPasseggeriGrimaldi(WebDriver driver, String adulti, String bambini) throws Throwable{
+		Generic.clickByXPath(driver, "//*[@id=\"boxTopAcc\"]/table[2]/tbody/tr[2]/td[1]/div/div[2]/b");
+		selezionaPasseggeriAdultiGrimaldi(driver, adulti);
+		Generic.clickByXPath(driver, "//*[@id=\"boxTopAcc\"]/table[2]/tbody/tr[2]/td[2]/div/div[2]/b");
+		selezionaPassaggeriBambiniGrimaldi(driver, bambini);
+	}
+	
+	private static void selezionaPasseggeriAdultiGrimaldi(WebDriver driver, String adulti) {
+		List<WebElement> elementList=driver.findElements(By.xpath("//table[2]/tbody/tr[2]/td[1]/div/div[3]/div/ul/li[contains(text(),'"+adulti+"')]"));
+		if(adulti.equals("10")) {
+			elementList.get(1).click();
+		}else {
+			elementList.get(0).click();
+		}
+	}
+	private static void selezionaPassaggeriBambiniGrimaldi(WebDriver driver, String bambini) {
+		//table[2]/tbody/tr[2]/td[2]/div/div[3]/div/ul/li[contains(text(),'1')]
+		List<WebElement> elementList=driver.findElements(By.xpath("//table[2]/tbody/tr[2]/td[2]/div/div[3]/div/ul/li[contains(text(),'"+bambini+"')]"));
+		if(bambini.equals("10")) {
+			elementList.get(1).click();
+		}else {
+			elementList.get(0).click();
+		}
+	}
+	public static void selezionaAnimaliGrimaldi(WebDriver driver, String animali) throws Throwable{
+		if(!animali.equals("0")) {
+			Generic.clickById(driver, "petLeg1Select");
+			Thread.sleep(2000);
+			Generic.clickByXPath(driver, "//div[7]/div/div[1]/table/tbody/tr[2]/td[2]/div/div/div[2]/b");
+			List<WebElement> elementList = driver.findElements(By.xpath("//div[7]/div/div[1]/table/tbody/tr[2]/td[2]/div/div/div[3]/div/ul/li[contains(text(),'"+animali+"')]"));
+			if(animali.equals("10")) {
+				elementList.get(1).click();
+			}else {
+				elementList.get(0).click();
+			}
+			Generic.clickByXPath(driver, "//div[7]/div/div[1]/div[2]/input");
+		}	
 	}
 }

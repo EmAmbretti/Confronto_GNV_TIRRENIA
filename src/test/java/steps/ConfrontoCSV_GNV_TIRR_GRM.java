@@ -190,14 +190,32 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		Generic.clickById(driver, "confirmRouteForm");
 		Thread.sleep(2000);
 		Recap.switchPage(driver);
+		Thread.sleep(2000);
+		Generic.clickByXPath(driver, "/html/body/div[11]/div/div[3]/button");
 		Generic.clickById(driver, "dateLeg1");
+		Thread.sleep(2000);
+		Generic.clickByXPath(driver, "//*[@id=\"ui-datepicker-div\"]/div/div/select[1]");
 		HomePage.selezionaMeseGrimaldi(driver, testData.getMeseAndata());
-		
+		Thread.sleep(1000);
+		HomePage.selezionaGiornoGimaldi(driver, testData.getGiornoAndata());
+		Thread.sleep(5000);
+		Generic.clickById(driver, "accLeg1Select");
+		Thread.sleep(2000);
+		Generic.clickByXPath(driver, "//*[@id=\"accBox\"]/div/div[2]/span");
+		// il codice di sotto non è dinamico
+		HomePage.selezionaSistemazioneGrimaldi(driver);
+		HomePage.inseriscoPasseggeriGrimaldi(driver, testData.getPasseggeriAdulti(), testData.getPasseggeriBambini());
+		Generic.clickById(driver, "createacc");
+		HomePage.selezionaAnimaliGrimaldi(driver, testData.getPasseggeriAnimali());
+		Generic.clickById(driver, "searchnow");
+		//*[@id="leg1-CVVOLB202108052245"]/a/div[3]
+		//*[@id="leg1-CVVOLB202108062245"]/a/div[1]
+		//*[@id="leg1-CVVOLB202108062245"]/a/div[3]
 	}
 
 	@When("^recupera prezzo GRM GNV_TIRR_GRM$")
 	public void recupera_prezzo_GRM_GNV_TIRR_GRM() throws Throwable {
-	
+		RecuperaImporto.recuperaImportoGrimaldi(driver, testData.getGiornoAndata(), testData.getMeseAndata());
 	}
 	
 	@Then("^confronto prezzi GNV_TIRR_GRM$")
