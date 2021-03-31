@@ -153,7 +153,6 @@ public class HomePage {
 	}
 	
 	public static void selezionaMeseTirrenia(WebDriver driver, String text){
-		//DateTime dataOdierna = new DateTime();
 		for(int i=1;i<=12;i++) {
 			WebElement element = driver.findElement(By.xpath("//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]/option["+i+"]"));
 			if(element.getText().equalsIgnoreCase(text)) {
@@ -166,7 +165,6 @@ public class HomePage {
 				}
 				
 			}
-			//i<dataOdierna.getMonthOfYear()
 			if(i==12) {
 				System.out.println("Il mese inserito non è valido!");
 				driver.close();
@@ -215,11 +213,17 @@ public class HomePage {
 		String[] tratte=tratta.split(" - ");
 		String partenza=tratte[0];
 		String arrivo=tratte[1];
-		List<WebElement> elementList=driver.findElements(By.xpath("//label/span[contains(text(),'"+partenza+"')]"));
+		try {
+			List<WebElement> elementList=driver.findElements(By.xpath("//label/span[contains(text(),'"+partenza+"')]"));
 		elementList.get(0).click();
 		Thread.sleep(2000);
 		elementList=driver.findElements(By.xpath("//label/span[contains(text(),'"+arrivo+"')]"));
 		elementList.get(elementList.size()-1).click();
+		} catch (Exception e) {
+			e.printStackTrace();
+			String errore = "La tratta scelta non è dispobibile.";
+		}
+		
 	}
 	
 	public static void cliccaSoloAndataGrimaldi(WebDriver driver) throws Throwable {
@@ -248,7 +252,6 @@ public class HomePage {
 			//i<dataOdierna.getMonthOfYear()
 			if(i==12) {
 				System.out.println("Il mese inserito non è valido!");
-				//driver.close();
 			}
 		}
 	}

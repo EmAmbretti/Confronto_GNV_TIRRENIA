@@ -33,7 +33,7 @@ public class RecuperaImporto {
 		}
 		Thread.sleep(1000);
 		Generic.clickById(driver, "nextstep");
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		String prezzoGrimaldi=driver.findElement(By.xpath("//*[@id=\"frm-SPECIAL\"]/div/div[2]/div[2]/div[1]")).getText();
 		System.out.println(prezzoGrimaldi);
 		return prezzoGrimaldi;

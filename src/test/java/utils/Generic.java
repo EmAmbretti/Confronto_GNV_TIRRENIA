@@ -159,7 +159,6 @@ public class Generic {
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -172,7 +171,4 @@ public class Generic {
 		wb.setBambini(data.getPasseggeriBambini());
 		wb.setAnimali(data.getPasseggeriAnimali());
 	}
-	//*[@id="start-route"]/optgroup[1]/option[1]
-	//*[@id="start-route"]/optgroup[1]/option[2]
-	//*[@id="start-route"]/optgroup[2]/option[1]
 }

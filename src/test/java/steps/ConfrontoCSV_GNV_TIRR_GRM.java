@@ -47,14 +47,8 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		HomePage.selezionaViaggio(driver);
 	    Thread.sleep(3000);
 	    HomePage.cliccaSoloAndata(driver);
-	    Thread.sleep(3000);
-//	    HomePage.selezionaPartenza(driver);
-//	    Thread.sleep(3000);
-//	    HomePage.selezionaDestinazione(driver);
-//	    Thread.sleep(3000);
-	    
+	    Thread.sleep(3000);	    
 	    HomePage.selezionaTrattaGNV(driver, testData.getTrattaAndata());
-	    
 	    HomePage.cliccaContinua(driver);
 	    Thread.sleep(3000);
 	    HomePage.controlloMese(driver, testData.getMeseAndata()); 
@@ -90,7 +84,6 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	    String importo = RecuperaImporto.recuperaImporto(driver);
 	    System.out.println("Prezzo sito GNV: " + importo);
 	    prezzoGNVNumerico = Double.valueOf(importo.substring(0, importo.length()-2).replace(",", "."));
-	    //System.out.println("L'importo dell'offerta scelta (di tipo double) è: " + prezzoGNVNumerico);
 	}
 	
 	@When("^utente chiude browser GNV_TIRR_GRM$")
@@ -161,13 +154,10 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		String prezzoTirrenia = driver.findElement(By.id("ContentPlaceHolder_Header_HeadingBread_Step_Andata_Panel_PrezzoTotale")).getText();
 		System.out.println("Prezzo sito TIRRENIA: " + prezzoTirrenia);
 		prezzoTirreniaNumerico=Double.parseDouble(prezzoTirrenia.substring(0,prezzoTirrenia.length()-2).replace(",", "."));
-		//System.out.println("Prezzo numerico TIRRENIA: "+prezzoTirreniaNumerico);
 	}
 	
 	@When("^utente apre browser GRM GNV_TIRR_GRM$")
 	public void utente_apre_browser_GRM_GNV_TIRR_GRM() throws Throwable {
-		////////////////////////////////// DA ELIMINARE RIGO SEGUENTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-		testData=CSVExtractor.getTestDataByOffer("GNVTIRR1PNAPPAL", Path.PATH);
 		System.out.println("Opening URL GRIMALDI");
 		driver.get("https://www.grimaldi-lines.com/it/");
 		driver.manage().window().maximize();
@@ -210,9 +200,6 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		HomePage.selezionaAnimaliGrimaldi(driver, testData.getPasseggeriAnimali());
 		Generic.clickById(driver, "searchnow");
 		Thread.sleep(3000);
-		//*[@id="leg1-CVVOLB202108052245"]/a/div[3]
-		//*[@id="leg1-CVVOLB202108062245"]/a/div[1]
-		//*[@id="leg1-CVVOLB202108062245"]/a/div[3]
 	}
 
 	@When("^recupera prezzo GRM GNV_TIRR_GRM$")

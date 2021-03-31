@@ -93,7 +93,6 @@ public class CSVExtractor {
 	public static CSVData getTestDataByOffer(String type, String path) {
 
 		ArrayList<CSVData> csvData = CSVExtractor.process(path);
-		System.out.println("SIZE : "+csvData.size());
 		int dataIndex = -1;
 		for (int i = 0; i < csvData.size(); i++) {
 			if (csvData.get(i).getTipologia().equalsIgnoreCase(type) ) {

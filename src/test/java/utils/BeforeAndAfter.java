@@ -21,12 +21,9 @@ public class BeforeAndAfter {
 
     @Before
     public void before(Scenario scenario) throws Throwable {
-        //   if (driver == null) {
         System.setProperty("webdriver.chrome.driver", new File(".").getCanonicalFile() + "\\Drivers\\Chrome\\chromedriver.exe");
-        //System.out.println("Test webdriver path " + System.getProperty("webdriver.chrome.driver"));
         System.out.println("------------------------------\nNew ChromeDriver..\n------------------------------\n");
         driver = new ChromeDriver();
-        //   }
         System.out.println("------------------------------");
         System.out.println("Starting - " + scenario.getName());
         System.out.println("------------------------------");
@@ -38,7 +35,6 @@ public class BeforeAndAfter {
         System.out.println("------------------------------");
         System.out.println(scenario.getName() + " Status - " + scenario.getStatus());
         System.out.println("------------------------------");
-        // Reporter.loadXMLConfig(new File("report.xml"));
         Thread.sleep(7000);
 
         /*
