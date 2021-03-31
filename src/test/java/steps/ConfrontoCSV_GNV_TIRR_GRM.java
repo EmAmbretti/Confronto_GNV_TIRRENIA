@@ -1,10 +1,5 @@
 package steps;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -21,19 +16,19 @@ import utils.Generic;
 import utils.Path;
 
 
-public class ConfrontoCSV_GNV_TIRR {
+public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	Double importoNumerico, prezzoTirreniaNumerico;
 	WebDriver driver = BeforeAndAfter.driver;
 	CSVData testData;
 	
-	@Given("^utente apre browser GNV GNV_TIRR$")
+	@Given("^utente apre browser GNV GNV_TIRR_GRM$")
 	public void utente_apre_browser_GNV() throws Throwable {
 		testData=CSVExtractor.getTestDataByOffer("GNVTIRR1PNAPPAL", Path.PATH);
 		Generic.utente_apre_browser(driver);
 	}
 
-	@When("^utente chiude popup GNV_TIRR$") 
+	@When("^utente chiude popup GNV_TIRR_GRM$") 
 	public void utente_seleziona_destinazioni() throws Throwable {
 		Thread.sleep(3000);
 		if(driver.findElement(By.xpath("//*[@id=\"iubenda-cs-banner\"]/div/div/div/div[2]/div[2]/button[2]")).isDisplayed()) {
@@ -47,7 +42,7 @@ public class ConfrontoCSV_GNV_TIRR {
 	 
 	}
 
-	@When("^utente compila campi GNV_TIRR$")
+	@When("^utente compila campi GNV_TIRR_GRM$")
 	public void utente_compila_campi() throws Throwable {
 		HomePage.selezionaViaggio(driver);
 	    Thread.sleep(3000);
@@ -76,7 +71,7 @@ public class ConfrontoCSV_GNV_TIRR {
 	    Thread.sleep(3000);
 	}
 
-	@When("^utente seleziona sistemazione GNV_TIRR$")
+	@When("^utente seleziona sistemazione GNV_TIRR_GRM$")
 	public void utente_seleziona_sistemazione() throws Throwable {
 		Thread.sleep(5000);
 		Recap.selezionaSistemazione(driver);
@@ -90,7 +85,7 @@ public class ConfrontoCSV_GNV_TIRR {
 		
 	}
 
-	@When("^recupero totale offerta GNV_TIRR$")
+	@When("^recupero totale offerta GNV_TIRR_GRM$")
 	public void recupero_totale_offerta() throws Throwable {
 	    String importo = RecuperaImporto.recuperaImporto(driver);
 	    System.out.println("Prezzo sito GNV: " + importo);
@@ -98,12 +93,12 @@ public class ConfrontoCSV_GNV_TIRR {
 	    //System.out.println("L'importo dell'offerta scelta (di tipo double) è: " + importoNumerico);
 	}
 	
-	@When("^utente chiude browser GNV_TIRR$")
+	@When("^utente chiude browser GNV_TIRR_GRM$")
 	public void utente_chiude_browser() throws Throwable {
 		Thread.sleep(1000);
 	}
 	
-	@When("^utente apre browser TIRR GNV_TIRR$")
+	@When("^utente apre browser TIRR GNV_TIRR_GRM$")
 	public void utente_apre_browser_TIRRENIA() throws Throwable {
 		System.out.println("Opening URL TIRRENIA");
 		driver.get("https://www.tirrenia-prenotazioni.it/");
@@ -112,24 +107,18 @@ public class ConfrontoCSV_GNV_TIRR {
 		
 	}
 	
-	@When("^utente bypassa frame GNV_TIRR$")
+	@When("^utente bypassa frame TIRR GNV_TIRR_GRM$")
 	public void utente_bypassa_frame() throws Throwable {
 		HomePage.bypassFrame(driver);
 		Thread.sleep(3000);
 	}
 	
-	@When("^utente inserisce dati viaggio GNV_TIRR$")
+	@When("^utente inserisce dati viaggio TIRR GNV_TIRR_GRM$")
 	public void utente_inserisce_dati_viaggio() throws Throwable {
-		//HomePage.scrollDropListById(driver, "ContentPlaceHolder1_motore_ddl_destinazioni", 3);
-		//HomePage.clickEnterDropListById(driver, "ContentPlaceHolder1_motore_ddl_destinazioni");
-		
 		HomePage.cliccaTratte(driver);
 		Thread.sleep(1000);
 		HomePage.controlloTratta(driver, testData.getCollegamento());
 		Thread.sleep(2000);
-		
-		/////////////////////////////////////////////////////////////////////////////////////////
-		
 		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[1]/div[2]/div[1]/label[2]");
 		Generic.clickById(driver, "tratte_andata");
 		Thread.sleep(2000);
@@ -162,7 +151,7 @@ public class ConfrontoCSV_GNV_TIRR {
 		Generic.clickById(driver, "ContentPlaceHolder1_motore_Button_Cerca");
 	}
 	
-	@When("^recupera prezzo GNV_TIRR$")
+	@When("^recupera prezzo TIRR GNV_TIRR_GRM$")
 	public void recupera_prezzo_Tirrenia() throws Throwable{
 		Recap.switchPage(driver);
 		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_ascx_andata_RepeaterPartenze_Panel_SistemazionePoltrona_0\"]/div");
@@ -174,7 +163,37 @@ public class ConfrontoCSV_GNV_TIRR {
 		//System.out.println("Prezzo numerico TIRRENIA: "+prezzoTirreniaNumerico);
 	}
 	
-	@Then("^confronto prezzi GNV_TIRR$")
+	@When("^utente apre browser GRM GNV_TIRR_GRM$")
+	public void utente_apre_browser_GRM_GNV_TIRR_GRM() throws Throwable {
+		////////////////////////////////// DA ELIMINARE RIGO SEGUENTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+		testData=CSVExtractor.getTestDataByOffer("GNVTIRR1PNAPPAL", Path.PATH);
+		System.out.println("Opening URL GRIMALDI");
+		driver.get("https://www.grimaldi-lines.com/it/");
+		driver.manage().window().maximize();
+		Thread.sleep(5000);
+	}
+
+	@When("^utente bypassa frame GRM GNV_TIRR_GRM$")
+	public void utente_bypassa_frame_GRM_GNV_TIRR_GRM() throws Throwable {
+		if(driver.findElement(By.xpath("//*[@id=\"top\"]/div[3]/div/div[3]/button")).isDisplayed()) {
+			Generic.clickByXPath(driver, "//*[@id=\"top\"]/div[3]/div/div[3]/button");
+		}
+		
+	}
+
+	@When("^utente inserisce dati viaggio GRM GNV_TIRR_GRM$")
+	public void utente_inserisce_dati_viaggio_GRM_GNV_TIRR_GRM() throws Throwable {
+		HomePage.cliccaSoloAndataGrimaldi(driver);
+		Generic.clickById(driver, "start-route");
+		HomePage.selezionaAndataGrimaldi(driver, testData.getTrattaAndata());
+	}
+
+	@When("^recupera prezzo GRM GNV_TIRR_GRM$")
+	public void recupera_prezzo_GRM_GNV_TIRR_GRM() throws Throwable {
+	
+	}
+	
+	@Then("^confronto prezzi GNV_TIRR_GRM$")
 	public void confrontoPrezzi() {
 		Double prezzoMigliore=Generic.confrontoPrezzi(driver, importoNumerico, "GNV", prezzoTirreniaNumerico, "TIRRENIA");
 		Generic.generaFileTxt(testData.getTipologia(), testData.getTrattaAndata(), testData.getMeseAndata(), testData.getGiornoAndata(), testData.getPasseggeriAdulti(), testData.getPasseggeriBambini(), testData.getPasseggeriAnimali(), testData.getVeicolo(), prezzoTirreniaNumerico, importoNumerico, prezzoMigliore);

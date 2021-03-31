@@ -221,4 +221,14 @@ public class HomePage {
 		elementList=driver.findElements(By.xpath("//label/span[contains(text(),'"+arrivo+"')]"));
 		elementList.get(elementList.size()-1).click();
 	}
+	
+	public static void cliccaSoloAndataGrimaldi(WebDriver driver) throws Throwable {
+		driver.findElement(By.id("checkReturn"));
+		Thread.sleep(1000);
+	}
+	
+	public static void selezionaAndataGrimaldi(WebDriver driver, String text) throws Throwable {
+		driver.findElement(By.xpath("//option[contains(text(),'" + text.toUpperCase() + "')]")).click();
+
+	}
 }
