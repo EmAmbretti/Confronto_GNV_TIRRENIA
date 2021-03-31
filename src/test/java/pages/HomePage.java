@@ -230,5 +230,6 @@ public class HomePage {
 	public static void selezionaAndataGrimaldi(WebDriver driver, String text) throws Throwable {
 		driver.findElement(By.xpath("//option[contains(text(),'" + text.toUpperCase() + "')]")).click();
 
+		
 	}
 }
