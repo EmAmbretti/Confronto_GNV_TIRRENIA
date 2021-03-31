@@ -18,7 +18,7 @@ import utils.Path;
 
 public class ConfrontoCSV_GNV_TIRR_GRM {
 	
-	Double importoNumerico, prezzoTirreniaNumerico;
+	Double prezzoGNVNumerico, prezzoTirreniaNumerico, prezzoGrimaldiNumerico;
 	WebDriver driver = BeforeAndAfter.driver;
 	CSVData testData;
 	
@@ -89,8 +89,8 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	public void recupero_totale_offerta() throws Throwable {
 	    String importo = RecuperaImporto.recuperaImporto(driver);
 	    System.out.println("Prezzo sito GNV: " + importo);
-	    importoNumerico = Double.valueOf(importo.substring(0, importo.length()-2).replace(",", "."));
-	    //System.out.println("L'importo dell'offerta scelta (di tipo double) è: " + importoNumerico);
+	    prezzoGNVNumerico = Double.valueOf(importo.substring(0, importo.length()-2).replace(",", "."));
+	    //System.out.println("L'importo dell'offerta scelta (di tipo double) è: " + prezzoGNVNumerico);
 	}
 	
 	@When("^utente chiude browser GNV_TIRR_GRM$")
@@ -153,7 +153,8 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	@When("^recupera prezzo TIRR GNV_TIRR_GRM$")
 	public void recupera_prezzo_Tirrenia() throws Throwable{
-		Recap.switchPage(driver);
+		Recap.switchPage(driver,2);
+		Thread.sleep(5000);
 		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_ascx_andata_RepeaterPartenze_Panel_SistemazionePoltrona_0\"]/div");
         Generic.clickById(driver, "ContentPlaceHolder1_LinkButton_Avanti");
 		Thread.sleep(3000);
@@ -189,7 +190,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		driver.findElement(By.id("start-date")).click();
 		Generic.clickById(driver, "confirmRouteForm");
 		Thread.sleep(2000);
-		Recap.switchPage(driver);
+		Recap.switchPage(driver,3);
 		Thread.sleep(2000);
 		Generic.clickByXPath(driver, "/html/body/div[11]/div/div[3]/button");
 		Generic.clickById(driver, "dateLeg1");
@@ -208,6 +209,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		Generic.clickById(driver, "createacc");
 		HomePage.selezionaAnimaliGrimaldi(driver, testData.getPasseggeriAnimali());
 		Generic.clickById(driver, "searchnow");
+		Thread.sleep(3000);
 		//*[@id="leg1-CVVOLB202108052245"]/a/div[3]
 		//*[@id="leg1-CVVOLB202108062245"]/a/div[1]
 		//*[@id="leg1-CVVOLB202108062245"]/a/div[3]
@@ -215,13 +217,15 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 
 	@When("^recupera prezzo GRM GNV_TIRR_GRM$")
 	public void recupera_prezzo_GRM_GNV_TIRR_GRM() throws Throwable {
-		RecuperaImporto.recuperaImportoGrimaldi(driver, testData.getGiornoAndata(), testData.getMeseAndata());
+		String prezzoGrimaldi=RecuperaImporto.recuperaImportoGrimaldi(driver, testData.getGiornoAndata(), testData.getMeseAndata());
+		System.out.println("Prezzo sito GRIMALDI: " + prezzoGrimaldi);
+		prezzoGrimaldiNumerico=Double.parseDouble(prezzoGrimaldi.substring(1).replace(",", "."));
 	}
 	
 	@Then("^confronto prezzi GNV_TIRR_GRM$")
 	public void confrontoPrezzi() {
-		Double prezzoMigliore=Generic.confrontoPrezzi(driver, importoNumerico, "GNV", prezzoTirreniaNumerico, "TIRRENIA");
-		Generic.generaFileTxt(testData.getTipologia(), testData.getTrattaAndata(), testData.getMeseAndata(), testData.getGiornoAndata(), testData.getPasseggeriAdulti(), testData.getPasseggeriBambini(), testData.getPasseggeriAnimali(), testData.getVeicolo(), prezzoTirreniaNumerico, importoNumerico, prezzoMigliore);
+		Double prezzoMigliore=Generic.confrontoPrezzi(driver, prezzoGNVNumerico, "GNV", prezzoTirreniaNumerico, "TIRRENIA", prezzoGrimaldiNumerico,"GRIMALDI");
+		Generic.generaFileTxt(testData.getTipologia(), testData.getTrattaAndata(), testData.getMeseAndata(), testData.getGiornoAndata(), testData.getPasseggeriAdulti(), testData.getPasseggeriBambini(), testData.getPasseggeriAnimali(), testData.getVeicolo(), prezzoTirreniaNumerico, prezzoGNVNumerico,prezzoGrimaldiNumerico, prezzoMigliore);
 		driver.quit();
 		
 	}

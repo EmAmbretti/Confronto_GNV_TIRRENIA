@@ -73,22 +73,43 @@ public class Generic {
 		Thread.sleep(4000);
 	}
 	
-	public static Double confrontoPrezzi(WebDriver driver, Double importo1,String nomeSitoImp1,Double importo2,String nomeSitoImp2) {
-		if(importo1!=null&&importo2!=null) {
-			if(importo1 > importo2) {
+	public static Double confrontoPrezzi(WebDriver driver, Double importo1,String nomeSitoImp1,Double importo2,String nomeSitoImp2, Double importo3, String nomeSitoImp3) {
+
+		if(importo1 > importo2) {
+			if(importo2 > importo3) {
+				System.out.println("L'importo minore è: " + importo3 + " € del sito "+nomeSitoImp3+"." );
+				return importo3;
+			}else {
 				System.out.println("L'importo minore è: " + importo2 + " € del sito "+nomeSitoImp2+"." );
 				return importo2;
-			} else if (importo2 > importo1) {
-				System.out.println("L'importo minore è: " + importo1 + " € del sito "+nomeSitoImp1+".");
-				return importo1;
-			} else {
-				System.out.println("Gli importi, dei due siti, sono uguali.");
-				return importo1;
 			}
+		}else if(importo1 > importo3) {
+			System.out.println("L'importo minore è: " + importo3 + " € del sito "+nomeSitoImp3+"." );
+			return importo3;
 		}else {
-			System.out.println("Impossibile trovare prezzo!");
-			return null;
+			System.out.println("L'importo minore è: " + importo1 + " € del sito "+nomeSitoImp1+".");
+			return importo1;
 		}
+		
+		
+		
+		
+		
+//		if(importo1!=null&&importo2!=null) {
+//			if(importo1 > importo2) {
+//				System.out.println("L'importo minore è: " + importo2 + " € del sito "+nomeSitoImp2+"." );
+//				return importo2;
+//			} else if (importo2 > importo1) {
+//				System.out.println("L'importo minore è: " + importo1 + " € del sito "+nomeSitoImp1+".");
+//				return importo1;
+//			} else {
+//				System.out.println("Gli importi, dei due siti, sono uguali.");
+//				return importo1;
+//			}
+//		}else {
+//			System.out.println("Impossibile trovare prezzo!");
+//			return null;
+//		}
 	}
 	
 	public static void clickByXPath(WebDriver driver, String xPath) throws Throwable {
@@ -101,7 +122,7 @@ public class Generic {
 
 	}
 	
-	public static void generaFileTxt(String tipologia, String tratta, String mese,String giorno, String passAdulti, String passBambini, String passAnimali, String veicolo,Double prezzoTirrenia, Double prezzoGNV,Double prezzoMigliore) {
+	public static void generaFileTxt(String tipologia, String tratta, String mese,String giorno, String passAdulti, String passBambini, String passAnimali, String veicolo,Double prezzoTirrenia, Double prezzoGNV,Double prezzoGrimaldi,Double prezzoMigliore) {
 		int numero=1;
 		boolean flag=false;
 		String path=new File ("reportFiles\\").getAbsolutePath();
@@ -118,7 +139,7 @@ public class Generic {
 					FileWriter fw = new FileWriter(itinerario);
 					BufferedWriter bw= new BufferedWriter(fw);
 					bw.write("ITINERARIO: "+tipologia+"\nTRATTA: "+tratta+ "\nMESE: "+mese+"\nGIORNO: "+giorno+"\nNUMERO PASSEGGERI ADULTI: "+passAdulti+"\nNUMERO PASSEGGERI BAMBINI: "+passBambini+"\nNUMERO PASSEGGERI ANIMALI: "+passAnimali+"\nVEICOLO: "+veicolo
-					+"\nPREZZO TIRRENIA: "+prezzoTirrenia+" - PREZZO GNV: "+prezzoGNV+"\nPREZZO CONVENIENTE: "+prezzoMigliore);
+					+"\nPREZZO TIRRENIA: "+prezzoTirrenia+" - PREZZO GNV: "+prezzoGNV+" - PREZZO GRIMALDI: "+prezzoGrimaldi+"\nPREZZO CONVENIENTE: "+prezzoMigliore);
 					bw.flush();
 					bw.close();
 					flag=true;

@@ -94,7 +94,7 @@ public class TraghettiLines {
 		Thread.sleep(5000);
 		Double imp1=Double.valueOf(prezzoGNV);
 		Double imp2=Double.valueOf(prezzoTIRRENIA);
-		Generic.confrontoPrezzi(driver, imp1, "GNV", imp2, "TIRRENIA");
+		//Generic.confrontoPrezzi(driver, imp1, "GNV", imp2, "TIRRENIA");
 		
 		while(ripetizioni<2) {
 			ripetizioni++;

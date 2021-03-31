@@ -32,17 +32,28 @@ public class Recap {
 		
 	}
 	
-	public static void switchPage(WebDriver driver) throws Throwable {
+	public static void switchPage(WebDriver driver,int pagine) throws Throwable {
 		String mainWindow = driver.getWindowHandle();
-		new WebDriverWait(driver,10).until(ExpectedConditions.numberOfWindowsToBe(2));
-		for(String existingWindows : driver.getWindowHandles()){
-			Thread.sleep(2000);
-			if(!mainWindow.equals(existingWindows)) {
+		new WebDriverWait(driver,10).until(ExpectedConditions.numberOfWindowsToBe(pagine));
+		
+		////////////////
+		int i=1;
+		for(String existingWindows : driver.getWindowHandles()) {
+			if(i==pagine) {
 				driver.switchTo().window(existingWindows);
-				Thread.sleep(2000);
-				break;
+			}else {
+				i++;
 			}
 		}
+		
+//		for(String existingWindows : driver.getWindowHandles()){
+//			Thread.sleep(2000);
+//			if(!mainWindow.equals(existingWindows)) {
+//				driver.switchTo().window(existingWindows);
+//				Thread.sleep(2000);
+//				break;
+//			}
+		
 		
 	}
 

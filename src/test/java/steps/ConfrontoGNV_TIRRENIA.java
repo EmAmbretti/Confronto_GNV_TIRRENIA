@@ -147,7 +147,7 @@ public class ConfrontoGNV_TIRRENIA {
 	
 	@When("^recupera prezzo TIRRENIA$")
 	public void recupera_prezzo_Tirrenia() throws Throwable{
-		Recap.switchPage(driver);
+		//Recap.switchPage(driver);
 		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_ascx_andata_RepeaterPartenze_Panel_SistemazionePoltrona_0\"]/div");
         Generic.clickById(driver, "ContentPlaceHolder1_LinkButton_Avanti");
 		Thread.sleep(3000);
@@ -159,7 +159,7 @@ public class ConfrontoGNV_TIRRENIA {
 	
 	@Then("^confronto prezzi$")
 	public void confrontoPrezzi() {
-		Generic.confrontoPrezzi(driver, importoNumerico, "GNV", prezzoTirreniaNumerico, "TIRRENIA");
+		//Generic.confrontoPrezzi(driver, importoNumerico, "GNV", prezzoTirreniaNumerico, "TIRRENIA");
 		driver.quit();
 		
 	}
