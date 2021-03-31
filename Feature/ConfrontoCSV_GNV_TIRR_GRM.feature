@@ -16,4 +16,4 @@ Scenario: GNV_TIRR_GRM
 	And utente bypassa frame GRM GNV_TIRR_GRM
 	And utente inserisce dati viaggio GRM GNV_TIRR_GRM
 	And recupera prezzo GRM GNV_TIRR_GRM
-	#Then confronto prezzi GNV_TIRR_GRM
+	Then confronto prezzi GNV_TIRR_GRM
