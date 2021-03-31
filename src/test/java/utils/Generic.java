@@ -142,5 +142,14 @@ public class Generic {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void costruisciWebData(CSVData data, WebData wb) {
+		wb.setTratta(data.getTrattaAndata());
+		wb.setMese(data.getMeseAndata());
+		wb.setGiorno(data.getGiornoAndata());
+		wb.setAdulti(data.getPasseggeriAdulti());
+		wb.setBambini(data.getPasseggeriBambini());
+		wb.setAnimali(data.getPasseggeriAnimali());
+	}
 
 }
