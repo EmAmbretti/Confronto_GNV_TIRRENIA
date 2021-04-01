@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.CSVData;
+
 public class CSVExtractor {
 
 	public static ArrayList<CSVData> process(String path) {

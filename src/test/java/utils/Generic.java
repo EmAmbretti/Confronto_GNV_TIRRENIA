@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import model.CSVData;
+import model.WebData;
 
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
@@ -95,25 +97,6 @@ public class Generic {
 			return importo1;
 		}
 		
-		
-		
-		
-		
-//		if(importo1!=null&&importo2!=null) {
-//			if(importo1 > importo2) {
-//				System.out.println("L'importo minore è: " + importo2 + " € del sito "+nomeSitoImp2+"." );
-//				return importo2;
-//			} else if (importo2 > importo1) {
-//				System.out.println("L'importo minore è: " + importo1 + " € del sito "+nomeSitoImp1+".");
-//				return importo1;
-//			} else {
-//				System.out.println("Gli importi, dei due siti, sono uguali.");
-//				return importo1;
-//			}
-//		}else {
-//			System.out.println("Impossibile trovare prezzo!");
-//			return null;
-//		}
 	}
 	
 	public static void clickByXPath(WebDriver driver, String xPath) throws Throwable {
@@ -139,33 +122,10 @@ public class Generic {
 			bw.append("DATA: "+data+" ORE: "+timeStr+"\nCASO DI TEST: "+tipologia+"\nTRATTA: "+tratta+ "\nMESE: "+mese+"\nGIORNO: "+giorno+"\nNUMERO PASSEGGERI ADULTI: "+passAdulti+"\nNUMERO PASSEGGERI BAMBINI: "+passBambini+"\nNUMERO PASSEGGERI ANIMALI: "+passAnimali+"\nVEICOLO: "+veicolo
 					+"\nPREZZO TIRRENIA: "+prezzoTirrenia+" - PREZZO GNV: "+prezzoGNV+" - PREZZO GRIMALDI: "+prezzoGrimaldi+"\nPREZZO CONVENIENTE: "+prezzoMigliore+"\n\n-------------------------------------------------------------------\n\n");
 			bw.close();
-
-
-
-//			String path = "C:\\Users\\mirko.terracciano\\Desktop\\Nuova cartella (2)\\nuovoFile.txt";
-//			try {
-//			File file = new File(path);
-//			FileWriter fw = new FileWriter(file);
-//			BufferedWriter bw = new BufferedWriter(fw);
-//			bw.write("Questo è il nostro primo file");
-//			
-//			}
-//			catch(IOException e) {
-//			e.printStackTrace();
-			
-			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void costruisciWebData(CSVData data, WebData wb) {
-		wb.setTratta(data.getTrattaAndata());
-		wb.setMese(data.getMeseAndata());
-		wb.setGiorno(data.getGiornoAndata());
-		wb.setAdulti(data.getPasseggeriAdulti());
-		wb.setBambini(data.getPasseggeriBambini());
-		wb.setAnimali(data.getPasseggeriAnimali());
-	}
 }

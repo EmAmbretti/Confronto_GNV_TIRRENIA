@@ -1,7 +1,8 @@
-package utils;
+package model;
 
 public class CSVData {
-
+	
+		
 		private String tipologia = null;
 		private String collegamento = null;
 		private String trattaAndata = null;

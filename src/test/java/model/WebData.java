@@ -1,7 +1,9 @@
-package utils;
+package model;
 
 public class WebData {
 	
+	CSVData csvData;
+
 	private String sito;
 	private String tratta;
 	private String mese;
@@ -11,12 +13,20 @@ public class WebData {
 	private String animali;
 	private String veicolo;
 	private String prezzo;
-	private String disponibilità;
+	private String disponibilita;
 	
-	
-	
-	
-	
+	public WebData(String sito) {
+		this.sito = sito;
+		tratta = csvData.getTrattaAndata();
+		mese = csvData.getMeseAndata();
+		giorno = csvData.getGiornoAndata();
+		adulti = csvData.getPasseggeriAdulti();
+		bambini = csvData.getPasseggeriBambini();
+		animali = csvData.getPasseggeriAnimali();
+		veicolo = csvData.getVeicolo();
+		
+	}
+
 	public String getSito() {
 		return sito;
 	}
@@ -71,12 +81,12 @@ public class WebData {
 	public void setPrezzo(String prezzo) {
 		this.prezzo = prezzo;
 	}
-	public String isDisponibilità() {
-		return disponibilità;
+	public String isDisponibilita() {
+		return disponibilita;
 	}
-	public void setDisponibilità(String disponibilità) {
-		this.disponibilità = disponibilità;
+	public void setDisponibilita(String disponibilita) {
+		this.disponibilita = disponibilita;
 	}
-	
-	
+
+
 }
