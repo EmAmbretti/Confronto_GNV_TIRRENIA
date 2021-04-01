@@ -220,11 +220,30 @@ public class HomePage {
 		}
 	}
 	
-	public static void selezionaAdultiTirrenia(WebDriver driver, String adulti) {
+	public static void selezionaPasseggeriTirrenia(WebDriver driver, WebData sito) throws Throwable {
+		if(sito.getDisponibilita() == null) {
+			Generic.clickById(driver, "input_NumeroPaxAndata");
+			Generic.clickByXPath(driver, "//*[@id=\"select_NumeroAdultiTipo2Andata\"]");
+			Thread.sleep(2000);
+			selezionaAdultiTirrenia(driver, sito.getAdulti());
+			Thread.sleep(2000);
+			Generic.clickById(driver, "select_NumeroPasseggeriAndata");
+			selezionaBambiniTirrenia(driver, sito.getBambini());
+			Generic.clickById(driver, "select_NumeroAnimaliAndata");
+			Thread.sleep(2000);
+			selezionaAnimaliTirrenia(driver, sito.getAnimali());
+			Thread.sleep(2000);
+			Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[2]/div[3]/button");
+			Thread.sleep(2000);
+		}
+		
+	}
+	
+	private static void selezionaAdultiTirrenia(WebDriver driver, String adulti) {
 		driver.findElement(By.xpath("//*[@id=\"select_NumeroAdultiTipo2Andata\"]/option["+(Integer.valueOf(adulti)+1)+"]")).click();
 	}
 	
-	public static void selezionaBambiniTirrenia(WebDriver driver,String bambini) throws Throwable{
+	private static void selezionaBambiniTirrenia(WebDriver driver,String bambini) throws Throwable{
 		driver.findElement(By.xpath("//*[@id=\"select_NumeroPasseggeriAndata\"]/option["+(Integer.valueOf(bambini)+1)+"]")).click();
 		for(int i=0;i<Integer.valueOf(bambini);i++) {
 			Thread.sleep(1000);
@@ -232,16 +251,36 @@ public class HomePage {
 		}
 	}
 	
-	public static void selezionaAnimaliTirrenia(WebDriver driver, String animali) {
+	private static void selezionaAnimaliTirrenia(WebDriver driver, String animali) {
 		driver.findElement(By.xpath("//*[@id=\"select_NumeroAnimaliAndata\"]/option["+(Integer.valueOf(animali)+1)+"]")).click();
 	}
 	
-	public static void selezionaVeicoloTirrenia(WebDriver driver, String veicolo) {
+	public static void formVeicoloTirrenia(WebDriver driver, WebData sito) throws Throwable {
+		if(sito.getDisponibilita() == null) {
+			Generic.clickById(driver, "input_VeicoliAndata");
+			Thread.sleep(2000);
+			selezionaVeicoloTirrenia(driver, sito.getVeicolo());
+			Thread.sleep(2000); 
+			Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[4]/div[17]/button");
+			Thread.sleep(2000);
+		}
+		
+	}
+	
+	private static void selezionaVeicoloTirrenia(WebDriver driver, String veicolo) {
 		if(veicolo.equalsIgnoreCase("No")) {
 			driver.findElement(By.xpath("//*[@id=\"a_\"]/div")).click();
 		}else {
 			driver.findElement(By.xpath("//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[4]/div[4]/a[2]/div/label")).click();
 		}
+	}
+	
+	public static void cliccaCercaTirrenia(WebDriver driver, WebData sito) throws Throwable {
+		if (sito.getDisponibilita() == null) {
+			Generic.clickById(driver, "ContentPlaceHolder1_motore_Button_Cerca");
+
+		}
+		
 	}
 	
 	public static void selezionaTrattaGNV(WebDriver driver, WebData sito) throws Throwable{

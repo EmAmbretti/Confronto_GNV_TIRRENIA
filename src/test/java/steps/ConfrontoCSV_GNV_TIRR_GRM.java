@@ -127,31 +127,10 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		HomePage.selezionaMeseTirrenia(driver, sitoTIRRENIA);
 		Thread.sleep(2000);		
 		HomePage.selezionaGiornoTirrenia(driver, sitoTIRRENIA);
-		
-		
-		Generic.clickById(driver, "input_NumeroPaxAndata");
-		Generic.clickByXPath(driver, "//*[@id=\"select_NumeroAdultiTipo2Andata\"]");
 		Thread.sleep(2000);
-		HomePage.selezionaAdultiTirrenia(driver, testData.getPasseggeriAdulti());
-		Thread.sleep(2000);
-		Generic.clickById(driver, "select_NumeroPasseggeriAndata");
-		HomePage.selezionaBambiniTirrenia(driver, testData.getPasseggeriBambini());
-		Generic.clickById(driver, "select_NumeroAnimaliAndata");
-		Thread.sleep(2000);
-		HomePage.selezionaAnimaliTirrenia(driver, testData.getPasseggeriAnimali());
-		Thread.sleep(2000);
-		
-		
-		
-		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[2]/div[3]/button");
-		Thread.sleep(2000);
-		Generic.clickById(driver, "input_VeicoliAndata");
-		Thread.sleep(2000);
-		HomePage.selezionaVeicoloTirrenia(driver, testData.getVeicolo());
-		Thread.sleep(2000); 
-		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[4]/div[17]/button");
-		Thread.sleep(2000);
-		Generic.clickById(driver, "ContentPlaceHolder1_motore_Button_Cerca");
+		HomePage.selezionaPasseggeriTirrenia(driver, sitoTIRRENIA);
+		HomePage.formVeicoloTirrenia(driver, sitoTIRRENIA);
+		HomePage.cliccaCercaTirrenia(driver, sitoTIRRENIA);
 	}
 	
 	@When("^recupera prezzo TIRR GNV_TIRR_GRM$")
