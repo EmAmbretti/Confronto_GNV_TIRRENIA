@@ -17,6 +17,19 @@ public class RecuperaImporto {
 	}
 
 	public static String recuperaImportoGrimaldi(WebDriver driver, String giorno, String mese) throws Throwable{
+		boolean flag=false;
+		do {
+			try {
+				driver.findElement(By.xpath("//*[@id=\"calendar_wrap\"]/div[1]/h2"));
+				Thread.sleep(2000);
+				flag=false;
+			}catch(org.openqa.selenium.ElementNotInteractableException e) {
+				Thread.sleep(3000);
+				flag=true;
+			}
+		}
+		while(flag);
+			
 		if(giorno.length()<2) {
 			giorno=0+giorno;
 		}
@@ -25,7 +38,6 @@ public class RecuperaImporto {
 		Thread.sleep(5000);
 		List<WebElement> elementList = driver.findElements(By.xpath("//a/div[1]"));
 		for(WebElement element:elementList) {
-			System.out.println(element.getText());
 			if(element.getText().equalsIgnoreCase(data)) {
 				element.click();
 				break;
