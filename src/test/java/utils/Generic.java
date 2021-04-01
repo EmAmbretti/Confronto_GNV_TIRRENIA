@@ -131,18 +131,28 @@ public class Generic {
 			if(sito1.getDisponibilita()==null) {
 				bw.append("\nPREZZO GNV: "+prezzoGNV);
 			}else {
-				bw.append("\nNon è stato possibile rilasciare un preventivo per GNV per il seguente motivo: "+sito1.getDisponibilita());
+				bw.append("\nPREZZO GNV: Non è stato possibile rilasciare un preventivo per GNV per il seguente motivo: "+sito1.getDisponibilita());
 			}
 			if(sito2.getDisponibilita()==null) {
 				bw.append("\nPREZZO TIRRENIA: "+prezzoTirrenia);
 			}else {
-				bw.append("\nNon è stato possibile rilasciare un preventivo per TIRRENIA per il seguente motivo: "+sito2.getDisponibilita());
+				bw.append("\nPREZZO TIRRENIA: Non è stato possibile rilasciare un preventivo per TIRRENIA per il seguente motivo: "+sito2.getDisponibilita());
 			}
 			if(sito3.getDisponibilita()==null) {
 				bw.append("\nPREZZO GRIMALDI: "+prezzoGrimaldi);
 			}else {
-				bw.append("\nNon è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: "+sito3.getDisponibilita());
+				bw.append("\nPREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: "+sito3.getDisponibilita());
 			}
+			bw.append("\nPREZZO MIGLIORE: "+prezzoMigliore+" DEL SITO: ");
+			if(prezzoMigliore==prezzoGNV) {
+				bw.append(sito1.getSito());
+			}else if(prezzoMigliore==prezzoTirrenia) {
+				bw.append(sito2.getSito());
+			}else {
+				bw.append(sito3.getSito());
+			}
+			
+			
 			bw.append("\n\n-------------------------------------------------------------------\n\n");
 			bw.close();
 			
@@ -154,3 +164,23 @@ public class Generic {
 	}
 	
 }
+//*[@id="nav-tabContent"]/div[3]/div[1]/div[3]/div/app-card-solution/div/div[1]/div[2]/div[1]/div
+//*[@id="nav-tabContent"]/div[3]/div[1]/div[2]/div/app-card-solution/div/div[1]/div[2]/div[1]/div
+//*[@id="nav-tabContent"]/div[3]/div[3]/div[2]/div/app-card-solution/div/div[1]/div[2]/div[1]/div
+//*[@id="nav-tabContent"]/div[3]/div[2]/div[2]/div/app-card-solution/div/div[1]/div[2]/div[1]/div
+
+
+//div/app-card-solution/div/div[1]/div[2]/div[1]/div   testo
+//div/app-card-solution/div/div[2]/app-button    seleziona
+
+//*[@id="nav-tabContent"]/div[3]/div[1]/div[2]/div/app-card-solution/div/div[2]/app-button
+//*[@id="nav-tabContent"]/div[3]/div[1]/div[2]/div/app-card-solution/div/div[2]/app-button/button
+
+//*[@id="nav-tabContent"]/div[3]/div[1]/div[3]/div/app-card-solution/div/div[2]/app-button
+//*[@id="nav-tabContent"]/div[3]/div[1]/div[3]/div/app-card-solution/div/div[2]/app-button/button
+
+
+
+//*[@id="nav-tabContent"]/div[3]/div[1]/div[2]/div/app-card-solution/div/div[1]/div[2]/div[1]/div
+//*[@id="nav-tabContent"]/div[3]/div[1]/div[2]/div/app-card-solution/div/div[2]/app-button
+//*[@id="nav-tabContent"]/div[3]/div[1]/div[2]/div/app-card-solution/div/div[2]/app-button/button

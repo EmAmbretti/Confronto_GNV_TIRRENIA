@@ -18,6 +18,7 @@ public class WebData {
 	private String veicolo;
 	private String prezzo;
 	private String disponibilita;
+	private String sistemazione;
 	
 	public WebData(String sito) {
 		this.sito = sito;
@@ -29,6 +30,7 @@ public class WebData {
 		bambini = csvData.getPasseggeriBambini();
 		animali = csvData.getPasseggeriAnimali();
 		veicolo = csvData.getVeicolo();
+		sistemazione = "Brandina";
 		
 	}
 
@@ -98,6 +100,11 @@ public class WebData {
 	public void setDisponibilita(String disponibilita) {
 		this.disponibilita = disponibilita;
 	}
-
+	public String getSistemazione() {
+		return sistemazione;
+	}
+	public void setSistemazione(String sistemazione) {
+		this.sistemazione = sistemazione;
+	}
 
 }

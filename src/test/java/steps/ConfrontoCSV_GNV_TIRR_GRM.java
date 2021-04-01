@@ -89,7 +89,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 
 	@When("^recupero totale offerta GNV_TIRR_GRM$")
 	public void recupero_totale_offerta() throws Throwable {
-	    RecuperaImporto.recuperaImporto(driver, sitoGNV);
+	    RecuperaImporto.recuperaImportoGNV(driver, sitoGNV);
 	    if(sitoGNV.getDisponibilita()==null) {
 	    	System.out.println("Prezzo sito GNV: " + sitoGNV.getPrezzo());
 	    	prezzoGNVNumerico = Double.valueOf(sitoGNV.getPrezzo().substring(0, sitoGNV.getPrezzo().length()-2).replace(",", "."));
@@ -135,14 +135,13 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	@When("^recupera prezzo TIRR GNV_TIRR_GRM$")
 	public void recupera_prezzo_Tirrenia() throws Throwable{
-		Recap.switchPage(driver,2);
-		Thread.sleep(5000);
-		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_ascx_andata_RepeaterPartenze_Panel_SistemazionePoltrona_0\"]/div");
-        Generic.clickById(driver, "ContentPlaceHolder1_LinkButton_Avanti");
-		Thread.sleep(3000);
-		String prezzoTirrenia = driver.findElement(By.id("ContentPlaceHolder_Header_HeadingBread_Step_Andata_Panel_PrezzoTotale")).getText();
-		System.out.println("Prezzo sito TIRRENIA: " + prezzoTirrenia);
-		prezzoTirreniaNumerico=Double.parseDouble(prezzoTirrenia.substring(0,prezzoTirrenia.length()-2).replace(",", "."));
+		Recap.switchPage(driver,2,sitoTIRRENIA);
+		Recap.controlloDisponibilitaPoltrona(driver, sitoTIRRENIA);
+		RecuperaImporto.recuperaImportoTIRRENIA(driver, sitoTIRRENIA);
+		if(sitoTIRRENIA.getDisponibilita()==null) {
+			System.out.println("Prezzo sito TIRRENIA: " + sitoTIRRENIA.getPrezzo());
+			prezzoTirreniaNumerico=Double.parseDouble(sitoTIRRENIA.getPrezzo().substring(0,sitoTIRRENIA.getPrezzo().length()-2).replace(",", "."));
+		}
 	}
 	
 	@When("^utente apre browser GRM GNV_TIRR_GRM$")
@@ -169,7 +168,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		driver.findElement(By.id("start-date")).click();
 		Generic.clickById(driver, "confirmRouteForm");
 		Thread.sleep(2000);
-		Recap.switchPage(driver,3);
+		//Recap.switchPage(driver,3);
 		Thread.sleep(2000);
 		Generic.clickByXPath(driver, "/html/body/div[11]/div/div[3]/button");
 		Generic.clickById(driver, "dateLeg1");

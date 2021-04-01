@@ -1,5 +1,5 @@
 TIPOLOGIA,COLLEGAMENTO,TRATTA,MESE,GIORNO,PASSADULTI,PASSBAMBINI,PASSANIMALI,VEICOLI
-TestCase1,Sardegna,Civitavecchia - Olbia,Agosto,5,2,2,1,No
+TestCase1,Sardegna,Sète - Nador,Agosto,5,2,2,1,No
 TestCase2,Sicilia,Napoli - Palermo,Agosto,2,2,1,0,No
 TestCase3,Sicilia,Napoli - Palermo,Agosto,2,3,1,0,Si
 TestCase4,,Olbia - Civitavecchia,Agosto,2,1,0,0,No

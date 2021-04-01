@@ -1,8 +1,11 @@
 package pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -13,11 +16,24 @@ public class Recap {
 	
 	public static void selezionaSistemazione(WebDriver driver, WebData sito) throws Throwable {
 		if(sito.getDisponibilita()==null) {
+			int i=0;
 			JavascriptExecutor jse = (JavascriptExecutor)driver;
 			jse.executeScript("window.scrollBy(0,1120)");
 			Thread.sleep(4000);
-			driver.findElement(By.xpath("//*[@id=\"nav-tabContent\"]/div[3]/div[2]/div[2]/div/app-card-solution/div/div[2]/app-button/button")).click();
-
+			List<WebElement> listaTesti= driver.findElements(By.xpath("//div/app-card-solution/div/div[1]/div[2]/div[1]/div"));
+			List<WebElement> listaSeleziona = driver.findElements(By.xpath("//div/app-card-solution/div/div[2]/app-button"));
+			for(WebElement testo:listaTesti) {
+				if(testo.getText().equalsIgnoreCase(sito.getSistemazione())) {
+					listaSeleziona.get(i).click();
+					break;
+				}else {
+					i++;
+				}
+				
+			}
+			if(i==listaTesti.size()) {
+				sito.setDisponibilita("la sistemazione \""+sito.getSistemazione()+"\" non è disponibile.");
+			}
 		}
 	}
 	
@@ -41,20 +57,22 @@ public class Recap {
 		}	
 	}
 	
-	public static void switchPage(WebDriver driver,int pagine) throws Throwable {
-		String mainWindow = driver.getWindowHandle();
-		new WebDriverWait(driver,10).until(ExpectedConditions.numberOfWindowsToBe(pagine));
-		
-		////////////////
-		int i=1;
-		for(String existingWindows : driver.getWindowHandles()) {
-			if(i==pagine) {
-				driver.switchTo().window(existingWindows);
-			}else {
-				i++;
+	public static void switchPage(WebDriver driver,int pagine, WebData sito) throws Throwable {
+		if(sito.getDisponibilita()==null) {
+			String mainWindow = driver.getWindowHandle();
+			new WebDriverWait(driver,10).until(ExpectedConditions.numberOfWindowsToBe(pagine));
+
+			////////////////
+			int i=1;
+			for(String existingWindows : driver.getWindowHandles()) {
+				if(i==pagine) {
+					driver.switchTo().window(existingWindows);
+				}else {
+					i++;
+				}
 			}
+			Thread.sleep(5000);
 		}
-		
 //		for(String existingWindows : driver.getWindowHandles()){
 //			Thread.sleep(2000);
 //			if(!mainWindow.equals(existingWindows)) {
@@ -64,6 +82,22 @@ public class Recap {
 //			}
 		
 		
+	}
+	public static void controlloDisponibilitaPoltrona(WebDriver driver, WebData sito) throws Throwable{
+		if(sito.getDisponibilita()==null) {
+			try {
+				if(driver.findElement(By.id("ContentPlaceHolder1_ascx_andata_RepeaterPartenze_Label_PrezzoPoltrona_0")).getText().contains("€")) {
+				Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_ascx_andata_RepeaterPartenze_Panel_SistemazionePoltrona_0\"]/div");
+		        Generic.clickById(driver, "ContentPlaceHolder1_LinkButton_Avanti");
+				Thread.sleep(3000);
+			}else {
+				sito.setDisponibilita("La sistemazione scelta non è disponibile (posti mancanti).");
+			}
+			}catch(org.openqa.selenium.NoSuchElementException e) {
+				sito.setDisponibilita("La tratta non è disponibile per questo sito.");
+			}
+			
+		}
 	}
 
 }

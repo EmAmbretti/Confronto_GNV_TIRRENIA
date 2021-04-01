@@ -11,12 +11,18 @@ import utils.Generic;
 
 public class RecuperaImporto {
 	
-	public static void recuperaImporto(WebDriver driver, WebData sito) {
+	public static void recuperaImportoGNV(WebDriver driver, WebData sito) {
 		if(sito.getDisponibilita()==null) {
 			String importo = driver.findElement(By.xpath("//*[@id=\"cartDropdown\"]/span")).getText();
 			sito.setPrezzo(importo);
-		}
-					
+		}				
+	}
+	
+	public static void recuperaImportoTIRRENIA(WebDriver driver, WebData sito) {
+		if(sito.getDisponibilita()==null) {
+			String importo = driver.findElement(By.id("ContentPlaceHolder_Header_HeadingBread_Step_Andata_Panel_PrezzoTotale")).getText();
+			sito.setPrezzo(importo);
+		}				
 	}
 
 	public static String recuperaImportoGrimaldi(WebDriver driver, String giorno, String mese) throws Throwable{
