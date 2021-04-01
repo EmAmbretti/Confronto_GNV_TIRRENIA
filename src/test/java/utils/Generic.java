@@ -4,10 +4,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -125,17 +129,15 @@ public class Generic {
 	public static void generaFileTxt(String tipologia, String tratta, String mese,String giorno, String passAdulti, String passBambini, String passAnimali, String veicolo,Double prezzoTirrenia, Double prezzoGNV,Double prezzoGrimaldi,Double prezzoMigliore) {
 		String path=new File ("reportFiles\\").getAbsolutePath();
 		File itinerario = new File(path+"\\" + "ConfrontoPrezzi.txt");
+		LocalDate data=LocalDate.now();
+		LocalTime time=LocalTime.now();
+		String timeStr=String.valueOf(time);
+		timeStr=timeStr.substring(0,5);
 		try {
-			//File myObj = new File(path);
-
-
-
-
-			FileWriter fw = new FileWriter(itinerario);
+			FileWriter fw = new FileWriter(itinerario,true);
 			BufferedWriter bw= new BufferedWriter(fw);
-			bw.append("ITINERARIO: "+tipologia+"\nTRATTA: "+tratta+ "\nMESE: "+mese+"\nGIORNO: "+giorno+"\nNUMERO PASSEGGERI ADULTI: "+passAdulti+"\nNUMERO PASSEGGERI BAMBINI: "+passBambini+"\nNUMERO PASSEGGERI ANIMALI: "+passAnimali+"\nVEICOLO: "+veicolo
+			bw.append("DATA: "+data+" ORE: "+timeStr+"\nCASO DI TEST: "+tipologia+"\nTRATTA: "+tratta+ "\nMESE: "+mese+"\nGIORNO: "+giorno+"\nNUMERO PASSEGGERI ADULTI: "+passAdulti+"\nNUMERO PASSEGGERI BAMBINI: "+passBambini+"\nNUMERO PASSEGGERI ANIMALI: "+passAnimali+"\nVEICOLO: "+veicolo
 					+"\nPREZZO TIRRENIA: "+prezzoTirrenia+" - PREZZO GNV: "+prezzoGNV+" - PREZZO GRIMALDI: "+prezzoGrimaldi+"\nPREZZO CONVENIENTE: "+prezzoMigliore+"\n\n-------------------------------------------------------------------\n\n");
-			bw.flush();
 			bw.close();
 
 
