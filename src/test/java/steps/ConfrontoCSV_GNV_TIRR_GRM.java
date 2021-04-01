@@ -125,9 +125,10 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		Generic.clickById(driver, "arrival");
 		Thread.sleep(2000);
 		HomePage.selezionaMeseTirrenia(driver, sitoTIRRENIA);
-		Thread.sleep(2000);
-		
+		Thread.sleep(2000);		
 		HomePage.selezionaGiornoTirrenia(driver, sitoTIRRENIA);
+		
+		
 		Generic.clickById(driver, "input_NumeroPaxAndata");
 		Generic.clickByXPath(driver, "//*[@id=\"select_NumeroAdultiTipo2Andata\"]");
 		Thread.sleep(2000);
@@ -139,6 +140,9 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		Thread.sleep(2000);
 		HomePage.selezionaAnimaliTirrenia(driver, testData.getPasseggeriAnimali());
 		Thread.sleep(2000);
+		
+		
+		
 		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[2]/div[3]/button");
 		Thread.sleep(2000);
 		Generic.clickById(driver, "input_VeicoliAndata");
