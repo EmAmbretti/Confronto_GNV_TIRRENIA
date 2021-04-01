@@ -8,6 +8,7 @@ public class WebData {
 	CSVData csvData=CSVExtractor.getTestDataByOffer("TestCase1", Path.PATH);
 
 	private String sito;
+	private String collegamento;
 	private String tratta;
 	private String mese;
 	private String giorno;
@@ -20,6 +21,7 @@ public class WebData {
 	
 	public WebData(String sito) {
 		this.sito = sito;
+		collegamento = csvData.getCollegamento();
 		tratta = csvData.getTrattaAndata();
 		mese = csvData.getMeseAndata();
 		giorno = csvData.getGiornoAndata();
@@ -35,6 +37,12 @@ public class WebData {
 	}
 	public void setSito(String sito) {
 		this.sito = sito;
+	}
+	public String getCollegamento() {
+		return collegamento;
+	}
+	public void setCollegamento(String collegamento) {
+		this.collegamento=collegamento;
 	}
 	public String getTratta() {
 		return tratta;

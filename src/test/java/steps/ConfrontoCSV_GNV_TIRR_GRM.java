@@ -96,11 +96,6 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	    }   
 	}
 	
-	@When("^utente chiude browser GNV_TIRR_GRM$")
-	public void utente_chiude_browser() throws Throwable {
-		Thread.sleep(1000);
-	}
-	
 	@When("^utente apre browser TIRR GNV_TIRR_GRM$")
 	public void utente_apre_browser_TIRRENIA() throws Throwable {
 		System.out.println("Opening URL TIRRENIA");
@@ -120,18 +115,19 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	public void utente_inserisce_dati_viaggio() throws Throwable {
 		HomePage.cliccaTratte(driver);
 		Thread.sleep(1000);
-		HomePage.controlloTratta(driver, testData.getCollegamento());
+		HomePage.controlloTratta(driver, sitoTIRRENIA);
 		Thread.sleep(2000);
 		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[1]/div[2]/div[1]/label[2]");
 		Generic.clickById(driver, "tratte_andata");
 		Thread.sleep(2000);
-		HomePage.selezionaAndataTirrenia(driver, testData.getTrattaAndata());
+		HomePage.selezionaAndataTirrenia(driver, sitoTIRRENIA);
 		Thread.sleep(2000);
 		Generic.clickById(driver, "arrival");
 		Thread.sleep(2000);
-		HomePage.selezionaMeseTirrenia(driver, testData.getMeseAndata());
+		HomePage.selezionaMeseTirrenia(driver, sitoTIRRENIA);
 		Thread.sleep(2000);
-		HomePage.selezionaGiornoTirrenia(driver, testData.getGiornoAndata());
+		
+		HomePage.selezionaGiornoTirrenia(driver, sitoTIRRENIA);
 		Generic.clickById(driver, "input_NumeroPaxAndata");
 		Generic.clickByXPath(driver, "//*[@id=\"select_NumeroAdultiTipo2Andata\"]");
 		Thread.sleep(2000);
