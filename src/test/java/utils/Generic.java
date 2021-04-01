@@ -80,7 +80,15 @@ public class Generic {
 	}
 	
 	public static Double confrontoPrezzi(WebDriver driver, Double importo1,String nomeSitoImp1,Double importo2,String nomeSitoImp2, Double importo3, String nomeSitoImp3) {
-
+		if(importo1==null) {
+			importo1=Double.MAX_VALUE;
+		}
+		if(importo2==null) {
+			importo2=Double.MAX_VALUE;
+		}
+		if(importo3==null) {
+			importo3=Double.MAX_VALUE;
+		}
 		if(importo1 > importo2) {
 			if(importo2 > importo3) {
 				System.out.println("L'importo minore è: " + importo3 + " € del sito "+nomeSitoImp3+"." );
@@ -109,7 +117,7 @@ public class Generic {
 
 	}
 	
-	public static void generaFileTxt(String tipologia, String tratta, String mese,String giorno, String passAdulti, String passBambini, String passAnimali, String veicolo,Double prezzoTirrenia, Double prezzoGNV,Double prezzoGrimaldi,Double prezzoMigliore) {
+	public static void generaFileTxt(String tipologia, WebData sito1, WebData sito2, WebData sito3 ,Double prezzoTirrenia, Double prezzoGNV,Double prezzoGrimaldi,Double prezzoMigliore) {
 		String path=new File ("reportFiles\\").getAbsolutePath();
 		File itinerario = new File(path+"\\" + "ConfrontoPrezzi.txt");
 		LocalDate data=LocalDate.now();
@@ -119,9 +127,26 @@ public class Generic {
 		try {
 			FileWriter fw = new FileWriter(itinerario,true);
 			BufferedWriter bw= new BufferedWriter(fw);
-			bw.append("DATA: "+data+" ORE: "+timeStr+"\nCASO DI TEST: "+tipologia+"\nTRATTA: "+tratta+ "\nMESE: "+mese+"\nGIORNO: "+giorno+"\nNUMERO PASSEGGERI ADULTI: "+passAdulti+"\nNUMERO PASSEGGERI BAMBINI: "+passBambini+"\nNUMERO PASSEGGERI ANIMALI: "+passAnimali+"\nVEICOLO: "+veicolo
-					+"\nPREZZO TIRRENIA: "+prezzoTirrenia+" - PREZZO GNV: "+prezzoGNV+" - PREZZO GRIMALDI: "+prezzoGrimaldi+"\nPREZZO CONVENIENTE: "+prezzoMigliore+"\n\n-------------------------------------------------------------------\n\n");
+			bw.append("DATA: "+data+" ORE: "+timeStr+"\nCASO DI TEST: "+tipologia+"\nTRATTA: "+sito1.getTratta()+ "\nMESE: "+sito1.getMese()+"\nGIORNO: "+sito1.getGiorno()+"\nNUMERO PASSEGGERI ADULTI: "+sito1.getAdulti()+"\nNUMERO PASSEGGERI BAMBINI: "+sito1.getBambini()+"\nNUMERO PASSEGGERI ANIMALI: "+sito1.getAnimali()+"\nVEICOLO: "+sito1.getVeicolo());
+			if(sito1.getDisponibilita()==null) {
+				bw.append("\nPREZZO GNV: "+prezzoGNV);
+			}else {
+				bw.append("\nNon è stato possibile rilasciare un preventivo per GNV per il seguente motivo: "+sito1.getDisponibilita());
+			}
+			if(sito2.getDisponibilita()==null) {
+				bw.append("\nPREZZO TIRRENIA: "+prezzoTirrenia);
+			}else {
+				bw.append("\nNon è stato possibile rilasciare un preventivo per TIRRENIA per il seguente motivo: "+sito2.getDisponibilita());
+			}
+			if(sito3.getDisponibilita()==null) {
+				bw.append("\nPREZZO GRIMALDI: "+prezzoGrimaldi);
+			}else {
+				bw.append("\nNon è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: "+sito3.getDisponibilita());
+			}
+			bw.append("\n\n-------------------------------------------------------------------\n\n");
 			bw.close();
+			
+			//impostare la scrittura dei singoli siti controllando la disponibilita (se è null o meno)
 			
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -1,8 +1,11 @@
 package model;
 
+import utils.CSVExtractor;
+import utils.Path;
+
 public class WebData {
 	
-	CSVData csvData;
+	CSVData csvData=CSVExtractor.getTestDataByOffer("GNVTIRR1PNAPPAL", Path.PATH);
 
 	private String sito;
 	private String tratta;
@@ -81,7 +84,7 @@ public class WebData {
 	public void setPrezzo(String prezzo) {
 		this.prezzo = prezzo;
 	}
-	public String isDisponibilita() {
+	public String getDisponibilita() {
 		return disponibilita;
 	}
 	public void setDisponibilita(String disponibilita) {

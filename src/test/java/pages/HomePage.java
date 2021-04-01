@@ -7,6 +7,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import model.WebData;
 import utils.Generic;
 
 public class HomePage {
@@ -36,41 +37,44 @@ public class HomePage {
 		
 	}
 	
-	public static void cliccaContinua(WebDriver driver) {
-		driver.findElement(By.xpath("//button[@class='btn btn-lg gnv-btn widget-button next']/span[contains(.,'Continua')]")).click();
-	
+	public static void cliccaContinua(WebDriver driver, WebData sito) {
+		if(sito.getDisponibilita()==null) {
+			driver.findElement(By.xpath("//button[@class='btn btn-lg gnv-btn widget-button next']/span[contains(.,'Continua')]")).click();
+		}	
 	}
 	
 	public static void cliccaFrecciaAvanti(WebDriver driver) {
 		driver.findElement(By.xpath("//i[@class='gnv-fe-icon-arrow-light-right']")).click();
 	}
 	
-	public static void controlloMese(WebDriver driver, String month) {
-		do {
-			WebElement element = driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[1]/span"));
-			if(element.getText().contains(month)) {
-				break;
-			}else {
-				cliccaFrecciaAvanti(driver);
-			}
-		}while(true);
-		
+	public static void controlloMese(WebDriver driver, WebData sito) {
+		if(sito.getDisponibilita()==null) {
+			do {
+				WebElement element = driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[1]/span"));
+				if(element.getText().contains(sito.getMese())) {
+					break;
+				}else {
+					cliccaFrecciaAvanti(driver);
+				}
+			}while(true);
+		}
 	}
 	
-	public static void cliccaDataScelta(WebDriver driver, String giorno) throws Throwable {
-		for(int j=1;j<=5;j++) {
-			for(int i=1;i<=7;i++) {
-				WebElement element= driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div["+j+"]/div["+i+"]/div"));
-				if(element.getText().equals(giorno)) {
-					Thread.sleep(2000);
-					try {
-						element.click();
-						break;
-					} catch (Exception e) {
-						System.out.println("La data selezionata non è valida!");
-						driver.close();
+	public static void cliccaDataScelta(WebDriver driver, WebData sito) throws Throwable {
+		if(sito.getDisponibilita()==null) {
+			for(int j=1;j<=5;j++) {
+				for(int i=1;i<=7;i++) {
+					WebElement element= driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div["+j+"]/div["+i+"]/div"));
+					if(element.getText().equals(sito.getGiorno())) {
+						Thread.sleep(2000);
+						try {
+							element.click();
+							break;
+						} catch (Exception e) {
+							sito.setDisponibilita("Il giorno scelto non è disponibile per questo sito");
+						}
+
 					}
-					
 				}
 			}
 		}
@@ -88,8 +92,10 @@ public class HomePage {
 		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[3]/app-booking-wizard-step3/div/div/app-travel-viewer-numbers/div/div[2]/div[1]/app-counter-wrapper[4]/div/app-counter/div/button[2]")).click();
 	}
 	
-	public static void cliccaTastoCerca(WebDriver driver) {
-		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-summary-booking-bar/div/div[2]")).click();
+	public static void cliccaTastoCerca(WebDriver driver,WebData sito) {
+		if(sito.getDisponibilita()==null) {
+			driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-summary-booking-bar/div/div[2]")).click();
+		}
 	
 	}
 	
@@ -122,17 +128,18 @@ public class HomePage {
 		
 	}
 	
-	public static void inserisciPersone(WebDriver driver, String adulti, String bambini,String animali) {
-		for(int i=0;i<Integer.valueOf(adulti);i++) {
-			cliccaTastoPiuAdulti(driver);
-		}
-		for(int i=0;i<Integer.valueOf(bambini);i++) {
-			cliccaTastoPiuBambini(driver);
-		}
-		for(int i=0;i<Integer.valueOf(animali);i++) {
-			cliccaTastoPiuAnimali(driver);
-		}
-		
+	public static void inserisciPersone(WebDriver driver, WebData sito) {
+		if(sito.getDisponibilita()==null) {
+			for(int i=0;i<Integer.valueOf(sito.getAdulti());i++) {
+				cliccaTastoPiuAdulti(driver);
+			}
+			for(int i=0;i<Integer.valueOf(sito.getBambini());i++) {
+				cliccaTastoPiuBambini(driver);
+			}
+			for(int i=0;i<Integer.valueOf(sito.getAnimali());i++) {
+				cliccaTastoPiuAnimali(driver);
+			}
+		}	
 	}
 	
 	public static void controlloTratta(WebDriver driver, String tratta) {
@@ -209,8 +216,8 @@ public class HomePage {
 		}
 	}
 	
-	public static void selezionaTrattaGNV(WebDriver driver, String tratta) throws Throwable{
-		String[] tratte=tratta.split(" - ");
+	public static void selezionaTrattaGNV(WebDriver driver, WebData sito) throws Throwable{
+		String[] tratte=sito.getTratta().split(" - ");
 		String partenza=tratte[0];
 		String arrivo=tratte[1];
 		try {
@@ -221,7 +228,7 @@ public class HomePage {
 		elementList.get(elementList.size()-1).click();
 		} catch (Exception e) {
 			e.printStackTrace();
-			String errore = "La tratta scelta non è dispobibile.";
+			sito.setDisponibilita("La tratta non è disponibile per questo sito.");
 		}
 		
 	}

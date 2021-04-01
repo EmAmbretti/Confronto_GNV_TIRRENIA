@@ -6,14 +6,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import model.WebData;
 import utils.Generic;
 
 public class RecuperaImporto {
 	
-	public static String recuperaImporto(WebDriver driver) {
-		String importo = driver.findElement(By.xpath("//*[@id=\"cartDropdown\"]/span")).getText();
-		return importo;
-		
+	public static void recuperaImporto(WebDriver driver, WebData sito) {
+		if(sito.getDisponibilita()==null) {
+			String importo = driver.findElement(By.xpath("//*[@id=\"cartDropdown\"]/span")).getText();
+			sito.setPrezzo(importo);
+		}
+					
 	}
 
 	public static String recuperaImportoGrimaldi(WebDriver driver, String giorno, String mese) throws Throwable{
