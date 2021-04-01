@@ -11,7 +11,7 @@ public class WebData {
 	private String animali;
 	private String veicolo;
 	private String prezzo;
-	private boolean disponibilità;
+	private String disponibilità;
 	
 	
 	
@@ -71,10 +71,10 @@ public class WebData {
 	public void setPrezzo(String prezzo) {
 		this.prezzo = prezzo;
 	}
-	public boolean isDisponibilità() {
+	public String isDisponibilità() {
 		return disponibilità;
 	}
-	public void setDisponibilità(boolean disponibilità) {
+	public void setDisponibilità(String disponibilità) {
 		this.disponibilità = disponibilità;
 	}
 	

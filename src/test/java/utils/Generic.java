@@ -123,28 +123,23 @@ public class Generic {
 	}
 	
 	public static void generaFileTxt(String tipologia, String tratta, String mese,String giorno, String passAdulti, String passBambini, String passAnimali, String veicolo,Double prezzoTirrenia, Double prezzoGNV,Double prezzoGrimaldi,Double prezzoMigliore) {
-		int numero=1;
-		boolean flag=false;
 		String path=new File ("reportFiles\\").getAbsolutePath();
-		File itinerario = new File(path+"\\" + "File" + numero + ".txt");
+		File itinerario = new File(path+"\\" + "ConfrontoPrezzi.txt");
 		try {
 			//File myObj = new File(path);
-			
-			
-			do {	
-				if (itinerario.exists()) {
-					numero ++;					
-					itinerario = new File(path+"\\" + "File" + numero + ".txt");
-				} else {
-					FileWriter fw = new FileWriter(itinerario);
-					BufferedWriter bw= new BufferedWriter(fw);
-					bw.write("ITINERARIO: "+tipologia+"\nTRATTA: "+tratta+ "\nMESE: "+mese+"\nGIORNO: "+giorno+"\nNUMERO PASSEGGERI ADULTI: "+passAdulti+"\nNUMERO PASSEGGERI BAMBINI: "+passBambini+"\nNUMERO PASSEGGERI ANIMALI: "+passAnimali+"\nVEICOLO: "+veicolo
-					+"\nPREZZO TIRRENIA: "+prezzoTirrenia+" - PREZZO GNV: "+prezzoGNV+" - PREZZO GRIMALDI: "+prezzoGrimaldi+"\nPREZZO CONVENIENTE: "+prezzoMigliore);
-					bw.flush();
-					bw.close();
-					flag=true;
-				}
-			}while(!flag);
+
+
+
+
+			FileWriter fw = new FileWriter(itinerario);
+			BufferedWriter bw= new BufferedWriter(fw);
+			bw.append("ITINERARIO: "+tipologia+"\nTRATTA: "+tratta+ "\nMESE: "+mese+"\nGIORNO: "+giorno+"\nNUMERO PASSEGGERI ADULTI: "+passAdulti+"\nNUMERO PASSEGGERI BAMBINI: "+passBambini+"\nNUMERO PASSEGGERI ANIMALI: "+passAnimali+"\nVEICOLO: "+veicolo
+					+"\nPREZZO TIRRENIA: "+prezzoTirrenia+" - PREZZO GNV: "+prezzoGNV+" - PREZZO GRIMALDI: "+prezzoGrimaldi+"\nPREZZO CONVENIENTE: "+prezzoMigliore+"\n\n-------------------------------------------------------------------\n\n");
+			bw.flush();
+			bw.close();
+
+
+
 //			String path = "C:\\Users\\mirko.terracciano\\Desktop\\Nuova cartella (2)\\nuovoFile.txt";
 //			try {
 //			File file = new File(path);
