@@ -172,7 +172,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		HomePage.scegliDataGrimaldi(driver, sitoGRIMALDI);
 		HomePage.aggiungiSistemazioniPasseggeriGrimaldi(driver, sitoGRIMALDI);
 		HomePage.selezionaAnimaliGrimaldi(driver, sitoGRIMALDI);
-		HomePage.cliccaRicercaGrimaldi(driver, sitoGRIMALDI);
+		HomePage.cliccaRicercaGrimaldi(driver, sitoGRIMALDI); 
 	}
 
 	@When("^recupera prezzo GRM GNV_TIRR_GRM$")
