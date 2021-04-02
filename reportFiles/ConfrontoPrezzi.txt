@@ -258,3 +258,35 @@ PREZZO MIGLIORE: 1.7976931348623157E308 DEL SITO: GRIMALDI
 
 -------------------------------------------------------------------
 
+DATA: 2021-04-02 ORE: 11:26
+CASO DI TEST: TestCase1
+TRATTA: Civitavecchia - Olbia
+MESE: Agosto
+GIORNO: 5
+NUMERO PASSEGGERI ADULTI: 2
+NUMERO PASSEGGERI BAMBINI: 2
+NUMERO PASSEGGERI ANIMALI: 1
+VEICOLO: No
+PREZZO GNV: null
+PREZZO TIRRENIA: null
+PREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: la sistemazione "null" non è disponibile.
+PREZZO MIGLIORE: 1.7976931348623157E308 DEL SITO: GRIMALDI
+
+-------------------------------------------------------------------
+
+DATA: 2021-04-02 ORE: 11:30
+CASO DI TEST: TestCase1
+TRATTA: Civitavecchia - Olbia
+MESE: Agosto
+GIORNO: 5
+NUMERO PASSEGGERI ADULTI: 2
+NUMERO PASSEGGERI BAMBINI: 2
+NUMERO PASSEGGERI ANIMALI: 1
+VEICOLO: No
+PREZZO GNV: null
+PREZZO TIRRENIA: null
+PREZZO GRIMALDI: 276.0
+PREZZO MIGLIORE: 276.0 DEL SITO: GRIMALDI
+
+-------------------------------------------------------------------
+

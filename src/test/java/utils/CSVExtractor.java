@@ -23,9 +23,7 @@ public class CSVExtractor {
 				CSVData csvObject = new CSVData();
 				
 				csvObject.setTipologia(list.get(x)[0]);
-				if (!csvObject.getTipologia().contains("GNVGRIMALDI")) {
-					csvObject.setCollegamento(list.get(x)[1]);	
-				}
+				csvObject.setCollegamento(list.get(x)[1]);	
 				csvObject.setTrattaAndata(list.get(x)[2]);
 				csvObject.setMeseAndata(list.get(x)[3]);
 				csvObject.setGiornoAndata(list.get(x)[4]);
@@ -33,6 +31,7 @@ public class CSVExtractor {
 				csvObject.setPasseggeriBambini(list.get(x)[6]);
 				csvObject.setPasseggeriAnimali(list.get(x)[7]);
 				csvObject.setVeicolo(list.get(x)[8]);
+				csvObject.setSistemazione(list.get(x)[9]);
 
 				datiOfferte.add(csvObject);
 			}
