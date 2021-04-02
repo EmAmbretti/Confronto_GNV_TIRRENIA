@@ -85,7 +85,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	@When("^utente apre browser TIRR GNV_TIRR_GRM$")
 	public void utente_apre_browser_TIRRENIA() throws Throwable {
-		Generic.utente_apre_browser(driver, "www.tirrenia-prenotazioni.it", sitoTIRRENIA.getSito());
+		Generic.utente_apre_browser(driver, "https://www.tirrenia-prenotazioni.it", sitoTIRRENIA.getSito());
 		
 	}
 	

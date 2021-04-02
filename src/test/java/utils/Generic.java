@@ -144,16 +144,18 @@ public class Generic {
 			}else {
 				bw.append("\nPREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: "+sito3.getDisponibilita());
 			}
-			bw.append("\nPREZZO MIGLIORE: "+prezzoMigliore+" DEL SITO: ");
-			if(prezzoMigliore==prezzoGNV) {
-				bw.append(sito1.getSito());
-			}else if(prezzoMigliore==prezzoTirrenia) {
-				bw.append(sito2.getSito());
+			if(prezzoMigliore!=Double.MAX_VALUE) {
+				bw.append("\nPREZZO MIGLIORE: "+prezzoMigliore+" DEL SITO: ");
+				if(prezzoMigliore==prezzoGNV) {
+					bw.append(sito1.getSito());
+				}else if(prezzoMigliore==prezzoTirrenia) {
+					bw.append(sito2.getSito());
+				}else {
+					bw.append(sito3.getSito());
+				}
 			}else {
-				bw.append(sito3.getSito());
+				bw.append("\nNon è stato possibile rilasciare un preventivo.");
 			}
-			
-			
 			bw.append("\n\n-------------------------------------------------------------------\n\n");
 			bw.close();
 			

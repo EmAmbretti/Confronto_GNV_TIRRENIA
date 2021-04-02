@@ -5,7 +5,7 @@ import utils.Path;
 
 public class WebData {
 	
-	CSVData csvData=CSVExtractor.getTestDataByOffer("TestCase1", Path.PATH);
+	CSVData csvData=CSVExtractor.getTestDataByOffer("TestCase7", Path.PATH);
 
 	private String sito;
 	private String collegamento;

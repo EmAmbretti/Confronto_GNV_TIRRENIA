@@ -320,7 +320,7 @@ public class HomePage {
 		Thread.sleep(2000);
 		} catch (Exception e) {
 			e.printStackTrace();
-			sito.setDisponibilita("La tratta non è disponibile per questo sito.");
+			sito.setDisponibilita("la tratta per questo sito non è disponibile.");
 		}
 		
 	}

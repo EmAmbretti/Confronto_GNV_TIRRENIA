@@ -28,6 +28,7 @@ public class RecuperaImporto {
 	public static String recuperaImportoGrimaldi(WebDriver driver, WebData sito) throws Throwable{
 		String giorno = null;
 		boolean flag=false;
+		String prezzoGrimaldi= null;
 		if(sito.getDisponibilita() == null) {
 			do {
 				try {
@@ -59,7 +60,12 @@ public class RecuperaImporto {
 			Thread.sleep(1000);
 			Generic.clickById(driver, "nextstep");
 			Thread.sleep(5000);
-			String prezzoGrimaldi=driver.findElement(By.xpath("//*[@id=\"frm-SPECIAL\"]/div/div[2]/div[2]/div[1]")).getText();
+			try {
+				prezzoGrimaldi=driver.findElement(By.xpath("//*[@id=\"frm-SPECIAL\"]/div/div[2]/div[2]/div[1]")).getText();
+			}catch(org.openqa.selenium.NoSuchElementException e) {
+				prezzoGrimaldi=driver.findElement(By.xpath("//*[@id=\"frm-STANDARD\"]/div/div[2]/div[2]/div[1]")).getText();
+			}
+			
 			System.out.println(prezzoGrimaldi);
 			return prezzoGrimaldi;
 		} else {

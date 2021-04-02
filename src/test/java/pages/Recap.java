@@ -100,7 +100,6 @@ public class Recap {
 			}catch(org.openqa.selenium.NoSuchElementException e) {
 				sito.setDisponibilita("La tratta non è disponibile per questo sito.");
 			}
-			
 		}
 	}
 
