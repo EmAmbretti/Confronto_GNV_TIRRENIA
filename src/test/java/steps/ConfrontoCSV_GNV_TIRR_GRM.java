@@ -29,7 +29,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	@Given("^utente apre browser GNV GNV_TIRR_GRM$")
 	public void utente_apre_browser_GNV() throws Throwable {
-		Generic.utente_apre_browser(driver);
+		Generic.utente_apre_browser(driver, "https://www.gnv.it/it", sitoGNV.getSito());
 	}
 
 	@When("^utente chiude popup GNV_TIRR_GRM$") 
@@ -53,37 +53,24 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	@When("^utente compila campi GNV_TIRR_GRM$")
 	public void utente_compila_campi() throws Throwable {
 		HomePage.selezionaViaggio(driver);
-	    
-	    HomePage.cliccaSoloAndata(driver);
-	    
-	    HomePage.selezionaTrattaGNV(driver, sitoGNV);
-	    HomePage.cliccaContinua(driver, sitoGNV);
-
-	    HomePage.controlloMese(driver, sitoGNV); 
- 
-	    HomePage.cliccaDataScelta(driver,sitoGNV);
-
-	    HomePage.cliccaContinua(driver, sitoGNV);
- 
-	    HomePage.inserisciPasseggeriGNV(driver, sitoGNV);
-
-	    HomePage.cliccaContinua(driver, sitoGNV);
-
-	    HomePage.cliccaTastoCerca(driver, sitoGNV);
+		HomePage.cliccaSoloAndata(driver);
+		HomePage.selezionaTrattaGNV(driver, sitoGNV);
+		HomePage.cliccaContinua(driver, sitoGNV);
+		HomePage.controlloMese(driver, sitoGNV); 
+		HomePage.cliccaDataScelta(driver,sitoGNV);
+		HomePage.cliccaContinua(driver, sitoGNV);
+		HomePage.inserisciPasseggeriGNV(driver, sitoGNV);
+		HomePage.cliccaContinua(driver, sitoGNV);
+		HomePage.cliccaTastoCerca(driver, sitoGNV);
 
 	}
 
 	@When("^utente seleziona sistemazione GNV_TIRR_GRM$")
 	public void utente_seleziona_sistemazione() throws Throwable {
-
 		Recap.selezionaSistemazione(driver, sitoGNV);
-		
 		Recap.cliccaTastoContinua(driver, sitoGNV);
-		
 		Recap.cliccaTastoContinuaSenzaServizi(driver, sitoGNV);
-		
 		Recap.cliccaTastoContinuaSenzaAssicurazione(driver, sitoGNV);
-		
 		
 	}
 
@@ -98,36 +85,25 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	@When("^utente apre browser TIRR GNV_TIRR_GRM$")
 	public void utente_apre_browser_TIRRENIA() throws Throwable {
-		System.out.println("Opening URL TIRRENIA");
-		driver.get("https://www.tirrenia-prenotazioni.it/");
-		driver.manage().window().maximize();
-		Thread.sleep(5000);
+		Generic.utente_apre_browser(driver, "www.tirrenia-prenotazioni.it", sitoTIRRENIA.getSito());
 		
 	}
 	
 	@When("^utente bypassa frame TIRR GNV_TIRR_GRM$")
 	public void utente_bypassa_frame() throws Throwable {
-		HomePage.bypassFrame(driver);
-		Thread.sleep(3000);
+		HomePage.bypassFrame(driver);	
 	}
 	
 	@When("^utente inserisce dati viaggio TIRR GNV_TIRR_GRM$")
 	public void utente_inserisce_dati_viaggio() throws Throwable {
-		HomePage.cliccaTratte(driver);
-		Thread.sleep(1000);
-		HomePage.controlloTratta(driver, sitoTIRRENIA);
-		Thread.sleep(2000);
-		Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[1]/div[2]/div[1]/label[2]");
-		Generic.clickById(driver, "tratte_andata");
-		Thread.sleep(2000);
+		HomePage.cliccaCollegamentoTirrenia(driver);
+		HomePage.controlloCollegamentoTirrenia(driver, sitoTIRRENIA);
+		HomePage.checkboxTirrenia(driver, sitoTIRRENIA);
+		HomePage.cliccaTratteTirrenia(driver, sitoTIRRENIA);
 		HomePage.selezionaAndataTirrenia(driver, sitoTIRRENIA);
-		Thread.sleep(2000);
-		Generic.clickById(driver, "arrival");
-		Thread.sleep(2000);
+		HomePage.cliccaCalendario(driver, sitoTIRRENIA);
 		HomePage.selezionaMeseTirrenia(driver, sitoTIRRENIA);
-		Thread.sleep(2000);		
 		HomePage.selezionaGiornoTirrenia(driver, sitoTIRRENIA);
-		Thread.sleep(2000);
 		HomePage.selezionaPasseggeriTirrenia(driver, sitoTIRRENIA);
 		HomePage.formVeicoloTirrenia(driver, sitoTIRRENIA);
 		HomePage.cliccaCercaTirrenia(driver, sitoTIRRENIA);
@@ -146,10 +122,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	@When("^utente apre browser GRM GNV_TIRR_GRM$")
 	public void utente_apre_browser_GRM_GNV_TIRR_GRM() throws Throwable {
-		System.out.println("Opening URL GRIMALDI");
-		driver.get("https://www.grimaldi-lines.com/it/");
-		driver.manage().window().maximize();
-		Thread.sleep(5000);
+		Generic.utente_apre_browser(driver, "https://www.grimaldi-lines.com/it", sitoGRIMALDI.getSito());
 	}
 
 	@When("^utente bypassa frame GRM GNV_TIRR_GRM$")
@@ -163,7 +136,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	@When("^utente inserisce dati viaggio GRM GNV_TIRR_GRM$")
 	public void utente_inserisce_dati_viaggio_GRM_GNV_TIRR_GRM() throws Throwable {
 		HomePage.cliccaSoloAndataGrimaldi(driver);
-		Generic.clickById(driver, "start-route");		
+		Generic.clickById(driver, "start-route");
 		HomePage.selezionaAndataGrimaldi(driver, sitoGRIMALDI);	
 		HomePage.cliccaSuDataGrimaldi(driver, sitoGRIMALDI);
 		HomePage.prenotaOraGrimaldi(driver, sitoGRIMALDI);

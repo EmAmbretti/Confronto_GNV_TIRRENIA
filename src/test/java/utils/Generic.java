@@ -21,11 +21,12 @@ import org.openqa.selenium.WebElement;
 
 public class Generic {
 	
-	public static void utente_apre_browser(WebDriver driver) {
+	public static void utente_apre_browser(WebDriver driver, String url, String nomeSito) throws Throwable {
 		driver = BeforeAndAfter.driver;
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOpening URL GNV");
-		driver.get("https://www.gnv.it/it");
+		System.out.println("Opening URL: " + nomeSito);
+		driver.get(url);
 		driver.manage().window().maximize();
+		Thread.sleep(4000);
 		
 	}
 	
@@ -119,7 +120,7 @@ public class Generic {
 	
 	public static void generaFileTxt(String tipologia, WebData sito1, WebData sito2, WebData sito3 ,Double prezzoTirrenia, Double prezzoGNV,Double prezzoGrimaldi,Double prezzoMigliore) {
 		String path=new File ("reportFiles\\").getAbsolutePath();
-		File itinerario = new File(path+"\\" + "ConfrontoPrezzi.txt");
+		File itinerario = new File(path+"\\" + Path.CONFRONTO);
 		LocalDate data=LocalDate.now();
 		LocalTime time=LocalTime.now();
 		String timeStr=String.valueOf(time);

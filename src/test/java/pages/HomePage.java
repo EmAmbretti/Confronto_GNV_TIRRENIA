@@ -103,9 +103,9 @@ public class HomePage {
 		
 	}
 	
-	public static void bypassFrame(WebDriver driver) {
+	public static void bypassFrame(WebDriver driver) throws Throwable {
 		driver.switchTo().frame("tlines").findElement(By.id("ContentPlaceHolder1_motore_ddl_destinazioni")).click();
-		
+		Thread.sleep(3000);
 	}
 	
 	public static void scrollDropListById(WebDriver driver, String id, int ripetizioni) {
@@ -147,18 +147,13 @@ public class HomePage {
 		}	
 	}
 	
-	public static void controlloTratta(WebDriver driver, WebData sito) {
+	public static void controlloCollegamentoTirrenia(WebDriver driver, WebData sito) throws Throwable {
 		for(int i=1;i<=4;i++) {
 			WebElement element = driver.findElement(By.xpath("//*[@id=\"ContentPlaceHolder1_motore_ddl_destinazioni\"]/option["+i+"]"));
 			if(element.getText().equalsIgnoreCase(sito.getCollegamento())) {
 				element.click();
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-
-				}
-				break;
-				
+				Thread.sleep(2000);
+				break;				
 			}
 			if(i==4) {
 				sito.setDisponibilita("Collegamento non disponibile per questo sito.");
@@ -166,8 +161,22 @@ public class HomePage {
 		}
 	}
 	
-	public static void cliccaTratte(WebDriver driver) {
+	public static void checkboxTirrenia(WebDriver driver, WebData sito) throws Throwable {
+		if(sito.getDisponibilita() == null) {
+			Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[1]/div[2]/div[1]/label[2]");
+		}
+	}
+	
+	public static void cliccaTratteTirrenia(WebDriver driver, WebData sito) throws Throwable {
+		if(sito.getDisponibilita() == null) {
+			Generic.clickById(driver, "tratte_andata");
+			Thread.sleep(2000);
+		}
+	}
+	
+	public static void cliccaCollegamentoTirrenia(WebDriver driver) throws Throwable {
 		driver.findElement(By.id("ContentPlaceHolder1_motore_ddl_destinazioni"));
+		Thread.sleep(1000);
 	}
 	
 	public static void selezionaAndataTirrenia(WebDriver driver, WebData sito) throws Throwable{
@@ -175,12 +184,20 @@ public class HomePage {
 			try {
 				driver.findElement(By.xpath("//*[@id=\"tratte_andata\"]/optgroup/option[contains(text(),'"+sito.getTratta()+"')]")).click();
 			}catch(Exception e) {
-				sito.setDisponibilita("La tratta non è disponibile per questo sito.");
+				sito.setDisponibilita("la tratta per questo sito non è disponibile.");
 			}
+			Thread.sleep(2000);
 		}
 	}
 	
-	public static void selezionaMeseTirrenia(WebDriver driver, WebData sito){
+	public static void cliccaCalendario(WebDriver driver, WebData sito) throws Throwable {
+		if(sito.getDisponibilita()==null) {
+			Generic.clickById(driver, "arrival");
+			Thread.sleep(2000);
+		}
+	}
+	
+	public static void selezionaMeseTirrenia(WebDriver driver, WebData sito) throws Throwable{
 		if(sito.getDisponibilita()==null) {
 			for(int i=1;i<=12;i++) {
 				WebElement element = driver.findElement(By.xpath("//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]/option["+i+"]"));
@@ -198,6 +215,7 @@ public class HomePage {
 					System.out.println("Il mese inserito non è valido!");
 				}
 			}
+			Thread.sleep(2000);
 		}
 	}
 	
@@ -222,6 +240,7 @@ public class HomePage {
 					break;
 				}
 			}
+			Thread.sleep(2000);
 		}
 	}
 	
