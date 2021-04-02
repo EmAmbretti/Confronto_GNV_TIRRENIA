@@ -320,36 +320,59 @@ public class HomePage {
 		
 	}
 	
-	public static void selezionaMeseGrimaldi(WebDriver driver, String text){
-		text=text.substring(0, 3);
+	public static void scegliDataGrimaldi(WebDriver driver, WebData sito) throws Throwable {
+		if(sito.getDisponibilita() == null) {
+			Generic.clickById(driver, "dateLeg1");
+			Thread.sleep(1000);
+			Generic.clickByXPath(driver, "//*[@id=\"ui-datepicker-div\"]/div/div/select[1]");
+			selezionaMeseGrimaldi(driver, sito);			
+		}
+		if(sito.getDisponibilita() == null) {
+			selezionaGiornoGimaldi(driver, sito);
+			Thread.sleep(5000);
+		}
+		
+	}
+	
+	private static void selezionaMeseGrimaldi(WebDriver driver, WebData sito){
+		String meseGrimaldi = sito.getMese().substring(0, 3);
 		for(int i=1;i<=12;i++) {
 			WebElement element = driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/div/select[1]/option[" + i + "]"));
-			if(element.getText().equalsIgnoreCase(text)) {
+			if(element.getText().equalsIgnoreCase(meseGrimaldi)) {
 				try {
 					element.click();
+					Thread.sleep(1000);
 					break;
 				}catch(Exception e) {
 					System.out.println("Il mese inserito non è valido!");
-					driver.close();
+					sito.setDisponibilita("Il mese inserito non è valido!");
 				}
-				
+
 			}
-			//i<dataOdierna.getMonthOfYear()
 			if(i==12) {
+				sito.setDisponibilita("Il mese inserito non è valido!");
 				System.out.println("Il mese inserito non è valido!");
 			}
 		}
+
+
 	}
-	public static void selezionaGiornoGimaldi(WebDriver driver,String giorno) throws Throwable{
+	
+	private static void selezionaGiornoGimaldi(WebDriver driver, WebData sito ) throws Throwable{
 		boolean controllo=false;
 		for(int i=1;i<=6;i++) {
 			for(int j=1;j<=7;j++) {
 				WebElement element=driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr["+i+"]/td["+j+"]"));
-				if(element.getText().equals(giorno)) {
-					Thread.sleep(2000);
-					element.click();
-					controllo=true;
-					break;
+				if(element.getText().equals(sito.getGiorno())) {
+					try {
+						element.click();
+						controllo=true;
+						break;
+					} catch(Exception e) {
+						sito.setDisponibilita("Il giorno inserito non è valido!");
+						break;
+					}
+					
 				}
 			}
 			if(controllo) {
@@ -358,16 +381,42 @@ public class HomePage {
 		}
 	}
 	
-	public static void selezionaSistemazioneGrimaldi(WebDriver driver) {
-		List<WebElement> elementList = driver.findElements(By.xpath("//ul/li[contains(text(),'Poltrona')]"));
-		elementList.get(0).click();
+	public static void aggiungiSistemazioniPasseggeriGrimaldi(WebDriver driver, WebData sito) throws Throwable {
+		if(sito.getDisponibilita() == null) {
+			selezionaSistemazioneGrimaldi(driver, sito);
+		}
+		if(sito.getDisponibilita() == null) {
+			inseriscoPasseggeriGrimaldi(driver, sito);			
+		}
+				
 	}
 	
-	public static void inseriscoPasseggeriGrimaldi(WebDriver driver, String adulti, String bambini) throws Throwable{
+	private static void selezionaSistemazioneGrimaldi(WebDriver driver, WebData sito) throws Throwable {
+		Generic.clickById(driver, "accLeg1Select");
+		Thread.sleep(2000);
+		try {
+			Generic.clickByXPath(driver, "//*[@id=\"accBox\"]/div/div[2]/span");
+		} catch (Exception e) {
+			sito.setDisponibilita("Nessuna sistemazione disponibile per i criteri selezionati.");
+		}
+		if(sito.getDisponibilita() == null) {
+			try {
+				List<WebElement> elementList = driver.findElements(By.xpath("//ul/li[contains(text(),'" + sito.getSistemazione() + "')]"));
+				elementList.get(0).click();
+			} catch (Exception e) {
+				sito.setDisponibilita("la sistemazione \"" + sito.getSistemazione() +"\" non è disponibile.");
+			}
+		}
+		
+	}
+	
+	private static void inseriscoPasseggeriGrimaldi(WebDriver driver, WebData sito) throws Throwable{
 		Generic.clickByXPath(driver, "//*[@id=\"boxTopAcc\"]/table[2]/tbody/tr[2]/td[1]/div/div[2]/b");
-		selezionaPasseggeriAdultiGrimaldi(driver, adulti);
+		selezionaPasseggeriAdultiGrimaldi(driver, sito.getAdulti());
 		Generic.clickByXPath(driver, "//*[@id=\"boxTopAcc\"]/table[2]/tbody/tr[2]/td[2]/div/div[2]/b");
-		selezionaPassaggeriBambiniGrimaldi(driver, bambini);
+		selezionaPassaggeriBambiniGrimaldi(driver, sito.getBambini());
+		Thread.sleep(2000);
+		Generic.clickById(driver, "createacc");
 	}
 	
 	private static void selezionaPasseggeriAdultiGrimaldi(WebDriver driver, String adulti) {
@@ -378,6 +427,7 @@ public class HomePage {
 			elementList.get(0).click();
 		}
 	}
+	
 	private static void selezionaPassaggeriBambiniGrimaldi(WebDriver driver, String bambini) {
 		//table[2]/tbody/tr[2]/td[2]/div/div[3]/div/ul/li[contains(text(),'1')]
 		List<WebElement> elementList=driver.findElements(By.xpath("//table[2]/tbody/tr[2]/td[2]/div/div[3]/div/ul/li[contains(text(),'"+bambini+"')]"));
@@ -387,19 +437,30 @@ public class HomePage {
 			elementList.get(0).click();
 		}
 	}
-	public static void selezionaAnimaliGrimaldi(WebDriver driver, String animali) throws Throwable{
-		if(!animali.equals("0")) {
-			Generic.clickById(driver, "petLeg1Select");
-			Thread.sleep(2000);
-			Generic.clickByXPath(driver, "//div[7]/div/div[1]/table/tbody/tr[2]/td[2]/div/div/div[2]/b");
-			List<WebElement> elementList = driver.findElements(By.xpath("//div[7]/div/div[1]/table/tbody/tr[2]/td[2]/div/div/div[3]/div/ul/li[contains(text(),'"+animali+"')]"));
-			if(animali.equals("10")) {
-				elementList.get(1).click();
-			}else {
-				elementList.get(0).click();
+	
+	public static void selezionaAnimaliGrimaldi(WebDriver driver, WebData sito) throws Throwable{
+		if(sito.getDisponibilita() == null) {
+			if(!sito.getAnimali().equals("0")) {
+				Generic.clickById(driver, "petLeg1Select");
+				Thread.sleep(2000);
+				Generic.clickByXPath(driver, "//div[7]/div/div[1]/table/tbody/tr[2]/td[2]/div/div/div[2]/b");
+				List<WebElement> elementList = driver.findElements(By.xpath("//div[7]/div/div[1]/table/tbody/tr[2]/td[2]/div/div/div[3]/div/ul/li[contains(text(),'"+sito.getAnimali()+"')]"));
+				if(sito.getAnimali().equals("10")) {
+					elementList.get(1).click();
+				}else {
+					elementList.get(0).click();
+				}
+				Generic.clickByXPath(driver, "//div[7]/div/div[1]/div[2]/input");
 			}
-			Generic.clickByXPath(driver, "//div[7]/div/div[1]/div[2]/input");
-		}	
+		}
+			
+	}
+	
+	public static void cliccaRicercaGrimaldi(WebDriver driver, WebData sito) throws Throwable {
+		if(sito.getDisponibilita() == null) {
+			Generic.clickById(driver, "searchnow");
+			Thread.sleep(3000);
+		}
 	}
 	
 	public static void cliccaSuDataGrimaldi(WebDriver driver, WebData sito) throws Throwable {

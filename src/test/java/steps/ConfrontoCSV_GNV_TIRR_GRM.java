@@ -169,34 +169,20 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		HomePage.prenotaOraGrimaldi(driver, sitoGRIMALDI);
 		Recap.switchPage(driver,sitoGRIMALDI);
 		HomePage.chiudiPopupPag2Grimaldi(driver, sitoGRIMALDI);
-		
-		
-		
-
-		Generic.clickById(driver, "dateLeg1");
-		Thread.sleep(2000);
-		Generic.clickByXPath(driver, "//*[@id=\"ui-datepicker-div\"]/div/div/select[1]");
-		HomePage.selezionaMeseGrimaldi(driver, testData.getMeseAndata());
-		Thread.sleep(1000);
-		HomePage.selezionaGiornoGimaldi(driver, testData.getGiornoAndata());
-		Thread.sleep(5000);
-		Generic.clickById(driver, "accLeg1Select");
-		Thread.sleep(2000);
-		Generic.clickByXPath(driver, "//*[@id=\"accBox\"]/div/div[2]/span");
-		// il codice di sotto non è dinamico
-		HomePage.selezionaSistemazioneGrimaldi(driver);
-		HomePage.inseriscoPasseggeriGrimaldi(driver, testData.getPasseggeriAdulti(), testData.getPasseggeriBambini());
-		Generic.clickById(driver, "createacc");
-		HomePage.selezionaAnimaliGrimaldi(driver, testData.getPasseggeriAnimali());
-		Generic.clickById(driver, "searchnow");
-		Thread.sleep(3000);
+		HomePage.scegliDataGrimaldi(driver, sitoGRIMALDI);
+		HomePage.aggiungiSistemazioniPasseggeriGrimaldi(driver, sitoGRIMALDI);
+		HomePage.selezionaAnimaliGrimaldi(driver, sitoGRIMALDI);
+		HomePage.cliccaRicercaGrimaldi(driver, sitoGRIMALDI);
 	}
 
 	@When("^recupera prezzo GRM GNV_TIRR_GRM$")
 	public void recupera_prezzo_GRM_GNV_TIRR_GRM() throws Throwable {
-		String prezzoGrimaldi=RecuperaImporto.recuperaImportoGrimaldi(driver, testData.getGiornoAndata(), testData.getMeseAndata());
-		System.out.println("Prezzo sito GRIMALDI: " + prezzoGrimaldi);
-		prezzoGrimaldiNumerico=Double.parseDouble(prezzoGrimaldi.substring(1).replace(",", "."));
+		String prezzoGrimaldi=RecuperaImporto.recuperaImportoGrimaldi(driver, sitoGRIMALDI);
+		if(sitoGRIMALDI.getDisponibilita() == null) {
+			System.out.println("Prezzo sito GRIMALDI: " + prezzoGrimaldi);
+			prezzoGrimaldiNumerico=Double.parseDouble(prezzoGrimaldi.substring(1).replace(",", "."));
+		}
+		
 	}
 	
 	@Then("^confronto prezzi GNV_TIRR_GRM$")
