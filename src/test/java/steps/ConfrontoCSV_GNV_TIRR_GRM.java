@@ -21,7 +21,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	Double prezzoGNVNumerico, prezzoTirreniaNumerico, prezzoGrimaldiNumerico;
 	WebDriver driver = BeforeAndAfter.driver;
-	CSVData testData=CSVExtractor.getTestDataByOffer("TestCase1", Path.PATH);
+	CSVData testData=CSVExtractor.getTestDataByOffer("TestCase4", Path.PATH);
 	String nomeTest = testData.getTipologia();
 	WebData sitoGNV = new WebData("GNV",testData);
 	WebData	sitoTIRRENIA = new WebData("TIRRENIA",testData);

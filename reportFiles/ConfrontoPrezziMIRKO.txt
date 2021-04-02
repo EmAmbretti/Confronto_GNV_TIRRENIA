@@ -110,3 +110,99 @@ Non è stato possibile rilasciare un preventivo.
 
 -------------------------------------------------------------------
 
+DATA: 2021-04-02 ORE: 16:31
+CASO DI TEST: TestCase1
+TRATTA: Civitavecchia - Olbia
+MESE: Agosto
+GIORNO: 5
+NUMERO PASSEGGERI ADULTI: 2
+NUMERO PASSEGGERI BAMBINI: 2
+NUMERO PASSEGGERI ANIMALI: 1
+VEICOLO: No
+PREZZO GNV: 182.5
+PREZZO TIRRENIA: 289.52
+PREZZO GRIMALDI: 276.0
+PREZZO MIGLIORE: 182.5 DEL SITO: GNV
+
+-------------------------------------------------------------------
+
+DATA: 2021-04-02 ORE: 16:33
+CASO DI TEST: TestCase4
+TRATTA: Palermo - Genova
+MESE: Agosto
+GIORNO: 30
+NUMERO PASSEGGERI ADULTI: 1
+NUMERO PASSEGGERI BAMBINI: 0
+NUMERO PASSEGGERI ANIMALI: 1
+VEICOLO: No
+PREZZO GNV: Non è stato possibile rilasciare un preventivo per GNV per il seguente motivo: la sistemazione "Poltrona" non è disponibile.
+PREZZO TIRRENIA: Non è stato possibile rilasciare un preventivo per TIRRENIA per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: la tratta per questo sito non è disponibile.
+Non è stato possibile rilasciare un preventivo.
+
+-------------------------------------------------------------------
+
+DATA: 2021-04-02 ORE: 16:38
+CASO DI TEST: TestCase2
+TRATTA: Civitavecchia - Arbatax
+MESE: Settembre
+GIORNO: 11
+NUMERO PASSEGGERI ADULTI: 3
+NUMERO PASSEGGERI BAMBINI: 0
+NUMERO PASSEGGERI ANIMALI: 0
+VEICOLO: No
+PREZZO GNV: Non è stato possibile rilasciare un preventivo per GNV per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO TIRRENIA: Non è stato possibile rilasciare un preventivo per TIRRENIA per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: la tratta per questo sito non è disponibile.
+Non è stato possibile rilasciare un preventivo.
+
+-------------------------------------------------------------------
+
+DATA: 2021-04-02 ORE: 16:46
+CASO DI TEST: TestCase7
+TRATTA: Bari - Durazzo
+MESE: Giugno
+GIORNO: 23
+NUMERO PASSEGGERI ADULTI: 3
+NUMERO PASSEGGERI BAMBINI: 4
+NUMERO PASSEGGERI ANIMALI: 3
+VEICOLO: No
+PREZZO GNV: 222.22
+PREZZO TIRRENIA: Non è stato possibile rilasciare un preventivo per TIRRENIA per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO MIGLIORE: 222.22 DEL SITO: GNV
+
+-------------------------------------------------------------------
+
+DATA: 2021-04-02 ORE: 16:52
+CASO DI TEST: TestCase7
+TRATTA: Bari - Durazzo
+MESE: Giugno
+GIORNO: 23
+NUMERO PASSEGGERI ADULTI: 3
+NUMERO PASSEGGERI BAMBINI: 4
+NUMERO PASSEGGERI ANIMALI: 3
+VEICOLO: No
+PREZZO GNV: 222.22
+PREZZO TIRRENIA: Non è stato possibile rilasciare un preventivo per TIRRENIA per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO MIGLIORE: 222.22 DEL SITO: GNV
+
+-------------------------------------------------------------------
+
+DATA: 2021-04-02 ORE: 17:04
+CASO DI TEST: TestCase4
+TRATTA: Palermo - Genova
+MESE: Agosto
+GIORNO: 30
+NUMERO PASSEGGERI ADULTI: 3
+NUMERO PASSEGGERI BAMBINI: 0
+NUMERO PASSEGGERI ANIMALI: 1
+VEICOLO: No
+PREZZO GNV: 306.5
+PREZZO TIRRENIA: Non è stato possibile rilasciare un preventivo per TIRRENIA per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO MIGLIORE: 306.5 DEL SITO: GNV
+
+-------------------------------------------------------------------
+

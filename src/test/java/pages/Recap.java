@@ -26,13 +26,13 @@ public class Recap {
 	public static void selezionaSistemazione(WebDriver driver, WebData sito) throws Throwable {
 		if(sito.getDisponibilita()==null) {
 			int i=0;
-			JavascriptExecutor jse = (JavascriptExecutor)driver;
-			jse.executeScript("window.scrollBy(0,1120)");
-			Thread.sleep(4000);
+			//JavascriptExecutor jse = (JavascriptExecutor)driver;
+			//jse.executeScript("window.scrollBy(0,750)");
+			Thread.sleep(3000);
 			List<WebElement> listaTesti= driver.findElements(By.xpath("//div/app-card-solution/div/div[1]/div[2]/div[1]/div"));
 			List<WebElement> listaSeleziona = driver.findElements(By.xpath("//div/app-card-solution/div/div[2]/app-button"));
 			for(WebElement testo:listaTesti) {
-				if(testo.getText().equalsIgnoreCase(sito.getSistemazione())) {
+				if(testo.getText().substring(0, testo.getText().length()-2).equalsIgnoreCase(sito.getSistemazione().substring(0, sito.getSistemazione().length()-2))) {
 					listaSeleziona.get(i).click();
 					break;
 				}else {
