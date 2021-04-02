@@ -53,37 +53,37 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	@When("^utente compila campi GNV_TIRR_GRM$")
 	public void utente_compila_campi() throws Throwable {
 		HomePage.selezionaViaggio(driver);
-	    Thread.sleep(3000);
+	    
 	    HomePage.cliccaSoloAndata(driver);
-	    Thread.sleep(3000);	    
+	    
 	    HomePage.selezionaTrattaGNV(driver, sitoGNV);
 	    HomePage.cliccaContinua(driver, sitoGNV);
-	    Thread.sleep(3000);
+
 	    HomePage.controlloMese(driver, sitoGNV); 
-	    Thread.sleep(3000); 
+ 
 	    HomePage.cliccaDataScelta(driver,sitoGNV);
-	    Thread.sleep(3000);
+
 	    HomePage.cliccaContinua(driver, sitoGNV);
-	    Thread.sleep(3000); 
-	    HomePage.inserisciPersone(driver, sitoGNV);
-	    Thread.sleep(3000);
+ 
+	    HomePage.inserisciPasseggeriGNV(driver, sitoGNV);
+
 	    HomePage.cliccaContinua(driver, sitoGNV);
-	    Thread.sleep(3000);
+
 	    HomePage.cliccaTastoCerca(driver, sitoGNV);
-	    Thread.sleep(3000);
+
 	}
 
 	@When("^utente seleziona sistemazione GNV_TIRR_GRM$")
 	public void utente_seleziona_sistemazione() throws Throwable {
-		Thread.sleep(5000);
+
 		Recap.selezionaSistemazione(driver, sitoGNV);
-		Thread.sleep(3000);
+		
 		Recap.cliccaTastoContinua(driver, sitoGNV);
-		Thread.sleep(3000);
+		
 		Recap.cliccaTastoContinuaSenzaServizi(driver, sitoGNV);
-		Thread.sleep(3000);
+		
 		Recap.cliccaTastoContinuaSenzaAssicurazione(driver, sitoGNV);
-		Thread.sleep(3000);
+		
 		
 	}
 
@@ -135,7 +135,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	@When("^recupera prezzo TIRR GNV_TIRR_GRM$")
 	public void recupera_prezzo_Tirrenia() throws Throwable{
-		Recap.switchPage(driver,2,sitoTIRRENIA);
+		Recap.switchPage(driver,sitoTIRRENIA);
 		Recap.controlloDisponibilitaPoltrona(driver, sitoTIRRENIA);
 		RecuperaImporto.recuperaImportoTIRRENIA(driver, sitoTIRRENIA);
 		if(sitoTIRRENIA.getDisponibilita()==null) {
@@ -163,14 +163,16 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	@When("^utente inserisce dati viaggio GRM GNV_TIRR_GRM$")
 	public void utente_inserisce_dati_viaggio_GRM_GNV_TIRR_GRM() throws Throwable {
 		HomePage.cliccaSoloAndataGrimaldi(driver);
-		Generic.clickById(driver, "start-route");
-		HomePage.selezionaAndataGrimaldi(driver, testData.getTrattaAndata());
-		driver.findElement(By.id("start-date")).click();
-		Generic.clickById(driver, "confirmRouteForm");
-		Thread.sleep(2000);
-		//Recap.switchPage(driver,3);
-		Thread.sleep(2000);
-		Generic.clickByXPath(driver, "/html/body/div[11]/div/div[3]/button");
+		Generic.clickById(driver, "start-route");		
+		HomePage.selezionaAndataGrimaldi(driver, sitoGRIMALDI);	
+		HomePage.cliccaSuDataGrimaldi(driver, sitoGRIMALDI);
+		HomePage.prenotaOraGrimaldi(driver, sitoGRIMALDI);
+		Recap.switchPage(driver,sitoGRIMALDI);
+		HomePage.chiudiPopupPag2Grimaldi(driver, sitoGRIMALDI);
+		
+		
+		
+
 		Generic.clickById(driver, "dateLeg1");
 		Thread.sleep(2000);
 		Generic.clickByXPath(driver, "//*[@id=\"ui-datepicker-div\"]/div/div/select[1]");
@@ -202,6 +204,5 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		Double prezzoMigliore=Generic.confrontoPrezzi(driver, prezzoGNVNumerico, sitoGNV.getSito(), prezzoTirreniaNumerico, sitoTIRRENIA.getSito(), prezzoGrimaldiNumerico, sitoGRIMALDI.getSito());
 		Generic.generaFileTxt(nomeTest,sitoGNV, sitoTIRRENIA, sitoGRIMALDI, prezzoTirreniaNumerico, prezzoGNVNumerico,prezzoGrimaldiNumerico, prezzoMigliore);
 		driver.quit();
-		
 	}
 }

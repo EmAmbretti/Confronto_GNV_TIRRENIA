@@ -30,7 +30,7 @@ public class WebData {
 		bambini = csvData.getPasseggeriBambini();
 		animali = csvData.getPasseggeriAnimali();
 		veicolo = csvData.getVeicolo();
-		sistemazione = "Brandina";
+		sistemazione = csvData.getSistemazione();
 		
 	}
 

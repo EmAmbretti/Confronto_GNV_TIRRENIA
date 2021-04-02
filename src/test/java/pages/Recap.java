@@ -34,32 +34,36 @@ public class Recap {
 			if(i==listaTesti.size()) {
 				sito.setDisponibilita("la sistemazione \""+sito.getSistemazione()+"\" non è disponibile.");
 			}
+			Thread.sleep(3000);
 		}
 	}
 	
-	public static void cliccaTastoContinua(WebDriver driver, WebData sito) {
+	public static void cliccaTastoContinua(WebDriver driver, WebData sito) throws Throwable{
 		if(sito.getDisponibilita()==null) {
 			driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/app-root/section/app-accommodation/app-accommodation-wizard/div[2]/app-wizard/div/div[2]/app-wizard-step[1]/app-accommodation-wizard-step1/div/app-accommodation-wizard-footer/div/div/div/app-button/button")).click();
-		}
-		
+			Thread.sleep(3000);
+		}		
 	}
 	
-	public static void cliccaTastoContinuaSenzaServizi(WebDriver driver, WebData sito) {
+	public static void cliccaTastoContinuaSenzaServizi(WebDriver driver, WebData sito) throws Throwable {
 		if(sito.getDisponibilita()==null) {
 			driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/app-root/section/app-accommodation/app-accommodation-wizard/div[2]/app-wizard/div/div[2]/app-wizard-step[2]/app-accommodation-wizard-step2/div/app-accommodation-wizard-footer/div/div/div/app-button/button")).click();
+			Thread.sleep(3000);
 		}
-		
 	}
 	
-	public static void cliccaTastoContinuaSenzaAssicurazione(WebDriver driver, WebData sito) {
+	public static void cliccaTastoContinuaSenzaAssicurazione(WebDriver driver, WebData sito) throws Throwable {
 		if(sito.getDisponibilita()==null) {
 			driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/app-root/section/app-accommodation/app-accommodation-wizard/div[2]/app-wizard/div/div[2]/app-wizard-step[3]/app-accommodation-wizard-step3/div/app-accommodation-wizard-footer/div/div/div/app-button/button")).click();
+			Thread.sleep(3000);
 		}	
 	}
 	
-	public static void switchPage(WebDriver driver,int pagine, WebData sito) throws Throwable {
+	public static void switchPage(WebDriver driver, WebData sito) throws Throwable {
 		if(sito.getDisponibilita()==null) {
+			Thread.sleep(2000);
 			String mainWindow = driver.getWindowHandle();
+			int pagine= driver.getWindowHandles().size();
 			new WebDriverWait(driver,10).until(ExpectedConditions.numberOfWindowsToBe(pagine));
 
 			////////////////

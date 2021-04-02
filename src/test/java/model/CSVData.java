@@ -12,6 +12,7 @@ public class CSVData {
 		private String passeggeriBambini = null;
 		private String passeggeriAnimali = null;
 		private String veicolo = null;
+		private String sistemazione = null;
 
 		public CSVData(String[] data) {
 			for (int i = 0; i < data.length; ++i)
@@ -27,6 +28,7 @@ public class CSVData {
 			this.passeggeriBambini = data[6];
 			this.passeggeriAnimali = data[7];
 			this.veicolo = data[8];
+			this.sistemazione = data[9];
 		}
 
 		public CSVData() {
@@ -34,7 +36,7 @@ public class CSVData {
 		}
 
 		public CSVData(String tipologia, String collegamento, String trattaAndata, String meseAndata, String giornoAndata, String passeggeriAdulti, String passeggeriBambini, String passeggeriAnimali,
-				String veicolo) {
+				String veicolo, String sistemazione) {
 			this.tipologia = tipologia;
 			this.collegamento = collegamento;
 			this.trattaAndata = trattaAndata;
@@ -44,6 +46,7 @@ public class CSVData {
 			this.passeggeriBambini = passeggeriBambini;
 			this.passeggeriAnimali = passeggeriAnimali;
 			this.veicolo = veicolo;	
+			this.sistemazione = sistemazione;
 		}
 
 		public String getTipologia() {
@@ -117,13 +120,21 @@ public class CSVData {
 		public void setVeicolo(String veicolo) {
 			this.veicolo = veicolo;
 		}
+		
+		public String getSistemazione() {
+			return sistemazione;
+		}
+
+		public void setSistemazione(String sistemazione) {
+			this.sistemazione = sistemazione;
+		}
 
 		@Override
 		public String toString() {
 			return "CSVData [tipologia=" + tipologia + ", collegamento=" + collegamento + ", trattaAndata="
 					+ trattaAndata + ", meseAndata=" + meseAndata + ", giornoAndata=" + giornoAndata
 					+ ", passeggeriAdulti=" + passeggeriAdulti + ", passeggeriBambini=" + passeggeriBambini
-					+ ", passeggeriAnimali=" + passeggeriAnimali + ", veicolo=" + veicolo + "]";
+					+ ", passeggeriAnimali=" + passeggeriAnimali + ", veicolo=" + veicolo + ", sistemazione=" + sistemazione +"]";
 		}
 
 		

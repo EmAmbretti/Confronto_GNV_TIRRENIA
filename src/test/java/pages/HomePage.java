@@ -17,9 +17,9 @@ public class HomePage {
 				
 	}
 	
-	public static void selezionaViaggio(WebDriver driver) {
+	public static void selezionaViaggio(WebDriver driver) throws Throwable{
 		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div/app-summary-booking-bar/div/div[1]/div/div[1]/app-summary-bar-block/div/div/span")).click();
-
+		Thread.sleep(3000);
 	}
 	
 	public static void selezionaPartenza(WebDriver driver) {
@@ -32,14 +32,15 @@ public class HomePage {
 		
 	}
 	
-	public static void cliccaSoloAndata(WebDriver driver) throws Throwable {
+	public static void cliccaSoloAndata(WebDriver driver) throws Throwable {	
 		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[1]/app-booking-wizard-step1/div/div/app-travel-viewer-map/div/div[1]/div[1]/label")).click();
-		
+		Thread.sleep(3000);
 	}
 	
-	public static void cliccaContinua(WebDriver driver, WebData sito) {
+	public static void cliccaContinua(WebDriver driver, WebData sito) throws Throwable{
 		if(sito.getDisponibilita()==null) {
 			driver.findElement(By.xpath("//button[@class='btn btn-lg gnv-btn widget-button next']/span[contains(.,'Continua')]")).click();
+			Thread.sleep(3000);
 		}	
 	}
 	
@@ -47,7 +48,7 @@ public class HomePage {
 		driver.findElement(By.xpath("//i[@class='gnv-fe-icon-arrow-light-right']")).click();
 	}
 	
-	public static void controlloMese(WebDriver driver, WebData sito) {
+	public static void controlloMese(WebDriver driver, WebData sito) throws Throwable{
 		if(sito.getDisponibilita()==null) {
 			do {
 				WebElement element = driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[1]/span"));
@@ -57,6 +58,7 @@ public class HomePage {
 					cliccaFrecciaAvanti(driver);
 				}
 			}while(true);
+			Thread.sleep(2000);
 		}
 	}
 	
@@ -77,6 +79,7 @@ public class HomePage {
 					}
 				}
 			}
+			Thread.sleep(3000);
 		}
 	}
 	
@@ -92,11 +95,12 @@ public class HomePage {
 		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[3]/app-booking-wizard-step3/div/div/app-travel-viewer-numbers/div/div[2]/div[1]/app-counter-wrapper[4]/div/app-counter/div/button[2]")).click();
 	}
 	
-	public static void cliccaTastoCerca(WebDriver driver,WebData sito) {
+	public static void cliccaTastoCerca(WebDriver driver,WebData sito) throws Throwable {
 		if(sito.getDisponibilita()==null) {
 			driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-summary-booking-bar/div/div[2]")).click();
+			Thread.sleep(8000);
 		}
-	
+		
 	}
 	
 	public static void bypassFrame(WebDriver driver) {
@@ -128,7 +132,7 @@ public class HomePage {
 		
 	}
 	
-	public static void inserisciPersone(WebDriver driver, WebData sito) {
+	public static void inserisciPasseggeriGNV(WebDriver driver, WebData sito) throws Throwable{
 		if(sito.getDisponibilita()==null) {
 			for(int i=0;i<Integer.valueOf(sito.getAdulti());i++) {
 				cliccaTastoPiuAdulti(driver);
@@ -139,6 +143,7 @@ public class HomePage {
 			for(int i=0;i<Integer.valueOf(sito.getAnimali());i++) {
 				cliccaTastoPiuAnimali(driver);
 			}
+			Thread.sleep(3000);
 		}	
 	}
 	
@@ -290,9 +295,10 @@ public class HomePage {
 		try {
 			List<WebElement> elementList=driver.findElements(By.xpath("//label/span[contains(text(),'"+partenza+"')]"));
 		elementList.get(0).click();
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		elementList=driver.findElements(By.xpath("//label/span[contains(text(),'"+arrivo+"')]"));
 		elementList.get(elementList.size()-1).click();
+		Thread.sleep(2000);
 		} catch (Exception e) {
 			e.printStackTrace();
 			sito.setDisponibilita("La tratta non è disponibile per questo sito.");
@@ -305,8 +311,13 @@ public class HomePage {
 		Thread.sleep(1000);
 	}
 	
-	public static void selezionaAndataGrimaldi(WebDriver driver, String text) throws Throwable {
-		driver.findElement(By.xpath("//option[contains(text(),'" + text.toUpperCase() + "')]")).click();
+	public static void selezionaAndataGrimaldi(WebDriver driver, WebData sito) throws Throwable {
+		try {
+			driver.findElement(By.xpath("//option[contains(text(),'" + sito.getTratta().toUpperCase() + "')]")).click();
+		}catch (Exception e){
+			sito.setDisponibilita("la tratta per questo sito non è disponibile.");
+		}
+		
 	}
 	
 	public static void selezionaMeseGrimaldi(WebDriver driver, String text){
@@ -389,5 +400,23 @@ public class HomePage {
 			}
 			Generic.clickByXPath(driver, "//div[7]/div/div[1]/div[2]/input");
 		}	
+	}
+	
+	public static void cliccaSuDataGrimaldi(WebDriver driver, WebData sito) throws Throwable {
+		if(sito.getDisponibilita()==null) {
+			Generic.clickById(driver, "start-date");
+		}
+	}
+	
+	public static void prenotaOraGrimaldi(WebDriver driver, WebData sito) throws Throwable {
+		if(sito.getDisponibilita()==null) {
+			Generic.clickById(driver, "confirmRouteForm");
+			Thread.sleep(1000);
+		}	
+	}
+	public static void chiudiPopupPag2Grimaldi(WebDriver driver, WebData sito) throws Throwable {
+		if(sito.getDisponibilita()==null) {
+			Generic.clickByXPath(driver, "/html/body/div[11]/div/div[3]/button");
+		}
 	}
 }
