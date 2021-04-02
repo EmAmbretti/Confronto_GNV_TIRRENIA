@@ -62,3 +62,51 @@ Non è stato possibile rilasciare un preventivo.
 
 -------------------------------------------------------------------
 
+DATA: 2021-04-02 ORE: 15:46
+CASO DI TEST: TestCase6
+TRATTA: Sbagliato - Sbagliato
+MESE: Agosto
+GIORNO: 2
+NUMERO PASSEGGERI ADULTI: 3
+NUMERO PASSEGGERI BAMBINI: 1
+NUMERO PASSEGGERI ANIMALI: 0
+VEICOLO: No
+PREZZO GNV: Non è stato possibile rilasciare un preventivo per GNV per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO TIRRENIA: Non è stato possibile rilasciare un preventivo per TIRRENIA per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: la tratta per questo sito non è disponibile.
+Non è stato possibile rilasciare un preventivo.
+
+-------------------------------------------------------------------
+
+DATA: 2021-04-02 ORE: 16:09
+CASO DI TEST: TestCase6
+TRATTA: Sbagliato - Sbagliato
+MESE: Agosto
+GIORNO: 2
+NUMERO PASSEGGERI ADULTI: 3
+NUMERO PASSEGGERI BAMBINI: 1
+NUMERO PASSEGGERI ANIMALI: 0
+VEICOLO: No
+PREZZO GNV: Non è stato possibile rilasciare un preventivo per GNV per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO TIRRENIA: Non è stato possibile rilasciare un preventivo per TIRRENIA per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: la tratta per questo sito non è disponibile.
+Non è stato possibile rilasciare un preventivo.
+
+-------------------------------------------------------------------
+
+DATA: 2021-04-02 ORE: 16:12
+CASO DI TEST: TestCase5
+TRATTA: Olbia - Civitavecchia
+MESE: Ottobre
+GIORNO: 2
+NUMERO PASSEGGERI ADULTI: 7
+NUMERO PASSEGGERI BAMBINI: 5
+NUMERO PASSEGGERI ANIMALI: 0
+VEICOLO: No
+PREZZO GNV: Non è stato possibile rilasciare un preventivo per GNV per il seguente motivo: Il giorno scelto non è disponibile per questo sito.
+PREZZO TIRRENIA: Non è stato possibile rilasciare un preventivo per TIRRENIA per il seguente motivo: La sistemazione scelta non è disponibile (posti mancanti).
+PREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: Nessun preventivo trovato per i criteri selezionati
+Non è stato possibile rilasciare un preventivo.
+
+-------------------------------------------------------------------
+

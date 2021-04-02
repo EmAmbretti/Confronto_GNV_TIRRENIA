@@ -29,13 +29,19 @@ public class RecuperaImporto {
 		String giorno = null;
 		boolean flag=false;
 		String prezzoGrimaldi= null;
+		try {
+			driver.findElement(By.xpath("//*[@id=\"calendar\"]/div/span/div[1]"));
+			sito.setDisponibilita(driver.findElement(By.xpath("//*[@id=\"calendar\"]/div/span/div[1]")).getText()+".");
+		}catch(org.openqa.selenium.NoSuchElementException e) {
+			System.out.println("Nessun errore trovato.");
+		}
 		if(sito.getDisponibilita() == null) {
 			do {
 				try {
 					driver.findElement(By.xpath("//*[@id=\"calendar_wrap\"]/div[1]/h2"));
 					Thread.sleep(2000);
 					flag=false;
-				}catch(org.openqa.selenium.ElementNotInteractableException e) {
+				}catch(Exception e) {
 					Thread.sleep(3000);
 					flag=true;
 				}
