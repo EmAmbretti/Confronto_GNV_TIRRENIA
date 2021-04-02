@@ -1,11 +1,6 @@
 package model;
 
-import utils.CSVExtractor;
-import utils.Path;
-
 public class WebData {
-	
-	CSVData csvData=CSVExtractor.getTestDataByOffer("TestCase7", Path.PATH);
 
 	private String sito;
 	private String collegamento;
@@ -20,18 +15,17 @@ public class WebData {
 	private String disponibilita;
 	private String sistemazione;
 	
-	public WebData(String sito) {
-		this.sito = sito;
-		collegamento = csvData.getCollegamento();
-		tratta = csvData.getTrattaAndata();
-		mese = csvData.getMeseAndata();
-		giorno = csvData.getGiornoAndata();
-		adulti = csvData.getPasseggeriAdulti();
-		bambini = csvData.getPasseggeriBambini();
-		animali = csvData.getPasseggeriAnimali();
-		veicolo = csvData.getVeicolo();
-		sistemazione = csvData.getSistemazione();
-		
+	public WebData(String nomeSito, CSVData data) {
+		sito=nomeSito;
+		collegamento = data.getCollegamento();
+		tratta = data.getTrattaAndata();
+		mese = data.getMeseAndata();
+		giorno = data.getGiornoAndata();
+		adulti = data.getPasseggeriAdulti();
+		bambini = data.getPasseggeriBambini();
+		animali = data.getPasseggeriAnimali();
+		veicolo = data.getVeicolo();
+		sistemazione = data.getSistemazione();
 	}
 
 	public String getSito() {

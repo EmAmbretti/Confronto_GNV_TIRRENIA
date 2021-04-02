@@ -14,6 +14,15 @@ import utils.Generic;
 
 public class Recap {
 	
+	public static void controlloDisponibilitaFinaleTirrenia(WebDriver driver, WebData sito) {
+		try{
+			driver.findElement(By.xpath("//*[@id=\"ContentPlaceHolder1_ascx_andata_div_partenze_non_trovate\"]"));
+			sito.setDisponibilita("la tratta per questo sito non è disponibile.");
+		}catch(Exception e) {
+			System.out.println("Tratta trovata");
+		}
+	}
+	
 	public static void selezionaSistemazione(WebDriver driver, WebData sito) throws Throwable {
 		if(sito.getDisponibilita()==null) {
 			int i=0;
@@ -87,7 +96,7 @@ public class Recap {
 		
 		
 	}
-	public static void controlloDisponibilitaPoltrona(WebDriver driver, WebData sito) throws Throwable{
+	public static void controlloDisponibilitaSistemazioneTirrenia(WebDriver driver, WebData sito) throws Throwable{
 		if(sito.getDisponibilita()==null) {
 			try {
 				if(driver.findElement(By.id("ContentPlaceHolder1_ascx_andata_RepeaterPartenze_Label_PrezzoPoltrona_0")).getText().contains("€")) {
