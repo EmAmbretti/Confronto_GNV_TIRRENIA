@@ -14,7 +14,7 @@ public class CSVData {
 		private String sistemazione = null;
 
 		public CSVData(String[] data) {
-			for (int i = 0; i < data.length; ++i)
+			for (int i = 0; i < data.length; i ++)
 				if (data[i].isEmpty())
 					data[i] = null;
 

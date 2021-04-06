@@ -13,8 +13,7 @@ import utils.Generic;
 public class HomePage {
 	
 	public static void cliccaDestinazioni(WebDriver driver) {
-		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div/app-summary-booking-bar/div/div[1]/div/div[1]/app-summary-bar-block/div/div/span")).click();
-				
+		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div/app-summary-booking-bar/div/div[1]/div/div[1]/app-summary-bar-block/div/div/span")).click();			
 	}
 	
 	public static void selezionaViaggio(WebDriver driver) throws Throwable{
@@ -23,13 +22,11 @@ public class HomePage {
 	}
 	
 	public static void selezionaPartenza(WebDriver driver) {
-		driver.findElement(By.xpath("//span[contains(.,'Napoli (Campania)')]")).click();
-		
+		driver.findElement(By.xpath("//span[contains(.,'Napoli (Campania)')]")).click();		
 	}
 	
 	public static void selezionaDestinazione(WebDriver driver) {
-		driver.findElement(By.xpath("//*[@id=\"Palermo (Sicilia)-destination\"]/span")).click();
-		
+		driver.findElement(By.xpath("//*[@id=\"Palermo (Sicilia)-destination\"]/span")).click();		
 	}
 	
 	public static void cliccaSoloAndata(WebDriver driver) throws Throwable {	
@@ -38,7 +35,7 @@ public class HomePage {
 	}
 	
 	public static void cliccaContinua(WebDriver driver, WebData sito) throws Throwable{
-		if(sito.getDisponibilita()==null) {
+		if(sito.getDisponibilita() == null) {
 			driver.findElement(By.xpath("//button[@class='btn btn-lg gnv-btn widget-button next']/span[contains(.,'Continua')]")).click();
 			Thread.sleep(3000);
 		}	
@@ -57,15 +54,15 @@ public class HomePage {
 				}else {
 					cliccaFrecciaAvanti(driver);
 				}
-			}while(true);
+			} while(true);
 			Thread.sleep(2000);
 		}
 	}
 	
 	public static void cliccaDataScelta(WebDriver driver, WebData sito) throws Throwable {
-		if(sito.getDisponibilita()==null) {
-			for(int j=1;j<=5;j++) {
-				for(int i=1;i<=7;i++) {
+		if(sito.getDisponibilita() == null) {
+			for(int j = 1; j <= 5; j ++) {
+				for(int i = 1; i <= 7; i ++) {
 					WebElement element= driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div["+j+"]/div["+i+"]/div"));
 					if(element.getText().equals(sito.getGiorno())) {
 						Thread.sleep(2000);
@@ -75,7 +72,6 @@ public class HomePage {
 						} catch (Exception e) {
 							sito.setDisponibilita("Il giorno scelto non è disponibile per questo sito.");
 						}
-
 					}
 				}
 			}
@@ -95,8 +91,8 @@ public class HomePage {
 		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[3]/app-booking-wizard-step3/div/div/app-travel-viewer-numbers/div/div[2]/div[1]/app-counter-wrapper[4]/div/app-counter/div/button[2]")).click();
 	}
 	
-	public static void cliccaTastoCerca(WebDriver driver,WebData sito) throws Throwable {
-		if(sito.getDisponibilita()==null) {
+	public static void cliccaTastoCerca(WebDriver driver, WebData sito) throws Throwable {
+		if(sito.getDisponibilita() == null) {
 			driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-summary-booking-bar/div/div[2]")).click();
 			Thread.sleep(8000);
 		}
@@ -118,29 +114,26 @@ public class HomePage {
 	public static void scrollDropListByXPath(WebDriver driver, String xPath, int ripetizioni) {
 		for (int i = 1; i <= ripetizioni; i ++) {
 			driver.findElement(By.xpath(xPath)).sendKeys(Keys.DOWN);
-		}
-		
+		}		
 	}
 	
 	public static void clickEnterDropListById(WebDriver driver, String id) {
-		driver.findElement(By.id(id)).sendKeys(Keys.ENTER);
-		
+		driver.findElement(By.id(id)).sendKeys(Keys.ENTER);		
 	}
 	
 	public static void clickEnterDropListByXPath(WebDriver driver, String xPath) {
-		driver.findElement(By.xpath(xPath)).sendKeys(Keys.ENTER);
-		
+		driver.findElement(By.xpath(xPath)).sendKeys(Keys.ENTER);		
 	}
 	
 	public static void inserisciPasseggeriGNV(WebDriver driver, WebData sito) throws Throwable{
-		if(sito.getDisponibilita()==null) {
-			for(int i=0;i<Integer.valueOf(sito.getAdulti());i++) {
+		if(sito.getDisponibilita() == null) {
+			for(int i = 0; i < Integer.valueOf(sito.getAdulti()); i ++) {
 				cliccaTastoPiuAdulti(driver);
 			}
-			for(int i=0;i<Integer.valueOf(sito.getBambini());i++) {
+			for(int i = 0; i < Integer.valueOf(sito.getBambini()); i ++) {
 				cliccaTastoPiuBambini(driver);
 			}
-			for(int i=0;i<Integer.valueOf(sito.getAnimali());i++) {
+			for(int i = 0; i < Integer.valueOf(sito.getAnimali()); i ++) {
 				cliccaTastoPiuAnimali(driver);
 			}
 			Thread.sleep(3000);
@@ -148,14 +141,14 @@ public class HomePage {
 	}
 	
 	public static void controlloCollegamentoTirrenia(WebDriver driver, WebData sito) throws Throwable {
-		for(int i=1;i<=4;i++) {
-			WebElement element = driver.findElement(By.xpath("//*[@id=\"ContentPlaceHolder1_motore_ddl_destinazioni\"]/option["+i+"]"));
+		for(int i = 1; i <= 4; i ++) {
+			WebElement element = driver.findElement(By.xpath("//*[@id=\"ContentPlaceHolder1_motore_ddl_destinazioni\"]/option[" + i + "]"));
 			if(element.getText().equalsIgnoreCase(sito.getCollegamento())) {
 				element.click();
 				Thread.sleep(2000);
 				break;				
 			}
-			if(i==4) {
+			if(i == 4) {
 				sito.setDisponibilita("Collegamento non disponibile per questo sito.");
 			}
 		}
@@ -180,9 +173,9 @@ public class HomePage {
 	}
 	
 	public static void selezionaAndataTirrenia(WebDriver driver, WebData sito) throws Throwable{
-		if(sito.getDisponibilita()==null) {
+		if(sito.getDisponibilita() == null) {
 			try {
-				driver.findElement(By.xpath("//*[@id=\"tratte_andata\"]/optgroup/option[contains(text(),'"+sito.getTratta()+"')]")).click();
+				driver.findElement(By.xpath("//*[@id=\"tratte_andata\"]/optgroup/option[contains(text(),'" + sito.getTratta() + "')]")).click();
 			}catch(Exception e) {
 				sito.setDisponibilita("la tratta per questo sito non è disponibile.");
 			}
@@ -191,16 +184,16 @@ public class HomePage {
 	}
 	
 	public static void cliccaCalendario(WebDriver driver, WebData sito) throws Throwable {
-		if(sito.getDisponibilita()==null) {
+		if(sito.getDisponibilita() == null) {
 			Generic.clickById(driver, "arrival");
 			Thread.sleep(2000);
 		}
 	}
 	
 	public static void selezionaMeseTirrenia(WebDriver driver, WebData sito) throws Throwable{
-		if(sito.getDisponibilita()==null) {
-			for(int i=1;i<=12;i++) {
-				WebElement element = driver.findElement(By.xpath("//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]/option["+i+"]"));
+		if(sito.getDisponibilita() == null) {
+			for(int i = 1; i <= 12; i ++) {
+				WebElement element = driver.findElement(By.xpath("//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]/option[" + i + "]"));
 				if(element.getText().equalsIgnoreCase(sito.getMese())) {
 					try {
 						element.click();
@@ -210,7 +203,7 @@ public class HomePage {
 					}
 					break;
 				}
-				if(i==12) {
+				if(i == 12) {
 					sito.setDisponibilita("Il mese inserito non è valido.");
 					System.out.println("Il mese inserito non è valido!");
 				}
@@ -221,10 +214,10 @@ public class HomePage {
 	
 	public static void selezionaGiornoTirrenia(WebDriver driver,WebData sito) throws Throwable{
 		if(sito.getDisponibilita()==null) {
-			boolean controllo=false;
-			for(int i=1;i<=6;i++) {
-				for(int j=1;j<=7;j++) {
-					WebElement element=driver.findElement(By.xpath("//*[@id=\"arrival_table\"]/tbody/tr["+i+"]/td["+j+"]/div"));
+			boolean controllo = false;
+			for(int i = 1; i <= 6; i ++) {
+				for(int j = 1; j <= 7; j ++) {
+					WebElement element=driver.findElement(By.xpath("//*[@id=\"arrival_table\"]/tbody/tr[" + i + "]/td[" + j + "]/div"));
 					if(element.getText().equals(sito.getGiorno())&&(Integer.valueOf(sito.getGiorno())<20||i>1)) {
 						Thread.sleep(2000);
 						try {

@@ -142,3 +142,35 @@ Non è stato possibile rilasciare un preventivo.
 
 -------------------------------------------------------------------
 
+DATA: 2021-04-06 ORE: 11:51
+CASO DI TEST: TestCase3
+TRATTA: Palermo - Napoli
+MESE: Settembre
+GIORNO: 7
+NUMERO PASSEGGERI ADULTI: 3
+NUMERO PASSEGGERI BAMBINI: 1
+NUMERO PASSEGGERI ANIMALI: 0
+VEICOLO: No
+PREZZO GNV: 126.08
+PREZZO TIRRENIA: 179.4
+PREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO MIGLIORE: 126.08 DEL SITO: GNV
+
+-------------------------------------------------------------------
+
+DATA: 2021-04-06 ORE: 11:57
+CASO DI TEST: TestCase3
+TRATTA: Palermo - Napoli
+MESE: Settembre
+GIORNO: 7
+NUMERO PASSEGGERI ADULTI: 3
+NUMERO PASSEGGERI BAMBINI: 1
+NUMERO PASSEGGERI ANIMALI: 0
+VEICOLO: No
+PREZZO GNV: Non è stato possibile rilasciare un preventivo per GNV per il seguente motivo: la sistemazione "Cabina doppia" non è disponibile.
+PREZZO TIRRENIA: 179.4
+PREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: la tratta per questo sito non è disponibile.
+PREZZO MIGLIORE: 179.4 DEL SITO: TIRRENIA
+
+-------------------------------------------------------------------
+
