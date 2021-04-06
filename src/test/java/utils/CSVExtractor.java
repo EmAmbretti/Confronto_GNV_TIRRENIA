@@ -39,10 +39,7 @@ public class CSVExtractor {
 			System.out.print(", ERRORE");
 			e.printStackTrace();
 		}
-		/*
-		for (CSVData csvobj : datiOfferte) {
-			System.out.println(csvobj.toString());
-		}*/
+		
 		return datiOfferte;
 	}
 	

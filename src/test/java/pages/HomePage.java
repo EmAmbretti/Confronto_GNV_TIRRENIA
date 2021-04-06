@@ -448,7 +448,6 @@ public class HomePage {
 	}
 	
 	private static void selezionaPassaggeriBambiniGrimaldi(WebDriver driver, String bambini) {
-		//table[2]/tbody/tr[2]/td[2]/div/div[3]/div/ul/li[contains(text(),'1')]
 		List<WebElement> elementList=driver.findElements(By.xpath("//table[2]/tbody/tr[2]/td[2]/div/div[3]/div/ul/li[contains(text(),'"+bambini+"')]"));
 		if(bambini.equals("10")) {
 			elementList.get(1).click();
@@ -498,5 +497,26 @@ public class HomePage {
 		if(sito.getDisponibilita()==null) {
 			Generic.clickByXPath(driver, "/html/body/div[11]/div/div[3]/button");
 		}
+	}
+	
+	public static void scorriCollegamento(WebDriver driver, WebData sito) throws Throwable {
+		List<WebElement> listaCollegamento = driver.findElements(By.xpath("//*[@id=\"ContentPlaceHolder1_motore_ddl_destinazioni\"]/option"));
+		cliccaCollegamentoTirrenia(driver);
+		for (int i = 1; i < listaCollegamento.size(); i ++) {
+			listaCollegamento.get(i).click();
+			cliccaTratteTirrenia(driver, sito);
+			try {
+				driver.findElement(By.xpath("//*[@id=\"tratte_andata\"]/optgroup/option[contains(text(),'"+sito.getTratta()+"')]")).click();
+			}catch(Exception e) {
+				if (i == listaCollegamento.size() - 1) {
+					sito.setDisponibilita("la tratta per questo sito non è disponibile.");
+					
+				}
+				
+			}
+			Thread.sleep(500);
+			
+		}
+		
 	}
 }

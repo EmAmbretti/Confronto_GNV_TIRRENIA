@@ -92,17 +92,13 @@ public class Generic {
 		}
 		if(importo1 > importo2) {
 			if(importo2 > importo3) {
-				System.out.println("L'importo minore è: " + importo3 + " € del sito "+nomeSitoImp3+"." );
 				return importo3;
 			}else {
-				System.out.println("L'importo minore è: " + importo2 + " € del sito "+nomeSitoImp2+"." );
 				return importo2;
 			}
 		}else if(importo1 > importo3) {
-			System.out.println("L'importo minore è: " + importo3 + " € del sito "+nomeSitoImp3+"." );
 			return importo3;
 		}else {
-			System.out.println("L'importo minore è: " + importo1 + " € del sito "+nomeSitoImp1+".");
 			return importo1;
 		}
 		
@@ -159,31 +155,9 @@ public class Generic {
 			bw.append("\n\n-------------------------------------------------------------------\n\n");
 			bw.close();
 			
-			//impostare la scrittura dei singoli siti controllando la disponibilita (se è null o meno)
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 }
-//*[@id="nav-tabContent"]/div[3]/div[1]/div[3]/div/app-card-solution/div/div[1]/div[2]/div[1]/div
-//*[@id="nav-tabContent"]/div[3]/div[1]/div[2]/div/app-card-solution/div/div[1]/div[2]/div[1]/div
-//*[@id="nav-tabContent"]/div[3]/div[3]/div[2]/div/app-card-solution/div/div[1]/div[2]/div[1]/div
-//*[@id="nav-tabContent"]/div[3]/div[2]/div[2]/div/app-card-solution/div/div[1]/div[2]/div[1]/div
-
-
-//div/app-card-solution/div/div[1]/div[2]/div[1]/div   testo
-//div/app-card-solution/div/div[2]/app-button    seleziona
-
-//*[@id="nav-tabContent"]/div[3]/div[1]/div[2]/div/app-card-solution/div/div[2]/app-button
-//*[@id="nav-tabContent"]/div[3]/div[1]/div[2]/div/app-card-solution/div/div[2]/app-button/button
-
-//*[@id="nav-tabContent"]/div[3]/div[1]/div[3]/div/app-card-solution/div/div[2]/app-button
-//*[@id="nav-tabContent"]/div[3]/div[1]/div[3]/div/app-card-solution/div/div[2]/app-button/button
-
-
-
-//*[@id="nav-tabContent"]/div[3]/div[1]/div[2]/div/app-card-solution/div/div[1]/div[2]/div[1]/div
-//*[@id="nav-tabContent"]/div[3]/div[1]/div[2]/div/app-card-solution/div/div[2]/app-button
-//*[@id="nav-tabContent"]/div[3]/div[1]/div[2]/div/app-card-solution/div/div[2]/app-button/button

@@ -19,15 +19,13 @@ public class Recap {
 			driver.findElement(By.xpath("//*[@id=\"ContentPlaceHolder1_ascx_andata_div_partenze_non_trovate\"]"));
 			sito.setDisponibilita("la tratta per questo sito non è disponibile.");
 		}catch(Exception e) {
-			System.out.println("Tratta trovata");
+			
 		}
 	}
 	
 	public static void selezionaSistemazione(WebDriver driver, WebData sito) throws Throwable {
 		if(sito.getDisponibilita()==null) {
 			int i=0;
-			//JavascriptExecutor jse = (JavascriptExecutor)driver;
-			//jse.executeScript("window.scrollBy(0,750)");
 			Thread.sleep(3000);
 			List<WebElement> listaTesti= driver.findElements(By.xpath("//div/app-card-solution/div/div[1]/div[2]/div[1]/div"));
 			List<WebElement> listaSeleziona = driver.findElements(By.xpath("//div/app-card-solution/div/div[2]/app-button"));
@@ -86,16 +84,8 @@ public class Recap {
 			}
 			Thread.sleep(5000);
 		}
-//		for(String existingWindows : driver.getWindowHandles()){
-//			Thread.sleep(2000);
-//			if(!mainWindow.equals(existingWindows)) {
-//				driver.switchTo().window(existingWindows);
-//				Thread.sleep(2000);
-//				break;
-//			}
-		
-		
 	}
+	
 	public static void controlloDisponibilitaSistemazioneTirrenia(WebDriver driver, WebData sito) throws Throwable{
 		if(sito.getDisponibilita()==null) {
 			try {
@@ -104,10 +94,10 @@ public class Recap {
 		        Generic.clickById(driver, "ContentPlaceHolder1_LinkButton_Avanti");
 				Thread.sleep(3000);
 			}else {
-				sito.setDisponibilita("La sistemazione scelta non è disponibile (posti mancanti).");
+				sito.setDisponibilita("la sistemazione scelta non è disponibile (posti mancanti).");
 			}
 			}catch(org.openqa.selenium.NoSuchElementException e) {
-				sito.setDisponibilita("La tratta non è disponibile per questo sito.");
+				sito.setDisponibilita("la tratta per questo sito non è disponibile.");
 			}
 		}
 	}

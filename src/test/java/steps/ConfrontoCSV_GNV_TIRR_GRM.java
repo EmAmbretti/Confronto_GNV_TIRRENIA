@@ -21,7 +21,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	Double prezzoGNVNumerico, prezzoTirreniaNumerico, prezzoGrimaldiNumerico;
 	WebDriver driver = BeforeAndAfter.driver;
-	CSVData testData=CSVExtractor.getTestDataByOffer("TestCase4", Path.PATH);
+	CSVData testData=CSVExtractor.getTestDataByOffer("TestCase7", Path.PATH);
 	String nomeTest = testData.getTipologia();
 	WebData sitoGNV = new WebData("GNV",testData);
 	WebData	sitoTIRRENIA = new WebData("TIRRENIA",testData);
@@ -96,11 +96,16 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	@When("^utente inserisce dati viaggio TIRR GNV_TIRR_GRM$")
 	public void utente_inserisce_dati_viaggio() throws Throwable {
+		HomePage.checkboxTirrenia(driver, sitoTIRRENIA);
+		/*
+		Metodo per scorrimento tratte => ideato per eliminare la colonna COLLEGAMENTO dal CSV utile solo per TIRRENIA.
+		HomePage.scorriCollegamento(driver, sitoTIRRENIA);
+		*/
 		HomePage.cliccaCollegamentoTirrenia(driver);
 		HomePage.controlloCollegamentoTirrenia(driver, sitoTIRRENIA);
-		HomePage.checkboxTirrenia(driver, sitoTIRRENIA);
 		HomePage.cliccaTratteTirrenia(driver, sitoTIRRENIA);
 		HomePage.selezionaAndataTirrenia(driver, sitoTIRRENIA);
+		// lo snippet di cui sopra è possibile eliminarlo decommentando il metodo precedente ad esso.
 		HomePage.cliccaCalendario(driver, sitoTIRRENIA);
 		HomePage.selezionaMeseTirrenia(driver, sitoTIRRENIA);
 		HomePage.selezionaGiornoTirrenia(driver, sitoTIRRENIA);
@@ -165,5 +170,4 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 		Generic.generaFileTxt(nomeTest,sitoGNV, sitoTIRRENIA, sitoGRIMALDI, prezzoTirreniaNumerico, prezzoGNVNumerico,prezzoGrimaldiNumerico, prezzoMigliore);
 		driver.quit();
 	}
-	//*[@id="calendar"]/div/span/div[1]
 }

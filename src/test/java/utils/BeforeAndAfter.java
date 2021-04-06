@@ -36,26 +36,6 @@ public class BeforeAndAfter {
         System.out.println(scenario.getName() + " Status - " + scenario.getStatus());
         System.out.println("------------------------------");
         Thread.sleep(7000);
-
-        /*
-         * 
-         *File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-
-         try {
-            File folder = new File(
-                    Config.get("path.folder")+ "_" + dateTime.format(formatterDate));
-            if (folder.mkdir() || folder.exists())
-                FileUtils.copyFile(src, new File(folder + File.separator + dateTime.format(formatterDateTime)+ "_" +scenario.getName() + ".png"));
-            //FileUtils.copyFile(srcFile, destFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String url = driver.getCurrentUrl();
-        String path = Config.get("path.esito")+"_"+dateTime.format(formatterDate) +".txt";
-        Config.savefile(url, scenario.getName(), path);
-        //driver.quit();
-         * 
-         * */
     }
 }
 
