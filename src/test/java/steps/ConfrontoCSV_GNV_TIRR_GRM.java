@@ -21,7 +21,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	Double prezzoGNVNumerico, prezzoTirreniaNumerico, prezzoGrimaldiNumerico;
 	WebDriver driver = BeforeAndAfter.driver;
-	CSVData testData=CSVExtractor.getTestDataByOffer("TestCase3", Path.PATH);
+	CSVData testData=CSVExtractor.getTestDataByOffer("TestCase5", Path.PATH);
 	String nomeTest = testData.getTipologia();
 	WebData sitoGNV = new WebData("GNV",testData);
 	WebData	sitoTIRRENIA = new WebData("TIRRENIA",testData);
@@ -115,7 +115,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	}
 	
 	@When("^recupera prezzo TIRR GNV_TIRR_GRM$")
-	public void recupera_prezzo_Tirrenia() throws Throwable{
+	public void recupera_prezzo_Tirrenia() throws Throwable {
 		Recap.switchPage(driver,sitoTIRRENIA);
 		Recap.controlloDisponibilitaFinaleTirrenia(driver, sitoTIRRENIA);
 		Recap.controlloDisponibilitaSistemazioneTirrenia(driver, sitoTIRRENIA);
