@@ -2,6 +2,9 @@ package pages.moby;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
+import model.CSVData;
+import model.EsitoSito;
 import model.WebData;
 import utils.Generic;
 
@@ -41,22 +44,22 @@ public class PreventivoPageMOBY {
 		driver.findElement(By.xpath("//*[@id=\"mobyGuid26\"]/div/div/button[2]")).click();
 	}
 
-	private static void gestioneVeicoloMoby(WebDriver driver, WebData sito) {
-		if (sito.getDisponibilita() == null && !sito.getVeicolo().equalsIgnoreCase("no")) {
+	private static void gestioneVeicoloMoby(WebDriver driver, EsitoSito sito, CSVData data) {
+		if (sito.getErrori() == null && !data.getVeicolo().equalsIgnoreCase("no")) {
 			Generic.clickByXPath(driver, "//button[@id='customSelectMobyGuid20']");
-			if (sito.getVeicolo().equalsIgnoreCase("CAR")) {
+			if (data.getVeicolo().equalsIgnoreCase("CAR")) {
 				Generic.clickByXPath(driver,
 						"//li[@class='option']/a[@class='fg-color'][contains(.,'Auto con lunghezza fino a 4m')]");
 
-			} else if (sito.getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
+			} else if (data.getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
 				Generic.clickByXPath(driver,
 						"//li[@class='option']/a[@class='fg-color'][contains(.,'Auto con lunghezza da 4,01m a 5m')]");
 
-			} else if (sito.getVeicolo().equalsIgnoreCase("CMP")) {
+			} else if (data.getVeicolo().equalsIgnoreCase("CMP")) {
 				Generic.clickByXPath(driver,
 						"//li[@class='option']/a[@class='fg-color'][contains(.,'Camper nel garage')]");
 
-			} else if (sito.getVeicolo().equalsIgnoreCase("MOTO")) {
+			} else if (data.getVeicolo().equalsIgnoreCase("MOTO")) {
 				Generic.clickByXPath(driver,
 						"//li[@class='option']/a[@class='fg-color'][contains(.,'Moto Fino A 200cc')]");
 
