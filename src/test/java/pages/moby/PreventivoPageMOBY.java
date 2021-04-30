@@ -5,8 +5,14 @@ import model.WebData;
 import utils.Generic;
 
 public class PreventivoPageMOBY {
+	
+	public static void inserimentoDatiMoby(WebDriver driver, WebData sito) {
+		gestioneVeicoloMoby(driver, sito);
+	}
+	
+	
 
-	public static void gestioneVeicoloMoby(WebDriver driver, WebData sito) {
+	private static void gestioneVeicoloMoby(WebDriver driver, WebData sito) {
 		if (sito.getDisponibilita() == null && !sito.getVeicolo().equalsIgnoreCase("no")) {
 			Generic.clickByXPath(driver, "//button[@id='customSelectMobyGuid20']");
 			if (sito.getVeicolo().equalsIgnoreCase("CAR")) {
