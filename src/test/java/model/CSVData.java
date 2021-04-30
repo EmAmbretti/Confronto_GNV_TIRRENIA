@@ -1,5 +1,5 @@
 package model;
-//forza napoli
+
 public class CSVData {
 	
 		private String tipologia = null;
