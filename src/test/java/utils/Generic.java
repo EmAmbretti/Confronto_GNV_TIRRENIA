@@ -14,7 +14,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import model.WebData;
+import model.EsitoSito;
 
 public class Generic {
 
@@ -178,8 +178,25 @@ public class Generic {
 		List<WebElement> elementList = driver.findElements(By.xpath(xPath));
 		elementList.get(index).click();
 	}
+	
+	public static ArrayList<WebElement> getElementListByXPath(WebDriver driver, String xPath) {
+		ArrayList<WebElement> elementList = null;
+		try {
+		elementList = (ArrayList<WebElement>) driver.findElements(By.xpath(xPath));
+		System.out.println("getElementListByXPath: Elementi recuperati con successo -> "+xPath);
+		} catch (Exception e) {
+			System.out.print("!ERRORE! getElementListByXPath: ");
+			System.out.print(xPath);
+			if(e instanceof org.openqa.selenium.NoSuchElementException) {
+				System.out.println(": Selenium.NoSuchElementException");
+			} else {
+				System.out.println(": "+e.getLocalizedMessage());
+			}
+		}
+		return elementList;
+	}
 
-	public static void generaFileTxt(String tipologia, WebData sito1, WebData sito2, WebData sito3,
+	public static void generaFileTxt(String tipologia, EsitoSito sito1, EsitoSito sito2, EsitoSito sito3,
 			Double prezzoTirrenia, Double prezzoGNV, Double prezzoGrimaldi, Double prezzoMigliore) {
 		String path = new File("reportFiles\\").getAbsolutePath();
 		File itinerario = new File(path + "\\" + Path.CONFRONTO);
@@ -191,30 +208,30 @@ public class Generic {
 			FileWriter fw = new FileWriter(itinerario, true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.append("DATA: " + data + " ORE: " + timeStr + "\nCASO DI TEST: " + tipologia + "\nTRATTA: "
-					+ sito1.getTratta() + "\nMESE: " + sito1.getMese() + "\nGIORNO: " + sito1.getGiorno()
-					+ "\nNUMERO PASSEGGERI ADULTI: " + sito1.getAdulti() + "\nNUMERO PASSEGGERI BAMBINI: "
-					+ sito1.getBambini() + "\nNUMERO PASSEGGERI ANIMALI: " + sito1.getAnimali() + "\nVEICOLO: "
-					+ sito1.getVeicolo());
-			if (sito1.getDisponibilita() == null) {
+					+ sito1.getDatiCsv().getTrattaAndata() + "\nMESE: " + sito1.getDatiCsv().getMeseAndata() + "\nGIORNO: " + sito1.getDatiCsv().getGiornoAndata()
+					+ "\nNUMERO PASSEGGERI ADULTI: " + sito1.getDatiCsv().getPasseggeriAdulti() + "\nNUMERO PASSEGGERI BAMBINI: "
+					+ sito1.getDatiCsv().getPasseggeriBambini() + "\nNUMERO PASSEGGERI ANIMALI: " + sito1.getDatiCsv().getPasseggeriAnimali() + "\nVEICOLO: "
+					+ sito1.getDatiCsv().getVeicolo());
+			if (sito1.getErrori() == null) {
 				bw.append("\nPREZZO GNV: " + prezzoGNV);
 			} else {
 				bw.append(
 						"\nPREZZO GNV: Non è stato possibile rilasciare un preventivo per GNV per il seguente motivo: "
-								+ sito1.getDisponibilita());
+								+ sito1.getErrori());
 			}
-			if (sito2.getDisponibilita() == null) {
+			if (sito2.getErrori() == null) {
 				bw.append("\nPREZZO TIRRENIA: " + prezzoTirrenia);
 			} else {
 				bw.append(
 						"\nPREZZO TIRRENIA: Non è stato possibile rilasciare un preventivo per TIRRENIA per il seguente motivo: "
-								+ sito2.getDisponibilita());
+								+ sito2.getErrori());
 			}
-			if (sito3.getDisponibilita() == null) {
+			if (sito3.getErrori() == null) {
 				bw.append("\nPREZZO GRIMALDI: " + prezzoGrimaldi);
 			} else {
 				bw.append(
 						"\nPREZZO GRIMALDI: Non è stato possibile rilasciare un preventivo per GRIMALDI per il seguente motivo: "
-								+ sito3.getDisponibilita());
+								+ sito3.getErrori());
 			}
 			if (prezzoMigliore != Double.MAX_VALUE) {
 				bw.append("\nPREZZO MIGLIORE: " + prezzoMigliore + " DEL SITO: ");

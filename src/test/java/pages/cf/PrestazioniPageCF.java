@@ -2,13 +2,14 @@ package pages.cf;
 
 import org.openqa.selenium.WebDriver;
 
-import model.WebData;
+import model.CSVData;
+import model.EsitoSito;
 import utils.Generic;
 
 public class PrestazioniPageCF {
 	
-	public static void gestioneVeicoloMoby(WebDriver driver, WebData sito) {
-		if (sito.getDisponibilita() == null && !sito.getVeicolo().equalsIgnoreCase("no")) {
+	public static void gestioneVeicoloMoby(WebDriver driver, CSVData sito, EsitoSito esito) {
+		if (esito.getErrori() == null && !sito.getVeicolo().equalsIgnoreCase("no")) {
 			Generic.clickByXPath(driver,"");
 			if (sito.getVeicolo().equalsIgnoreCase("CAR")) {
 

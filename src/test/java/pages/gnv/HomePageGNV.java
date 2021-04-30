@@ -1,12 +1,14 @@
 package pages.gnv;
 
 import org.openqa.selenium.WebDriver;
-import model.WebData;
+
+import model.CSVData;
+import model.EsitoSito;
 import utils.Generic;
 
 public class HomePageGNV {
-	public static void gestioneVeicoloGNV(WebDriver driver, WebData sito) throws Throwable {
-		if (sito.getDisponibilita() == null && !sito.getVeicolo().equalsIgnoreCase("no")) {
+	public static void gestioneVeicoloGNV(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
+		if (esito.getErrori() == null && !sito.getVeicolo().equalsIgnoreCase("no")) {
 		Generic.clickByXPath(driver, "//div[@class='journey-summary-block active search-active last']");
 		if (sito.getVeicolo().equalsIgnoreCase("CAR")) {
 			Generic.clickByXPath(driver, "//div[@class='counter-wrapper orange']//button[@class='input-number-increment']");

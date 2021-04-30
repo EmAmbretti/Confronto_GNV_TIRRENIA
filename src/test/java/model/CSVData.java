@@ -12,6 +12,7 @@ public class CSVData {
 		private String passeggeriAnimali = null;
 		private String veicolo = null;
 		private String sistemazione = null;
+		private String anno = null;
 
 		public CSVData(String[] data) {
 			for (int i = 0; i < data.length; i ++)
@@ -136,9 +137,12 @@ public class CSVData {
 					+ ", passeggeriAnimali=" + passeggeriAnimali + ", veicolo=" + veicolo + ", sistemazione=" + sistemazione +"]";
 		}
 
-		
-		
+		public String getAnno() {
+			return anno;
+		}
 
+		public void setAnno(String anno) {
+			this.anno = anno;
+		}
 
-	
 }

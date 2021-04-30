@@ -4,44 +4,45 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import model.WebData;
+import model.CSVData;
+import model.EsitoSito;
 import utils.Generic;
 
 public class HomePageTIRRENIA {
 
-	public static void inserisciDatiTirrenia(WebDriver driver, WebData sito) throws Throwable {
-		if(sito.getDisponibilita() == null) {
+	public static void inserisciDatiTirrenia(WebDriver driver, EsitoSito esito, CSVData sito) throws Throwable {
+		if(esito.getErrori() == null) {
 			///////
 			System.out.println("Inizio inserimento dati tirrenia");
 			//////
-			controlloCollegamentoTirrenia(driver, sito);
-			checkboxTirrenia(driver, sito);
-			cliccaTratteTirrenia(driver, sito);
+			controlloCollegamentoTirrenia(driver, sito, esito);
+			checkboxTirrenia(driver, esito);
+			cliccaTratteTirrenia(driver, esito);
 			cliccaCollegamentoTirrenia(driver);
-			selezionaAndataTirrenia(driver, sito);
-			cliccaCalendario(driver, sito);
-			selezionaMeseTirrenia(driver, sito);
-			selezionaGiornoTirrenia(driver, sito);
+			selezionaAndataTirrenia(driver, esito, sito);
+			cliccaCalendario(driver, esito);
+			selezionaMeseTirrenia(driver, sito, esito);
+			selezionaGiornoTirrenia(driver, sito, esito);
 			Generic.clickById(driver, "input_NumeroPaxAndata");
 			Generic.clickByXPath(driver, "//*[@id=\"select_NumeroAdultiTipo2Andata\"]");
 			Thread.sleep(2000);
-			selezionaAdultiTirrenia(driver, sito.getAdulti());
+			selezionaAdultiTirrenia(driver, sito.getPasseggeriAdulti());
 			Thread.sleep(2000);
 			Generic.clickById(driver, "select_NumeroPasseggeriAndata");
-			selezionaBambiniTirrenia(driver, sito.getBambini());
+			selezionaBambiniTirrenia(driver, sito.getPasseggeriBambini());
 			Generic.clickById(driver, "select_NumeroAnimaliAndata");
 			Thread.sleep(2000);
-			selezionaAnimaliTirrenia(driver, sito.getAnimali());
+			selezionaAnimaliTirrenia(driver, sito.getPasseggeriAnimali());
 			Thread.sleep(2000);
 			Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[2]/div[3]/button");
 			Thread.sleep(2000);
 			gestioneVeicolo(driver, sito.getVeicolo());
 			Thread.sleep(2000);	
-			cliccaCercaTirrenia(driver, sito);
+			cliccaCercaTirrenia(driver, sito, esito);
 		}	
 	}
 	
-	private static void controlloCollegamentoTirrenia(WebDriver driver, WebData sito) throws Throwable {
+	private static void controlloCollegamentoTirrenia(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
 		for(int i = 1; i <= 4; i ++) {
 			WebElement element = driver.findElement(By.xpath("//*[@id=\"ContentPlaceHolder1_motore_ddl_destinazioni\"]/option[" + i + "]"));
 			if(element.getText().equalsIgnoreCase(sito.getCollegamento())) {
@@ -50,19 +51,19 @@ public class HomePageTIRRENIA {
 				break;				
 			}
 			if(i == 4) {
-				sito.setDisponibilita("Collegamento non disponibile per questo sito.");
+				esito.setErrori("Collegamento non disponibile per questo sito.");
 			}
 		}
 	}
 	
-	private static void checkboxTirrenia(WebDriver driver, WebData sito) throws Throwable {
-		if(sito.getDisponibilita() == null) {
+	private static void checkboxTirrenia(WebDriver driver, EsitoSito esito) throws Throwable {
+		if(esito.getErrori() == null) {
 			Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[1]/div[2]/div[1]/label[2]");
 		}
 	}
 	
-	private static void cliccaTratteTirrenia(WebDriver driver, WebData sito) throws Throwable {
-		if(sito.getDisponibilita() == null) {
+	private static void cliccaTratteTirrenia(WebDriver driver, EsitoSito esito) throws Throwable {
+		if(esito.getErrori() == null) {
 			Generic.clickById(driver, "tratte_andata");
 			Thread.sleep(2000);
 		}
@@ -73,39 +74,39 @@ public class HomePageTIRRENIA {
 		Thread.sleep(1000);
 	}
 	
-	private static void selezionaAndataTirrenia(WebDriver driver, WebData sito) throws Throwable{
-		if(sito.getDisponibilita() == null) {
+	private static void selezionaAndataTirrenia(WebDriver driver, EsitoSito esito, CSVData sito) throws Throwable{
+		if(esito.getErrori() == null) {
 			try {
-				driver.findElement(By.xpath("//*[@id=\"tratte_andata\"]/optgroup/option[contains(text(),'" + sito.getTratta() + "')]")).click();
+				driver.findElement(By.xpath("//*[@id=\"tratte_andata\"]/optgroup/option[contains(text(),'" + sito.getTrattaAndata() + "')]")).click();
 			}catch(Exception e) {
-				sito.setDisponibilita("la tratta per questo sito non è disponibile.");
+				esito.setErrori("la tratta per questo sito non è disponibile.");
 			}
 			Thread.sleep(2000);
 		}
 	}
 	
-	private static void cliccaCalendario(WebDriver driver, WebData sito) throws Throwable {
-		if(sito.getDisponibilita() == null) {
+	private static void cliccaCalendario(WebDriver driver, EsitoSito esito) throws Throwable {
+		if(esito.getErrori() == null) {
 			Generic.clickById(driver, "arrival");
 			Thread.sleep(2000);
 		}
 	}
 	
-	private static void selezionaMeseTirrenia(WebDriver driver, WebData sito) throws Throwable{
-		if(sito.getDisponibilita() == null) {
+	private static void selezionaMeseTirrenia(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable{
+		if(esito.getErrori() == null) {
 			for(int i = 1; i <= 12; i ++) {
 				WebElement element = driver.findElement(By.xpath("//*[@id=\"arrival_root\"]/div/div/div/div/div[1]/select[2]/option[" + i + "]"));
-				if(element.getText().equalsIgnoreCase(sito.getMese())) {
+				if(element.getText().equalsIgnoreCase(sito.getMeseAndata())) {
 					try {
 						element.click();
 					}catch(Exception e) {
-						sito.setDisponibilita("Il mese inserito non è valido.");
+						esito.setErrori("Il mese inserito non è valido.");
 						System.out.println("Il mese inserito non è valido!");
 					}
 					break;
 				}
 				if(i == 12) {
-					sito.setDisponibilita("Il mese inserito non è valido.");
+					esito.setErrori("Il mese inserito non è valido.");
 					System.out.println("Il mese inserito non è valido!");
 				}
 			}
@@ -113,19 +114,19 @@ public class HomePageTIRRENIA {
 		}
 	}
 	
-	private static void selezionaGiornoTirrenia(WebDriver driver,WebData sito) throws Throwable{
-		if(sito.getDisponibilita()==null) {
+	private static void selezionaGiornoTirrenia(WebDriver driver,CSVData sito, EsitoSito esito) throws Throwable{
+		if(esito.getErrori()==null) {
 			boolean controllo = false;
 			for(int i = 1; i <= 6; i ++) {
 				for(int j = 1; j <= 7; j ++) {
 					WebElement element=driver.findElement(By.xpath("//*[@id=\"arrival_table\"]/tbody/tr[" + i + "]/td[" + j + "]/div"));
-					if(element.getText().equals(sito.getGiorno())&&(Integer.valueOf(sito.getGiorno())<20||i>1)) {
+					if(element.getText().equals(sito.getGiornoAndata())&&(Integer.valueOf(sito.getGiornoAndata())<20||i>1)) {
 						Thread.sleep(2000);
 						try {
 							controllo=true;
 							element.click();
 						}catch(Exception e) {
-							sito.setDisponibilita("Il giorno inserito non è disponibile per questo sito.");
+							esito.setErrori("Il giorno inserito non è disponibile per questo sito.");
 						}
 						break;	
 					}
@@ -188,8 +189,8 @@ public class HomePageTIRRENIA {
 			Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[4]/div/button");
 		}
 	
-	public static void cliccaCercaTirrenia(WebDriver driver, WebData sito) throws Throwable {
-		if (sito.getDisponibilita() == null) {
+	public static void cliccaCercaTirrenia(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
+		if (esito.getErrori() == null) {
 			Generic.clickById(driver, "ContentPlaceHolder1_motore_Button_Cerca");
 		}	
 	}

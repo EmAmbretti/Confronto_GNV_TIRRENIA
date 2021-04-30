@@ -1,13 +1,15 @@
 package pages.grimaldi;
 
 import org.openqa.selenium.WebDriver;
-import model.WebData;
+
+import model.CSVData;
+import model.EsitoSito;
 import utils.Generic;
 
 public class HomePageGRIMALDI {
 
-	public static void gestioneVeicoloGrimaldi(WebDriver driver, WebData sito) throws Throwable {
-		if (sito.getDisponibilita() == null && !sito.getVeicolo().equalsIgnoreCase("no")) {
+	public static void gestioneVeicoloGrimaldi(WebDriver driver, EsitoSito esito, CSVData sito) throws Throwable {
+		if (esito.getErrori() == null && !sito.getVeicolo().equalsIgnoreCase("no")) {
 			Generic.clickById(driver, "carLeg1Select");
 			Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[2]/b");
 			if (sito.getVeicolo().equalsIgnoreCase("CAR")) {

@@ -6,36 +6,37 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import model.WebData;
+import model.CSVData;
+import model.EsitoSito;
 import utils.Generic;
 
 public class RecuperaImporto {
 	
-	public static void recuperaImportoGNV(WebDriver driver, WebData sito) {
-		if(sito.getDisponibilita()==null) {
+	public static void recuperaImportoGNV(WebDriver driver, EsitoSito esito) {
+		if(esito.getErrori()==null) {
 			String importo = driver.findElement(By.xpath("//*[@id=\"cartDropdown\"]/span")).getText();
-			sito.setPrezzo(importo);
+			esito.setPrezzo(importo);
 		}				
 	}
 	
-	public static void recuperaImportoTIRRENIA(WebDriver driver, WebData sito) {
-		if(sito.getDisponibilita()==null) {
+	public static void recuperaImportoTIRRENIA(WebDriver driver, EsitoSito esito) {
+		if(esito.getErrori()==null) {
 			String importo = driver.findElement(By.id("ContentPlaceHolder_Header_HeadingBread_Step_Andata_Panel_PrezzoTotale")).getText();
-			sito.setPrezzo(importo);
+			esito.setPrezzo(importo);
 		}				
 	}
 
-	public static String recuperaImportoGrimaldi(WebDriver driver, WebData sito) throws Throwable{
+	public static String recuperaImportoGrimaldi(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable{
 		String giorno = null;
 		boolean flag=false;
 		String prezzoGrimaldi= null;
 		try {
 			driver.findElement(By.xpath("//*[@id=\"calendar\"]/div/span/div[1]"));
-			sito.setDisponibilita(driver.findElement(By.xpath("//*[@id=\"calendar\"]/div/span/div[1]")).getText()+".");
+			esito.setErrori(driver.findElement(By.xpath("//*[@id=\"calendar\"]/div/span/div[1]")).getText()+".");
 		}catch(org.openqa.selenium.NoSuchElementException e) {
 			System.out.println("Nessun errore trovato.");
 		}
-		if(sito.getDisponibilita() == null) {
+		if(esito.getErrori() == null) {
 			do {
 				try {
 					driver.findElement(By.xpath("//*[@id=\"calendar_wrap\"]/div[1]/h2"));
@@ -48,13 +49,13 @@ public class RecuperaImporto {
 			}
 			while(flag);
 
-			if(sito.getGiorno().length()<2) {
-				giorno=0+sito.getGiorno();
+			if(sito.getGiornoAndata().length()<2) {
+				giorno=0+sito.getGiornoAndata();
 			} else {
-				giorno =sito.getGiorno();
+				giorno =sito.getGiornoAndata();
 			}
 
-			String data=giorno + " " + sito.getMese().substring(0,3).toUpperCase();
+			String data=giorno + " " + sito.getMeseAndata().substring(0,3).toUpperCase();
 			Thread.sleep(5000);
 			List<WebElement> elementList = driver.findElements(By.xpath("//a/div[1]"));
 			for(WebElement element:elementList) {
