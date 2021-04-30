@@ -2,30 +2,27 @@ package pages.moby;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-import model.CSVData;
 import model.EsitoSito;
-import model.WebData;
 import utils.Generic;
 
 public class PreventivoPageMOBY {
 	
-	public static void inserimentoDatiMoby(WebDriver driver, WebData sito) throws Throwable {
+	public static void inserimentoDatiMoby(WebDriver driver, EsitoSito sito) throws Throwable {
 		inserisciPasseggeriMoby(driver, sito);
 		gestioneVeicoloMoby(driver, sito);
 		selezionaSistemazione(driver, sito);
 		cliccaContinua(driver);
 	}
 	
-	private static void inserisciPasseggeriMoby(WebDriver driver, WebData sito) throws Throwable{
-		if(sito.getDisponibilita() == null) {
-			for(int i = 0; i < Integer.valueOf(sito.getAdulti()); i ++) {
+	private static void inserisciPasseggeriMoby(WebDriver driver, EsitoSito sito) throws Throwable{
+		if(sito.getErrori() == null) {
+			for(int i = 0; i < Integer.valueOf(sito.getDatiCsv().getPasseggeriAdulti()); i ++) {
 				cliccaTastoPiuAdulti(driver);
 			}
-			for(int i = 0; i < Integer.valueOf(sito.getBambini()); i ++) {
+			for(int i = 0; i < Integer.valueOf(sito.getDatiCsv().getPasseggeriBambini()); i ++) {
 				cliccaTastoPiuBambini(driver);
 			}
-			for(int i = 0; i < Integer.valueOf(sito.getAnimali()); i ++) {
+			for(int i = 0; i < Integer.valueOf(sito.getDatiCsv().getPasseggeriAnimali()); i ++) {
 				cliccaTastoPiuAnimali(driver);
 			}
 			Thread.sleep(3000);
@@ -44,22 +41,22 @@ public class PreventivoPageMOBY {
 		driver.findElement(By.xpath("//*[@id=\"mobyGuid26\"]/div/div/button[2]")).click();
 	}
 
-	private static void gestioneVeicoloMoby(WebDriver driver, EsitoSito sito, CSVData data) {
-		if (sito.getErrori() == null && !data.getVeicolo().equalsIgnoreCase("no")) {
+	private static void gestioneVeicoloMoby(WebDriver driver, EsitoSito sito) {
+		if (sito.getErrori() == null && !sito.getDatiCsv().getVeicolo().equalsIgnoreCase("no")) {
 			Generic.clickByXPath(driver, "//button[@id='customSelectMobyGuid20']");
-			if (data.getVeicolo().equalsIgnoreCase("CAR")) {
+			if (sito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
 				Generic.clickByXPath(driver,
 						"//li[@class='option']/a[@class='fg-color'][contains(.,'Auto con lunghezza fino a 4m')]");
 
-			} else if (data.getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
+			} else if (sito.getDatiCsv().getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
 				Generic.clickByXPath(driver,
 						"//li[@class='option']/a[@class='fg-color'][contains(.,'Auto con lunghezza da 4,01m a 5m')]");
 
-			} else if (data.getVeicolo().equalsIgnoreCase("CMP")) {
+			} else if (sito.getDatiCsv().getVeicolo().equalsIgnoreCase("CMP")) {
 				Generic.clickByXPath(driver,
 						"//li[@class='option']/a[@class='fg-color'][contains(.,'Camper nel garage')]");
 
-			} else if (data.getVeicolo().equalsIgnoreCase("MOTO")) {
+			} else if (sito.getDatiCsv().getVeicolo().equalsIgnoreCase("MOTO")) {
 				Generic.clickByXPath(driver,
 						"//li[@class='option']/a[@class='fg-color'][contains(.,'Moto Fino A 200cc')]");
 
@@ -70,9 +67,9 @@ public class PreventivoPageMOBY {
 
 	}
 	
-	private static void selezionaSistemazione(WebDriver dirver, WebData sito) throws Throwable {
-		int passeggeri = Integer.valueOf(sito.getAdulti()) + Integer.valueOf(sito.getBambini());
-		if (sito.getSistemazione().contains("POLTRON")) {
+	private static void selezionaSistemazione(WebDriver dirver, EsitoSito sito) throws Throwable {
+		int passeggeri = Integer.valueOf(sito.getDatiCsv().getPasseggeriAdulti()) + Integer.valueOf(sito.getDatiCsv().getPasseggeriBambini());
+		if (sito.getDatiCsv().getSistemazione().contains("POLTRON")) {
 			for(int i = 0; i < passeggeri; i ++) {
 				Generic.clickByXPath(dirver, "//*[@id=\"mobyGuid37\"]/div/div/button[2]");
 			}			

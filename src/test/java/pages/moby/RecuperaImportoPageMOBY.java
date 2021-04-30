@@ -2,12 +2,11 @@ package pages.moby;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-import model.WebData;
+import model.EsitoSito;
 
 public class RecuperaImportoPageMOBY {
 	
-	public static double recuperaImportoMoby(WebDriver driver, WebData sito) {
+	public static double recuperaImportoMoby(WebDriver driver, EsitoSito sito) {
 		String priceMoby = null;
 		try {
 			priceMoby = driver.findElement(By.id("toolbarTotalePreventivo")).getText();
