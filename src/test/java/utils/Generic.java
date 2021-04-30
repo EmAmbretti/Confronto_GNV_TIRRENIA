@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import model.CSVData;
 import model.WebData;
-
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
@@ -112,6 +111,21 @@ public class Generic {
 	public static void clickById(WebDriver driver, String id) throws Throwable {
 		driver.findElement(By.id(id)).click();
 
+	}
+	
+	public static void sendKeysByXPath(WebDriver driver, String xPath, String keys) {
+		driver.findElement(By.xpath(xPath)).sendKeys(keys);
+		
+	}
+	
+	public static void sendKeysById(WebDriver driver, String id, String keys) {
+		driver.findElement(By.id(id)).sendKeys(keys);
+		
+	}
+	
+	public static void clickByList(WebDriver driver, String xPath, int index) {
+		List<WebElement> elementList = driver.findElements(By.xpath(xPath));
+		elementList.get(index).click();
 	}
 	
 	public static void generaFileTxt(String tipologia, WebData sito1, WebData sito2, WebData sito3 ,Double prezzoTirrenia, Double prezzoGNV,Double prezzoGrimaldi,Double prezzoMigliore) {
