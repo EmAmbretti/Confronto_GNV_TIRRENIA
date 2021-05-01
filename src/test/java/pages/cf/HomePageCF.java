@@ -15,11 +15,16 @@ public class HomePageCF {
 		
 	}
 	
-	private static void scegliTrattaEData(WebDriver driver) {
-		
+	private static void scegliTrattaEData(WebDriver driver, CSVData datiSito) {
+		scegliTratta(driver, datiSito);
+		scegliDataViaggio(driver, datiSito);
+		Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/button");
 	}
 	
 	private static void scegliTratta(WebDriver driver, CSVData datiSito) {
+		// CLICK SOLO ANDATA
+		Generic.clickByXPath(driver, "//*[@id=\"gwt-uid-8\"]");
+		
 		// CLICK PER SCELTA TRATTA
 		Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[1]/div");
 		
@@ -41,6 +46,11 @@ public class HomePageCF {
 			}
 		}
 		
+		
+	}
+	
+	private static void scegliDataViaggio(WebDriver driver, CSVData datiSito) {
+
 		// CLICK PER SCELTA DATA
 		Generic.clickByXPath(driver, "//*[@id=\"sod\"]");
 		
@@ -54,6 +64,19 @@ public class HomePageCF {
 				webElement.click(); 
 			}
 		}
+		
+		// SCELTA GIORNO
+		ArrayList<WebElement> listaGiorni = Generic.getElementListByXPath(driver, "/html/body/div[5]/div/div/div/table/tbody/tr[2]/td/table/tbody/tr/td/div");
+		for (int i=0 ; i>listaGiorni.size(); i++) {
+			if(!listaGiorni.get(i).getText().equals("1")) {
+				listaGiorni.remove(i);
+			} else {
+				break;
+			}
+		}
+		
+		listaGiorni.get(Integer.valueOf(datiSito.getGiornoAndata())+1);
+		
 	}
 	
 }

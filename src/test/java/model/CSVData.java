@@ -13,6 +13,7 @@ public class CSVData {
 		private String veicolo = null;
 		private String sistemazione = null;
 		private String anno = null;
+		private String fasciaOraria = null;
 
 		public CSVData(String[] data) {
 			for (int i = 0; i < data.length; i ++)
@@ -143,6 +144,14 @@ public class CSVData {
 
 		public void setAnno(String anno) {
 			this.anno = anno;
+		}
+
+		public String getFasciaOraria() {
+			return fasciaOraria;
+		}
+
+		public void setFasciaOraria(String fasciaOraria) {
+			this.fasciaOraria = fasciaOraria;
 		}
 
 }

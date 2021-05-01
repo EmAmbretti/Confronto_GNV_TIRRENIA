@@ -116,6 +116,7 @@ public class Generic {
 			} else {
 				System.out.println(": " + e.getLocalizedMessage());
 			}
+			System.exit(-1);
 		}
 	}
 
@@ -134,6 +135,7 @@ public class Generic {
 			} else {
 				System.out.println(": " + e.getLocalizedMessage());
 			}
+			System.exit(-1);
 		}
 
 	}
@@ -153,7 +155,28 @@ public class Generic {
 			} else {
 				System.out.println(": "+e.getLocalizedMessage());
 			}
+			System.exit(-1);
 		}
+	}
+	
+	public static WebElement getElementByXPath(WebDriver driver, String xpath) {
+		WebElement element = null;
+		try {
+				element = driver.findElement(By.xpath(xpath));
+			if (element != null) {
+				System.out.println("getElementByXPath: "+xpath);
+			}
+		} catch (Exception e) {
+			System.out.print("!ERRORE! getElementByXPath: ");
+			System.out.print(xpath);
+			if(e instanceof org.openqa.selenium.NoSuchElementException) {
+				System.out.println(": Selenium.NoSuchElementException");
+			} else {
+				System.out.println(": "+e.getLocalizedMessage());
+			}
+			System.exit(-1);
+		}
+		return element;
 	}
 
 	public static void sendKeysByList(WebDriver driver, String xpath, String toSend, int index) {
@@ -188,6 +211,7 @@ public class Generic {
 			} else {
 				System.out.println(": "+e.getLocalizedMessage());
 			}
+			System.exit(-1);
 		}
 	}
 
@@ -198,6 +222,7 @@ public class Generic {
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("elemento lista non trovato");
+			System.exit(-1);
 		}
 	}
 	
@@ -273,6 +298,11 @@ public class Generic {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static String getTextFromXPath(WebDriver driver, String xPath) {
+		WebElement element = getElementByXPath(driver, xPath);
+		return element.getText();
 	}
 
 }
