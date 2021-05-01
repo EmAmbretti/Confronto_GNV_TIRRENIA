@@ -31,7 +31,7 @@ public class PrestazioniPageCF {
 						Generic.clickByXPath(driver, "//label[contains(.,'fino a 4.00m')]//span[@class='checkbox']");
 						Generic.clickByList(driver, "//button[@class='btn btn-main'][contains(.,'Convalidare')]", 0);
 					} else {
-						System.out.println("Veicolo non disponibile per questa tratta");
+						System.out.println(data.getVeicolo() + " non disponibile per questa tratta");
 						esito.setErrori(data.getVeicolo() + " non disponibile per questa tratta");
 					}
 				}
@@ -53,7 +53,7 @@ public class PrestazioniPageCF {
 					Generic.sendKeysByXPath(driver, "//input[@class='car-dimensions-size']", "550");
 					Generic.clickByList(driver, "//button[@class='btn btn-main'][contains(.,'Convalidare')]", 0);
 				} else {
-					System.out.println("Veicolo non disponibile per questa tratta");
+					System.out.println(data.getVeicolo() + " non disponibile per questa tratta");
 					esito.setErrori(data.getVeicolo() + " non disponibile per questa tratta");
 				}
 				}
@@ -67,7 +67,7 @@ public class PrestazioniPageCF {
 					Generic.sendKeysByList(driver, "//input[@class='car-dimensions-size']", "750", 1);
 					Generic.clickByList(driver, "//button[@class='btn btn-main'][contains(.,'Convalidare')]", 1);
 				} else {
-					System.out.println("Veicolo non disponibile per questa tratta");
+					System.out.println(data.getVeicolo() + " non disponibile per questa tratta");
 					esito.setErrori(data.getVeicolo() + " non disponibile per questa tratta");
 				}
 
@@ -77,7 +77,7 @@ public class PrestazioniPageCF {
 					Generic.clickByList(driver,
 							"//button[@class='btn btn-full-yellow add-option'][contains(.,'Scegliere')]", 2);
 				} else {
-					System.out.println("Veicolo non disponibile per questa tratta");
+					System.out.println(data.getVeicolo() + " non disponibile per questa tratta");
 					esito.setErrori(data.getVeicolo() + " non disponibile per questa tratta");
 				}
 

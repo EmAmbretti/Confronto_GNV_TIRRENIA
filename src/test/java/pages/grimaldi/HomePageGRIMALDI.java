@@ -21,7 +21,7 @@ public class HomePageGRIMALDI {
 				Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Veicolo')]");
 				Generic.clickById(driver, "createcar");
 				}else {
-					System.out.println("Veicolo non disponibile per questa tratta");
+					System.out.println(data.getVeicolo() + " non disponibile per questa tratta");
 					esito.setErrori(data.getVeicolo() + " non disponibile per questa tratta");
 				}
 			} else if (data.getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
@@ -33,7 +33,7 @@ public class HomePageGRIMALDI {
 				Generic.sendKeysByXPath(driver, "//input[@id='mtlCar']", "5.50");
 				Generic.clickById(driver, "createcar");
 				}else {
-					System.out.println("Veicolo non disponibile per questa tratta");
+					System.out.println(data.getVeicolo() + "non disponibile per questa tratta");
 					esito.setErrori(data.getVeicolo() + " non disponibile per questa tratta");
 				}
 			} else if (data.getVeicolo().equalsIgnoreCase("CMP")) {
@@ -42,7 +42,7 @@ public class HomePageGRIMALDI {
 				Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
 				Generic.clickById(driver, "createcar");
 				}else {
-					System.out.println("Veicolo non disponibile per questa tratta");
+					System.out.println(data.getVeicolo() + " non disponibile per questa tratta");
 					esito.setErrori(data.getVeicolo() + " non disponibile per questa tratta");
 				}
 			} else if (data.getVeicolo().equalsIgnoreCase("MOTO")) {
@@ -51,7 +51,8 @@ public class HomePageGRIMALDI {
 				Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Moto')]");
 				Generic.clickById(driver, "createcar");
 				}else {
-					
+					System.out.println(data.getVeicolo() + " non disponibile per questa tratta");
+					esito.setErrori(data.getVeicolo() + " non disponibile per questa tratta");
 				}
 			} 
 		}
