@@ -12,6 +12,11 @@ import utils.Generic;
 
 public class PrestazioniPageCF {
 
+	public static void automationPaginaPrestazioni(WebDriver driver, CSVData datiSito, EsitoSito esito) {
+		gestionePasseggeri(driver, datiSito, esito);
+		gestioneVeicoloMoby(driver, datiSito, esito);
+	}
+	
 	private static void gestionePasseggeri(WebDriver driver, CSVData datiSito, EsitoSito esito) {
 		int i = 1;
 		int numeroPasseggeriAdulti = Integer.valueOf(datiSito.getPasseggeriAdulti());

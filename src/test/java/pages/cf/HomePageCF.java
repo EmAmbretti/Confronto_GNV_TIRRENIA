@@ -6,16 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import model.CSVData;
-import model.EsitoSito;
 import utils.Generic;
 
 public class HomePageCF {
-	
-	public static void classeDiStart(WebDriver driver) {
 		
-	}
-	
-	private static void scegliTrattaEData(WebDriver driver, CSVData datiSito) {
+	public static void scegliTrattaEData(WebDriver driver, CSVData datiSito) {
 		scegliTratta(driver, datiSito);
 		scegliDataViaggio(driver, datiSito);
 		Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/button");
