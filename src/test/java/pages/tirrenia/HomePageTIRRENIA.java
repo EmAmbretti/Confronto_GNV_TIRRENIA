@@ -201,4 +201,9 @@ public class HomePageTIRRENIA {
 		}
 		
 	}
+	
+	public static void bypassFrame(WebDriver driver) throws Throwable {
+		driver.switchTo().frame("tlines").findElement(By.id("ContentPlaceHolder1_motore_ddl_destinazioni")).click();
+		Thread.sleep(3000);
+	}
 }
