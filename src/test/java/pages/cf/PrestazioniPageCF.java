@@ -12,7 +12,36 @@ import utils.Generic;
 
 public class PrestazioniPageCF {
 
-	public static void gestioneVeicoloMoby(WebDriver driver, CSVData data, EsitoSito esito) throws Throwable {
+	private static void gestionePasseggeri(WebDriver driver, CSVData datiSito, EsitoSito esito) {
+		int i = 1;
+		int numeroPasseggeriAdulti = Integer.valueOf(datiSito.getPasseggeriAdulti());
+		while(i > numeroPasseggeriAdulti){
+			i++;
+			Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/ul/li[1]/div[2]/button[2]");
+		}
+		
+		i = 1;
+		int numeroPasseggeriBambini = Integer.valueOf(datiSito.getPasseggeriBambini());
+		while(i > numeroPasseggeriBambini){
+			i++;
+			Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/ul/li[2]/div[2]/button[2]");
+		}
+		
+
+		i = 1;
+		int numeroPasseggeriAnimali = Integer.valueOf(datiSito.getPasseggeriAnimali());
+		if(numeroPasseggeriAnimali!=0) {
+			Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/div/div/span/span[1]");
+		}
+		while(i > numeroPasseggeriAnimali){
+			i++;
+			// + CANI
+			Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/div/ul/li[1]/div[2]/button[2]");
+		}
+		
+	}
+	
+	private static void gestioneVeicoloMoby(WebDriver driver, CSVData data, EsitoSito esito) {
 		if (esito.getErrori() == null && !data.getVeicolo().equalsIgnoreCase("no")) {
 			if (data.getVeicolo().equalsIgnoreCase("CAR")) {
 				WebElement element = null;

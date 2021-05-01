@@ -55,5 +55,11 @@ public class SceltaPageCF {
 		WebElement foo = driver.findElement(By.xpath("//*[@title='" + title + "']"));
 		WebElement bar = foo.findElement(By.xpath(".//img")); 
 		 */
+		
+		//SCROLL DA AGGIUNGERE
+		
+		// CLICK BUTTON AVANTI
+		Generic.clickByXPath(driver, "//*[@id=\"SearchView\"]/div[3]/button");
+		
 	}
 }
