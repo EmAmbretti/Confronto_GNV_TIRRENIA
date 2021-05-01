@@ -1,5 +1,6 @@
 package pages.moby;
 
+import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,9 +30,9 @@ public class HomePageMOBY {
 
 	private static void selezionaTrattaMOBY(WebDriver driver, EsitoSito sito, CSVData data) throws Throwable {
 		Generic.clickByXPath(driver, "//*[@id=\"widget-home\"]/form/div[2]/div[1]/div/div[1]/div/span");
-		Thread.sleep(1000);
+		Thread.sleep(1000);			
 		try {
-			driver.findElement(By.xpath("/html/body/div[12]/div/span/span/ul/li/span/ul/li[contains(.,'" + data.getTrattaAndata() + "')]")).click();
+			Generic.clickByXPath(driver, "/html/body/div/div/span/span/ul/li/span/ul/li/span[contains(.,'" + data.getTrattaAndata() + "')]");
 		}catch (Exception e){
 			sito.setErrori("la tratta per questo sito non è disponibile.");
 			System.out.println("L'elemento TRATTA: " + data.getTrattaAndata() + " non è disponibile.");
