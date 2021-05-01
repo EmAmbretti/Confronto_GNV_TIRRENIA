@@ -114,8 +114,13 @@ public class PrestazioniPageCF {
 					System.out.println(data.getVeicolo() + " non disponibile per questa tratta");
 					esito.setErrori(data.getVeicolo() + " non disponibile per questa tratta");
 				}
-
 			}
 		}
 	}
+	
+	//Click + "Bici": //*[@id="content"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[4]/div[2]/button[2]
+	
+	
+	
+	
 }
