@@ -1,5 +1,6 @@
 package pages.tirrenia;
 
+
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -12,7 +13,7 @@ import utils.Generic;
 
 public class HomePageTIRRENIA {
 
-	public static void inserisciDatiTirrenia(WebDriver driver, EsitoSito esito, CSVData sito) throws Throwable {
+	public static void inserisciDatiTirrenia(WebDriver driver, EsitoSito esito, CSVData data) throws Throwable {
 		if(esito.getErrori() == null) {
 			///////
 			System.out.println("Inizio inserimento dati tirrenia");
@@ -21,17 +22,17 @@ public class HomePageTIRRENIA {
 			
 			//scorriCollegamento(driver, sito, esito);
 			checkboxTirrenia(driver, esito);
-			controlloCollegamentoTirrenia(driver, sito, esito);
-			selezionaAndataTirrenia(driver, esito, sito);
+			controlloCollegamentoTirrenia(driver, data, esito);
+			selezionaAndataTirrenia(driver, esito, data);
 			cliccaCalendario(driver, esito);
-			selezionaMeseTirrenia(driver, sito, esito);
-			selezionaGiornoTirrenia(driver, sito, esito);
+			selezionaMeseTirrenia(driver, data, esito);
+			selezionaGiornoTirrenia(driver, data, esito);
 			
-			selezionaPasseggeriTirrenia(driver, sito, esito);
+			selezionaPasseggeriTirrenia(driver, data, esito);
 			
-			gestioneVeicolo(driver, sito.getVeicolo());
+
 			Thread.sleep(2000);	
-			cliccaCercaTirrenia(driver, sito, esito);
+			cliccaCercaTirrenia(driver, data, esito);
 		}	
 	}
 	
@@ -151,40 +152,7 @@ public class HomePageTIRRENIA {
 		driver.findElement(By.xpath("//*[@id=\"select_NumeroAnimaliAndata\"]/option["+(Integer.valueOf(animali)+1)+"]")).click();
 	}
 	
-	private static void gestioneVeicolo(WebDriver driver, String veicolo)throws Throwable{
 		
-			Generic.clickByXPath(driver, "//*[@id=\"input_VeicoliAndata\"]");
-			if(veicolo.equalsIgnoreCase("No")) {
-				Generic.clickByXPath(driver, "//a[1]/div/label");
-			}else if(veicolo.equalsIgnoreCase("Car")||veicolo.equalsIgnoreCase("Car5m")) {
-				Generic.clickByXPath(driver, "//a[2]/div/label");
-				Generic.clickByXPath(driver, "//*[@id=\"select_MarcaVeicoloAndata\"]");
-				Thread.sleep(1000);
-				if(veicolo.equalsIgnoreCase("Car")){
-					//driver.findElement(By.xpath("//*[@id=\\\"select_MarcaVeicoloAndata\\\"]")).sendKeys("f");
-					Generic.clickByXPath(driver, "//*[@id=\"select_MarcaVeicoloAndata\"]/option[contains(text(),'fiat')]");
-					Generic.clickById(driver, "select_ModelloVeicoloAndata");
-					//driver.findElement(By.xpath("//*[@id=\"select_ModelloVeicoloAndata\"]")).sendKeys("p");
-					Generic.clickByXPath(driver, "//*[@id=\"select_ModelloVeicoloAndata\"]/option[contains(text(),'panda (2013-)')]");
-				}else if(veicolo.equalsIgnoreCase("Car5m")) {
-					//driver.findElement(By.xpath("//*[@id=\\\"select_MarcaVeicoloAndata\\\"]")).sendKeys("a");
-					Generic.clickByXPath(driver, "//*[@id=\"select_MarcaVeicoloAndata\"]/option[contains(text(),'audi')]");
-					Generic.clickById(driver, "select_ModelloVeicoloAndata");
-					//driver.findElement(By.xpath("//*[@id=\"select_ModelloVeicoloAndata\"]")).sendKeys("q");
-					Generic.clickByXPath(driver, "//*[@id=\"select_ModelloVeicoloAndata\"]/option[contains(text(),'q7 (2018-)')]");
-				}
-			}else if(veicolo.equalsIgnoreCase("Moto")){
-				Generic.clickByXPath(driver, "//a[6]/div/label");
-				Generic.clickById(driver, "select_QuantitaVeicoloAndata");
-				Generic.clickByXPath(driver, "//*[@id=\"select_QuantitaVeicoloAndata\"]/option[2]");
-			}else if(veicolo.equalsIgnoreCase("CMP")) {
-				Generic.clickByXPath(driver, "//a[3]/div/label");
-				driver.findElement(By.id("input_LunghezzaVeicoloAndata")).sendKeys("750");
-				driver.findElement(By.id("input_AltezzaVeicoloAndata")).sendKeys("350");
-			}
-			Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_motore_verticale\"]/div/div[2]/div[4]/div/button");
-		}
-	
 	public static void cliccaCercaTirrenia(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
 		if (esito.getErrori() == null) {
 			Generic.clickByXPath(driver, "//*[@id=\"ContentPlaceHolder1_motore_Button_Cerca\"]");
