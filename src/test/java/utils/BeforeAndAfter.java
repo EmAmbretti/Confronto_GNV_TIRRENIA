@@ -28,6 +28,17 @@ public class BeforeAndAfter {
         System.out.println("Starting - " + scenario.getName());
         System.out.println("------------------------------");
     }
+    
+    //OverLoad
+    public static WebDriver before(String sito) throws Throwable {
+        System.setProperty("webdriver.chrome.driver", new File(".").getCanonicalFile() + "\\Drivers\\Chrome\\chromedriver.exe");
+        System.out.println("------------------------------\nNew ChromeDriver..\n------------------------------\n");
+        driver = new ChromeDriver();
+        System.out.println("------------------------------");
+        System.out.println("Starting - " + sito);
+        System.out.println("------------------------------");
+        return driver;
+    }
 
 
     @After

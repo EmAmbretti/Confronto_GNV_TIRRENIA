@@ -8,18 +8,20 @@ import pages.moby.DisponibilitaPageMOBY;
 import pages.moby.HomePageMOBY;
 import pages.moby.RecuperaImportoPageMOBY;
 import pages.moby.ServiziPageMOBY;
+import utils.BeforeAndAfter;
 
 public class Moby {
 	
 	EsitoSito sito;
+	WebDriver driver;
 	
-	public void allMethods(WebDriver driver, CSVData testData) throws Throwable {
+	public void allMethods(CSVData testData) throws Throwable {
+		driver = BeforeAndAfter.before("MOBY");
 		sito = new EsitoSito("MOBY", testData); 
-		HomePageMOBY.selezionaItinerarioMOBY(null, null);
+		HomePageMOBY.selezionaItinerarioMOBY(driver, sito, testData);
 		DisponibilitaPageMOBY.selezionaCorsa(driver);
-		ServiziPageMOBY.continuaPopUp(driver);
-		RecuperaImportoPageMOBY.recuperaImportoMoby(driver, null);
-	
+		ServiziPageMOBY.continuaPopUp(driver, sito);
+		RecuperaImportoPageMOBY.recuperaImportoMoby(driver, sito);	
 	}
 
 }
