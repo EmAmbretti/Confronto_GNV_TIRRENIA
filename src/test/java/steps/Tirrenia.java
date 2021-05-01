@@ -22,5 +22,6 @@ public class Tirrenia {
 		RecapPageTIRRENIA.controlloDisponibilitaFinaleTirrenia(driver, sitoTIRRENIA);
 		RecapPageTIRRENIA.controlloDisponibilitaSistemazioneTirrenia(driver, sitoTIRRENIA);
 		RecuperaImportoPageTIRRENIA.recuperaImportoTIRRENIA(driver, sitoTIRRENIA);	
+		System.out.println(sitoTIRRENIA.getPrezzo());
 	}
 }

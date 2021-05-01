@@ -121,7 +121,7 @@ public class Generic {
 
 	public static void clickById(WebDriver driver, String id) throws Throwable {
 		try {
-			WebElement element = driver.findElement(By.xpath(id));
+			WebElement element = driver.findElement(By.id(id));
 			if (element != null) {
 				element.click();
 				System.out.println("CLICKED: " + id);
