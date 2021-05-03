@@ -173,14 +173,56 @@ public class HomePageGRIMALDI {
 			esito.setErrori("Nessuna sistemazione disponibile per i criteri selezionati.");
 		}
 		if(esito.getErrori() == null) {
-			try {
-				List<WebElement> elementList = driver.findElements(By.xpath("//ul/li[contains(text(),'" + sito.getSistemazione() + "')]"));
-				elementList.get(0).click();
-			} catch (Exception e) {
-				esito.setErrori("la sistemazione \"" + sito.getSistemazione() +"\" non è disponibile.");
+			
+				String sistemazione=setSistemazioneString(sito);
+				int i=(Integer.valueOf(sito.getPasseggeriAdulti()))+(Integer.valueOf(sito.getPasseggeriBambini()));
+				boolean flag=false;
+				List<WebElement> elementList = driver.findElements(By.xpath("//*[@id=\"accBox\"]/div/div[3]/div/ul/li"));
+				while(i<=4) {
+					for(WebElement element:elementList) {
+						if(element.getText().equalsIgnoreCase(sistemazione)) {
+							System.out.println("trovato");
+							element.click();
+							flag=true;
+							break;
+						}
+					}				
+					if(flag) {
+						esito.appendNote("Sistemazione richiesta non disponibile, setto nuova sistemazione: "+sistemazione);
+						break;
+					}
+					i++;
+					System.out.println("stringa: "+sistemazione);
+					System.out.println("i++, "+(i-1)+" -> " +i);
+					sistemazione=sistemazione.replace((i-1)+"", i+"");
+				}	
+			if(i>4&&!sistemazione.equalsIgnoreCase("Poltrona")&&!sistemazione.equalsIgnoreCase("Ponte")) {
+				esito.setErrori("la sistemazione \"" + sistemazione +"\" non è disponibile.");
 			}
 		}
-		
+	}
+	
+	private static String setSistemazioneString(CSVData sito) {
+		if(sito.getSistemazione().equalsIgnoreCase("cab. interna")) {
+			if((Integer.valueOf(sito.getPasseggeriAdulti()))+(Integer.valueOf(sito.getPasseggeriBambini()))<=2) {
+				return "Cabina Interna Uso Esclusivo (max 2 persone)";
+			}else if((Integer.valueOf(sito.getPasseggeriAdulti()))+(Integer.valueOf(sito.getPasseggeriBambini()))==3) {
+				return "Cabina Interna Uso Esclusivo (max 3 persone)";
+			}else {
+				return "Cabina Interna Uso Esclusivo (max 4 persone)";
+			}
+			
+		}else if(sito.getSistemazione().equalsIgnoreCase("cab. esterna")) {
+			if((Integer.valueOf(sito.getPasseggeriAdulti()))+(Integer.valueOf(sito.getPasseggeriBambini()))<=2) {
+				return "Cabina Esterna Uso Esclusivo (max 2 persone)";
+			}else if((Integer.valueOf(sito.getPasseggeriAdulti()))+(Integer.valueOf(sito.getPasseggeriBambini()))==3) {
+				return "Cabina Esterna Uso Esclusivo (max 3 persone)";
+			}else {
+				return "Cabina Esterna Uso Esclusivo (max 4 persone)";
+			}
+		}else {
+			return sito.getSistemazione();
+		}	
 	}
 	
 	private static void inseriscoPasseggeriGrimaldi(WebDriver driver, CSVData sito) throws Throwable{
