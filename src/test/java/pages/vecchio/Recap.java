@@ -1,4 +1,4 @@
-package pages;
+package pages.vecchio;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class Recap {
 			driver.findElement(By.xpath("//*[@id=\"ContentPlaceHolder1_ascx_andata_div_partenze_non_trovate\"]"));
 			esito.setErrori("la tratta per questo sito non è disponibile.");
 		}catch(Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 

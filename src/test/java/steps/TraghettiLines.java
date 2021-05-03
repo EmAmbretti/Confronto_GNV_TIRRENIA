@@ -1,15 +1,12 @@
 package steps;
 
-import java.awt.Window;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import pages.HomePage;
+import pages.vecchio.HomePage;
 import utils.BeforeAndAfter;
 import utils.Generic;
 

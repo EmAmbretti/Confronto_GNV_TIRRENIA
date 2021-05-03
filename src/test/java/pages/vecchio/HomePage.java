@@ -1,4 +1,4 @@
-package pages;
+package pages.vecchio;
 
 import java.util.List;
 
@@ -109,7 +109,6 @@ public class HomePage {
 		for (int i = 1; i <= ripetizioni; i ++) {
 			driver.findElement(By.id(id)).sendKeys(Keys.DOWN);
 		}
-		
 	}
 	
 	public static void scrollDropListByXPath(WebDriver driver, String xPath, int ripetizioni) {
