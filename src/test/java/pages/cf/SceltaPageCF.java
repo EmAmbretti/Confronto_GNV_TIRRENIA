@@ -9,19 +9,19 @@ import org.openqa.selenium.WebElement;
 import model.CSVData;
 import model.EsitoSito;
 import utils.Generic;
+import utils.Translator;
 
 public class SceltaPageCF {
 
-	public static void sceltaViaggio(WebDriver driver, CSVData datiSito, EsitoSito esito) {
+	public static void sceltaViaggio(WebDriver driver, CSVData datiSito, EsitoSito sito) {
 		
 		ArrayList<WebElement> righeTabella = Generic.getElementListByXPath(driver, "//*[@id='SearchView']/div[1]/div/div/div[2]/div/div[1]/div/div/div[3]/div/div[3]/table/tbody/tr");
-		// LE CITTA' SONO IN FRANCESE, BISOGNA VEDERE SE USARE API OPPURE CLASSE PER TRADURRE
-		String[] trattaDaCsv=datiSito.getTrattaAndata().split(" - ");
-		String partenza = trattaDaCsv[0];
-		String arrivo = trattaDaCsv[1];
+				
+		Translator.traduciTratta(sito);
+		
 		for (int i = 0; i < righeTabella.size(); i++) {
 			WebElement tratta = righeTabella.get(i).findElement(By.xpath(".//td[1]/div/div[1]"));
-			if(tratta.getText().contains(partenza) && tratta.getText().contains(arrivo)){
+			if(tratta.getText().contains(sito.getDatiCsv().getComunePartenza()) && tratta.getText().contains(sito.getDatiCsv().getComuneArrivo())){
 				String orario = tratta.findElement(By.xpath(".//td[2]/div/span/span[1]")).getText().split(":")[0];
 				// SE DIURNO E..
 				if(Integer.valueOf(orario)<18 && datiSito.getFasciaOraria().equals("DIURNA")) {
@@ -30,7 +30,7 @@ public class SceltaPageCF {
 				} else if(Integer.valueOf(orario)>18 && datiSito.getFasciaOraria().equals("NOTTURNA")){
 					righeTabella.get(i).click();
 				} else {
-					esito.setErrori("NESSUNA TRATTA TROVATA PER LA FASCIA ORARIA RICHIESTA");
+					sito.setErrori("NESSUNA TRATTA TROVATA PER LA FASCIA ORARIA RICHIESTA");
 				}
 				
 			}

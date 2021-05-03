@@ -118,7 +118,6 @@ public class Generic {
 			} else {
 				System.out.println(": " + e.getLocalizedMessage());
 			}
-			System.exit(-1);
 		}
 	}
 
@@ -137,7 +136,6 @@ public class Generic {
 			} else {
 				System.out.println(": " + e.getLocalizedMessage());
 			}
-			System.exit(-1);
 		}
 
 	}
@@ -157,7 +155,6 @@ public class Generic {
 			} else {
 				System.out.println(": "+e.getLocalizedMessage());
 			}
-			System.exit(-1);
 		}
 	}
 	
@@ -176,7 +173,6 @@ public class Generic {
 			} else {
 				System.out.println(": "+e.getLocalizedMessage());
 			}
-			System.exit(-1);
 		}
 		return element;
 	}
@@ -213,7 +209,6 @@ public class Generic {
 			} else {
 				System.out.println(": "+e.getLocalizedMessage());
 			}
-			System.exit(-1);
 		}
 	}
 
@@ -224,7 +219,6 @@ public class Generic {
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("elemento lista non trovato");
-			System.exit(-1);
 		}
 	}
 	

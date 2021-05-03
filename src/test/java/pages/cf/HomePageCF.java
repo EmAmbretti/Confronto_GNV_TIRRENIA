@@ -1,7 +1,6 @@
 package pages.cf;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,13 +27,13 @@ public class HomePageCF {
 		// RECUPERO LISTA VIAGGI 
 		ArrayList<WebElement> listaViaggi = Generic.getElementListByXPath(driver, "/html/body/div[5]/ul/li");
 				
-		HashMap<String, String> partenzaArrivo = Translator.modificaTratta(sito);
+		Translator.modificaTratta(sito);
 		// SCELTA TRATTA
 		for (WebElement webElement : listaViaggi) {
 			System.out.println(webElement.getText());
-			if(webElement.getText().contains(partenzaArrivo.get("partenza")) && webElement.getText().contains(partenzaArrivo.get("arrivo"))) {
-				String trattaRecuperata = webElement.getText();
-				String[] tratte = trattaRecuperata.split(partenzaArrivo.get("partenza"));
+			if(webElement.getText().contains(sito.getDatiCsv().getComunePartenza()) && webElement.getText().contains(sito.getDatiCsv().getComuneArrivo())) {
+				String trattaRecuperataDalSito = webElement.getText();
+				String[] tratte = trattaRecuperataDalSito.split(sito.getDatiCsv().getComunePartenza());
 				if(tratte[1].contains("➔")) {
 				webElement.click();
 				}

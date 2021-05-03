@@ -30,48 +30,27 @@ public class Translator {
 		}
 	}
 	
-	public static HashMap<String, String> modificaTratta(EsitoSito sito){
-		HashMap<String, String> mappaComuni = new HashMap<String, String>();
-		
-		String[] tratta=sito.getDatiCsv().getTrattaAndata().split(" - ");
-		String partenza = tratta[0];
-		String arrivo = tratta[1];
-		
-		if(editCity(partenza, sito)!=null) {
-			mappaComuni.put("partenza", editCity(partenza, sito));
-		} else {
-			mappaComuni.put("partenza", partenza);
+	public static void modificaTratta(EsitoSito sito){
+				
+		if(editCity(sito.getDatiCsv().getComunePartenza(), sito)!=null) {
+			sito.getDatiCsv().setComunePartenza(editCity(sito.getDatiCsv().getComunePartenza(), sito));
 		}
 		
-		if(editCity(arrivo, sito)!=null) {
-			mappaComuni.put("arrivo", editCity(arrivo, sito));
-		} else {
-			mappaComuni.put("arrivo", arrivo);
+		if(editCity(sito.getDatiCsv().getComuneArrivo(), sito)!=null) {
+			sito.getDatiCsv().setComuneArrivo(editCity(sito.getDatiCsv().getComuneArrivo(), sito));
 		}
 		
-		return mappaComuni;
 	}
 	
-	public static HashMap<String, String> traduciTratta(EsitoSito sito){
-		HashMap<String, String> mappaComuni = new HashMap<String, String>();
+	public static void traduciTratta(EsitoSito sito){
 		
-		String[] tratta=sito.getDatiCsv().getTrattaAndata().split(" - ");
-		String partenza = tratta[0];
-		String arrivo = tratta[1];
+		if(translateCity(sito.getDatiCsv().getComunePartenza())!=null) {
+			sito.getDatiCsv().setComunePartenza(translateCity(sito.getDatiCsv().getComunePartenza()));
+		} 
 		
-		if(translateCity(partenza)!=null) {
-			mappaComuni.put("partenza", translateCity(partenza));
-		} else {
-			mappaComuni.put("partenza", partenza);
+		if(translateCity(sito.getDatiCsv().getComuneArrivo())!=null) {
+			sito.getDatiCsv().setComuneArrivo(translateCity(sito.getDatiCsv().getComuneArrivo()));
 		}
-		
-		if(translateCity(arrivo)!=null) {
-			mappaComuni.put("arrivo", translateCity(arrivo));
-		} else {
-			mappaComuni.put("arrivo", arrivo);
-		}
-		
-		return mappaComuni;
 	}
 	
 }
