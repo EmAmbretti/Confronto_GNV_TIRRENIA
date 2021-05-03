@@ -12,7 +12,7 @@ import utils.Generic;
 
 public class RecapGNV {
 
-	public static void selezionaSistemazioneGNv(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
+	public static void selezionaSistemazioneGNV(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
 		if (esito.getErrori() == null) {
 			int i = 0;
 			Thread.sleep(3000);
@@ -28,7 +28,6 @@ public class RecapGNV {
 				} else {
 					i++;
 				}
-
 			}
 			if (i == listaTesti.size()) {
 				esito.setErrori("la sistemazione \"" + sito.getSistemazione() + "\" non è disponibile.");
