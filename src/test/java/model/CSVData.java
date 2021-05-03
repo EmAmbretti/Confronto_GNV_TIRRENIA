@@ -14,6 +14,25 @@ public class CSVData {
 		private String sistemazione = null;
 		private String anno = null;
 		private String fasciaOraria = null;
+		private String comunePartenza = null;
+		
+		public String getComunePartenza() {
+			return comunePartenza;
+		}
+
+		public void setComunePartenza(String comunePartenza) {
+			this.comunePartenza = comunePartenza;
+		}
+
+		public String getComuneArrivo() {
+			return comuneArrivo;
+		}
+
+		public void setComuneArrivo(String comuneArrivo) {
+			this.comuneArrivo = comuneArrivo;
+		}
+
+		private String comuneArrivo = null;
 
 		public CSVData(String[] data) {
 			for (int i = 0; i < data.length; i ++)
@@ -36,19 +55,6 @@ public class CSVData {
 
 		}
 
-		public CSVData(String tipologia, String collegamento, String trattaAndata, String meseAndata, String giornoAndata, String passeggeriAdulti, String passeggeriBambini, String passeggeriAnimali,
-				String veicolo, String sistemazione) {
-			this.tipologia = tipologia;
-			this.collegamento = collegamento;
-			this.trattaAndata = trattaAndata;
-			this.meseAndata = meseAndata;
-			this.giornoAndata = giornoAndata;
-			this.passeggeriAdulti = passeggeriAdulti;
-			this.passeggeriBambini = passeggeriBambini;
-			this.passeggeriAnimali = passeggeriAnimali;
-			this.veicolo = veicolo;	
-			this.sistemazione = sistemazione;
-		}
 
 		public String getTipologia() {
 			return tipologia;

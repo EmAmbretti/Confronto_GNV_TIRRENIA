@@ -33,6 +33,13 @@ public class CSVExtractor {
 				csvObject.setVeicolo(list.get(x)[8]);
 				csvObject.setSistemazione(list.get(x)[9]);
 
+				String[] tratta=csvObject.getTrattaAndata().split(" - ");
+				String partenza = tratta[0];
+				String arrivo = tratta[1];
+				
+				csvObject.setComunePartenza(partenza);
+				csvObject.setComuneArrivo(arrivo);
+				
 				datiOfferte.add(csvObject);
 			}
 		} catch (Exception e) {

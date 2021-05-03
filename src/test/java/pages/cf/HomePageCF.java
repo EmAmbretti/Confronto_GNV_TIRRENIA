@@ -1,22 +1,24 @@
 package pages.cf;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import model.CSVData;
+import model.EsitoSito;
 import utils.Generic;
+import utils.Translator;
 
 public class HomePageCF {
 		
-	public static void scegliTrattaEData(WebDriver driver, CSVData datiSito) {
-		scegliTratta(driver, datiSito);
-		scegliDataViaggio(driver, datiSito);
+	public static void scegliTrattaEData(WebDriver driver, EsitoSito sito) {
+		scegliTratta(driver, sito);
+		scegliDataViaggio(driver, sito);
 		Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/button");
 	}
 	
-	private static void scegliTratta(WebDriver driver, CSVData datiSito) {
+	private static void scegliTratta(WebDriver driver, EsitoSito sito) {
 		// CLICK SOLO ANDATA
 		Generic.clickByXPath(driver, "//*[@id=\"gwt-uid-8\"]");
 		
@@ -25,16 +27,14 @@ public class HomePageCF {
 		
 		// RECUPERO LISTA VIAGGI 
 		ArrayList<WebElement> listaViaggi = Generic.getElementListByXPath(driver, "/html/body/div[5]/ul/li");
-		
-		String[] tratta=datiSito.getTrattaAndata().split(" - ");
-		String partenza = tratta[0];
-		String arrivo = tratta[1];
+				
+		HashMap<String, String> partenzaArrivo = Translator.modificaTratta(sito);
 		// SCELTA TRATTA
 		for (WebElement webElement : listaViaggi) {
 			System.out.println(webElement.getText());
-			if(webElement.getText().contains(partenza) && webElement.getText().contains(arrivo)) {
+			if(webElement.getText().contains(partenzaArrivo.get("partenza")) && webElement.getText().contains(partenzaArrivo.get("arrivo"))) {
 				String trattaRecuperata = webElement.getText();
-				String[] tratte = trattaRecuperata.split(partenza);
+				String[] tratte = trattaRecuperata.split(partenzaArrivo.get("partenza"));
 				if(tratte[1].contains("➔")) {
 				webElement.click();
 				}
@@ -44,7 +44,7 @@ public class HomePageCF {
 		
 	}
 	
-	private static void scegliDataViaggio(WebDriver driver, CSVData datiSito) {
+	private static void scegliDataViaggio(WebDriver driver, EsitoSito sito) {
 
 		// CLICK PER SCELTA DATA
 		Generic.clickByXPath(driver, "//*[@id=\"sod\"]");
@@ -55,7 +55,7 @@ public class HomePageCF {
 		// SCELTA MESE 
 		ArrayList<WebElement> listaMesiAnno = Generic.getElementListByXPath(driver, "/html/body/div[7]/div/div/div/table/tbody/tr[1]/td/table/tbody/tr/td[2]/div/select[1]/option");
 		for (WebElement webElement : listaMesiAnno) {
-			if(webElement.getText().equals(datiSito.getMeseAndata() + " " + datiSito.getAnno()) ) {
+			if(webElement.getText().equals(sito.getDatiCsv().getMeseAndata() + " " + sito.getDatiCsv().getAnno()) ) {
 				webElement.click(); 
 			}
 		}
@@ -70,7 +70,7 @@ public class HomePageCF {
 			}
 		}
 		
-		listaGiorni.get(Integer.valueOf(datiSito.getGiornoAndata())+1);
+		listaGiorni.get(Integer.valueOf(sito.getDatiCsv().getGiornoAndata())+1);
 		
 	}
 	
