@@ -6,17 +6,17 @@ import model.EsitoSito;
 
 public class RecuperaImportoPageMOBY {
 
-	public static double recuperaImportoMoby(WebDriver driver, EsitoSito sito) {
+	public static double recuperaImportoMoby(WebDriver driver, EsitoSito esito) {
 		String priceMoby = null;
-		if(sito.getErrori() == null) {
+		if(esito.getErrori() == null) {
 			try {
-				priceMoby = driver.findElement(By.id("toolbarTotalePreventivo")).getText();
+				priceMoby = driver.findElement(By.id("toolbarTotalePreventivo")).getAttribute("data-totale");
 			} catch (Exception e) {
-				sito.setErrori("Non è possibile rilasciare un preventivo!");
+				esito.setErrori("Non è possibile rilasciare un preventivo!");
 				e.printStackTrace();
 			}						
 		}
-		Double prezzoMoby = Double.valueOf(priceMoby.replace(",", "."));	
+		Double prezzoMoby = (Double.parseDouble(priceMoby));	
 		return prezzoMoby;
 	}
 

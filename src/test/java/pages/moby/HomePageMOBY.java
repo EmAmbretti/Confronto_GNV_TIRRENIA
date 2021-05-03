@@ -1,6 +1,5 @@
 package pages.moby;
 
-import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,16 +10,16 @@ import utils.Generic;
 
 public class HomePageMOBY {
 
-	public static void selezionaItinerarioMOBY(WebDriver driver, EsitoSito sito, CSVData data) throws Throwable {
-		utenteApreBrowserMOBY(driver, sito);
+	public static void selezionaItinerarioMOBY(WebDriver driver, EsitoSito esito, CSVData data) throws Throwable {
+		utenteApreBrowserMOBY(driver, esito);
 		selezionaSoloAndataMOBY(driver);
-		selezionaTrattaMOBY(driver, sito, data);
-		selezionaDataMOBY(driver, sito);
-		cliccaCerca(driver);
+		selezionaTrattaMOBY(driver, esito, data);
+		selezionaDataMOBY(driver, esito);
+		cliccaCerca(driver, esito);
 	}
 	
-	private static void utenteApreBrowserMOBY(WebDriver driver, EsitoSito sito) throws Throwable {
-		Generic.utente_apre_browser(driver, "https://www.moby.it/", sito.getSito());
+	private static void utenteApreBrowserMOBY(WebDriver driver, EsitoSito esito) throws Throwable {
+		Generic.utente_apre_browser(driver, "https://www.moby.it/", esito.getSito());
 	}
 
 	private static void selezionaSoloAndataMOBY(WebDriver driver) throws Throwable {
@@ -28,52 +27,52 @@ public class HomePageMOBY {
 		Thread.sleep(2000);
 	}
 
-	private static void selezionaTrattaMOBY(WebDriver driver, EsitoSito sito, CSVData data) throws Throwable {
+	private static void selezionaTrattaMOBY(WebDriver driver, EsitoSito esito, CSVData data) throws Throwable {
 		Generic.clickByXPath(driver, "//*[@id=\"widget-home\"]/form/div[2]/div[1]/div/div[1]/div/span");
 		Thread.sleep(1000);			
 		try {
 			Generic.clickByXPath(driver, "/html/body/div/div/span/span/ul/li/span/ul/li/span[contains(.,'" + data.getTrattaAndata() + "')]");
 		}catch (Exception e){
-			sito.setErrori("la tratta per questo sito non è disponibile.");
+			esito.setErrori("la tratta per questo sito non è disponibile.");
 			System.out.println("L'elemento TRATTA: " + data.getTrattaAndata() + " non è disponibile.");
 		}
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 	}
 
-	private static void selezionaDataMOBY(WebDriver driver, EsitoSito sito) throws Throwable {
-		if(sito.getErrori() == null) {
-			Generic.clickById(driver, "//*[@id=\"dateFrom\"]");
+	private static void selezionaDataMOBY(WebDriver driver, EsitoSito esito) throws Throwable {
+		if(esito.getErrori() == null) {
+			Generic.clickById(driver, "dateFrom");
 			Thread.sleep(1000);
-			selezionaMeseMOBY(driver, sito);			
+			selezionaMeseMOBY(driver, esito);			
 		}
-		if(sito.getErrori() == null) {
-			selezionaGiornoMOBY(driver, sito);
-			Thread.sleep(5000);
+		if(esito.getErrori() == null) {
+			selezionaGiornoMOBY(driver, esito);
+			Thread.sleep(1000);
 		}
-		Thread.sleep(2000);
 	}
 
-	private static void selezionaMeseMOBY(WebDriver driver, EsitoSito sito) throws Throwable{
-		if(sito.getErrori()==null) {
+	private static void selezionaMeseMOBY(WebDriver driver, EsitoSito esito) throws Throwable{
+		if(esito.getErrori()==null) {
 			do {
 				try {
-					WebElement element = driver.findElement(By.xpath("//*[@id=\"customGuid1\"]/div/ul/li[1]/div/div[1]/table/thead/tr[1]/th[2]/text()"));
-					if(element.getText().contains(sito.getDatiCsv().getMeseAndata())) {
+					WebElement element = driver.findElement(By.xpath("//*[@id=\"customGuid1\"]/div/ul/li[1]/div/div[1]/table/thead/tr[1]/th[2]"));
+					if(element.getText().contains(esito.getDatiCsv().getMeseAndata().toUpperCase())) {
+						System.out.println(element.getText());
 						break;
 					}else {
 						cliccaFrecciaAvanti(driver);
+						Thread.sleep(1000);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
 					System.out.println("L'elemento MESE non è stato trovato!");
 				}
 			} while(true);
-			Thread.sleep(2000);
 		}
 	}
 
-	private static void selezionaGiornoMOBY(WebDriver driver, EsitoSito sito ) throws Throwable{
-		if(sito.getErrori()==null) {
+	private static void selezionaGiornoMOBY(WebDriver driver, EsitoSito esito ) throws Throwable{
+		if(esito.getErrori()==null) {
 			boolean controllo = false;
 			WebElement element = null;
 			for(int i = 1; i <= 6; i ++) {
@@ -84,7 +83,7 @@ public class HomePageMOBY {
 						e.printStackTrace();
 						System.out.println("L'elemento GIORNO non è stato trovato!");
 					}
-					if(element.getText().equals(sito.getDatiCsv().getGiornoAndata())) {
+					if(element.getText().equals(esito.getDatiCsv().getGiornoAndata())) {
 						try{
 							element.click();
 							controllo = true;
@@ -92,7 +91,7 @@ public class HomePageMOBY {
 
 						} catch(Exception e) {
 							e.printStackTrace();
-							sito.setErrori("Il giorno inserito non è valido!");
+							esito.setErrori("Il giorno inserito non è valido!");
 							break;
 						}				
 					}
@@ -113,9 +112,11 @@ public class HomePageMOBY {
 		}
 	}
 
-	private static void cliccaCerca(WebDriver driver) throws Throwable {
-		Generic.clickByXPath(driver, "//*[@id=\"widget-home\"]/form/div[2]/input");
-		Thread.sleep(2000);
+	private static void cliccaCerca(WebDriver driver, EsitoSito esito) throws Throwable {
+		if(esito.getErrori() == null) {
+			Generic.clickByXPath(driver, "//*[@id=\"widget-home\"]/form/div[2]/input");
+			Thread.sleep(7000);
+		}
 	}
 
 }

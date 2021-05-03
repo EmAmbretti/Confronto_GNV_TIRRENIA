@@ -15,12 +15,14 @@ public class ServiziPageMOBY {
 	private static void cliccaContinua(WebDriver driver, EsitoSito sito) throws Throwable {
 		if(sito.getErrori() == null) {
 			Generic.clickById(driver, "buttonNextPage");
-			Thread.sleep(2000);
+			Thread.sleep(5000);
 		}
 	}
 
 	private static void chiudiPopUp(WebDriver driver) throws Throwable {
-		Generic.clickByXPath(driver, "/html/body/div[15]/div[7]/button");
+		Generic.clickByXPath(driver, "//button[@class='cancel'][contains(.,'No, grazie')]");
+		Thread.sleep(1000);
+		Generic.clickByXPath(driver, "//button[@class='cancel'][contains(.,'No, grazie')]");
 		Thread.sleep(2000);
 	}
 
