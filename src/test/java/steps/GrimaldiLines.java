@@ -22,7 +22,7 @@ public class GrimaldiLines {
 		HomePageGRIMALDI.selezionaAndataGrimaldi(driver, testData, sitoGRIMALDI);	
 		HomePageGRIMALDI.cliccaSuDataGrimaldi(driver, sitoGRIMALDI);
 		HomePageGRIMALDI.prenotaOraGrimaldi(driver, sitoGRIMALDI);
-		RecapPageGRIMALDI.switchPage(driver,sitoGRIMALDI);
+		Generic.switchPage(driver,sitoGRIMALDI);
 		HomePageGRIMALDI.chiudiPopupPag2Grimaldi(driver, sitoGRIMALDI);
 		HomePageGRIMALDI.scegliDataGrimaldi(driver, testData, sitoGRIMALDI);
 		HomePageGRIMALDI.aggiungiSistemazioniPasseggeriGrimaldi(driver, testData, sitoGRIMALDI);

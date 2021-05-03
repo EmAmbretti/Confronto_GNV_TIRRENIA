@@ -17,7 +17,7 @@ public class Tirrenia {
 		Generic.utente_apre_browser(driver, "https://www.tirrenia-prenotazioni.it", sitoTIRRENIA.getSito());
 		HomePageTIRRENIA.bypassFrame(driver);
 		HomePageTIRRENIA.inserisciDatiTirrenia(driver, sitoTIRRENIA, testData);
-		Recap.switchPage(driver,sitoTIRRENIA);
+		Generic.switchPage(driver,sitoTIRRENIA); 
 		RecapPageTIRRENIA.controlloDisponibilitaFinaleTirrenia(driver, sitoTIRRENIA);
 		RecapPageTIRRENIA.controlloDisponibilitaSistemazioneTirrenia(driver, sitoTIRRENIA);
 		RecuperaImportoPageTIRRENIA.recuperaImportoTIRRENIA(driver, sitoTIRRENIA);	
