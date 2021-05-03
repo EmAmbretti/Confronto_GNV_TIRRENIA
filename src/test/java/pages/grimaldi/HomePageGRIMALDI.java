@@ -164,6 +164,7 @@ public class HomePageGRIMALDI {
 	}
 	
 	private static void selezionaSistemazioneGrimaldi(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
+		Thread.sleep(5000);
 		Generic.clickById(driver, "accLeg1Select");
 		Thread.sleep(2000);
 		try {
