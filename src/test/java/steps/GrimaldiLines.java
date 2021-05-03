@@ -7,6 +7,7 @@ import model.EsitoSito;
 import pages.HomePage;
 import pages.Recap;
 import pages.grimaldi.HomePageGRIMALDI;
+import pages.grimaldi.RecapPageGRIMALDI;
 import pages.grimaldi.RecuperaImportoPageGRIMALDI;
 import utils.Generic;
 
@@ -21,7 +22,7 @@ public class GrimaldiLines {
 		HomePageGRIMALDI.selezionaAndataGrimaldi(driver, testData, sitoGRIMALDI);	
 		HomePageGRIMALDI.cliccaSuDataGrimaldi(driver, sitoGRIMALDI);
 		HomePageGRIMALDI.prenotaOraGrimaldi(driver, sitoGRIMALDI);
-		Recap.switchPage(driver,sitoGRIMALDI);
+		RecapPageGRIMALDI.switchPage(driver,sitoGRIMALDI);
 		HomePageGRIMALDI.chiudiPopupPag2Grimaldi(driver, sitoGRIMALDI);
 		HomePageGRIMALDI.scegliDataGrimaldi(driver, testData, sitoGRIMALDI);
 		HomePageGRIMALDI.aggiungiSistemazioniPasseggeriGrimaldi(driver, testData, sitoGRIMALDI);
