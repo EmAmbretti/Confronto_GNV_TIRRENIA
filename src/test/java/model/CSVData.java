@@ -15,6 +15,7 @@ public class CSVData {
 		private String anno = null;
 		private String fasciaOraria = null;
 		private String comunePartenza = null;
+		private String periodo = null;
 		
 		public String getComunePartenza() {
 			return comunePartenza;
@@ -158,6 +159,14 @@ public class CSVData {
 
 		public void setFasciaOraria(String fasciaOraria) {
 			this.fasciaOraria = fasciaOraria;
+		}
+
+		public String getPeriodo() {
+			return periodo;
+		}
+
+		public void setPeriodo(String periodo) {
+			this.periodo = periodo;
 		}
 
 }
