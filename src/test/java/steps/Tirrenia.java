@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 
 import model.CSVData;
 import model.EsitoSito;
-import pages.Recap;
 import pages.tirrenia.HomePageTIRRENIA;
 import pages.tirrenia.RecapPageTIRRENIA;
 import pages.tirrenia.RecuperaImportoPageTIRRENIA;
