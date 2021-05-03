@@ -6,6 +6,7 @@ public class EsitoSito {
 	private String errori;
 	private CSVData datiCsv;
 	private String prezzo;
+	private String note;
 	
 	public EsitoSito(String nomeSito, CSVData datiCSV) {
 		this.sito = nomeSito;
@@ -36,5 +37,15 @@ public class EsitoSito {
 	public void setPrezzo(String prezzo) {
 		this.prezzo = prezzo;
 	}
-
+	public String getNote() {
+		return note;
+	}
+	public void appendNote(String note) {
+		if(this.note==null || this.note.equals("")) {
+			this.note = note;
+		} else if(this.note!=null && this.note.length()>1) {
+			this.note += "\n" + note;
+		}
+	}
+	
 }
