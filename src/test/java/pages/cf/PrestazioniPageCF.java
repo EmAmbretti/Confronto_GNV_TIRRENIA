@@ -12,10 +12,12 @@ import utils.Generic;
 public class PrestazioniPageCF {
 
 	public static void automationPaginaPrestazioni(WebDriver driver, EsitoSito sito) {
-		gestionePasseggeri(driver, sito);
-		gestioneVeicoloMoby(driver, sito);
-		gestioneSistemazione(driver, sito);
-		sceltaTariffa(driver, sito);
+		if(sito.getErrori()==null) {
+			gestionePasseggeri(driver, sito);
+			gestioneVeicoloMoby(driver, sito);
+			gestioneSistemazione(driver, sito);
+			sceltaTariffa(driver, sito);
+		}
 	}
 	
 	private static void gestionePasseggeri(WebDriver driver, EsitoSito esito) {

@@ -2,6 +2,7 @@ package utils;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.openqa.selenium.WebDriver;
@@ -30,8 +31,12 @@ public class BeforeAndAfter {
     }
     
     //OverLoad
-    public static WebDriver before(String sito) throws Throwable {
-        System.setProperty("webdriver.chrome.driver", new File(".").getCanonicalFile() + "\\Drivers\\Chrome\\chromedriver.exe");
+    public static WebDriver before(String sito) {
+        try {
+			System.setProperty("webdriver.chrome.driver", new File(".").getCanonicalFile() + "\\Drivers\\Chrome\\chromedriver.exe");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         System.out.println("------------------------------\nNew ChromeDriver..\n------------------------------\n");
         driver = new ChromeDriver();
         System.out.println("------------------------------");

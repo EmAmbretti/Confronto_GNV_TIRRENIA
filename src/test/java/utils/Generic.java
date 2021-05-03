@@ -105,6 +105,7 @@ public class Generic {
 
 	public static void clickByXPath(WebDriver driver, String xPath) {
 		try {
+			new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
 			WebElement element = driver.findElement(By.xpath(xPath));
 			if (element != null) {
 				element.click();
