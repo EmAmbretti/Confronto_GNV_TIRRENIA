@@ -121,7 +121,7 @@ public class Generic {
 		}
 	}
 
-	public static void clickById(WebDriver driver, String id) throws Throwable {
+	public static void clickById(WebDriver driver, String id) {
 		try {
 			WebElement element = driver.findElement(By.id(id));
 			if (element != null) {
