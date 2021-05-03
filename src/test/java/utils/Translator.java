@@ -1,7 +1,5 @@
 package utils;
 
-import java.util.HashMap;
-
 import model.EsitoSito;
 
 public class Translator {

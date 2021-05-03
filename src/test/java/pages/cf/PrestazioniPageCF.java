@@ -6,13 +6,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import model.CSVData;
 import model.EsitoSito;
 import utils.Generic;
 
 public class PrestazioniPageCF {
 
-	public static void automationPaginaPrestazioni(WebDriver driver, CSVData datiSito, EsitoSito sito) {
+	public static void automationPaginaPrestazioni(WebDriver driver, EsitoSito sito) {
 		gestionePasseggeri(driver, sito);
 		gestioneVeicoloMoby(driver, sito);
 		gestioneSistemazione(driver, sito);
@@ -181,7 +180,7 @@ public class PrestazioniPageCF {
 			}
 		}
 		
-		Generic.clickById(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[3]/button");
+		sito.setPrezzo(Generic.getElementByXPath(driver, "//*[@id=\"content\"]/div/div[2]/div/div/div[2]/div[2]/div/div[2]").getText());
 	}
 	
 	
