@@ -121,26 +121,99 @@ public class PreventivoPageMOBY {
 	}
 
 	private static void selezionaSistemazione(WebDriver driver, EsitoSito esito, CSVData data) throws Throwable {
-		if (esito.getErrori() == null) {
-			WebElement elementoSistemazione = driver.findElement(By.xpath("//div[@class='box-componente-quantita poltrona']/div/div/div"));
+		if (esito.getErrori() == null) {			
 			int passeggeri = Integer.valueOf(data.getPasseggeriAdulti()) + Integer.valueOf(data.getPasseggeriBambini());
-			System.out.println("Pax: " + passeggeri);
-			System.out.println("SISTEMAZIONE: " + data.getSistemazione());
+			WebElement sistemazionePoltrona = null, cabinaInterna = null, cabinaEsterna = null, cabinaInternaAnimali = null, cabinaEsternaAnimali = null;
+			Thread.sleep(2000);
 			if (data.getSistemazione().toUpperCase().contains("POLTRON")) {
-				//				for (int i = 0; i < passeggeri; i++) {
-				//					Generic.clickByList(driver, "//div[@class='wrapper-calcola-center']/button[@class='button right plus']", 15);
-				//					Thread.sleep(2000);
-				//				}
-				while (!elementoSistemazione.getText().contains(passeggeri + "")) {
-					System.out.println("CLICK: ------------------------");
-					Generic.clickByList(driver, "//div[@class='wrapper-calcola-center']/button[@class='button right plus']", 15);
+				try {
+					sistemazionePoltrona = driver.findElement(By.xpath("//div[@class='box-componente-quantita poltrona']/div/div/button[@class='button right plus']"));
+				} catch (Exception e) {
+					e.printStackTrace();
+					esito.setErrori("Poltrona non disponibile.");
+				}
+				Generic.scrollPage(driver, "1200");
+				while (!sistemazionePoltrona.getText().contains(passeggeri + "")) {
+					Generic.clickByXPath(driver, "//div[@class='box-componente-quantita poltrona']/div/div/button[@class='button right plus']");
 					Thread.sleep(2000);
 				}
+			} else if (passeggeri > 2) {
+				if(data.getSistemazione().toUpperCase().contains("CAB. INTERNA")){
+					if(Integer.valueOf(data.getPasseggeriAnimali()) != 0) {
+						try {
+							cabinaInternaAnimali = driver.findElement(By.xpath("//div[@data-id='C4G']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
+						} catch (Exception e) {
+							e.printStackTrace();
+							esito.setErrori("Cabina Quadrupla Interna per Animali non disponibile.");
+						}
+						Generic.scrollPage(driver, "1200");
+						Thread.sleep(1000);
+						Generic.clickByXPath(driver, "//div[@data-id='C4G']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
+						Thread.sleep(1000);
+					}else {
+						try {
+							cabinaInterna = driver.findElement(By.xpath("//div[@data-id='C4']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
+						} catch (Exception e) {
+							e.printStackTrace();
+							esito.setErrori("Cabina Quadrupla Interna non disponibile.");
+						}
+						Generic.scrollPage(driver, "700");
+						Thread.sleep(1000);
+						Generic.clickByXPath(driver, "//div[@data-id='C4']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
+						Thread.sleep(1000);
+					}
+				} else if (data.getSistemazione().toUpperCase().contains("CAB. ESTERNA")){
+					if(Integer.valueOf(data.getPasseggeriAnimali()) != 0) {
+						try {
+							cabinaInterna = driver.findElement(By.xpath("//div[@data-id='C4EG']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
+						} catch (Exception e) {
+							e.printStackTrace();
+							esito.setErrori("Cabina Quadrupla Esterna per Animali non disponibile.");
+						}
+						Generic.scrollPage(driver, "1200");
+						Thread.sleep(1000);
+						Generic.clickByXPath(driver, "//div[@data-id='C4EG']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
+						Thread.sleep(1000);
+					} else {
+						try {
+							cabinaInterna = driver.findElement(By.xpath("//div[@data-id='C4E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
+						} catch (Exception e) {
+							e.printStackTrace();
+							esito.setErrori("Cabina Quadrupla Esterna non disponibile.");
+						}
+						Generic.scrollPage(driver, "700");
+						Thread.sleep(1000);
+						Generic.clickByXPath(driver, "//div[@data-id='C4E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
+						Thread.sleep(1000);
+					}
+				}
 			} else {
-				esito.setErrori(data.getSistemazione() + " non valida!");
+				if(data.getSistemazione().toUpperCase().contains("CAB. INTERNA")){
+					try {
+						cabinaInterna = driver.findElement(By.xpath("//div[@data-id='C2']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
+					} catch (Exception e) {
+						e.printStackTrace();
+						esito.setErrori("Cabina Doppia Interna non disponibile.");
+					}
+					Generic.scrollPage(driver, "700");
+					Thread.sleep(1000);
+					Generic.clickByXPath(driver, "//div[@data-id='C2']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
+					Thread.sleep(1000);
+				} else if (data.getSistemazione().toUpperCase().contains("CAB. ESTERNA")){
+					try {
+						cabinaInterna = driver.findElement(By.xpath("//div[@data-id='C2E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
+					} catch (Exception e) {
+						e.printStackTrace();
+						esito.setErrori("Cabina Doppia Esterna non disponibile.");
+					}
+					Generic.scrollPage(driver, "700");
+					Thread.sleep(1000);
+					Generic.clickByXPath(driver, "//div[@data-id='C2E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
+					Thread.sleep(1000);
+				}
 			}
-			Thread.sleep(2000);
 		}
+		Thread.sleep(3000);
 	}
 
 	private static void cliccaContinua(WebDriver driver) throws Throwable {
