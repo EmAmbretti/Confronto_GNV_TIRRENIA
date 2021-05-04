@@ -12,71 +12,119 @@ import model.EsitoSito;
 import utils.Generic;
 
 public class HomePageGNV {
+
+	public static void selezionaItinerarioGNV(WebDriver driver, CSVData data, EsitoSito esito) throws Throwable {
+		utenteApreBrowserGNV(driver, esito);
+		closePopupGNV(driver, esito);
+		selezionaViaggioGNV(driver);
+		scegliTrattaGNV(driver, data, esito);
+		controlloMeseGNV(driver, data, esito);
+		cliccaDataSceltaGNV(driver, data, esito);
+		inserisciPasseggeriGNV(driver, data);
+		gestioneVeicoloGNV(driver, data, esito);
+		cliccaCercaGNV(driver);
+	}
 	
-	public static void closePopupGNV(WebDriver driver, EsitoSito sito) {
+	private static void utenteApreBrowserGNV(WebDriver driver, EsitoSito sito) throws Throwable {
+		Generic.utente_apre_browser(driver, "https://www.gnv.it/it", sito.getSito() );
+	}
+
+	private static void scegliTrattaGNV(WebDriver driver, CSVData data, EsitoSito esito) throws Throwable {
+		cliccaSoloAndataGNV(driver);
+		selezionaTrattaGNV(driver, data, esito);
+		cliccaContinuaGNV(driver);
+	}
+
+	private static void inserisciPasseggeriGNV(WebDriver driver, CSVData data) throws InterruptedException {
+		cliccaAdutiGNV(driver, data);
+		cliccaBambiniGNV(driver, data);
+		cliccaAnimaliGNV(driver, data);
+		cliccaContinuaGNV(driver);
+	}
+
+	private static void closePopupGNV(WebDriver driver, EsitoSito sito) throws InterruptedException {
+		Thread.sleep(3000);
 		try {
-		if(Generic.getElementByXPath(driver, "//div[@id='closeXButton']//span[@class='close-icon']").isDisplayed())
-		Generic.clickByXPath(driver, "//div[@id='closeXButton']//span[@class='close-icon']");
-		}catch (Exception e) {
+			driver.findElement(By.xpath("//*[@id=\"iubenda-cs-banner\"]/div/div/div/div[2]/div[2]/button[2]")).click();
+			Thread.sleep(5000);
+		}catch(org.openqa.selenium.NoSuchElementException e) {
 			e.printStackTrace();
+		}
+		try {
+			driver.findElement(By.xpath("//*[@id=\"closeXButton\"]/span/p/span")).click();
+			Thread.sleep(5000);
+		}catch(org.openqa.selenium.NoSuchElementException e) {
+			System.out.println("AMBIENTE NON TROVATO");
 		}
 	}
 	
-	public static void selezionaTrattaGNV(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable{
-		String[] tratte=sito.getTrattaAndata().split(" - ");
-		String partenza=tratte[0];
-		String arrivo=tratte[1];
+	private static void selezionaViaggioGNV(WebDriver driver) throws Throwable{
+		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div/app-summary-booking-bar/div/div[1]/div/div[1]/app-summary-bar-block/div/div/span")).click();
+		Thread.sleep(3000);
+	}
+	
+
+	private static void selezionaTrattaGNV(WebDriver driver, CSVData data, EsitoSito esito) throws Throwable {
+		String[] tratte = data.getTrattaAndata().split(" - ");
+		String partenza = tratte[0];
+		String arrivo = tratte[1];
 		try {
-			List<WebElement> elementList=driver.findElements(By.xpath("//label/span[contains(text(),'"+partenza+"')]"));
-		elementList.get(0).click();
-		Thread.sleep(1000);
-		elementList=driver.findElements(By.xpath("//label/span[contains(text(),'"+arrivo+"')]"));
-		elementList.get(elementList.size()-1).click();
-		Thread.sleep(2000);
+			List<WebElement> elementList = driver
+					.findElements(By.xpath("//label/span[contains(text(),'" + partenza + "')]"));
+			elementList.get(0).click();
+			Thread.sleep(1000);
+			elementList = driver.findElements(By.xpath("//label/span[contains(text(),'" + arrivo + "')]"));
+			elementList.get(elementList.size() - 1).click();
+			Thread.sleep(2000);
 		} catch (Exception e) {
 			e.printStackTrace();
 			esito.setErrori("la tratta per questo sito non è disponibile.");
 		}
-		
+
 	}
-	
-	public static void cliccaSoloAndataGNV(WebDriver driver) throws Throwable {	
-		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[1]/app-booking-wizard-step1/div/div/app-travel-viewer-map/div/div[1]/div[1]/label")).click();
+
+	private static void cliccaSoloAndataGNV(WebDriver driver) throws Throwable {
+		driver.findElement(By.xpath(
+				"//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[1]/app-booking-wizard-step1/div/div/app-travel-viewer-map/div/div[1]/div[1]/label"))
+				.click();
 		Thread.sleep(3000);
 	}
-	
-	public static void cliccaContinuaGNV(WebDriver driver) {
+
+	private static void cliccaContinuaGNV(WebDriver driver) {
 		try {
 			Generic.clickByXPath(driver, "//button[@class='btn btn-lg gnv-btn widget-button next']");
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void cliccaFrecciaAvantiGNV(WebDriver driver) {
+
+	private static void cliccaFrecciaAvantiGNV(WebDriver driver) {
 		driver.findElement(By.xpath("//i[@class='gnv-fe-icon-arrow-light-right']")).click();
 	}
-	
-	public static void controlloMeseGNV(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable{
-		if(esito.getErrori()==null) {
+
+	private static void controlloMeseGNV(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
+		if (esito.getErrori() == null) {
 			do {
-				WebElement element = driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[1]/span"));
-				if(element.getText().contains(sito.getMeseAndata())) {
+				WebElement element = driver.findElement(By.xpath(
+						"//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[1]/span"));
+				if (element.getText().contains(sito.getMeseAndata())) {
 					break;
-				}else {
+				} else {
 					cliccaFrecciaAvantiGNV(driver);
 				}
-			} while(true);
+			} while (true);
 			Thread.sleep(2000);
 		}
 	}
-	
-	public static void cliccaDataSceltaGNV(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
-		if(esito.getErrori() == null) {
-			for(int j = 1; j <= 5; j ++) {
-				for(int i = 1; i <= 7; i ++) {
-					WebElement element= driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div["+j+"]/div["+i+"]/div"));
-					if(element.getText().equals(sito.getGiornoAndata())) {
+
+	private static void cliccaDataSceltaGNV(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
+		if (esito.getErrori() == null) {
+			for (int j = 1; j <= 5; j++) {
+				for (int i = 1; i <= 7; i++) {
+					WebElement element = driver.findElement(By.xpath(
+							"//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div["
+									+ j + "]/div[" + i + "]/div"));
+					if (element.getText().equals(sito.getGiornoAndata())) {
 						Thread.sleep(2000);
 						try {
 							element.click();
@@ -90,40 +138,45 @@ public class HomePageGNV {
 			Thread.sleep(3000);
 		}
 	}
-	
-	public static void cliccaAdutiGNV(WebDriver driver, CSVData data) {
-		if(Integer.valueOf(data.getPasseggeriAdulti())!=0) {
-		for(int i=0; i<=Integer.valueOf(data.getPasseggeriAdulti()); i++) {
-			Generic.clickByList(driver, "//i[@class='gnv-fe-icon-plus']", 0);
-		}
-		}
-	}
-	
-	public static void cliccaBambinoGNV(WebDriver driver, CSVData data) {
-		if(Integer.valueOf(data.getPasseggeriBambini())!=0) {
-		for(int i=0; i<=Integer.valueOf(data.getPasseggeriBambini()); i++) {
-			Generic.clickByList(driver, "//i[@class='gnv-fe-icon-plus']", 1);
-		}
-		}
-	}
-	
-	public static void cliccaAnimaliGNV(WebDriver driver, CSVData data) {
-		if(Integer.valueOf(data.getPasseggeriAnimali())!=0) {
-			for(int i=0; i<=Integer.valueOf(data.getPasseggeriAnimali()); i++) {
-				Generic.clickByList(driver, "//i[@class='gnv-fe-icon-plus']", 3);
+
+	private static void cliccaAdutiGNV(WebDriver driver, CSVData data) throws InterruptedException {
+		System.out.println("ECCOMI::::::::::::" + Integer.valueOf(data.getPasseggeriAdulti()));
+		if (Integer.valueOf(data.getPasseggeriAdulti()) != 0) {
+			System.out.println("sono entrato :)");
+			for (int i = 0; i <= Integer.valueOf(data.getPasseggeriAdulti()); i++) {
+				Generic.clickByList(driver, "//i[@class='gnv-fe-icon-plus']", 0);
+				Thread.sleep(500);
 			}
 		}
 	}
-	
-	public static void cliccaCercaGNV(WebDriver driver) {
+
+	private static void cliccaBambiniGNV(WebDriver driver, CSVData data) throws InterruptedException {
+		if (Integer.valueOf(data.getPasseggeriBambini()) != 0) {
+			for (int i = 0; i <= Integer.valueOf(data.getPasseggeriBambini()); i++) {
+				Generic.clickByList(driver, "//i[@class='gnv-fe-icon-plus']", 1);
+				Thread.sleep(500);
+			}
+		}
+	}
+
+	private static void cliccaAnimaliGNV(WebDriver driver, CSVData data) throws InterruptedException {
+		if (Integer.valueOf(data.getPasseggeriAnimali()) != 0) {
+			for (int i = 0; i <= Integer.valueOf(data.getPasseggeriAnimali()); i++) {
+				Generic.clickByList(driver, "//i[@class='gnv-fe-icon-plus']", 3);
+				Thread.sleep(500);
+			}
+		}
+	}
+
+	private static void cliccaCercaGNV(WebDriver driver) {
 		try {
-		Generic.clickByXPath(driver, "//div[@class='widget-summary-next active'][contains(.,'Cerca')]");
-		}catch (Exception e) {
+			Generic.clickByXPath(driver, "//div[@class='widget-summary-next active'][contains(.,'Cerca')]");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void gestioneVeicoloGNV(WebDriver driver, CSVData data, EsitoSito esito) throws Throwable {
+
+	private static void gestioneVeicoloGNV(WebDriver driver, CSVData data, EsitoSito esito) throws Throwable {
 		if (esito.getErrori() == null && !data.getVeicolo().equalsIgnoreCase("no")) {
 			Generic.clickByXPath(driver, "//div[@class='journey-summary-block active search-active last']");
 			if (data.getVeicolo().equalsIgnoreCase("CAR")) {
@@ -173,15 +226,17 @@ public class HomePageGNV {
 					esito.setErrori(data.getVeicolo() + " non disponibile per questa tratta");
 				}
 			} else if (data.getVeicolo().equalsIgnoreCase("MOTO")) {
-				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@class='counter-wrapper orange']//button[@class='input-number-increment']");
-				if(elements!=null) {
-				Generic.clickByList(driver,
-						"//div[@class='counter-wrapper orange']//button[@class='input-number-increment']", 4);
-				}else {
+				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver,
+						"//div[@class='counter-wrapper orange']//button[@class='input-number-increment']");
+				if (elements != null) {
+					Generic.clickByList(driver,
+							"//div[@class='counter-wrapper orange']//button[@class='input-number-increment']", 4);
+				} else {
 					System.out.println(data.getVeicolo() + " non disponibile per questa tratta");
 					esito.setErrori(data.getVeicolo() + " non disponibile per questa tratta");
 				}
 			}
 		}
 	}
+
 }

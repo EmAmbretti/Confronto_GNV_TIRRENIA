@@ -10,9 +10,16 @@ import model.CSVData;
 import model.EsitoSito;
 import utils.Generic;
 
-public class RecapGNV {
+public class RecapPageGNV {
+	
+	public static void recuperoImporto(WebDriver driver, CSVData data, EsitoSito esito) throws Throwable {
+		selezionaSistemazioneGNV(driver, data, esito);
+		scegliServizi(driver);
+		scegliAssicurazione(driver);
+		recuperaPrezzoGNV(driver, esito);
+	}
 
-	public static void selezionaSistemazioneGNV(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
+	private static void selezionaSistemazioneGNV(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
 		if (esito.getErrori() == null) {
 			int i = 0;
 			Thread.sleep(3000);
@@ -33,19 +40,29 @@ public class RecapGNV {
 				esito.setErrori("la sistemazione \"" + sito.getSistemazione() + "\" non è disponibile.");
 			}
 			Thread.sleep(3000);
+			cliccaContinaGNV(driver);
 		}
 	}
+	
+	private static void scegliServizi(WebDriver driver) throws Throwable  {
+		cliccaContinaGNV(driver);
+	}
+	
+	private static void scegliAssicurazione(WebDriver driver) throws Throwable  {
+		cliccaContinaGNV(driver);
+	}
 
-	public static void cliccaContinaGNV(WebDriver driver) {
+	private static void cliccaContinaGNV(WebDriver driver) throws Throwable {
 		try {
 			Generic.clickByXPath(driver,
 					"//button[@class='btn btn-lg gnv-btn btn-orange btn-medium booking-footer-btn']//span[@class='gnv-icon ng-star-inserted'][contains(.,'Continua')]");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		Thread.sleep(2000);
 	}
 
-	public static void recuperaPrezzoGNV(WebDriver driver, EsitoSito esito) {
+	private static void recuperaPrezzoGNV(WebDriver driver, EsitoSito esito) {
 		if (esito.getErrori() == null) {
 			String importo = driver.findElement(By.xpath("//button[@id='cartDropdown']/span[@class='price']"))
 					.getText();
