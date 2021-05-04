@@ -230,8 +230,7 @@ public class Generic {
 		if(elementList!=null && elementList.size()>0) {
 		System.out.println("getElementListByXPath: Elementi recuperati con successo -> "+xPath);
 		} else {
-			System.out.print("!ERRORE! getElementListByXPath: ");
-			System.out.println(xPath);
+			System.out.println("!ERRORE! getElementListByXPath NULL or VOID: " + xPath);
 		}
 		} catch (Exception e) {
 			System.out.print("!ERRORE! getElementListByXPath: ");
