@@ -2,9 +2,11 @@ package utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -27,19 +29,19 @@ public class ExcelMaker {
 	private static DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("dd.MM.yyyy, HH.mm");
 	private static DateTimeFormatter formatterDateTimeFileName = DateTimeFormatter.ofPattern("dd_MM_yyyy-HH_mm");
 	
-	public static void createReport(ArrayList<Differenza> confronti, String path) {
+	public static void createReport(TreeMap<LocalDate, ArrayList<Differenza>> mappaConfronti, String path) {
 		System.out.println("INIZIO CREAZIONE EXCEL");
 		boolean flag = true;
 		
 		// CONDIZIONI DA AGGIUNGERE
-		if (confronti == null || confronti.isEmpty()) {
+		if (mappaConfronti == null || mappaConfronti.isEmpty()) {
 			flag = false;
 		}
 
 		if (flag) {
 			try {
 				LocalDateTime dateTime = LocalDateTime.now();
-				String filename = path + File.separator + "Esito_Confronto_Grimaldi" + dateTime.format(formatterDateTimeFileName);
+				String filename = path + File.separator + "Esito_Confronto_Grimaldi_" + dateTime.format(formatterDateTimeFileName);
 				
 				boolean flagForFile = true;
 				int numberForFile = 0;
@@ -65,96 +67,76 @@ public class ExcelMaker {
 				
 				filename += ".xlsx";
 				XSSFWorkbook fileExcel = new XSSFWorkbook();
-				XSSFSheet foglio = fileExcel.createSheet("Esito_Confronto_Grimaldi" + dateTime.format(formatterDateTime));
+				XSSFSheet foglio = fileExcel.createSheet("Esito_Confronto_Grimaldi_" + dateTime.format(formatterDateTime));
 				//HSSFWorkbook fileExcel = new HSSFWorkbook();
 				//HSSFSheet foglio = fileExcel.createSheet("Esito " + dateTime.format(formatterDateTime));
 				
 				createStyles(fileExcel);
-
+				
 				Row riga0 = foglio.createRow((short) 0);
 				riga0.createCell(0).setCellValue("Up to: ");
 				riga0.createCell(2).setCellValue("COSA DEVO INSERIRE ?");
-				riga0.createCell(4).setCellValue(confronti.get(0).getGrimaldi().getDatiCsv().getTrattaAndata());
-				riga0.createCell(6).setCellValue(confronti.get(0).getGrimaldi().getDatiCsv().getStagione());
-				riga0.createCell(8).setCellValue(confronti.get(0).getGrimaldi().getDatiCsv().getFasciaOraria());
-				riga0.createCell(10).setCellValue(confronti.get(0).getCompetitor().getSito());
+				riga0.createCell(4).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi().getDatiCsv().getTrattaAndata());
+				riga0.createCell(6).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi().getDatiCsv().getStagione());
+				riga0.createCell(8).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi().getDatiCsv().getFasciaOraria());
+				riga0.createCell(10).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getCompetitor().getSito());
 				
 				// GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA ? 
-				int i = 0;
-				for (i = 0; i < confronti.size(); i++) {
-					
-					Row riga = null;
-					if (foglio.getRow(i + 1) == null) {
-						riga = foglio.createRow((short) (i + 1));
-					} else {
-						riga = foglio.getRow((short) (i + 1));
-					}
-
-					try {
-						
-						// RIGA1 GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA ? 
-						riga.createCell(1).setCellValue("COMBINAZIONI");
-						riga.createCell(4).setCellValue("PARTENZA");
-						riga.createCell(6).setCellValue("SCONTI");
-						riga.createCell(10).setCellValue("LIV.");
-						
-						// RIGA2 GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA ? 
-						riga.createCell(1).setCellValue("Pax");;
-						riga.createCell(2).setCellValue("Veicolo");
-						riga.createCell(3).setCellValue("Sistemazione");
-						riga.createCell(4).setCellValue(confronti.get(i).getGrimaldi().getData());
-						riga.createCell(6).setCellValue("Ch");
-						riga.createCell(7).setCellValue("ND");
-						riga.createCell(8).setCellValue("ND");
-						riga.createCell(9).setCellValue("ND");
-						riga.createCell(10).setCellValue("pid");
-						
-						// RIGA3 GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA ? 
-						riga.createCell(4).setCellValue("GL");
-						riga.createCell(5).setCellValue(confronti.get(i).getCompetitor().getSito());
-						riga.createCell(6).setCellValue("Δ");
-						riga.createCell(10).setCellValue("Δ%");
-						
-						// RIGA ITERATA
-						Cell passeggeri = riga.createCell(1);
-						Cell veicolo = riga.createCell(2);
-						Cell sistemazione = riga.createCell(3);
-						Cell prezzoGL = riga.createCell(4);
-						Cell prezzoCompetitor = riga.createCell(5);
-						Cell differenza = riga.createCell(6);
-						Cell percentualeDifferenza = riga.createCell(10);
-
-						// CDT ID
-						if(confronti.get(i).getGrimaldi().getDatiCsv().getPasseggeriBambini()==null) {
-							passeggeri.setCellValue(confronti.get(i).getGrimaldi().getDatiCsv().getPasseggeriAdulti() + " adulti");
-						} else {
-							passeggeri.setCellValue(confronti.get(i).getGrimaldi().getDatiCsv().getPasseggeriAdulti() + "ad + "+confronti.get(i).getGrimaldi().getDatiCsv().getPasseggeriBambini()+" ch");
-						}
-						veicolo.setCellValue(confronti.get(i).getGrimaldi().getDatiCsv().getVeicolo());
-						sistemazione.setCellValue(confronti.get(i).getGrimaldi().getDatiCsv().getSistemazione());
-						if(confronti.get(i).getGrimaldi().getErrori()!=null) {
-							prezzoGL.setCellValue(confronti.get(i).getGrimaldi().getPrezzo());
-						} else {
-							prezzoGL.setCellValue(confronti.get(i).getGrimaldi().getErrori());
-						}
-						if(confronti.get(i).getCompetitor().getErrori()!=null) {
-							prezzoCompetitor.setCellValue(confronti.get(i).getCompetitor().getPrezzo());
-						} else {
-							prezzoCompetitor.setCellValue(confronti.get(i).getCompetitor().getErrori());
-						}
-						
-						if(confronti.get(i).getGrimaldi().getErrori()!=null && confronti.get(i).getCompetitor().getErrori()!=null) {
-							differenza.setCellValue(confronti.get(i).getDifferenzaPrezzo());
-							percentualeDifferenza.setCellValue(confronti.get(i).getDifferenzaPrezzoPercentuale());
-						} else {
-							differenza.setCellValue("\\");
-							percentualeDifferenza.setCellValue("\\");
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
 				
+				int x=0;
+				for (LocalDate data : mappaConfronti.keySet()) {
+
+					Row rigaIntestazione1 = null;
+					x++;
+					if (foglio.getRow(x) == null) {
+						rigaIntestazione1 = foglio.createRow((short) (x));
+					} else {
+						rigaIntestazione1 = foglio.getRow((short) (x));
+					}
+					
+					// RIGA1 GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA ? 
+					rigaIntestazione1.createCell(1).setCellValue("COMBINAZIONI");
+					rigaIntestazione1.createCell(4).setCellValue("PARTENZA");
+					rigaIntestazione1.createCell(6).setCellValue("SCONTI");
+					rigaIntestazione1.createCell(10).setCellValue("LIV.");
+					
+					Row rigaIntestazione2 = null;
+					x++;
+					if (foglio.getRow(x) == null) {
+						rigaIntestazione2 = foglio.createRow((short) (x));
+					} else {
+						rigaIntestazione2 = foglio.getRow((short) (x));
+					}
+					
+					// rigaIntestazione2 GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA ? 
+					rigaIntestazione2.createCell(1).setCellValue("Pax");;
+					rigaIntestazione2.createCell(2).setCellValue("Veicolo");
+					rigaIntestazione2.createCell(3).setCellValue("Sistemazione");
+					rigaIntestazione2.createCell(4).setCellValue(data.getDayOfMonth()+"/"+data.getMonthValue()+"/"+data.getYear());
+					rigaIntestazione2.createCell(6).setCellValue("Ch");
+					rigaIntestazione2.createCell(7).setCellValue("ND");
+					rigaIntestazione2.createCell(8).setCellValue("ND");
+					rigaIntestazione2.createCell(9).setCellValue("ND");
+					rigaIntestazione2.createCell(10).setCellValue("pid");
+					
+					Row rigaIntestazione3 = null;
+					x++;
+					if (foglio.getRow(x) == null) {
+						rigaIntestazione3 = foglio.createRow((short) (x));
+					} else {
+						rigaIntestazione3 = foglio.getRow((short) (x));
+					}
+					
+					// rigaIntestazione3 GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA ? 
+					rigaIntestazione3.createCell(4).setCellValue("GL");
+					rigaIntestazione3.createCell(5).setCellValue(mappaConfronti.get(data).get(0).getCompetitor().getSito());
+					rigaIntestazione3.createCell(6).setCellValue("Δ");
+					rigaIntestazione3.createCell(10).setCellValue("Δ%");
+					
+					x = fillExcelWithDifferences(mappaConfronti.get(data), foglio, x) + 2;
 				}
+								
+				
 
 				FileOutputStream fileOut = new FileOutputStream(filename);
 				fileExcel.write(fileOut);
@@ -169,8 +151,63 @@ public class ExcelMaker {
 		}
 	
 	}
+
+	private static int fillExcelWithDifferences(ArrayList<Differenza> diff, XSSFSheet foglio, int rowNumber) {
+		int index;
+		for (index = 0; index < diff.size(); index++) {
+			rowNumber++;
+			Row riga = null;
+			if (foglio.getRow(rowNumber) == null) {
+				riga = foglio.createRow((short) (rowNumber));
+			} else {
+				riga = foglio.getRow((short) (rowNumber));
+			}
+
+			try {
+				
+				// RIGA ITERATA
+				Cell passeggeri = riga.createCell(1);
+				Cell veicolo = riga.createCell(2);
+				Cell sistemazione = riga.createCell(3);
+				Cell prezzoGL = riga.createCell(4);
+				Cell prezzoCompetitor = riga.createCell(5);
+				Cell differenza = riga.createCell(6);
+				Cell percentualeDifferenza = riga.createCell(10);
+
+				// CDT ID
+				if(diff.get(index).getGrimaldi().getDatiCsv().getPasseggeriBambini()==null) {
+					passeggeri.setCellValue(diff.get(index).getGrimaldi().getDatiCsv().getPasseggeriAdulti() + " adulti");
+				} else {
+					passeggeri.setCellValue(diff.get(index).getGrimaldi().getDatiCsv().getPasseggeriAdulti() + "ad + "+diff.get(index).getGrimaldi().getDatiCsv().getPasseggeriBambini()+" ch");
+				}
+				veicolo.setCellValue(diff.get(index).getGrimaldi().getDatiCsv().getVeicolo());
+				sistemazione.setCellValue(diff.get(index).getGrimaldi().getDatiCsv().getSistemazione());
+				if(diff.get(index).getGrimaldi().getErrori()!=null) {
+					prezzoGL.setCellValue(diff.get(index).getGrimaldi().getPrezzo());
+				} else {
+					prezzoGL.setCellValue(diff.get(index).getGrimaldi().getErrori());
+				}
+				if(diff.get(index).getCompetitor().getErrori()!=null) {
+					prezzoCompetitor.setCellValue(diff.get(index).getCompetitor().getPrezzo());
+				} else {
+					prezzoCompetitor.setCellValue(diff.get(index).getCompetitor().getErrori());
+				}
+				
+				if(diff.get(index).getGrimaldi().getErrori()!=null && diff.get(index).getCompetitor().getErrori()!=null) {
+					differenza.setCellValue(diff.get(index).getDifferenzaPrezzo());
+					percentualeDifferenza.setCellValue(diff.get(index).getDifferenzaPrezzoPercentuale());
+				} else {
+					differenza.setCellValue("\\");
+					percentualeDifferenza.setCellValue("\\");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return rowNumber;
+	}
 	
-	public static void createStyles(XSSFWorkbook fileExcel) {
+	private static void createStyles(XSSFWorkbook fileExcel) {
 
 		errorStyle = fileExcel.createCellStyle();
 		errorStyle.setFillForegroundColor(IndexedColors.RED.getIndex());
