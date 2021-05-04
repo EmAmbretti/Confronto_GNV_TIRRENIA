@@ -6,22 +6,22 @@ import model.CSVData;
 import model.EsitoSito;
 import pages.moby.DisponibilitaPageMOBY;
 import pages.moby.HomePageMOBY;
+import pages.moby.PreventivoPageMOBY;
 import pages.moby.RecuperaImportoPageMOBY;
 import pages.moby.ServiziPageMOBY;
 import utils.BeforeAndAfter;
 
 public class Moby {
 	
-	EsitoSito sito;
-	WebDriver driver;
-	
-	public void allMethods(CSVData testData) throws Throwable {
-		driver = BeforeAndAfter.before("MOBY");
-		sito = new EsitoSito("MOBY", testData); 
-		HomePageMOBY.selezionaItinerarioMOBY(driver, sito, testData);
-		DisponibilitaPageMOBY.selezionaCorsa(driver);
-		ServiziPageMOBY.continuaPopUp(driver, sito);
-		RecuperaImportoPageMOBY.recuperaImportoMoby(driver, sito);	
+	public static void allMethods(CSVData testData) throws Throwable {
+		
+		WebDriver driver = BeforeAndAfter.before("MOBY");
+		EsitoSito sitoMOBY = new EsitoSito("MOBY", testData); 
+		HomePageMOBY.selezionaItinerarioMOBY(driver, sitoMOBY, testData);
+		DisponibilitaPageMOBY.selezionaCorsa(driver, sitoMOBY);
+		PreventivoPageMOBY.inserimentoDatiMoby(driver, sitoMOBY, testData);
+		ServiziPageMOBY.continuaPopUp(driver, sitoMOBY);
+		RecuperaImportoPageMOBY.recuperaImportoMoby(driver, sitoMOBY);
 	}
 
 }
