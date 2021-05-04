@@ -1,4 +1,4 @@
-package pages.tirrenia;
+package pages.tirreniaPrenotazioni;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
