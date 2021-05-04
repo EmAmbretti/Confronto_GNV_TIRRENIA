@@ -26,10 +26,11 @@ public class RecapPageGNV {
 			List<WebElement> listaTesti = driver
 					.findElements(By.xpath("//div/app-card-solution/div/div[1]/div[2]/div[1]/div"));
 			List<WebElement> listaSeleziona = driver
-					.findElements(By.xpath("//div/app-card-solution/div/div[2]/app-button"));
+					.findElements(By.xpath("//button[@class='btn btn-lg gnv-btn btn-orange btn-small-block']"));
 			for (WebElement testo : listaTesti) {
 				if (testo.getText().substring(0, testo.getText().length() - 2)
 						.equalsIgnoreCase(sito.getSistemazione().substring(0, sito.getSistemazione().length() - 2))) {
+					Thread.sleep(3000);
 					listaSeleziona.get(i).click();
 					break;
 				} else {
@@ -67,6 +68,7 @@ public class RecapPageGNV {
 			String importo = driver.findElement(By.xpath("//button[@id='cartDropdown']/span[@class='price']"))
 					.getText();
 			esito.setPrezzo(importo);
+			System.out.println("PREZZO GNV: " + importo);
 		}
 	}
 }

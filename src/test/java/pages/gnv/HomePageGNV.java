@@ -115,7 +115,7 @@ public class HomePageGNV {
 					cliccaFrecciaAvantiGNV(driver);
 				}
 			} while (true);
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		}
 	}
 
@@ -137,15 +137,15 @@ public class HomePageGNV {
 					}
 				}
 			}
-			Thread.sleep(3000);
+			cliccaContinuaGNV(driver);
+			Thread.sleep(1000);
 		}
 	}
 
 	private static void cliccaAdutiGNV(WebDriver driver, CSVData data) throws InterruptedException {
 		if (Integer.valueOf(data.getPasseggeriAdulti()) != 0) {
 			for (int i = 0; i <= Integer.valueOf(data.getPasseggeriAdulti()); i++) {
-				Thread.sleep(5000);
-				Generic.clickByList(driver, "//button[@class='input-number-increment']", 0);
+				Generic.clickByXPath(driver, "//app-counter-wrapper[1]//button[@class='input-number-increment']");
 				Thread.sleep(500);
 			}
 		}
@@ -154,7 +154,7 @@ public class HomePageGNV {
 	private static void cliccaBambiniGNV(WebDriver driver, CSVData data) throws InterruptedException {
 		if (Integer.valueOf(data.getPasseggeriBambini()) != 0) {
 			for (int i = 0; i <= Integer.valueOf(data.getPasseggeriBambini()); i++) {
-				Generic.clickByList(driver, "//button[@class='input-number-increment']", 1);
+				Generic.clickByXPath(driver, "//app-counter-wrapper[1]//button[@class='input-number-increment']");
 				Thread.sleep(500);
 			}
 		}
@@ -163,7 +163,7 @@ public class HomePageGNV {
 	private static void cliccaAnimaliGNV(WebDriver driver, CSVData data) throws InterruptedException {
 		if (Integer.valueOf(data.getPasseggeriAnimali()) != 0) {
 			for (int i = 0; i <= Integer.valueOf(data.getPasseggeriAnimali()); i++) {
-				Generic.clickByList(driver, "//button[@class='input-number-increment']", 3);
+				Generic.clickByXPath(driver, "//app-counter-wrapper[4]//button[@class='input-number-increment']");
 				Thread.sleep(500);
 			}
 		}
