@@ -64,13 +64,14 @@ public class HomePageCF {
 			// SCELTA MESE 
 			ArrayList<WebElement> listaMesiAnno = Generic.getElementListByXPath(driver, "/html/body/div[7]/div/div/div/table/tbody/tr[1]/td/table/tbody/tr/td[2]/div/select[1]/option");
 			for (WebElement webElement : listaMesiAnno) {
-				if(webElement.getText().equals(sito.getDatiCsv().getMeseAndata() + " " + sito.getDatiCsv().getAnno()) ) {
+				if(webElement.getText().toLowerCase().equals(sito.getDatiCsv().getMeseAndata().toLowerCase() + " " + sito.getDatiCsv().getAnno().toLowerCase()) ) {
 					webElement.click(); 
+					Generic.clickByXPath(driver, "/html/body/div[7]/div/div/div/table/tbody/tr[1]/td/table/tbody/tr/td[2]/div/select[1]");
 				}
 			}
 			
 			// SCELTA GIORNO
-			ArrayList<WebElement> listaGiorni = Generic.getElementListByXPath(driver, "/html/body/div[5]/div/div/div/table/tbody/tr[2]/td/table/tbody/tr/td/div");
+			ArrayList<WebElement> listaGiorni = Generic.getElementListByXPath(driver, "//table[@class='datePickerDays']/tbody/tr/td/div");
 			for (int i=0 ; i>listaGiorni.size(); i++) {
 				if(!listaGiorni.get(i).getText().equals("1")) {
 					listaGiorni.remove(i);
