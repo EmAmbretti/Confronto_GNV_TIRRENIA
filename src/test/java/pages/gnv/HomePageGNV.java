@@ -24,9 +24,9 @@ public class HomePageGNV {
 		gestioneVeicoloGNV(driver, data, esito);
 		cliccaCercaGNV(driver);
 	}
-	
+
 	private static void utenteApreBrowserGNV(WebDriver driver, EsitoSito sito) throws Throwable {
-		Generic.utente_apre_browser(driver, "https://www.gnv.it/it", sito.getSito() );
+		Generic.utente_apre_browser(driver, "https://www.gnv.it/it", sito.getSito());
 	}
 
 	private static void scegliTrattaGNV(WebDriver driver, CSVData data, EsitoSito esito) throws Throwable {
@@ -47,22 +47,23 @@ public class HomePageGNV {
 		try {
 			driver.findElement(By.xpath("//*[@id=\"iubenda-cs-banner\"]/div/div/div/div[2]/div[2]/button[2]")).click();
 			Thread.sleep(5000);
-		}catch(org.openqa.selenium.NoSuchElementException e) {
+		} catch (org.openqa.selenium.NoSuchElementException e) {
 			e.printStackTrace();
 		}
 		try {
 			driver.findElement(By.xpath("//*[@id=\"closeXButton\"]/span/p/span")).click();
 			Thread.sleep(5000);
-		}catch(org.openqa.selenium.NoSuchElementException e) {
+		} catch (org.openqa.selenium.NoSuchElementException e) {
 			System.out.println("AMBIENTE NON TROVATO");
 		}
 	}
-	
-	private static void selezionaViaggioGNV(WebDriver driver) throws Throwable{
-		driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div/app-summary-booking-bar/div/div[1]/div/div[1]/app-summary-bar-block/div/div/span")).click();
+
+	private static void selezionaViaggioGNV(WebDriver driver) throws Throwable {
+		driver.findElement(By.xpath(
+				"//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div/app-summary-booking-bar/div/div[1]/div/div[1]/app-summary-bar-block/div/div/span"))
+				.click();
 		Thread.sleep(3000);
 	}
-	
 
 	private static void selezionaTrattaGNV(WebDriver driver, CSVData data, EsitoSito esito) throws Throwable {
 		String[] tratte = data.getTrattaAndata().split(" - ");
@@ -105,6 +106,7 @@ public class HomePageGNV {
 	private static void controlloMeseGNV(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
 		if (esito.getErrori() == null) {
 			do {
+				Thread.sleep(2000);
 				WebElement element = driver.findElement(By.xpath(
 						"//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[1]/span"));
 				if (element.getText().contains(sito.getMeseAndata())) {
@@ -140,11 +142,11 @@ public class HomePageGNV {
 	}
 
 	private static void cliccaAdutiGNV(WebDriver driver, CSVData data) throws InterruptedException {
-		System.out.println("ECCOMI::::::::::::" + Integer.valueOf(data.getPasseggeriAdulti()));
 		if (Integer.valueOf(data.getPasseggeriAdulti()) != 0) {
-			System.out.println("sono entrato :)");
+			boolean flag = false;
 			for (int i = 0; i <= Integer.valueOf(data.getPasseggeriAdulti()); i++) {
-				Generic.clickByList(driver, "//i[@class='gnv-fe-icon-plus']", 0);
+				Thread.sleep(5000);
+				Generic.clickByList(driver, "//button[@class='input-number-increment']", 0);
 				Thread.sleep(500);
 			}
 		}
@@ -153,7 +155,7 @@ public class HomePageGNV {
 	private static void cliccaBambiniGNV(WebDriver driver, CSVData data) throws InterruptedException {
 		if (Integer.valueOf(data.getPasseggeriBambini()) != 0) {
 			for (int i = 0; i <= Integer.valueOf(data.getPasseggeriBambini()); i++) {
-				Generic.clickByList(driver, "//i[@class='gnv-fe-icon-plus']", 1);
+				Generic.clickByList(driver, "//button[@class='input-number-increment']", 1);
 				Thread.sleep(500);
 			}
 		}
@@ -162,7 +164,7 @@ public class HomePageGNV {
 	private static void cliccaAnimaliGNV(WebDriver driver, CSVData data) throws InterruptedException {
 		if (Integer.valueOf(data.getPasseggeriAnimali()) != 0) {
 			for (int i = 0; i <= Integer.valueOf(data.getPasseggeriAnimali()); i++) {
-				Generic.clickByList(driver, "//i[@class='gnv-fe-icon-plus']", 3);
+				Generic.clickByList(driver, "//button[@class='input-number-increment']", 3);
 				Thread.sleep(500);
 			}
 		}

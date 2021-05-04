@@ -215,7 +215,7 @@ public class Generic {
 
 	public static void clickByList(WebDriver driver, String xPath, int index) {
 		try {
-		List<WebElement> elementList = driver.findElements(By.xpath(xPath));
+		List<WebElement> elementList = getElementListByXPath(driver, xPath);
 		elementList.get(index).click();
 		}catch(Exception e) {
 			e.printStackTrace();
