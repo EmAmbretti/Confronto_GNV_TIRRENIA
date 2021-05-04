@@ -112,10 +112,10 @@ public class Generic {
 				System.out.println("CLICKED: " + xPath);
 			}
 		} catch (Exception e) {
-			System.out.print("!ERRORE! clickByXPath: ");
+			System.out.print("\n\n!ERRORE! clickByXPath: ");
 			System.out.print(xPath);
 			if (e instanceof org.openqa.selenium.NoSuchElementException) {
-				System.out.println(": Selenium.NoSuchElementException");
+				System.out.println(": Selenium.NoSuchElementException\n\n");
 			} else {
 				System.out.println(": " + e.getLocalizedMessage());
 			}
@@ -130,10 +130,10 @@ public class Generic {
 				System.out.println("CLICKED: " + id);
 			}
 		} catch (Exception e) {
-			System.out.print("!ERRORE! ClickById: ");
+			System.out.print("\n\n!ERRORE! ClickById: ");
 			System.out.print(id);
 			if (e instanceof org.openqa.selenium.NoSuchElementException) {
-				System.out.println(": Selenium.NoSuchElementException");
+				System.out.println(": Selenium.NoSuchElementException\n\n");
 			} else {
 				System.out.println(": " + e.getLocalizedMessage());
 			}
@@ -149,12 +149,12 @@ public class Generic {
 				System.out.println("TESTO INSERITO, sendKeysByXPath: "+xpath);
 			}
 		} catch (Exception e) {
-			System.out.print("!ERRORE! SendKeysByXPath: ");
+			System.out.print("\n\n!ERRORE! SendKeysByXPath: ");
 			System.out.print(xpath);
 			if(e instanceof org.openqa.selenium.NoSuchElementException) {
-				System.out.println(": Selenium.NoSuchElementException");
+				System.out.println(": Selenium.NoSuchElementException\n\n");
 			} else {
-				System.out.println(": "+e.getLocalizedMessage());
+				System.out.println(": "+e.getLocalizedMessage()+ "\n\n");
 			}
 		}
 	}
@@ -167,12 +167,12 @@ public class Generic {
 				System.out.println("getElementByXPath: "+xpath);
 			}
 		} catch (Exception e) {
-			System.out.print("!ERRORE! getElementByXPath: ");
+			System.out.print("\n\n!ERRORE! getElementByXPath: ");
 			System.out.print(xpath);
 			if(e instanceof org.openqa.selenium.NoSuchElementException) {
-				System.out.println(": Selenium.NoSuchElementException");
+				System.out.println(": Selenium.NoSuchElementException\n\n");
 			} else {
-				System.out.println(": "+e.getLocalizedMessage());
+				System.out.println(": "+e.getLocalizedMessage()+ "\n\n");
 			}
 		}
 		return element;
@@ -186,12 +186,12 @@ public class Generic {
 				System.out.println("TESTO INSERITO, sendKeysByXPath: "+xpath);
 			}
 		} catch (Exception e) {
-			System.out.print("!ERRORE! SendKeysByXPath: ");
+			System.out.print("\n\n!ERRORE! SendKeysByXPath: ");
 			System.out.print(xpath);
 			if(e instanceof org.openqa.selenium.NoSuchElementException) {
-				System.out.println(": Selenium.NoSuchElementException");
+				System.out.println(": Selenium.NoSuchElementException\n\n");
 			} else {
-				System.out.println(": "+e.getLocalizedMessage());
+				System.out.println(": "+e.getLocalizedMessage()+ "\n\n");
 			}
 		}
 	}
@@ -203,12 +203,12 @@ public class Generic {
 				System.out.println("TESTO INSERITO, sendKeysById: "+id);
 			}
 		} catch (Exception e) {
-			System.out.print("!ERRORE! SendKeysById: ");
+			System.out.print("\n\n!ERRORE! SendKeysById: ");
 			System.out.print(id);
 			if(e instanceof org.openqa.selenium.NoSuchElementException) {
-				System.out.println(": Selenium.NoSuchElementException");
+				System.out.println(": Selenium.NoSuchElementException\n\n");
 			} else {
-				System.out.println(": "+e.getLocalizedMessage());
+				System.out.println(": "+e.getLocalizedMessage()+ "\n\n");
 			}
 		}
 	}
@@ -233,12 +233,12 @@ public class Generic {
 			System.out.println("!ERRORE! getElementListByXPath NULL or VOID: " + xPath);
 		}
 		} catch (Exception e) {
-			System.out.print("!ERRORE! getElementListByXPath: ");
+			System.out.print("\n\n!ERRORE! getElementListByXPath: ");
 			System.out.print(xPath);
 			if(e instanceof org.openqa.selenium.NoSuchElementException) {
-				System.out.println(": Selenium.NoSuchElementException");
+				System.out.println(": Selenium.NoSuchElementException\n\n");
 			} else {
-				System.out.println(": "+e.getLocalizedMessage());
+				System.out.println(": "+e.getLocalizedMessage()+ "\n\n");
 			}
 		}
 		return elementList;
