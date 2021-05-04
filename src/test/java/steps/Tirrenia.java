@@ -5,22 +5,21 @@ import org.openqa.selenium.WebDriver;
 import model.CSVData;
 import model.EsitoSito;
 import pages.tirrenia.HomePageTIRRENIA;
-import pages.tirrenia.RecapPageTIRRENIA;
-import pages.tirrenia.RecuperaImportoPageTIRRENIA;
+import pages.tirrenia.ServiziPageTIRRENIA;
+import pages.tirrenia.PreventivoPageTIRRENIA;
+import pages.tirrenia.RecuperoImportoPageTIRRENIA;
+import pages.tirrenia.DisponibilitaPageTIRRENIA;
 import utils.Generic;
 
 public class Tirrenia {
-
-	public static void stepTirrenia(WebDriver driver, CSVData testData) throws Throwable {
+	public static void stepTirrenia(WebDriver driver, CSVData testData) throws Throwable{
 		EsitoSito sitoTIRRENIA = new EsitoSito("TIRRENIA",testData);
-		Generic.utente_apre_browser(driver, "https://www.tirrenia-prenotazioni.it", sitoTIRRENIA.getSito());
-		HomePageTIRRENIA.bypassFrame(driver);
-		HomePageTIRRENIA.inserisciDatiTirrenia(driver, sitoTIRRENIA, testData);
-		Generic.switchPage(driver,sitoTIRRENIA); 
-		RecapPageTIRRENIA.controlloDisponibilitaFinaleTirrenia(driver, sitoTIRRENIA);
-		RecapPageTIRRENIA.controlloDisponibilitaSistemazioneTirrenia(driver, sitoTIRRENIA);
-		RecuperaImportoPageTIRRENIA.recuperaImportoTIRRENIA(driver, sitoTIRRENIA);	
-		System.out.println("Prezzo: "+sitoTIRRENIA.getPrezzo());
-		System.out.println("Eventuali errori: "+sitoTIRRENIA.getErrori());
+		Generic.utente_apre_browser(driver, "https://www.tirrenia.it/", sitoTIRRENIA.getSito());
+		HomePageTIRRENIA.inserisciDati(driver, sitoTIRRENIA);
+		DisponibilitaPageTIRRENIA.selezionaCorsa(driver, sitoTIRRENIA);
+		PreventivoPageTIRRENIA.inserimentoSistemazione(driver, sitoTIRRENIA);
+		ServiziPageTIRRENIA.continuaPopUp(driver, sitoTIRRENIA);
+		RecuperoImportoPageTIRRENIA.recuperaImportoTIRRENIA(driver, sitoTIRRENIA);
 	}
+	
 }
