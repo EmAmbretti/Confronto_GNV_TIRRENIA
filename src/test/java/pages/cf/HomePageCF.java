@@ -73,7 +73,6 @@ public class HomePageCF {
 			// SCELTA GIORNO
 			ArrayList<WebElement> listaGiorni = Generic.getElementListByXPath(driver, "//table[@class='datePickerDays']/tbody/tr/td/div");
 			for (int i=0; i<listaGiorni.size(); i++) {
-				System.out.println(listaGiorni.get(i).getText());
 				if(!listaGiorni.get(i).getText().equals("1")) {
 					listaGiorni.remove(i);
 					i--;
@@ -81,9 +80,7 @@ public class HomePageCF {
 					break;
 				}
 			}
-			System.out.println("GIORNO ANDATA: "+sito.getDatiCsv().getGiornoAndata());
-			System.out.println("GIORNO ANDATA+1: "+(Integer.valueOf(sito.getDatiCsv().getGiornoAndata())+1));
-			listaGiorni.get( (Integer.valueOf(sito.getDatiCsv().getGiornoAndata() ) + 1 ) ).click();
+			listaGiorni.get( (Integer.valueOf(sito.getDatiCsv().getGiornoAndata() ) - 1 ) ).click();
 		} else {
 			System.out.println("ERRORI: "+sito.getErrori()+"\n");
 		}
