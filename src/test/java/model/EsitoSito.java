@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Date;
+
 public class EsitoSito {
 
 	private String sito;
@@ -7,6 +9,7 @@ public class EsitoSito {
 	private CSVData datiCsv;
 	private String prezzo;
 	private String note;
+	private Date data;
 	
 	public EsitoSito(String nomeSito, CSVData datiCSV) {
 		this.sito = nomeSito;
@@ -46,6 +49,14 @@ public class EsitoSito {
 		} else if(this.note!=null && this.note.length()>1) {
 			this.note += "\n" + note;
 		}
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
 	}
 	
 }
