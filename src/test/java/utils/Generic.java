@@ -228,7 +228,7 @@ public class Generic {
 		try {
 		elementList = (ArrayList<WebElement>) driver.findElements(By.xpath(xPath));
 		if(elementList!=null && elementList.size()>0) {
-		System.out.println("getElementListByXPath: Elementi recuperati con successo -> "+xPath);
+		System.out.println("ELEMENTI RECUPERATI: "+xPath+" (getElementListByXPath)");
 		} else {
 			System.out.println("!ERRORE! getElementListByXPath NULL or VOID: " + xPath);
 		}
