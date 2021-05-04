@@ -105,8 +105,7 @@ public class Generic {
 
 	public static void clickByXPath(WebDriver driver, String xPath) {
 		try {
-			new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
-			WebElement element = driver.findElement(By.xpath(xPath));
+			WebElement element = getElementByXPath(driver, xPath);
 			if (element != null) {
 				element.click();
 				System.out.println("CLICKED: " + xPath);
@@ -124,7 +123,7 @@ public class Generic {
 
 	public static void clickById(WebDriver driver, String id) {
 		try {
-			WebElement element = driver.findElement(By.id(id));
+			WebElement element = getElementById(driver, id);
 			if (element != null) {
 				element.click();
 				System.out.println("CLICKED: " + id);
@@ -143,7 +142,7 @@ public class Generic {
 
 	public static void sendKeysByXPath(WebDriver driver, String xpath, String toSend) {
 		try {
-				WebElement element = driver.findElement(By.xpath(xpath));
+				WebElement element = getElementByXPath(driver, xpath);
 			if (element != null) {
 				element.sendKeys(toSend);
 				System.out.println("TESTO INSERITO, sendKeysByXPath: "+xpath);
@@ -160,6 +159,7 @@ public class Generic {
 	}
 	
 	public static WebElement getElementByXPath(WebDriver driver, String xpath) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 		WebElement element = null;
 		try {
 				element = driver.findElement(By.xpath(xpath));
@@ -177,10 +177,27 @@ public class Generic {
 		}
 		return element;
 	}
+	
+	public static WebElement getElementById(WebDriver driver, String id) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
+		WebElement element = null;
+		try {
+			element = driver.findElement(By.id(id));
+		} catch (Exception e) {
+			System.out.print("\n\n!ERRORE! getElementById: ");
+			System.out.print(id);
+			if (e instanceof org.openqa.selenium.NoSuchElementException) {
+				System.out.println(": Selenium.NoSuchElementException\n\n");
+			} else {
+				System.out.println(": " + e.getLocalizedMessage());
+			}
+		}
+		return element;
+	}
 
 	public static void sendKeysByList(WebDriver driver, String xpath, String toSend, int index) {
 		try {
-				List<WebElement> elementList = driver.findElements(By.xpath(xpath));
+				List<WebElement> elementList = getElementListByXPath(driver, xpath);
 			if (elementList != null) {
 				elementList.get(index).sendKeys(toSend);
 				System.out.println("TESTO INSERITO, sendKeysByXPath: "+xpath);
@@ -197,7 +214,7 @@ public class Generic {
 	}
 	public static void sendKeysById(WebDriver driver, String id, String toSend) {
 		try {
-			WebElement element = driver.findElement(By.id(id));
+			WebElement element = getElementById(driver, id);
 			if (element != null) {
 				element.sendKeys(toSend);
 				System.out.println("TESTO INSERITO, sendKeysById: "+id);
@@ -224,6 +241,7 @@ public class Generic {
 	}
 	
 	public static ArrayList<WebElement> getElementListByXPath(WebDriver driver, String xPath) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
 		ArrayList<WebElement> elementList = null;
 		try {
 		elementList = (ArrayList<WebElement>) driver.findElements(By.xpath(xPath));
