@@ -143,7 +143,6 @@ public class HomePageGNV {
 
 	private static void cliccaAdutiGNV(WebDriver driver, CSVData data) throws InterruptedException {
 		if (Integer.valueOf(data.getPasseggeriAdulti()) != 0) {
-			boolean flag = false;
 			for (int i = 0; i <= Integer.valueOf(data.getPasseggeriAdulti()); i++) {
 				Thread.sleep(5000);
 				Generic.clickByList(driver, "//button[@class='input-number-increment']", 0);
