@@ -10,6 +10,7 @@ public class Translator {
 			switch (comune.toUpperCase()) {
 			case "OLBIA":
 				output = "G.Aranci";
+				break;
 			default:
 				return null;
 			}

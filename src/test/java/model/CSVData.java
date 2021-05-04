@@ -2,9 +2,10 @@ package model;
 
 public class CSVData {
 	
-		private String tipologia = null;
+		private String id = null;
 		private String collegamento = null;
 		private String trattaAndata = null;
+		private String anno = null;
 		private String meseAndata = null;
 		private String giornoAndata = null;
 		private String passeggeriAdulti = null;
@@ -12,10 +13,10 @@ public class CSVData {
 		private String passeggeriAnimali = null;
 		private String veicolo = null;
 		private String sistemazione = null;
-		private String anno = null;
 		private String fasciaOraria = null;
 		private String comunePartenza = null;
-		private String periodo = null;
+		private String comuneArrivo = null;
+		private String stagione = null;
 		
 		public String getComunePartenza() {
 			return comunePartenza;
@@ -33,14 +34,12 @@ public class CSVData {
 			this.comuneArrivo = comuneArrivo;
 		}
 
-		private String comuneArrivo = null;
-
 		public CSVData(String[] data) {
 			for (int i = 0; i < data.length; i ++)
 				if (data[i].isEmpty())
 					data[i] = null;
 
-			this.tipologia = data[0];
+			this.id = data[0];
 			this.collegamento = data[1];
 			this.trattaAndata = data[2];
 			this.meseAndata = data[3];
@@ -57,12 +56,12 @@ public class CSVData {
 		}
 
 
-		public String getTipologia() {
-			return tipologia;
+		public String getId() {
+			return id;
 		}
 		
-		public void setTipologia(String tipologia) {
-			this.tipologia=tipologia;
+		public void setId(String id) {
+			this.id=id;
 		}
 		
 		public String getCollegamento() {
@@ -139,7 +138,7 @@ public class CSVData {
 
 		@Override
 		public String toString() {
-			return "CSVData [tipologia=" + tipologia + ", collegamento=" + collegamento + ", trattaAndata="
+			return "CSVData [tipologia=" + id + ", collegamento=" + collegamento + ", trattaAndata="
 					+ trattaAndata + ", meseAndata=" + meseAndata + ", giornoAndata=" + giornoAndata
 					+ ", passeggeriAdulti=" + passeggeriAdulti + ", passeggeriBambini=" + passeggeriBambini
 					+ ", passeggeriAnimali=" + passeggeriAnimali + ", veicolo=" + veicolo + ", sistemazione=" + sistemazione +"]";
@@ -161,12 +160,12 @@ public class CSVData {
 			this.fasciaOraria = fasciaOraria;
 		}
 
-		public String getPeriodo() {
-			return periodo;
+		public String getStagione() {
+			return stagione;
 		}
 
-		public void setPeriodo(String periodo) {
-			this.periodo = periodo;
+		public void setStagione(String stagione) {
+			this.stagione = stagione;
 		}
 
 }

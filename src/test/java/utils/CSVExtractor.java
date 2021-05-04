@@ -22,16 +22,19 @@ public class CSVExtractor {
 			for (int x = 1; x < list.size(); x++) {
 				CSVData csvObject = new CSVData();
 				
-				csvObject.setTipologia(list.get(x)[0]);
+				csvObject.setId(list.get(x)[0]);
 				csvObject.setCollegamento(list.get(x)[1]);	
 				csvObject.setTrattaAndata(list.get(x)[2]);
-				csvObject.setMeseAndata(list.get(x)[3]);
-				csvObject.setGiornoAndata(list.get(x)[4]);
-				csvObject.setPasseggeriAdulti(list.get(x)[5]);
-				csvObject.setPasseggeriBambini(list.get(x)[6]);
-				csvObject.setPasseggeriAnimali(list.get(x)[7]);
-				csvObject.setVeicolo(list.get(x)[8]);
-				csvObject.setSistemazione(list.get(x)[9]);
+				csvObject.setAnno(list.get(x)[3]);
+				csvObject.setMeseAndata(list.get(x)[4]);
+				csvObject.setGiornoAndata(list.get(x)[5]);
+				csvObject.setPasseggeriAdulti(list.get(x)[6]);
+				csvObject.setPasseggeriBambini(list.get(x)[7]);
+				csvObject.setPasseggeriAnimali(list.get(x)[8]);
+				csvObject.setVeicolo(list.get(x)[9]);
+				csvObject.setSistemazione(list.get(x)[10]);
+				csvObject.setFasciaOraria(list.get(x)[11]);
+				csvObject.setStagione(list.get(x)[12]);
 
 				String[] tratta=csvObject.getTrattaAndata().split(" - ");
 				String partenza = tratta[0];
@@ -100,7 +103,7 @@ public class CSVExtractor {
 		ArrayList<CSVData> csvData = CSVExtractor.process(path);
 		int dataIndex = -1;
 		for (int i = 0; i < csvData.size(); i++) {
-			if (csvData.get(i).getTipologia().equalsIgnoreCase(type) ) {
+			if (csvData.get(i).getId().equalsIgnoreCase(type) ) {
 				dataIndex = i;
 				break;
 			}

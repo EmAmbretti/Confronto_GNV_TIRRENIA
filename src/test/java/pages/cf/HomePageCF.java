@@ -30,18 +30,20 @@ public class HomePageCF {
 		
 		// RECUPERO LISTA VIAGGI 
 		ArrayList<WebElement> listaViaggi = Generic.getElementListByXPath(driver, "/html/body/div/ul/li");
-				
+
 		Translator.modificaTratta(sito);
+		System.out.println("PARTENZA: "+sito.getDatiCsv().getComunePartenza()+", ARRIVO: "+sito.getDatiCsv().getComuneArrivo());
+		
 		// SCELTA TRATTA
 		boolean flag = false;
 		for (WebElement webElement : listaViaggi) {
-			System.out.println(webElement.getText());
 			if(webElement.getText().contains(sito.getDatiCsv().getComunePartenza()) && webElement.getText().contains(sito.getDatiCsv().getComuneArrivo())) {
 				String trattaRecuperataDalSito = webElement.getText();
 				String[] tratte = trattaRecuperataDalSito.split(sito.getDatiCsv().getComunePartenza());
 				if(tratte[1].contains("➔")) {
 				webElement.click();
 				flag = true;
+				break;
 				}
 			}
 		}
@@ -51,6 +53,7 @@ public class HomePageCF {
 	}
 	
 	private static void scegliDataViaggio(WebDriver driver, EsitoSito sito) {
+		System.out.println("\nMetodo ScegliDataViaggio");
 		if(sito.getErrori()==null) {
 			// CLICK PER SCELTA DATA
 			Generic.clickByXPath(driver, "//*[@id=\"sod\"]");
