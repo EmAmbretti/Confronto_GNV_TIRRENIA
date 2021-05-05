@@ -20,17 +20,21 @@ public class RecapPageGNV {
 	}
 
 	private static void selezionaSistemazioneGNV(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
+		System.out.println("ERRORE::: " + esito.getErrori());
 		if (esito.getErrori() == null) {
+			System.out.println("BUONASERA");
 			int i = 0;
 			Thread.sleep(3000);
 			List<WebElement> listaTesti = driver
-					.findElements(By.xpath("//div/app-card-solution/div/div[1]/div[2]/div[1]/div"));
+					.findElements(By.xpath("//div[@class='card-solution--title d-inline']"));
 			List<WebElement> listaSeleziona = driver
-					.findElements(By.xpath("//button[@class='btn btn-lg gnv-btn btn-orange btn-small-block']"));
+					.findElements(By.xpath("//div[@class='card-solution__btn']"));
 			for (WebElement testo : listaTesti) {
+				System.out.println("sto nel for bro");
 				if (testo.getText().substring(0, testo.getText().length() - 2)
 						.equalsIgnoreCase(sito.getSistemazione().substring(0, sito.getSistemazione().length() - 2))) {
 					Thread.sleep(3000);
+					System.out.println("sto nell'if brotherrr");
 					listaSeleziona.get(i).click();
 					break;
 				} else {
