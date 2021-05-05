@@ -6,23 +6,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import model.CSVData;
 import model.EsitoSito;
 import utils.Generic;
 
 public class RecuperaImportoPageGRIMALDI {
-	public static String recuperaImportoGrimaldi(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable{
-		if(esito.getErrori() == null) {
+	public static String recuperaImportoGrimaldi(WebDriver driver, EsitoSito sito) throws Throwable{
+		if(sito.getErrori() == null) {
 			String giorno = null;
 			boolean flag=false;
 			String prezzoGrimaldi= null;
 			try {
 				driver.findElement(By.xpath("//*[@id=\"calendar\"]/div/span/div[1]"));
-				esito.setErrori(driver.findElement(By.xpath("//*[@id=\"calendar\"]/div/span/div[1]")).getText()+".");
+				sito.setErrori(driver.findElement(By.xpath("//*[@id=\"calendar\"]/div/span/div[1]")).getText()+".");
 			}catch(org.openqa.selenium.NoSuchElementException e) {
 				System.out.println("Nessun errore trovato.");
 			}
-			if(esito.getErrori() == null) {
+			if(sito.getErrori() == null) {
 				do {
 					try {
 						driver.findElement(By.xpath("//*[@id=\"calendar_wrap\"]/div[1]/h2"));
@@ -35,13 +34,13 @@ public class RecuperaImportoPageGRIMALDI {
 				}
 				while(flag);
 
-				if(sito.getGiornoAndata().length()<2) {
-					giorno=0+sito.getGiornoAndata();
+				if(sito.getDatiCsv().getGiornoAndata().length()<2) {
+					giorno=0+sito.getDatiCsv().getGiornoAndata();
 				} else {
-					giorno =sito.getGiornoAndata();
+					giorno =sito.getDatiCsv().getGiornoAndata();
 				}
 
-				String data=giorno + " " + sito.getMeseAndata().substring(0,3).toUpperCase();
+				String data=giorno + " " + sito.getDatiCsv().getMeseAndata().substring(0,3).toUpperCase();
 				Thread.sleep(5000);
 				List<WebElement> elementList = driver.findElements(By.xpath("//a/div[1]"));
 				for(WebElement element:elementList) {
