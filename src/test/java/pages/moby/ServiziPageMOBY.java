@@ -22,8 +22,14 @@ public class ServiziPageMOBY {
 	private static void chiudiPopUp(WebDriver driver) throws Throwable {
 		Generic.clickByXPath(driver, "//button[@class='cancel'][contains(.,'No, grazie')]");
 		Thread.sleep(1000);
-		Generic.clickByXPath(driver, "//button[@class='cancel'][contains(.,'No, grazie')]");
-		Thread.sleep(2000);
+		try {
+			Generic.clickByXPath(driver, "//button[@class='cancel'][contains(.,'No, grazie')]");
+			Thread.sleep(2000);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Secondo PopUp non trovato!");
+		}
+
 	}
 
 	//	private static void chiudiPopUp(WebDriver driver, boolean assicurazione) {
