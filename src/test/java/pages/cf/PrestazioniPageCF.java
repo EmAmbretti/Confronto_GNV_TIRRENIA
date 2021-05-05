@@ -25,6 +25,14 @@ public class PrestazioniPageCF {
 	
 	private static void gestionePasseggeri(WebDriver driver, EsitoSito esito) {
 		System.out.println("\nMetodo gestionePasseggeri");
+		
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		
 		int i = 1;
 		int numeroPasseggeriAdulti = Integer.valueOf(esito.getDatiCsv().getPasseggeriAdulti());
 		while(i < numeroPasseggeriAdulti){
@@ -171,10 +179,16 @@ public class PrestazioniPageCF {
 	
 	private static void sceltaTariffa(WebDriver driver, EsitoSito sito) {
 		System.out.println("\nMetodo sceltaTariffa");
+		
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		
 		ArrayList<WebElement> elementList = Generic.getElementListByXPath(driver, "//*[@id='content']/div/div[1]/section/div[2]/div[2]/div[1]/div[8]/div[2]/div/div[@class='BookingRateSummary-item']");
 		
 		for(int i=0; i<elementList.size(); i++) {
-			
 			if(elementList.get(i).findElement(By.xpath(".//div[1]/span[@class='price-name']") ).getText().contains("STANDARD") ) {
 				elementList.get(i).findElement(By.xpath(".//div[2]")).click();
 				break;
