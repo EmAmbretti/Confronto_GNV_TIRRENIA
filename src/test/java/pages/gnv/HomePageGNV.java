@@ -182,16 +182,19 @@ public class HomePageGNV {
 
 	private static void gestioneVeicoloGNV(WebDriver driver, CSVData data, EsitoSito esito) throws Throwable {
 		if (esito.getErrori() == null && !data.getVeicolo().equalsIgnoreCase("no")) {
-			Generic.clickByXPath(driver, "//div[@class='journey-summary-block active search-active last']");
+			Thread.sleep(2000);
+			Generic.clickByXPath(driver, "//div[@class='journey-summary-block no-wizard-active search-active last']");
 			if (data.getVeicolo().equalsIgnoreCase("CAR")) {
-				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver,
-						"//div[@class='counter-wrapper orange']//button[@class='input-number-increment']");
+				Thread.sleep(5000);
+				List<WebElement> elements = driver.findElements(By.xpath("//div[@class='counter-wrapper orange']//button[@class='input-number-increment']"));
 				if (elements != null) {
-					Generic.clickByXPath(driver,
-							"//div[@class='counter-wrapper orange']//button[@class='input-number-increment']");
+					System.out.println("lista::::" +  elements.size());
+					System.out.println("ECCOMI");
+					elements.get(0).click();
+					Thread.sleep(3000);
 					Generic.clickByXPath(driver, "//select[@id='height']");
 					Generic.clickByXPath(driver,
-							"//select[@class='custom-select custom-select-lg ng-valid ng-touched ng-dirty']/option[contains(.,'Inferiore a 1,9m')]");
+							"//option[contains(.,'Inferiore a 1,9m')][@class='ng-star-inserted']");
 					Generic.clickByXPath(driver, "//span[@class='gnv-icon icon-right ng-star-inserted']");
 				} else {
 					System.out.println(data.getVeicolo() + " non disponibile per questa tratta");
@@ -205,7 +208,7 @@ public class HomePageGNV {
 							"//div[@class='counter-wrapper orange']//button[@class='input-number-increment']", 1);
 					Generic.clickByXPath(driver, "//select[@id='height']");
 					Generic.clickByXPath(driver,
-							"//select[@class='custom-select custom-select-lg ng-valid ng-touched ng-dirty']/option[contains(.,'Inferiore a  2,9m')]");
+							"//option[contains(.,'Inferiore a  2,9m')][@class='ng-star-inserted']");
 					Generic.clickByXPath(driver, "//select[@id='length']");
 					Generic.clickByXPath(driver, "//select[@id='length']/option[contains(.,'Tra 5m  e 6m')]");
 					Generic.clickByXPath(driver, "//span[@class='gnv-icon icon-right ng-star-inserted']");
@@ -221,7 +224,7 @@ public class HomePageGNV {
 							"//div[@class='counter-wrapper orange']//button[@class='input-number-increment']", 2);
 					Generic.clickByXPath(driver, "//select[@id='height']");
 					Generic.clickByXPath(driver,
-							"//select[@class='custom-select custom-select-lg ng-valid ng-touched ng-dirty']/option[contains(.,'Inferiore a  2,9m')]");
+							"//option[contains(.,'Inferiore a  2,9m')]");
 					Generic.clickByXPath(driver, "//select[@id='length']");
 					Generic.clickByXPath(driver, "//select[@id='length']/option[contains(.,'Tra 7m  e 8m')]");
 					Generic.clickByXPath(driver, "//span[@class='gnv-icon icon-right ng-star-inserted']");

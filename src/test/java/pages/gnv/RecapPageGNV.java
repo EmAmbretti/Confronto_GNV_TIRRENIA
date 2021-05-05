@@ -11,7 +11,7 @@ import model.EsitoSito;
 import utils.Generic;
 
 public class RecapPageGNV {
-	
+
 	public static void recuperoImporto(WebDriver driver, CSVData data, EsitoSito esito) throws Throwable {
 		selezionaSistemazioneGNV(driver, data, esito);
 		scegliServizi(driver);
@@ -20,27 +20,35 @@ public class RecapPageGNV {
 	}
 
 	private static void selezionaSistemazioneGNV(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
-		System.out.println("ERRORE::: " + esito.getErrori());
 		if (esito.getErrori() == null) {
-			System.out.println("BUONASERA");
 			int i = 0;
-			Thread.sleep(3000);
+			boolean flag=false;
+			Thread.sleep(5000);
 			List<WebElement> listaTesti = driver
 					.findElements(By.xpath("//div[@class='card-solution--title d-inline']"));
-			List<WebElement> listaSeleziona = driver
-					.findElements(By.xpath("//div[@class='card-solution__btn']"));
+			List<WebElement> listaSeleziona = driver.findElements(By.xpath("//div[@class='card-solution__btn']"));
 			for (WebElement testo : listaTesti) {
-				System.out.println("sto nel for bro");
-				if (testo.getText().substring(0, testo.getText().length() - 2)
-						.equalsIgnoreCase(sito.getSistemazione().substring(0, sito.getSistemazione().length() - 2))) {
-					Thread.sleep(3000);
-					System.out.println("sto nell'if brotherrr");
-					listaSeleziona.get(i).click();
-					break;
-				} else {
-					i++;
+				Thread.sleep(2000);
+				List<WebElement> orari = driver
+						.findElements(By.xpath("//li[@class='list-inline-item departure-time']"));
+				if (Generic.controlloFasciaOraria(orari.get(1).getText()).equalsIgnoreCase(sito.getFasciaOraria())) {
+					System.out.println("CIAO SONO NEL PRIMO IF");
+					if (testo.getText().substring(0, testo.getText().length() - 2).equalsIgnoreCase(
+							sito.getSistemazione().substring(0, sito.getSistemazione().length() - 2))) {
+						Thread.sleep(3000);
+						listaSeleziona.get(i).click();
+						flag=true;
+						break;
+					} else {
+						i++;
+					}
 				}
 			}
+			System.out.println("flag: " + flag);
+			if(!flag) {
+				esito.setErrori("Corrispondenza fascia oraria non trovata");
+				System.out.println("Corrispondenza fascia oraria non trovata");
+			}	
 			if (i == listaTesti.size()) {
 				esito.setErrori("la sistemazione \"" + sito.getSistemazione() + "\" non è disponibile.");
 			}
@@ -48,12 +56,12 @@ public class RecapPageGNV {
 			cliccaContinaGNV(driver);
 		}
 	}
-	
-	private static void scegliServizi(WebDriver driver) throws Throwable  {
+
+	private static void scegliServizi(WebDriver driver) throws Throwable {
 		cliccaContinaGNV(driver);
 	}
-	
-	private static void scegliAssicurazione(WebDriver driver) throws Throwable  {
+
+	private static void scegliAssicurazione(WebDriver driver) throws Throwable {
 		cliccaContinaGNV(driver);
 	}
 
