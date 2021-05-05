@@ -18,7 +18,7 @@ public class DisponibilitaPageMOBY {
 		cliccaContinua(driver);
 	}
 
-	private static void controlloCorsa(WebDriver driver, EsitoSito esito) {
+	private static void controlloCorsa(WebDriver driver, EsitoSito esito) throws Throwable {
 		if(esito.getErrori() == null) {
 			boolean flag = false;
 			HashMap<String, List<WebElement>> map = new HashMap<String, List<WebElement>>();
@@ -26,13 +26,17 @@ public class DisponibilitaPageMOBY {
 			map.put("nave", driver.findElements(By.xpath("//*[@id=\"bookingAndata\"]/div/div/div[1]/div/div[3]/div[1]/div[1]/div")));
 			map.put("partenza", driver.findElements(By.xpath("//*[@id=\"bookingAndata\"]/div/div/div[1]/div/div[2]/div/div[1]/div[3]/div[1]/div")));
 			map.put("destinazione", driver.findElements(By.xpath("//*[@id=\"bookingAndata\"]/div/div/div[1]/div/div[2]/div/div[1]/div[3]/div[2]/div")));
+			map.put("orario", driver.findElements(By.xpath("//span[@class='date bold fg-color']")));
 			for(WebElement element : map.get("nave")) {
 				if(element.getAttribute("data-resource").contains("moby")) {
 					if(map.get("partenza").get(i).getText().equalsIgnoreCase(esito.getDatiCsv().getComunePartenza())) {
 						if(map.get("destinazione").get(i).getText().equalsIgnoreCase(esito.getDatiCsv().getComuneArrivo())) {
-							element.click();
-							flag = true;
-							break;
+							if(Generic.controlloFasciaOraria(map.get("orario").get(i).getText()).equalsIgnoreCase(esito.getDatiCsv().getFasciaOraria())) {
+								element.click();
+								flag = true;
+								Thread.sleep(500);
+								break;
+							}
 						}
 					}
 				}
@@ -44,7 +48,7 @@ public class DisponibilitaPageMOBY {
 			}
 		}
 	}
-	
+
 	private static void cliccaContinua(WebDriver driver) throws Throwable {
 		Generic.clickById(driver, "buttonNextPage");
 		Thread.sleep(2000);
