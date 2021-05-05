@@ -7,12 +7,15 @@ import model.EsitoSito;
 import pages.grimaldi.BookingPageGRIMALDI;
 import pages.grimaldi.HomePageGRIMALDI;
 import pages.grimaldi.RecuperaImportoPageGRIMALDI;
+import utils.BeforeAndAfter;
 import utils.Generic;
 
 public class GrimaldiLines {
-	public static void stepGrimaldi(WebDriver driver, CSVData testData) throws Throwable{
+	
+	public static void stepGrimaldi(CSVData testData) throws Throwable{
+		
+		WebDriver driver = BeforeAndAfter.before("GRIMALDI");
 		EsitoSito sitoGRIMALDI = new EsitoSito("GRIMALDI",testData);
-		Generic.utente_apre_browser(driver, "https://www.grimaldi-lines.com/it", sitoGRIMALDI.getSito());
 		HomePageGRIMALDI.compilaHomePageGRIMALDI(driver, sitoGRIMALDI);
 		Generic.switchPage(driver,sitoGRIMALDI);
 		BookingPageGRIMALDI.compilaDatiBookingGRIMALDI(driver, sitoGRIMALDI);

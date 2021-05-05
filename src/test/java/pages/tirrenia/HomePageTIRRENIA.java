@@ -12,6 +12,7 @@ import utils.Generic;
 
 public class HomePageTIRRENIA {
 	public static void inserisciDati(WebDriver driver, EsitoSito sito) throws Throwable {
+		utenteApreBrowserTIRRENIA(driver, sito);
 		cliccaTratte(driver);
 		controlloTratta(driver, sito);
 		cliccaCalendario(driver, sito);
@@ -19,6 +20,11 @@ public class HomePageTIRRENIA {
 		inserisciPasseggeri(driver, sito);
 		cliccaSuCerca(driver, sito);
 	}
+	
+	private static void utenteApreBrowserTIRRENIA(WebDriver driver, EsitoSito esito) throws Throwable {
+		Generic.utente_apre_browser(driver, "https://www.tirrenia.it/", esito.getSito());
+	}
+	
 	private static void inserisciPasseggeri(WebDriver driver, EsitoSito sito) throws Throwable {
 		if(sito.getErrori()==null) {
 			inserisciAdulti(driver, sito);

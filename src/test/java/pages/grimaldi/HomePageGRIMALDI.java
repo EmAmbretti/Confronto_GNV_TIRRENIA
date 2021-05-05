@@ -15,6 +15,7 @@ public class HomePageGRIMALDI {
 	
 	
 	public static void compilaHomePageGRIMALDI(WebDriver driver, EsitoSito sito) throws Throwable {
+		utenteApreBrowserGRIMALDI(driver, sito);
 		bypassFrame(driver);
 		cliccaSoloAndataGrimaldi(driver);
 		cliccaSelezionaAndata(driver);
@@ -23,6 +24,10 @@ public class HomePageGRIMALDI {
 		prenotaOraGrimaldi(driver, sito);
 	}
 
+	private static void utenteApreBrowserGRIMALDI(WebDriver driver, EsitoSito esito) throws Throwable {
+		Generic.utente_apre_browser(driver, "https://www.grimaldi-lines.com/it", esito.getSito());
+	}
+	
 	private static void cliccaSelezionaAndata(WebDriver driver) {
 		Generic.clickById(driver, "start-route");
 	}
