@@ -127,7 +127,7 @@ public class PreventivoPageMOBY {
 			Thread.sleep(2000);
 			if (data.getSistemazione().toUpperCase().contains("POLTRON")) {
 				try {
-					sistemazionePoltrona = driver.findElement(By.xpath("//div[@class='box-componente-quantita poltrona']/div/div/button[@class='button right plus']"));
+					sistemazionePoltrona = driver.findElement(By.xpath("//div[@class='box-componente-quantita poltrona']/div/div"));
 				} catch (Exception e) {
 					e.printStackTrace();
 					esito.setErrori("Poltrona non disponibile.");
@@ -138,7 +138,9 @@ public class PreventivoPageMOBY {
 					Thread.sleep(2000);
 				}
 			} else if (passeggeri > 2) {
+				System.out.println("SIAM CAPIONI D'ITALIAAAA");
 				if(data.getSistemazione().toUpperCase().contains("CAB. INTERNA")){
+					System.out.println("FRATACCHIòòòòòòòòòòòòòò");
 					if(Integer.valueOf(data.getPasseggeriAnimali()) != 0) {
 						try {
 							cabinaInternaAnimali = driver.findElement(By.xpath("//div[@data-id='C4G']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
@@ -151,6 +153,8 @@ public class PreventivoPageMOBY {
 						Generic.clickByXPath(driver, "//div[@data-id='C4G']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
 						Thread.sleep(1000);
 					}else {
+						System.out.println("AWAACCCHICHIòòòòòòòò");
+
 						try {
 							cabinaInterna = driver.findElement(By.xpath("//div[@data-id='C4']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
 						} catch (Exception e) {
@@ -164,8 +168,10 @@ public class PreventivoPageMOBY {
 					}
 				} else if (data.getSistemazione().toUpperCase().contains("CAB. ESTERNA")){
 					if(Integer.valueOf(data.getPasseggeriAnimali()) != 0) {
+						System.out.println("FINIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+
 						try {
-							cabinaInterna = driver.findElement(By.xpath("//div[@data-id='C4EG']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
+							cabinaEsternaAnimali = driver.findElement(By.xpath("//div[@data-id='C4EG']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
 						} catch (Exception e) {
 							e.printStackTrace();
 							esito.setErrori("Cabina Quadrupla Esterna per Animali non disponibile.");
@@ -175,8 +181,10 @@ public class PreventivoPageMOBY {
 						Generic.clickByXPath(driver, "//div[@data-id='C4EG']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
 						Thread.sleep(1000);
 					} else {
+						System.out.println("APAPOJAAAAAAAAAAAAAAAAAA");
+
 						try {
-							cabinaInterna = driver.findElement(By.xpath("//div[@data-id='C4E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
+							cabinaEsterna = driver.findElement(By.xpath("//div[@data-id='C4E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
 						} catch (Exception e) {
 							e.printStackTrace();
 							esito.setErrori("Cabina Quadrupla Esterna non disponibile.");
@@ -189,6 +197,8 @@ public class PreventivoPageMOBY {
 				}
 			} else {
 				if(data.getSistemazione().toUpperCase().contains("CAB. INTERNA")){
+					System.out.println("UNZ UNZ UNZ");
+
 					try {
 						cabinaInterna = driver.findElement(By.xpath("//div[@data-id='C2']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
 					} catch (Exception e) {
@@ -200,8 +210,10 @@ public class PreventivoPageMOBY {
 					Generic.clickByXPath(driver, "//div[@data-id='C2']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
 					Thread.sleep(1000);
 				} else if (data.getSistemazione().toUpperCase().contains("CAB. ESTERNA")){
+					System.out.println("E LE CICALEEEEEEEEEEEEE");
+
 					try {
-						cabinaInterna = driver.findElement(By.xpath("//div[@data-id='C2E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
+						cabinaEsterna = driver.findElement(By.xpath("//div[@data-id='C2E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
 					} catch (Exception e) {
 						e.printStackTrace();
 						esito.setErrori("Cabina Doppia Esterna non disponibile.");

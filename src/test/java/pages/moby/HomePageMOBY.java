@@ -78,16 +78,15 @@ public class HomePageMOBY {
 			WebElement element = null;
 			for(int i = 1; i <= 6; i ++) {
 				for(int j = 1; j <= 7; j ++) {
-					//					try {
-					//						element = driver.findElement(By.xpath("//*[@id=\"customGuid1\"]/div/ul/li[1]/div/div[1]/table/tbody/tr[" + i + "]/td[" + j + "]"));
-					//					} catch (Exception e) {
-					//						e.printStackTrace();
-					//						System.out.println("L'elemento GIORNO non è stato trovato!");
-					//						esito.setErrori("Il giorno selezionato non è disponibile per questo sito.");
-					//					}
+					try {
+						element = driver.findElement(By.xpath("//*[@id=\"customGuid1\"]/div/ul/li[1]/div/div[1]/table/tbody/tr[" + i + "]/td[" + j + "]"));
+					} catch (Exception e) {
+						e.printStackTrace();
+						System.out.println("L'elemento GIORNO non è stato trovato!");
+						esito.setErrori("Il giorno selezionato non è disponibile per questo sito.");
+					}
 					if(element.getText().equals(esito.getDatiCsv().getGiornoAndata())) {
 						try{
-							element = driver.findElement(By.xpath("//*[@id=\"customGuid1\"]/div/ul/li[1]/div/div[1]/table/tbody/tr[" + i + "]/td[" + j + "]"));
 							element.click();
 							controllo = true;
 							break;
