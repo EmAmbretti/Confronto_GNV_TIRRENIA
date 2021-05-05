@@ -19,7 +19,13 @@ public class SceltaPageCF {
 			Translator.traduciTratta(sito);
 			
 			for (int i = 0; i < righeTabella.size(); i++) {
-				WebElement tratta = righeTabella.get(i).findElement(By.xpath(".//td[1]/div/div[1]"));
+				WebElement tratta = null;
+				try {
+					tratta = righeTabella.get(i).findElement(By.xpath(".//td[1]/div/div[1]"));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				if(tratta.getText().contains(sito.getDatiCsv().getComunePartenza()) && tratta.getText().contains(sito.getDatiCsv().getComuneArrivo())){
 					String orario = tratta.findElement(By.xpath(".//td[2]/div/span/span[1]")).getText().split(":")[0];
 					// SE DIURNO E..
