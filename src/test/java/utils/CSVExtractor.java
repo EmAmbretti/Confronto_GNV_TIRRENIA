@@ -98,12 +98,12 @@ public class CSVExtractor {
 //		return csvData.get(dataIndex);
 //	}
 	
-	public static CSVData getTestDataById(String type, String path) {
+	public static CSVData getTestDataById(String id, String path) {
 
 		ArrayList<CSVData> csvData = CSVExtractor.process(path);
 		int dataIndex = -1;
 			for (int i = 0; i < csvData.size(); i++) {
-				if (csvData.get(i).getId().equalsIgnoreCase(type) ) {
+				if (csvData.get(i).getId().equalsIgnoreCase(id) ) {
 					dataIndex = i;
 					break;
 				}
