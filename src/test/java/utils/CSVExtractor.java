@@ -98,17 +98,23 @@ public class CSVExtractor {
 //		return csvData.get(dataIndex);
 //	}
 	
-	public static CSVData getTestDataByOffer(String type, String path) {
+	public static CSVData getTestDataById(String type, String path) {
 
 		ArrayList<CSVData> csvData = CSVExtractor.process(path);
 		int dataIndex = -1;
-		for (int i = 0; i < csvData.size(); i++) {
-			if (csvData.get(i).getId().equalsIgnoreCase(type) ) {
-				dataIndex = i;
-				break;
+			for (int i = 0; i < csvData.size(); i++) {
+				if (csvData.get(i).getId().equalsIgnoreCase(type) ) {
+					dataIndex = i;
+					break;
+				}
 			}
+		try {
+			return csvData.get(dataIndex);
+		} catch (Exception e) {
+			System.out.println("CASO DI TEST NON TROVATO PER L'ID SELEZIONATO");
+			System.exit(-1);
+			return null;
 		}
-		return csvData.get(dataIndex);
 	}
 	
 }
