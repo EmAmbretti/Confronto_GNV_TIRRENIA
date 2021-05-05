@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import model.CSVData;
 import model.EsitoSito;
 
 public class Generic {
@@ -354,6 +357,27 @@ public class Generic {
 			return "DIURNO";
 		}else {
 			return "NOTTURNO";
+		}
+	}
+	
+	public static int controlloSatgione(EsitoSito esito) {
+		if(esito.getDatiCsv().getStagione().equalsIgnoreCase("Alta")) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate data1 = LocalDate.parse(Config.get("inizio_alta_stagione"), formatter);
+		LocalDate data2 = LocalDate.parse(Config.get("fine_alta_stagione"), formatter);
+		int t = (int) ChronoUnit.DAYS.between(data1,data2);
+		return t;
+		}
+		else if(esito.getDatiCsv().getStagione().equalsIgnoreCase("Bassa")) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate data1 = LocalDate.parse(Config.get("inizio_bassa_stagione"), formatter);
+			LocalDate data2 = LocalDate.parse(Config.get("fine_bassa_stagione"), formatter);
+			int t = (int) ChronoUnit.DAYS.between(data1,data2);
+			return t;
+		}else {
+			System.out.println("Campo stagione is null");
+			esito.setErrori("Campo stagione is null");
+			return -1;
 		}
 	}
 }
