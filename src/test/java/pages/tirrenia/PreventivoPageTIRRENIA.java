@@ -35,7 +35,7 @@ public class PreventivoPageTIRRENIA {
 				e.printStackTrace();
 				sito.setErrori("Poltrona non disponibile.");
 			}
-			Generic.scrollPage(driver, "1200");
+			Generic.scrollPage(driver, "1600");
 			while (!sistemazionePoltrona.getText().contains(passeggeri + "")) {
 				System.out.println("Passeggeri= "+passeggeri);
 				Generic.clickByXPath(driver, "//div[@class='box-componente-quantita poltrona']/div/div/button[@class='button right plus']");

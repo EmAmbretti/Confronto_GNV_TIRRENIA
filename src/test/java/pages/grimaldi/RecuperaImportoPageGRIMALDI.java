@@ -42,12 +42,17 @@ public class RecuperaImportoPageGRIMALDI {
 
 				String data=giorno + " " + sito.getDatiCsv().getMeseAndata().substring(0,3).toUpperCase();
 				Thread.sleep(5000);
-				List<WebElement> elementList = driver.findElements(By.xpath("//a/div[1]"));
-				for(WebElement element:elementList) {
+				List<WebElement> dateList = driver.findElements(By.xpath("//a/div[1]"));
+				List<WebElement> orarioList = driver.findElements(By.xpath("//div/a/div/span/text()"));
+				int i=0;
+				for(WebElement element:dateList) {
 					if(element.getText().equalsIgnoreCase(data)) {
-						element.click();
-						break;
+						if(Generic.controlloFasciaOraria(orarioList.get(i).getText()).equalsIgnoreCase(sito.getDatiCsv().getFasciaOraria())) {
+							element.click();
+							break;
+						}
 					}
+					i++;
 				}
 				Thread.sleep(1000);
 				Generic.clickById(driver, "nextstep");

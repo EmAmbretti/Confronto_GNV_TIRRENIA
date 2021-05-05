@@ -28,14 +28,17 @@ public class DisponibilitaPageTIRRENIA {
 		map.put("nave", driver.findElements(By.xpath("//div[@class='svg-resource logo']")));
 		map.put("partenza", driver.findElements(By.xpath("//*[@id=\"bookingAndata\"]/div/div/div[1]/div/div[2]/div/div[1]/div[3]/div[1]/div")));
 		map.put("destinazione", driver.findElements(By.xpath("//*[@id=\"bookingAndata\"]/div/div/div[1]/div/div[2]/div/div[1]/div[3]/div[2]/div")));
+		map.put("orario", driver.findElements(By.xpath("//span[@class='date mfont bold fg-color']")));
 		for(WebElement element : map.get("nave")) {
 			if(element.getAttribute("data-resource").contains("tirrenia")) {
 				if(map.get("partenza").get(i).getText().equalsIgnoreCase(esito.getDatiCsv().getComunePartenza())) {
 					if(map.get("destinazione").get(i).getText().equalsIgnoreCase(esito.getDatiCsv().getComuneArrivo())) {
-						element.click();
-						flag = true;
-						Thread.sleep(500);
-						break;
+						if(Generic.controlloFasciaOraria(map.get("orario").get(i).getText()).equalsIgnoreCase(esito.getDatiCsv().getFasciaOraria())) {
+							element.click();
+							flag = true;
+							Thread.sleep(500);
+							break;
+						}
 					}
 				}
 			}

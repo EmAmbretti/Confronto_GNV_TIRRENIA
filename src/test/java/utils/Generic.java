@@ -341,5 +341,15 @@ public class Generic {
 			Thread.sleep(5000);
 		}
 	}
+	
 
+	public static String controlloFasciaOraria(String orario) {
+		String[] orarioDaControllare = orario.replace(" ", "").split(":");
+		int orarioInt=Integer.valueOf(orarioDaControllare[0]);
+		if(orarioInt>=6 && orarioInt<=17) {
+			return "DIURNO";
+		}else {
+			return "NOTTURNO";
+		}
+	}
 }
