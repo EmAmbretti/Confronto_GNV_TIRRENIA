@@ -112,7 +112,7 @@ public class PrestazioniPageCF {
 					}
 				}
 
-			} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CMP")) {
+			} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CMP")) { 
 				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver,
 						"//button[@class='btn btn-full-yellow add-option'][contains(.,'Scegliere')]");
 				if (elements != null) {
