@@ -34,7 +34,7 @@ public class SceltaPageCF {
 					tratta = righeTabella.get(i).findElement(By.xpath(".//td[1]/div/div[1]"));
 					flag = true;
 				} catch (NoSuchElementException e) {
-					System.out.println("tratta non trovata per questo xPath");
+					System.out.println("TRATTA NON TROVATA PER QUESTO xPath");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

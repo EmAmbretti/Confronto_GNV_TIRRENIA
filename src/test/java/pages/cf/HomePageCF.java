@@ -57,6 +57,7 @@ public class HomePageCF {
 			// CLICK PER SCELTA DATA
 			Generic.clickByXPath(driver, "//*[@id=\"sod\"]");
 			
+			System.out.println("\nScelta mese...");
 			// CLICK PER SCELTA MESE
 			Generic.clickByXPath(driver, "/html/body/div[7]/div/div/div/table/tbody/tr[1]/td/table/tbody/tr/td[2]/div/select[1]");
 			
@@ -69,6 +70,7 @@ public class HomePageCF {
 				}
 			}
 			
+			System.out.println("\nScelta Giorno...");
 			// SCELTA GIORNO
 			ArrayList<WebElement> listaGiorni = Generic.getElementListByXPath(driver, "//table[@class='datePickerDays']/tbody/tr/td/div");
 			for (int i=0; i<listaGiorni.size(); i++) {
