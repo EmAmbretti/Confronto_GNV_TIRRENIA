@@ -136,15 +136,6 @@ public class PrestazioniPageCF {
 		// LISTA CONTENENTE TUTTE LE SISTEMAZIONI VISIBILI A FRONT END
 		ArrayList<WebElement> elementList = Generic.getElementListByXPath(driver, "//*[@id='content']/div/div[1]/section/div[2]/div[2]/div[1]/div[4]/div[4]/div/div[1]/div[2]/ul/li[@class='choice-item choice-item--withHead']/div[2]");
 
-		// per controllo testo su cabina o poltrona
-		// element.findElement(By.xpath(".//div[@class='item-title']/span[1]")); 
-		
-		// per il tasto "scegliere" 
-		// element.findElement(By.xpath(".//div/button[1]"));  
-		
-		// per il tasto + passeggeri 
-		//  element.findElement(By.xpath(".//div//div[@class='quantity']/button[2]"));
-		
 		for(int i=0; i<elementList.size(); i++) {
 			if(sito.getDatiCsv().getSistemazione().contains("POLTRON")) {
 				if(elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText().contains("Poltron")) {
@@ -174,28 +165,23 @@ public class PrestazioniPageCF {
 					break;
 				}
 			}
-			// PONTE, contains POLTRON, CABINA INTERNA, CABINA ESTERNA
-			
 		}
 		
 	}
 	
 	private static void sceltaTariffa(WebDriver driver, EsitoSito sito) {
 		System.out.println("\nMetodo sceltaTariffa");
-		ArrayList<WebElement> elementList = Generic.getElementListByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[8]/div[2]/div/div[@class='BookingRateSummary-item']");
+		ArrayList<WebElement> elementList = Generic.getElementListByXPath(driver, "//*[@id='content']/div/div[1]/section/div[2]/div[2]/div[1]/div[8]/div[2]/div/div[@class='BookingRateSummary-item']");
 		
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		for(int i=0; i<elementList.size(); i++) {
-			// div[1]/span[@class='price-name']
+			
 			if(elementList.get(i).findElement(By.xpath(".//div[1]/span[@class='price-name']") ).getText().contains("STANDARD") ) {
 				elementList.get(i).findElement(By.xpath(".//div[2]")).click();
 				break;
 			}
 		}
+		
+		Generic.scrollPage(driver, "document.body.scrollHeight");
 		
 		try {
 			Thread.sleep(4000);
