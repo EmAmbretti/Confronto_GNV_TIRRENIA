@@ -22,7 +22,7 @@ public class Translator {
 		switch (italiano.toUpperCase()) {
 		case "LIVORNO":
 			return "LIVOURNE";
-		case "OLBIA":
+		case "G.ARANCI":
 			return "GOLFO ARANCI";
 		default:
 			return null;
@@ -46,7 +46,7 @@ public class Translator {
 		if(translateCity(sito.getDatiCsv().getComunePartenza())!=null) {
 			sito.getDatiCsv().setComunePartenza(translateCity(sito.getDatiCsv().getComunePartenza()));
 		} 
-		
+
 		if(translateCity(sito.getDatiCsv().getComuneArrivo())!=null) {
 			sito.getDatiCsv().setComuneArrivo(translateCity(sito.getDatiCsv().getComuneArrivo()));
 		}

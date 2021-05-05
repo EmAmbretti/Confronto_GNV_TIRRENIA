@@ -72,10 +72,14 @@ public class Generic {
 		return null;
 	}
 
-	public static void scrollPage(WebDriver driver, String scroll) throws Throwable {
+	public static void scrollPage(WebDriver driver, String scroll) {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(0," + scroll + ")");
-		Thread.sleep(4000);
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static Double confrontoPrezzi(WebDriver driver, Double importo1, String nomeSitoImp1, Double importo2,

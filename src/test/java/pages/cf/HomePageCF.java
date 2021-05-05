@@ -21,7 +21,7 @@ public class HomePageCF {
 	}
 	
 	private static void scegliTratta(WebDriver driver, EsitoSito sito) {
-		System.out.println("Metodo ScegliTratta");
+		System.out.println("\nMetodo ScegliTratta");
 		// CLICK SOLO ANDATA
 		Generic.clickByXPath(driver, "//*[@id=\"gwt-uid-8\"]");
 		
@@ -32,7 +32,6 @@ public class HomePageCF {
 		ArrayList<WebElement> listaViaggi = Generic.getElementListByXPath(driver, "/html/body/div/ul/li");
 
 		Translator.modificaTratta(sito);
-		System.out.println("PARTENZA: "+sito.getDatiCsv().getComunePartenza()+", ARRIVO: "+sito.getDatiCsv().getComuneArrivo());
 		
 		// SCELTA TRATTA
 		boolean flag = false;

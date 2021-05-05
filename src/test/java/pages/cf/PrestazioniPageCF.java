@@ -12,25 +12,29 @@ import utils.Generic;
 public class PrestazioniPageCF {
 
 	public static void automationPaginaPrestazioni(WebDriver driver, EsitoSito sito) {
+		System.out.println("\nAutomationPaginaPrestazioni");
 		if(sito.getErrori()==null) {
 			gestionePasseggeri(driver, sito);
-			gestioneVeicoloMoby(driver, sito);
+			gestioneVeicoloCF(driver, sito);
 			gestioneSistemazione(driver, sito);
 			sceltaTariffa(driver, sito);
+		} else {
+			System.out.println("ERRORE: "+sito.getErrori());
 		}
 	}
 	
 	private static void gestionePasseggeri(WebDriver driver, EsitoSito esito) {
+		System.out.println("\nMetodo gestionePasseggeri");
 		int i = 1;
 		int numeroPasseggeriAdulti = Integer.valueOf(esito.getDatiCsv().getPasseggeriAdulti());
-		while(i > numeroPasseggeriAdulti){
+		while(i < numeroPasseggeriAdulti){
 			i++;
 			Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/ul/li[1]/div[2]/button[2]");
-		}
-		
+		} //							  //*[@id="content"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/ul/li[1]/div[2]/button[2]
+		//								  //*[@id="content"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/ul/li[2]/div[2]/button[2]
 		i = 1;
 		int numeroPasseggeriBambini = Integer.valueOf(esito.getDatiCsv().getPasseggeriBambini());
-		while(i > numeroPasseggeriBambini){
+		while(i < numeroPasseggeriBambini){
 			i++;
 			Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/ul/li[2]/div[2]/button[2]");
 		}
@@ -41,7 +45,7 @@ public class PrestazioniPageCF {
 		if(numeroPasseggeriAnimali!=0) {
 			Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/div/div/span/span[1]");
 		}
-		while(i > numeroPasseggeriAnimali){
+		while(i < numeroPasseggeriAnimali){
 			i++;
 			// + CANI
 			Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/div/ul/li[1]/div[2]/button[2]");
@@ -49,7 +53,8 @@ public class PrestazioniPageCF {
 		
 	}
 	
-	private static void gestioneVeicoloMoby(WebDriver driver, EsitoSito esito) {
+	private static void gestioneVeicoloCF(WebDriver driver, EsitoSito esito) {
+		System.out.println("\nMetodo gestioneVeicoloCF");
 		if (esito.getErrori() == null && !esito.getDatiCsv().getVeicolo().equalsIgnoreCase("no")) {
 			if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
 				WebElement element = null;
@@ -118,15 +123,19 @@ public class PrestazioniPageCF {
 					esito.setErrori(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
 				}
 			}
+		} else {
+			Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[5]/span/span[1]");
+			System.out.println("Non ci sono veicoli da inserire.");
 		}
 	}
 	
 	//Click + "Bici": //*[@id="content"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[4]/div[2]/button[2]
 	
 	private static void gestioneSistemazione(WebDriver driver, EsitoSito sito) {
+		System.out.println("\nMetodo gestioneSistemazione");
 		// LISTA CONTENENTE TUTTE LE SISTEMAZIONI VISIBILI A FRONT END
 		ArrayList<WebElement> elementList = Generic.getElementListByXPath(driver, "//*[@id='content']/div/div[1]/section/div[2]/div[2]/div[1]/div[4]/div[4]/div/div[1]/div[2]/ul/li[@class='choice-item choice-item--withHead']/div[2]");
-																				// //*[@id='content']/div/div[1]/section/div[2]/div[2]/div[1]/div[4]/div[4]/div/div[1]/div[2]/ul/li/div[2]/div[2]/div/button[2]
+
 		// per controllo testo su cabina o poltrona
 		// element.findElement(By.xpath(".//div[@class='item-title']/span[1]")); 
 		
@@ -172,8 +181,14 @@ public class PrestazioniPageCF {
 	}
 	
 	private static void sceltaTariffa(WebDriver driver, EsitoSito sito) {
+		System.out.println("\nMetodo sceltaTariffa");
 		ArrayList<WebElement> elementList = Generic.getElementListByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[8]/div[2]/div/div[@class='BookingRateSummary-item']");
 		
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		for(int i=0; i<elementList.size(); i++) {
 			// div[1]/span[@class='price-name']
 			if(elementList.get(i).findElement(By.xpath(".//div[1]/span[@class='price-name']") ).getText().contains("STANDARD") ) {
@@ -182,7 +197,14 @@ public class PrestazioniPageCF {
 			}
 		}
 		
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		sito.setPrezzo(Generic.getElementByXPath(driver, "//*[@id=\"content\"]/div/div[2]/div/div/div[2]/div[2]/div/div[2]").getText());
+		System.out.println("PREZZO RECUPERATO: "+sito.getPrezzo());
 	}
 	
 	
