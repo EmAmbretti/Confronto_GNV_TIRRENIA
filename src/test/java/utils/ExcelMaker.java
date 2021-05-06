@@ -31,6 +31,7 @@ public class ExcelMaker {
 	
 	public static void createReport(TreeMap<LocalDate, ArrayList<Differenza>> mappaConfronti, String path) {
 		System.out.println("INIZIO CREAZIONE EXCEL");
+		LocalDate dataAttuale = LocalDate.now();
 		boolean flag = true;
 		
 		// CONDIZIONI DA AGGIUNGERE
@@ -75,7 +76,7 @@ public class ExcelMaker {
 				
 				Row riga0 = foglio.createRow((short) 0);
 				riga0.createCell(0).setCellValue("Up to: ");
-				riga0.createCell(2).setCellValue("COSA DEVO INSERIRE ?");
+				riga0.createCell(2).setCellValue(formatterDateTimeFileName.format(dataAttuale));
 				riga0.createCell(4).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi().getDatiCsv().getTrattaAndata());
 				riga0.createCell(6).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi().getDatiCsv().getStagione());
 				riga0.createCell(8).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi().getDatiCsv().getFasciaOraria());
@@ -97,8 +98,8 @@ public class ExcelMaker {
 					// RIGA1 GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA ? 
 					rigaIntestazione1.createCell(1).setCellValue("COMBINAZIONI");
 					rigaIntestazione1.createCell(4).setCellValue("PARTENZA");
-					rigaIntestazione1.createCell(6).setCellValue("SCONTI");
-					rigaIntestazione1.createCell(10).setCellValue("LIV.");
+					rigaIntestazione1.createCell(7).setCellValue("SCONTI");
+					rigaIntestazione1.createCell(11).setCellValue("LIV.");
 					
 					Row rigaIntestazione2 = null;
 					x++;
@@ -113,11 +114,11 @@ public class ExcelMaker {
 					rigaIntestazione2.createCell(2).setCellValue("Veicolo");
 					rigaIntestazione2.createCell(3).setCellValue("Sistemazione");
 					rigaIntestazione2.createCell(4).setCellValue(data.getDayOfMonth()+"/"+data.getMonthValue()+"/"+data.getYear());
-					rigaIntestazione2.createCell(6).setCellValue("Ch");
-					rigaIntestazione2.createCell(7).setCellValue("ND");
+					rigaIntestazione2.createCell(7).setCellValue("Ch");
 					rigaIntestazione2.createCell(8).setCellValue("ND");
 					rigaIntestazione2.createCell(9).setCellValue("ND");
-					rigaIntestazione2.createCell(10).setCellValue("pid");
+					rigaIntestazione2.createCell(10).setCellValue("ND");
+					rigaIntestazione2.createCell(11).setCellValue("pid");
 					
 					Row rigaIntestazione3 = null;
 					x++;
@@ -128,16 +129,15 @@ public class ExcelMaker {
 					}
 					
 					// rigaIntestazione3 GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA ? 
-					rigaIntestazione3.createCell(4).setCellValue("GL");
-					rigaIntestazione3.createCell(5).setCellValue(mappaConfronti.get(data).get(0).getCompetitor().getSito());
-					rigaIntestazione3.createCell(6).setCellValue("Δ");
-					rigaIntestazione3.createCell(10).setCellValue("Δ%");
+					rigaIntestazione3.createCell(4).setCellValue("GL Scraping");
+					rigaIntestazione3.createCell(5).setCellValue("GL Formula");
+					rigaIntestazione3.createCell(6).setCellValue(mappaConfronti.get(data).get(0).getCompetitor().getSito());
+					rigaIntestazione3.createCell(7).setCellValue("Δ");
+					rigaIntestazione3.createCell(11).setCellValue("Δ%");
 					
 					x = fillExcelWithDifferences(mappaConfronti.get(data), foglio, x) + 2;
 				}
-								
-				
-
+						
 				FileOutputStream fileOut = new FileOutputStream(filename);
 				fileExcel.write(fileOut);
 				fileOut.close();
@@ -170,9 +170,9 @@ public class ExcelMaker {
 				Cell veicolo = riga.createCell(2);
 				Cell sistemazione = riga.createCell(3);
 				Cell prezzoGL = riga.createCell(4);
-				Cell prezzoCompetitor = riga.createCell(5);
-				Cell differenza = riga.createCell(6);
-				Cell percentualeDifferenza = riga.createCell(10);
+				Cell prezzoCompetitor = riga.createCell(6);
+				Cell differenza = riga.createCell(7);
+				Cell percentualeDifferenza = riga.createCell(11);
 
 				// CDT ID
 				if(diff.get(index).getGrimaldi().getDatiCsv().getPasseggeriBambini()==null) {
