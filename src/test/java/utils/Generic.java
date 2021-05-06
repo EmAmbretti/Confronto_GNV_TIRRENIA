@@ -404,4 +404,17 @@ public class Generic {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void nowLoadingByXpath(WebDriver driver, String xpath) throws Throwable{
+		boolean flag=true;
+		while(flag){
+			try {
+				driver.findElement(By.xpath("//form[@method='POST']"));
+				flag=false;
+			}catch(Exception e) {
+				System.out.println("Now Loading...");
+				Thread.sleep(2000);
+			}
+		}
+	}
 }
