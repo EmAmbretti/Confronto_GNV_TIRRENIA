@@ -350,13 +350,29 @@ public class Generic {
 	}
 	
 
-	public static String controlloFasciaOraria(String orario) {
+	public static String controlloFasciaOraria(String orario, EsitoSito esito) {
+		String startDiurno = Config.get("inizio_orario_diurno");
+		String finishDiurno = Config.get("fine_orario_diurno");
+		String startNotturno = Config.get("inizio_orario_notturno");
+		String finishNotturno = Config.get("fine_orario_notturno");
 		String[] orarioDaControllare = orario.replace(" ", "").split(":");
+		String[] diurno = startDiurno.replace("", "").split(":");
+		String[] diurno2 = finishDiurno.replace("", "").split(":");
+		String[] notturno = startNotturno.replace("", "").split(":");
+		String[] notturno2 = finishNotturno.replace("", "").split(":");
 		int orarioInt=Integer.valueOf(orarioDaControllare[0]);
-		if(orarioInt>=6 && orarioInt<=17) {
+		int controlloInizioDiurno = Integer.valueOf(diurno[0]);
+		int controlloFineDiurno = Integer.valueOf(diurno2[0]);
+		int controlloInizioNotturno = Integer.valueOf(notturno[0]);
+		int controlloFineNotturno = Integer.valueOf(notturno2[0]);
+		if(orarioInt>=controlloInizioDiurno && orarioInt<=controlloFineDiurno) {
 			return "DIURNO";
-		}else {
+		}else if(orarioInt>=controlloInizioNotturno && orarioInt <=controlloFineNotturno) {
 			return "NOTTURNO";
+		}else {
+			esito.setErrori("fascia"+esito.getDatiCsv().getFasciaOraria()+ "non disponibile");
+			return "fascia"+esito.getDatiCsv().getFasciaOraria()+ "non disponibile";
+			
 		}
 	}
 	
