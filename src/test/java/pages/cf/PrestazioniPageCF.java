@@ -157,11 +157,11 @@ public class PrestazioniPageCF {
 		for (int i = 0; i < elementList.size(); i++) {
 			System.out.println("SISTEMAZIONE DA CSV: " + sito.getDatiCsv().getSistemazione()+ ", SISTEMAZIONE DA SITO: " + elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText());
 			if (sito.getDatiCsv().getSistemazione().toUpperCase().contains("POLTRON")) {
-				if (elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText().toLowerCase()
-						.contains("poltron")) {
+				if (elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText().toUpperCase()
+						.contains("POLTRON")) {
 					int whilev = 0;
 					int numeroPasseggeriAdulti = Integer.valueOf(sito.getDatiCsv().getPasseggeriAdulti());
-					while (whilev > numeroPasseggeriAdulti) {
+					while (whilev < numeroPasseggeriAdulti) {
 						whilev++;
 						elementList.get(i).findElement(By.xpath(".//div//div[@class='quantity']/button[2]")).click();
 					}
