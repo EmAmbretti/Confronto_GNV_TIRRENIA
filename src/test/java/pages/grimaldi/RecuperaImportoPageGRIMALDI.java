@@ -10,7 +10,7 @@ import model.EsitoSito;
 import utils.Generic;
 
 public class RecuperaImportoPageGRIMALDI {
-	public static String recuperaImportoGrimaldi(WebDriver driver, EsitoSito sito) throws Throwable{
+	public static void recuperaImportoGrimaldi(WebDriver driver, EsitoSito sito) throws Throwable{
 		if(sito.getErrori() == null) {
 			String giorno = null;
 			boolean flag=false;
@@ -41,35 +41,39 @@ public class RecuperaImportoPageGRIMALDI {
 				}
 
 				String data=giorno + " " + sito.getDatiCsv().getMeseAndata().substring(0,3).toUpperCase();
-				Thread.sleep(5000);
+				Thread.sleep(3000);
 				List<WebElement> dateList = driver.findElements(By.xpath("//a/div[1]"));
-				List<WebElement> orarioList = driver.findElements(By.xpath("//div/a/div/span/text()"));
+				List<WebElement> orarioList = driver.findElements(By.xpath("//div/a/div/span"));
 				int i=0;
 				for(WebElement element:dateList) {
 					if(element.getText().equalsIgnoreCase(data)) {
-						if(Generic.controlloFasciaOraria(orarioList.get(i).getText()).equalsIgnoreCase(sito.getDatiCsv().getFasciaOraria())) {
+						if(Generic.controlloFasciaOraria(orarioList.get(i).getText(),sito).equalsIgnoreCase(sito.getDatiCsv().getFasciaOraria())) {
 							element.click();
 							break;
 						}
 					}
 					i++;
+					if(i>=dateList.size()) {
+						sito.setErrori("Errore: tratta non disponibile per questo sito!");
+					}
 				}
-				Thread.sleep(1000);
-				Generic.clickById(driver, "nextstep");
-				Thread.sleep(5000);
-				try {
-					prezzoGrimaldi=driver.findElement(By.xpath("//*[@id=\"frm-SPECIAL\"]/div/div[2]/div[2]/div[1]")).getText();
-				}catch(org.openqa.selenium.NoSuchElementException e) {
-					prezzoGrimaldi=driver.findElement(By.xpath("//*[@id=\"frm-STANDARD\"]/div/div[2]/div[2]/div[1]")).getText();
+				if(sito.getErrori()==null) {
+					
+					Thread.sleep(1000);
+					Generic.clickById(driver, "nextstep");
+					Thread.sleep(2000);
+					Generic.nowLoadingByXpath(driver, "//form[@method='POST']");
+					try {
+						prezzoGrimaldi=driver.findElement(By.xpath("//*[@id=\"frm-SPECIAL\"]/div/div[2]/div[2]/div[1]")).getText();
+					}catch(org.openqa.selenium.NoSuchElementException e) {
+						prezzoGrimaldi=driver.findElement(By.xpath("//*[@id=\"frm-STANDARD\"]/div/div[2]/div[2]/div[1]")).getText();
+					}
+
+					System.out.println(prezzoGrimaldi);
+					sito.setPrezzo(prezzoGrimaldi);
 				}
 
-				System.out.println(prezzoGrimaldi);
-				return prezzoGrimaldi;
-			} else {
-				return null;
 			}
-		}else {
-			return null;
 		}
 	}
 }

@@ -6,22 +6,21 @@ import org.openqa.selenium.WebDriver;
 import model.EsitoSito;
 
 public class RecuperoImportoPageTIRRENIA {
-	public static double recuperaImportoTIRRENIA(WebDriver driver, EsitoSito esito) {
-		String priceMoby = null;
-		Double prezzoMoby = null;
+	public static void recuperaImportoTIRRENIA(WebDriver driver, EsitoSito esito) {
+		String priceTIRRENIA = null;
+		Double prezzoTIRRENIA = null;
 		if(esito.getErrori() == null) {
 			try {
-				priceMoby = driver.findElement(By.id("toolbarTotalePreventivo")).getAttribute("data-totale");		
+				priceTIRRENIA = driver.findElement(By.id("toolbarTotalePreventivo")).getAttribute("data-totale");		
 			} catch (Exception e) {
 				esito.setErrori("Non è possibile rilasciare un preventivo!");
 				e.printStackTrace();
 			}
-			prezzoMoby = (Double.parseDouble(priceMoby));
-			System.out.println("Prezzo: " + prezzoMoby);
-			return prezzoMoby;
+			prezzoTIRRENIA = (Double.parseDouble(priceTIRRENIA));
+			System.out.println("Prezzo: " + prezzoTIRRENIA);
+			esito.setPrezzo(priceTIRRENIA);
 		}else {
 			System.out.println("Eventuali errori: "+ esito.getErrori());
-			return 0;
 		}
 		
 			

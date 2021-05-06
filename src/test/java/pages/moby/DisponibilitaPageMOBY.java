@@ -31,7 +31,7 @@ public class DisponibilitaPageMOBY {
 				if(element.getAttribute("data-resource").contains("moby")) {
 					if(map.get("partenza").get(i).getText().equalsIgnoreCase(esito.getDatiCsv().getComunePartenza())) {
 						if(map.get("destinazione").get(i).getText().equalsIgnoreCase(esito.getDatiCsv().getComuneArrivo())) {
-							if(Generic.controlloFasciaOraria(map.get("orario").get(i).getText()).equalsIgnoreCase(esito.getDatiCsv().getFasciaOraria())) {
+							if(Generic.controlloFasciaOraria(map.get("orario").get(i).getText(), esito).equalsIgnoreCase(esito.getDatiCsv().getFasciaOraria())) {
 								element.click();
 								flag = true;
 								Thread.sleep(500);

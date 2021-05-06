@@ -31,7 +31,6 @@ public class ExcelMaker {
 	
 	public static void createReport(TreeMap<LocalDate, ArrayList<Differenza>> mappaConfronti, String path) {
 		System.out.println("INIZIO CREAZIONE EXCEL");
-		LocalDate dataAttuale = LocalDate.now();
 		boolean flag = true;
 		
 		// CONDIZIONI DA AGGIUNGERE
@@ -76,7 +75,10 @@ public class ExcelMaker {
 				
 				Row riga0 = foglio.createRow((short) 0);
 				riga0.createCell(0).setCellValue("Up to: ");
-				riga0.createCell(2).setCellValue(formatterDateTimeFileName.format(dataAttuale));
+				
+				System.out.println(dateTime);
+				
+				riga0.createCell(2).setCellValue(formatterDateTimeFileName.format(dateTime));
 				riga0.createCell(4).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi().getDatiCsv().getTrattaAndata());
 				riga0.createCell(6).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi().getDatiCsv().getStagione());
 				riga0.createCell(8).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi().getDatiCsv().getFasciaOraria());
