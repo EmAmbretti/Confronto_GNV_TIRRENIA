@@ -26,26 +26,25 @@ public class PrestazioniPageCF {
 	private static void gestionePasseggeri(WebDriver driver, EsitoSito esito) {
 		System.out.println("\nMetodo gestionePasseggeri");
 
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		Generic.waitSeconds(3);
 
 		int i = 1;
 		int numeroPasseggeriAdulti = Integer.valueOf(esito.getDatiCsv().getPasseggeriAdulti());
 		while (i < numeroPasseggeriAdulti) {
 			i++;
+			
 			Generic.clickByXPath(driver,
 					"//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/ul/li[1]/div[2]/button[2]");
+			Generic.waitSeconds(2);
 		} // //*[@id="content"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/ul/li[1]/div[2]/button[2]
 			// //*[@id="content"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/ul/li[2]/div[2]/button[2]
-		i = 1;
+		i = 0;
 		int numeroPasseggeriBambini = Integer.valueOf(esito.getDatiCsv().getPasseggeriBambini());
 		while (i < numeroPasseggeriBambini) {
 			i++;
 			Generic.clickByXPath(driver,
 					"//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/ul/li[2]/div[2]/button[2]");
+			Generic.waitSeconds(2);
 		}
 
 		i = 1;
@@ -53,12 +52,14 @@ public class PrestazioniPageCF {
 		if (numeroPasseggeriAnimali != 0) {
 			Generic.clickByXPath(driver,
 					"//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/div/div/span/span[1]");
+			Generic.waitSeconds(2);
 		}
 		while (i < numeroPasseggeriAnimali) {
 			i++;
 			// + CANI
 			Generic.clickByXPath(driver,
 					"//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[2]/div[4]/div/div[1]/div[2]/div/ul/li[1]/div[2]/button[2]");
+			Generic.waitSeconds(2);
 		}
 
 	}
@@ -154,9 +155,10 @@ public class PrestazioniPageCF {
 				"//*[@id='content']/div/div[1]/section/div[2]/div[2]/div[1]/div[4]/div[4]/div/div[1]/div[2]/ul/li[@class='choice-item choice-item--withHead']/div[2]");
 
 		for (int i = 0; i < elementList.size(); i++) {
-			if (sito.getDatiCsv().getSistemazione().contains("POLTRON")) {
-				if (elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText()
-						.contains("Poltron")) {
+			System.out.println("SISTEMAZIONE DA CSV: " + sito.getDatiCsv().getSistemazione()+ ", SISTEMAZIONE DA SITO: " + elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText());
+			if (sito.getDatiCsv().getSistemazione().toUpperCase().contains("POLTRON")) {
+				if (elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText().toLowerCase()
+						.contains("poltron")) {
 					int whilev = 0;
 					int numeroPasseggeriAdulti = Integer.valueOf(sito.getDatiCsv().getPasseggeriAdulti());
 					while (whilev > numeroPasseggeriAdulti) {
@@ -194,11 +196,7 @@ public class PrestazioniPageCF {
 	private static void sceltaTariffa(WebDriver driver, EsitoSito sito) {
 		System.out.println("\nMetodo sceltaTariffa");
 
-		try {
-			Thread.sleep(4000);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
+		Generic.waitSeconds(4);
 
 		ArrayList<WebElement> elementList = Generic.getElementListByXPath(driver,
 				"//*[@id='content']/div/div[1]/section/div[2]/div[2]/div[1]/div[8]/div[2]/div/div[@class='BookingRateSummary-item']");
@@ -213,11 +211,7 @@ public class PrestazioniPageCF {
 
 		Generic.scrollPage(driver, "document.body.scrollHeight");
 
-		try {
-			Thread.sleep(4000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		Generic.waitSeconds(4);
 
 		sito.setPrezzo(
 				Generic.getElementByXPath(driver, "//*[@id=\"content\"]/div/div[2]/div/div/div[2]/div[2]/div/div[2]")
