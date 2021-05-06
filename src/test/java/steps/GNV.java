@@ -13,8 +13,8 @@ public class GNV {
 	public static void allMethods(CSVData data) throws Throwable {
 		WebDriver driver = BeforeAndAfter.before("GNV");
 		EsitoSito esito = new EsitoSito("GNV", data);
-		HomePageGNV.selezionaItinerarioGNV(driver, data, esito);
-		RecapPageGNV.recuperoImporto(driver, data, esito);
+		HomePageGNV.selezionaItinerarioGNV(driver, esito);
+		RecapPageGNV.recuperoImportoGNV(driver, esito);
 	}
 
 }
