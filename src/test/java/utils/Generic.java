@@ -355,7 +355,7 @@ public class Generic {
 		String finishDiurno = Config.get("fine_orario_diurno");
 		String startNotturno = Config.get("inizio_orario_notturno");
 		String finishNotturno = Config.get("fine_orario_notturno");
-		String[] orarioDaControllare = orario.replace(" ", "").split(":");
+		String[] orarioDaControllare = orario.replace("", "").split(":");
 		String[] diurno = startDiurno.replace("", "").split(":");
 		String[] diurno2 = finishDiurno.replace("", "").split(":");
 		String[] notturno = startNotturno.replace("", "").split(":");
