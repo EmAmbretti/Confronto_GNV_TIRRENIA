@@ -13,18 +13,63 @@ public class RecapPageGNV {
 
 	public static void recuperoImportoGNV(WebDriver driver, EsitoSito esito) throws Throwable {
 		if(esito.getErrori()==null) {
-			selezionaSistemazioneGNV(driver, esito);
+			selezionaSistemaione2(driver, esito);
 			scegliServizi(driver, esito);
 			scegliAssicurazione(driver, esito);
 			recuperaPrezzoGNV(driver, esito);
 		}
 	}
-
+	private static void selezionaSistemaione2(WebDriver driver, EsitoSito esito) throws InterruptedException {
+		if(esito.getErrori()==null) {
+			int i = 0;
+			String sistemazione = "";
+			if(esito.getDatiCsv().getSistemazione().equalsIgnoreCase("POLTRONA")) {
+				sistemazione = "POLTRON";
+			} else if(esito.getDatiCsv().getSistemazione().equalsIgnoreCase("CAB. INTERNA")) {
+				sistemazione = "CABINA INTERNA";
+			} else if(esito.getDatiCsv().getSistemazione().equalsIgnoreCase("CAB. ESTERNA")) {
+				sistemazione = "CABINA VISTA MARE";
+			}
+			System.out.println("a maronn::" + sistemazione);
+			Thread.sleep(7000);
+			List<WebElement> listaTesti = driver
+					.findElements(By.xpath("//div[@class='card-solution--title d-inline']"));
+			List<WebElement> listaSeleziona = driver.findElements(By.xpath("//div[@class='card-solution__btn']"));
+			for (WebElement testo : listaTesti) {
+				System.out.println("TESTO:::" + testo.getText());
+				if(testo.getText().contains(sistemazione)) {
+					Thread.sleep(3000);
+					listaSeleziona.get(i).click();
+					break;
+				}else {
+					i++;
+				}
+		}
+			if (i == listaTesti.size()) {
+				esito.setErrori("la sistemazione \"" + esito.getDatiCsv().getSistemazione() + "\" non è disponibile.");
+			}
+			Thread.sleep(3000);
+			try {
+				cliccaContinaGNV(driver, esito);
+			} catch (Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	private static void selezionaSistemazioneGNV(WebDriver driver, EsitoSito esito) throws Throwable {
 		if (esito.getErrori() == null) {
 			int i = 0;
+			String sistemazione = "";
+			switch(esito.getDatiCsv().getSistemazione()) {
+			case "Cab. Interna":
+				sistemazione = "CABINA INTERNA";
+			case "Cab. Esterna":
+				sistemazione = "CABINA VISTA MARE";
+			case "Poltrona":
+				sistemazione = "POLTRON";
+			}
 			boolean flag=false;
-			boolean flag2=false;
 			Thread.sleep(7000);
 				List<WebElement> listaTesti = driver
 						.findElements(By.xpath("//div[@class='card-solution--title d-inline']"));
@@ -40,8 +85,7 @@ public class RecapPageGNV {
 					//	if(!check.isDisplayed()) {
 					//		System.out.println("Sto nel secondo if");
 					//		flag2=true;
-						if (testo.getText().substring(0, testo.getText().length() - 2).equalsIgnoreCase(
-								esito.getDatiCsv().getSistemazione().substring(0, esito.getDatiCsv().getSistemazione().length() - 2)) || testo.getText().equalsIgnoreCase("Cab. Interna")) {
+						if (testo.getText().contains(sistemazione)) {
 							Thread.sleep(3000);
 							listaSeleziona.get(i).click();
 							flag=true;
