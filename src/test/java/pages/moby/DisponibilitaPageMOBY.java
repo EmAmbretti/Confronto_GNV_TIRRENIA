@@ -36,6 +36,9 @@ public class DisponibilitaPageMOBY {
 								flag = true;
 								Thread.sleep(500);
 								break;
+							} else {
+								System.out.println("ERRORE: fascia oraria non disponibile.");
+								esito.setErrori("La fascia oraria scelta per questo sito non è disponibile.");
 							}
 						}
 					}
