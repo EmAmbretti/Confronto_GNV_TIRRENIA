@@ -376,15 +376,15 @@ public class Generic {
 		}
 	}
 	
-	public static int controlloSatgione(EsitoSito esito) {
-		if(esito.getDatiCsv().getStagione().equalsIgnoreCase("Alta")) {
+	public static int controlloStagione(CSVData data) {
+		if(data.getStagione().equalsIgnoreCase("Alta")) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		LocalDate data1 = LocalDate.parse(Config.get("inizio_alta_stagione"), formatter);
 		LocalDate data2 = LocalDate.parse(Config.get("fine_alta_stagione"), formatter);
 		int t = (int) ChronoUnit.DAYS.between(data1,data2);
 		return t;
 		}
-		else if(esito.getDatiCsv().getStagione().equalsIgnoreCase("Bassa")) {
+		else if(data.getStagione().equalsIgnoreCase("Bassa")) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			LocalDate data1 = LocalDate.parse(Config.get("inizio_bassa_stagione"), formatter);
 			LocalDate data2 = LocalDate.parse(Config.get("fine_bassa_stagione"), formatter);
@@ -392,7 +392,6 @@ public class Generic {
 			return t;
 		}else {
 			System.out.println("Campo stagione is null");
-			esito.setErrori("Campo stagione is null");
 			return -1;
 		}
 	}
@@ -417,4 +416,24 @@ public class Generic {
 			}
 		}
 	}
+	
+	public static WebElement getChildElementByXPath(WebDriver driver, WebElement parentElement, String xpath) {
+		WebElement element = null;
+		try {
+				element = parentElement.findElement(By.xpath(xpath));
+			if (element != null) {
+				System.out.println("getChildElementByXPath: "+xpath);
+			}
+		} catch (Exception e) {
+			System.out.print("\n\n!ERRORE! getChildElementByXPath: ");
+			System.out.print(xpath);
+			if(e instanceof org.openqa.selenium.NoSuchElementException) {
+				System.out.println(": Selenium.NoSuchElementException\n\n");
+			} else {
+				System.out.println(": "+e.getLocalizedMessage()+ "\n\n");
+			}
+		}
+		return element;
+	}
+	
 }

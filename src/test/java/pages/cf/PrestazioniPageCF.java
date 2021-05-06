@@ -70,75 +70,21 @@ public class PrestazioniPageCF {
 		Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[1]/div[2]/button[1]");
 		
 		if (esito.getErrori() == null && !esito.getDatiCsv().getVeicolo().equalsIgnoreCase("no")) {
-			if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
-				WebElement element = null;
-				try {
-					element = driver.findElement(By
-							.xpath("//button[@class='change-option']//span[@class='label'][contains(.,'Modificare')]"));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				if (element == null) {
-					ArrayList<WebElement> elements = Generic.getElementListByXPath(driver,
-							"//button[@class='btn btn-full-yellow add-option'][contains(.,'Scegliere')]");
-					if (elements != null) {
-						Generic.clickByList(driver,
-								"//button[@class='btn btn-full-yellow add-option'][contains(.,'Scegliere')]", 0);
-						Generic.clickByXPath(driver, "//label[contains(.,'fino a 4.00m')]//span[@class='checkbox']");
-						Generic.clickByList(driver, "//button[@class='btn btn-main'][contains(.,'Convalidare')]", 0);
-					} else {
-						System.out.println(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
-						esito.setErrori(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
-					}
-				}
-
-			} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
-				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver,
-						"//button[@class='change-option']//span[@class='label'][contains(.,'Modificare')]");
-				if (elements != null) {
-					Generic.clickByList(driver,
-							"//button[@class='change-option']//span[@class='label'][contains(.,'Modificare')]", 0);
-					Generic.clickByXPath(driver, "//label[contains(.,'oltre 5.01m')]//span[@class='checkbox']");
-					Generic.sendKeysByXPath(driver, "//input[@class='car-dimensions-size']", "550");
-					Generic.clickByList(driver, "//button[@class='btn btn-main'][contains(.,'Convalidare')]", 0);
-				} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CMP")) {
-					ArrayList<WebElement> elementsList = Generic.getElementListByXPath(driver,
-							"//button[@class='btn btn-full-yellow add-option'][contains(.,'Scegliere')]");
-					if (elementsList != null) {
-						Generic.clickByList(driver,
-								"//button[@class='btn btn-full-yellow add-option'][contains(.,'Scegliere')]", 0);
-						Generic.clickByXPath(driver, "//label[contains(.,'oltre 5.01m')]//span[@class='checkbox']");
-						Generic.sendKeysByXPath(driver, "//input[@class='car-dimensions-size']", "550");
-						Generic.clickByList(driver, "//button[@class='btn btn-main'][contains(.,'Convalidare')]", 0);
-					} else {
-						System.out.println(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
-						esito.setErrori(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
-					}
-				}
-
-			} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CMP")) { 
-				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver,
-						"//button[@class='btn btn-full-yellow add-option'][contains(.,'Scegliere')]");
-				if (elements != null) {
-					Generic.clickByList(driver,
-							"//button[@class='btn btn-full-yellow add-option'][contains(.,'Scegliere')]", 1);
-					Generic.clickByList(driver, "//label[contains(.,'oltre 5.01m')]//span[@class='checkbox']", 1);
-					Generic.sendKeysByList(driver, "//input[@class='car-dimensions-size']", "750", 1);
-					Generic.clickByList(driver, "//button[@class='btn btn-main'][contains(.,'Convalidare')]", 1);
-				} else {
-					System.out.println(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
-					esito.setErrori(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
-				}
-
-			} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("MOTO")) {
-				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver,
-						"//button[@class='btn btn-full-yellow add-option'][contains(.,'Scegliere')]");
-				if (elements != null) {
-					Generic.clickByList(driver,
-							"//button[@class='btn btn-full-yellow add-option'][contains(.,'Scegliere')]", 2);
-				} else {
-					System.out.println(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
-					esito.setErrori(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
+			
+			ArrayList<WebElement> listaDivAuto = Generic.getElementListByXPath(driver, "//div[@class='travel-go']/div/div[@class='choice']/ul/li");
+			for (int i = 0; i < listaDivAuto.size(); i++) {
+				
+				if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
+					//listaDivAuto.get(i).findElement(By.xpath())
+	
+				} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
+					
+	
+				} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CMP")) { 
+					
+					
+				} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("MOTO")) {
+					
 				}
 			}
 		} else {
