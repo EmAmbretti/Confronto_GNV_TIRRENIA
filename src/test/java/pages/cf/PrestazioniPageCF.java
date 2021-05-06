@@ -76,15 +76,40 @@ public class PrestazioniPageCF {
 				
 				if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
 					//listaDivAuto.get(i).findElement(By.xpath())
+					if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div/span").getText().toUpperCase().equals("AUTO")){
+						// button/span
+						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("MODIFICARE") 
+								|| Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("SCEGLIERE")){
+							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").click();
+						}
+					}
 	
 				} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
-					
+					if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div/span").getText().toUpperCase().contains("FURGONE")){
+						// button/span
+						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("MODIFICARE") 
+								|| Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("SCEGLIERE")){
+							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").click();
+						}
+					}
 	
 				} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CMP")) { 
-					
+					if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div/span").getText().toUpperCase().contains("CAMPER")){
+						// button/span
+						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("MODIFICARE") 
+								|| Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("SCEGLIERE")){
+							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").click();
+						}
+					}
 					
 				} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("MOTO")) {
-					
+					if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div/span").getText().toUpperCase().contains("MOTO")){
+						// button/span
+						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("MODIFICARE") 
+								|| Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("SCEGLIERE")){
+							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").click();
+						}
+					}
 				}
 			}
 		} else {
