@@ -45,14 +45,14 @@ public class PreventivoPageTIRRENIA {
 			if(sito.getDatiCsv().getSistemazione().toUpperCase().contains("CAB. INTERNA")){
 				if(Integer.valueOf(sito.getDatiCsv().getPasseggeriAnimali()) != 0) {
 					try {
-						cabinaInternaAnimali = driver.findElement(By.xpath("//div[@data-id='C4G']//div[@class='box-componente-quantita cabina']/div/div"));
+						cabinaInternaAnimali = driver.findElement(By.xpath("//div[@data-id='KC4G']//div[@class='box-componente-quantita cabina']/div/div"));
 					} catch (Exception e) {
 						e.printStackTrace();
 						sito.setErrori("Cabina Quadrupla Interna per Animali non disponibile.");
 					}
 					Generic.scrollPage(driver, "1200");
 					Thread.sleep(1000);
-					Generic.clickByXPath(driver, "//div[@data-id='C4G']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
+					Generic.clickByXPath(driver, "//div[@data-id='KC4G']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
 					Thread.sleep(1000);
 				}else {
 					try {

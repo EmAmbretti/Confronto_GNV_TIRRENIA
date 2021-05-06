@@ -124,11 +124,16 @@ public class HomePageTIRRENIA {
 	
 	private static void selezionaMese(WebDriver driver, EsitoSito sito)throws Throwable{
 		boolean flag=true;
-			WebElement data = driver.findElement(By.xpath("//th[@title='Select Month']"));
+			WebElement mese = driver.findElement(By.xpath("//th[@title='Select Month']"));
 			while(flag) {
-				if(!data.getText().contains(sito.getDatiCsv().getMeseAndata().toUpperCase())) {
+				if(!mese.getText().contains(sito.getDatiCsv().getMeseAndata().toUpperCase())) {
 					Generic.clickByXPath(driver, "//th[@class='next']");
 					Thread.sleep(1000);
+					if(driver.findElement(By.xpath("//div[@class='datepicker-days']//th[@data-action='next']")).getAttribute("class").contains("disabled")&&mese.getText().contains("DICEMBRE")&&!sito.getDatiCsv().getMeseAndata().toUpperCase().contains("DICEMBRE")) {
+						sito.setErrori("Mese non valido!");
+						System.out.println("Mese non valido!");
+						flag=false;
+					}
 				}else {
 					flag=false;
 				}
@@ -154,6 +159,9 @@ public class HomePageTIRRENIA {
 			if(controllo) {
 				break;
 			}
+		}
+		if(!controllo) {
+			sito.setErrori("Giorno non disponibile! (Oppure giorno non esistente)");
 		}
 		Thread.sleep(2000);
 	}
