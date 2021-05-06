@@ -66,6 +66,9 @@ public class PrestazioniPageCF {
 
 	private static void gestioneVeicoloCF(WebDriver driver, EsitoSito esito) {
 		System.out.println("\nMetodo gestioneVeicoloCF");
+		
+		Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[1]/div[2]/button[1]");
+		
 		if (esito.getErrori() == null && !esito.getDatiCsv().getVeicolo().equalsIgnoreCase("no")) {
 			if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
 				WebElement element = null;
@@ -155,7 +158,6 @@ public class PrestazioniPageCF {
 				"//*[@id='content']/div/div[1]/section/div[2]/div[2]/div[1]/div[4]/div[4]/div/div[1]/div[2]/ul/li[@class='choice-item choice-item--withHead']/div[2]");
 
 		for (int i = 0; i < elementList.size(); i++) {
-			System.out.println("SISTEMAZIONE DA CSV: " + sito.getDatiCsv().getSistemazione()+ ", SISTEMAZIONE DA SITO: " + elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText());
 			if (sito.getDatiCsv().getSistemazione().toUpperCase().contains("POLTRON")) {
 				if (elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText().toUpperCase()
 						.contains("POLTRON")) {
@@ -168,22 +170,23 @@ public class PrestazioniPageCF {
 				}
 			}
 
-			if (sito.getDatiCsv().getSistemazione().contains("CABINA ESTERNA")) {
-				if (elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText()
-						.contains("Cabina esclusiva con oblò")) {
+			System.out.println("SISTEMAZIONE CSV: "+sito.getDatiCsv().getSistemazione()+", SISTEMAZIONE SITO: "+elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText());
+			if (sito.getDatiCsv().getSistemazione().toUpperCase().contains("ESTERNA")) {
+				if (elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText().toLowerCase()
+						.contains("cabina esclusiva con oblò")) {
 					elementList.get(i).findElement(By.xpath(".//div/button[1]")).click();
-					elementList.get(i).findElement(By.xpath(".//div/div/div/div/div/div[@class='quantity']/button[2]"))
+					elementList.get(i).findElement(By.xpath(".//div/div/div/div/div/div[@class='quantity']/button[1]"))
 							.click();
 					elementList.get(i).findElement(By.xpath(".//div[2]/div/button[2]")).click();
 					break;
 				}
 			}
 
-			if (sito.getDatiCsv().getSistemazione().contains("CABINA INTERNA")) {
-				if (elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText()
-						.contains("Cabina esclusiva senza oblò")) {
+			if (sito.getDatiCsv().getSistemazione().toUpperCase().contains("INTERNA")) {
+				if (elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText().toLowerCase()
+						.contains("cabina esclusiva senza oblò")) {
 					elementList.get(i).findElement(By.xpath(".//div/button[1]")).click();
-					elementList.get(i).findElement(By.xpath(".//div/div/div/div/div/div[@class='quantity']/button[2]"))
+					elementList.get(i).findElement(By.xpath(".//div/div/div/div/div/div[@class='quantity']/button[1]"))
 							.click();
 					elementList.get(i).findElement(By.xpath(".//div[2]/div/button[2]")).click();
 					break;
@@ -211,7 +214,7 @@ public class PrestazioniPageCF {
 
 		Generic.scrollPage(driver, "document.body.scrollHeight");
 
-		Generic.waitSeconds(4);
+		Generic.waitSeconds(3);
 
 		sito.setPrezzo(
 				Generic.getElementByXPath(driver, "//*[@id=\"content\"]/div/div[2]/div/div/div[2]/div[2]/div/div[2]")

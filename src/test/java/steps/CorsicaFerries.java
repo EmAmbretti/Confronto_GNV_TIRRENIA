@@ -11,16 +11,18 @@ import utils.BeforeAndAfter;
 
 public class CorsicaFerries {
 	
-	public static void automation(CSVData testData) {
+	public static EsitoSito automation(CSVData testData) {
+		EsitoSito sito = new EsitoSito("CORSICA FERRIES", testData);
 		try {
 			WebDriver driver = BeforeAndAfter.before("CORSICA FERRIES");
-			EsitoSito sito = new EsitoSito("CORSICA FERRIES", testData);
 			HomePageCF.scegliTrattaEData(driver, sito);
 			SceltaPageCF.sceltaViaggio(driver, sito);
 			PrestazioniPageCF.automationPaginaPrestazioni(driver, sito);
 		} catch (Exception e) {
 			e.printStackTrace();
+			sito.setErrori("ERRORE GENERICO");
 		}
+		return sito;
 	}
 
 }

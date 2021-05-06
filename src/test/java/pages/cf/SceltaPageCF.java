@@ -17,16 +17,15 @@ public class SceltaPageCF {
 		System.out.println("\nMetodo sceltaViaggio");
 		if(sito.getErrori()==null) {
 			
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
+			Generic.waitSeconds(3);
 			
 			ArrayList<WebElement> righeTabella = Generic.getElementListByXPath(driver, "//*[@id='SearchView']/div[1]/div/div/div[2]/div/div[1]/div/div/div[3]/div/div[3]/table/tbody/tr");
 					
 			Translator.traduciTratta(sito);
 			boolean trattaTrovata = false;
+			
+			ArrayList <WebElement> tratteDaValutare = new ArrayList <WebElement>();
+			
 			for (int i = 0; i < righeTabella.size(); i++) {
 				WebElement tratta = null;
 				boolean flag = false;
@@ -53,9 +52,9 @@ public class SceltaPageCF {
 								break;
 								// SE NOTTURNO E..
 							} else if(Integer.valueOf(orario)>18 && sito.getDatiCsv().getFasciaOraria().contains("NOTTURN")){
-								righeTabella.get(i).click();
+								//righeTabella.get(i).click();
 								trattaTrovata = true;
-								break;
+								tratteDaValutare.add(righeTabella.get(i));
 							}
 							
 						} catch (NoSuchElementException e) {
@@ -68,7 +67,17 @@ public class SceltaPageCF {
 			}
 			
 			if(!trattaTrovata) {
+				System.out.println("NESSUNA TRATTA TROVATA PER LA FASCIA ORARIA RICHIESTA");
 				sito.setErrori("NESSUNA TRATTA TROVATA PER LA FASCIA ORARIA RICHIESTA");
+			} else {
+				if(sito.getDatiCsv().getFasciaOraria().contains("NOTTURN") ) {
+					if(tratteDaValutare.isEmpty()) {
+						System.out.println("NESSUNA TRATTA TROVATA PER LA FASCIA ORARIA RICHIESTA");
+						sito.setErrori("NESSUNA TRATTA TROVATA PER LA FASCIA ORARIA RICHIESTA");
+					} else {
+						tratteDaValutare.get(tratteDaValutare.size()-1).click();
+					}
+				}
 			}
 			
 			//SCROLL DA AGGIUNGERE

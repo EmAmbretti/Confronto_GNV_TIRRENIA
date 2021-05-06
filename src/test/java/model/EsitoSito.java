@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class EsitoSito {
 
@@ -9,7 +9,7 @@ public class EsitoSito {
 	private CSVData datiCsv;
 	private String prezzo;
 	private String note;
-	private Date data;
+	private LocalDate data;
 	
 	public EsitoSito(String nomeSito, CSVData datiCSV) {
 		this.sito = nomeSito;
@@ -51,11 +51,11 @@ public class EsitoSito {
 		}
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 	
