@@ -12,7 +12,7 @@ import utils.Generic;
 
 public class GrimaldiLines {
 	
-	public static void stepGrimaldi(CSVData testData) throws Throwable{
+	public static EsitoSito stepGrimaldi(CSVData testData) throws Throwable{
 		
 		WebDriver driver = BeforeAndAfter.before("GRIMALDI");
 		EsitoSito sitoGRIMALDI = new EsitoSito("GRIMALDI",testData);
@@ -20,6 +20,7 @@ public class GrimaldiLines {
 		Generic.switchPage(driver,sitoGRIMALDI);
 		BookingPageGRIMALDI.compilaDatiBookingGRIMALDI(driver, sitoGRIMALDI);
 		RecuperaImportoPageGRIMALDI.recuperaImportoGrimaldi(driver, sitoGRIMALDI);
+		return sitoGRIMALDI;
 	}
 	
 }

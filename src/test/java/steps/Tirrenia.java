@@ -14,7 +14,7 @@ import utils.Generic;
 
 public class Tirrenia {
 	
-	public static void stepTirrenia(CSVData testData) throws Throwable{
+	public static EsitoSito stepTirrenia(CSVData testData) throws Throwable{
 		
 		WebDriver driver = BeforeAndAfter.before("TIRRENIA");
 		EsitoSito sitoTIRRENIA = new EsitoSito("TIRRENIA",testData);
@@ -23,6 +23,7 @@ public class Tirrenia {
 		PreventivoPageTIRRENIA.inserimentoSistemazione(driver, sitoTIRRENIA);
 		ServiziPageTIRRENIA.continuaPopUp(driver, sitoTIRRENIA);
 		RecuperoImportoPageTIRRENIA.recuperaImportoTIRRENIA(driver, sitoTIRRENIA);
+		return sitoTIRRENIA;
 	}
 	
 }
