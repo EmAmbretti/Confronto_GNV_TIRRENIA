@@ -448,4 +448,83 @@ public class Generic {
 		return element;
 	}
 	
+	public static String meseDaInteroAStringa(int mese) {
+		switch (mese) {
+		case 1:
+			return "GENNAIO";
+		case 2:
+			return "FEBBRAIO";
+		case 3:
+			return "MARZO";
+		case 4:
+			return "APRILE";
+		case 5:
+			return "MAGGIO";
+		case 6:
+			return "GIUGNO";
+		case 7:
+			return "LUGLIO";
+		case 8:
+			return "AGOSTO";
+		case 9:
+			return "SETTEMBRE";
+		case 10:
+			return "OTTOBRE";
+		case 11:
+			return "NOVEMBRE";
+		case 12:
+			return "DICEMBRE";
+		default:
+			return null;
+		}
+	}
+
+	public static void setDataPrenotazioneNelModelCSV(CSVData datiCSV, LocalDate dataPrenotazione) {
+
+		datiCSV.setGiornoAndata(String.valueOf(dataPrenotazione.getDayOfMonth()));
+		datiCSV.setMeseAndata(meseDaInteroAStringa(dataPrenotazione.getMonthValue()));
+		datiCSV.setAnno(String.valueOf(dataPrenotazione.getYear()));
+	}
+
+	public static LocalDate setDataInizio(String stagione) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate dataInizio = null;
+		if (stagione.equalsIgnoreCase("ALTA")) {
+			dataInizio =  LocalDate.parse(Config.get("inizio_alta_stagione"), formatter);
+		} else if (stagione.equalsIgnoreCase("BASSA")) {
+			dataInizio =  LocalDate.parse(Config.get("inizio_bassa_stagione"), formatter);
+		}
+		return dataInizio;
+	}
+
+	public static LocalDate setDataFine(String stagione) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate dataFine = null;
+		if (stagione.equalsIgnoreCase("ALTA")) {
+			dataFine =  LocalDate.parse(Config.get("fine_alta_stagione"), formatter);
+		} else if (stagione.equalsIgnoreCase("BASSA")) {
+			dataFine =  LocalDate.parse(Config.get("fine_bassa_stagione"), formatter);
+		}
+		return dataFine;}
+
+	public static int controlloStagione(String stagione) {
+		if(stagione.equalsIgnoreCase("Alta")) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate data1 = LocalDate.parse(Config.get("inizio_alta_stagione"), formatter);
+		LocalDate data2 = LocalDate.parse(Config.get("fine_alta_stagione"), formatter);
+		int t = (int) ChronoUnit.DAYS.between(data1,data2);
+		return t;
+		}
+		else if(stagione.equalsIgnoreCase("Bassa")) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate data1 = LocalDate.parse(Config.get("inizio_bassa_stagione"), formatter);
+			LocalDate data2 = LocalDate.parse(Config.get("fine_bassa_stagione"), formatter);
+			int t = (int) ChronoUnit.DAYS.between(data1,data2);
+			return t;
+		}else {
+			System.out.println("Campo stagione is null");
+			return -1;
+		}
+	}
+	
 }
