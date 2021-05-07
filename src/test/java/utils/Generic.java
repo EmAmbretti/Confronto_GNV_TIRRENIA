@@ -418,18 +418,30 @@ public class Generic {
 		}
 	}
 	
-	public static WebElement getChildElementByXPath(WebDriver driver, WebElement parentElement, String xpath) {
-		WebElement element = null;
+	public static String changeXPathForChildElement(String xpath) {
 		// .//
+				/*
+				 div
+				 /div
+				 //div
+				 .//div
+				 */
 		if(xpath.charAt(0) != '.') {
 			xpath = "." + xpath;
 		}
 		if(xpath.charAt(1) != '/') {
-			xpath = "/" + xpath;
+			xpath = xpath.charAt(0) + "/" + xpath.substring(1);
 		}
 		if(xpath.charAt(2) != '/') {
-			xpath = "/" + xpath;
+			xpath = xpath.substring(0, 2)+ "/" + xpath.substring(2);
 		}
+		return xpath;
+	}
+	
+	public static WebElement getChildElementByXPath(WebDriver driver, WebElement parentElement, String xpath) {
+		WebElement element = null;
+		
+		xpath = changeXPathForChildElement(xpath);
 		
 		try {
 				element = parentElement.findElement(By.xpath(xpath));
