@@ -49,7 +49,7 @@ public class HomePageGNV {
 	}
 
 	private static void closePopupGNV(WebDriver driver, EsitoSito sito) throws InterruptedException {
-		Thread.sleep(3000);
+		Thread.sleep(6000);
 		if(sito.getErrori()==null) {
 			try {
 				driver.findElement(By.xpath("//*[@id=\"iubenda-cs-banner\"]/div/div/div/div[2]/div[2]/button[2]")).click();
@@ -230,16 +230,16 @@ public class HomePageGNV {
 
 	private static void gestioneVeicoloGNV(WebDriver driver, EsitoSito esito) throws Throwable {
 		if (esito.getErrori() == null && !esito.getDatiCsv().getVeicolo().equalsIgnoreCase("no")) {
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			Generic.clickByXPath(driver, "//div[@class='journey-summary-block no-wizard-active search-active last']");
 			if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
-				Thread.sleep(5000);
+				Thread.sleep(500);
 				List<WebElement> elements = driver.findElements(By.xpath("//div[@class='counter-wrapper orange']//button[@class='input-number-increment']"));
 				if (elements != null) {
 					System.out.println("lista::::" +  elements.size());
 					System.out.println("ECCOMI");
 					elements.get(0).click();
-					Thread.sleep(3000);
+					Thread.sleep(1000);
 					Generic.clickByXPath(driver, "//select[@id='height']");
 					Generic.clickByXPath(driver,
 							"//option[contains(.,'Inferiore a 1,9m')][@class='ng-star-inserted']");
