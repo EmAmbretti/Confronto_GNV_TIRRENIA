@@ -19,6 +19,7 @@ public class SceltaPageCF {
 	}
 	
 	private static void impostazioneVeicoloNull(WebDriver driver, EsitoSito sito) {
+		System.out.println("\nMetodo impostazioneVeicoloNull");
 		Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/div[2]/input");
 		Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/div[2]/div/div/ul[1]/li[5]/span/label");
 	}
