@@ -377,7 +377,7 @@ public class Generic {
 		}
 	}
 	
-	public static int controlloStagione(CSVData data) {
+	/*public static int controlloStagione(CSVData data) {
 		if(data.getStagione().equalsIgnoreCase("Alta")) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		LocalDate data1 = LocalDate.parse(Config.get("inizio_alta_stagione"), formatter);
@@ -395,7 +395,7 @@ public class Generic {
 			System.out.println("Campo stagione is null");
 			return -1;
 		}
-	}
+	}*/
 	
 	public static void waitSeconds(int seconds) {
 		try {

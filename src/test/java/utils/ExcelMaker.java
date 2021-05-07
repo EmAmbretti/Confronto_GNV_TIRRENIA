@@ -100,8 +100,7 @@ public class ExcelMaker {
 				riga0.createCell(1).setCellValue(formatterDateTime.format(dateTime));
 				riga0.createCell(3).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi()
 						.getDatiCsv().getTrattaAndata());
-				riga0.createCell(6).setCellValue(
-						mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi().getDatiCsv().getStagione());
+				riga0.createCell(6).setCellValue(Config.get("stagione"));
 				riga0.createCell(8).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi()
 						.getDatiCsv().getFasciaOraria());
 				riga0.createCell(11)
