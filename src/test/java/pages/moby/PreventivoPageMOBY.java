@@ -140,12 +140,10 @@ public class PreventivoPageMOBY {
 			} else if (passeggeri > 2) {
 				System.out.println("SIAM CAPIONI D'ITALIAAAA");
 				if(data.getSistemazione().toUpperCase().contains("CAB. INTERNA")){
-					System.out.println("FRATACCHIòòòòòòòòòòòòòò");
 					if(Integer.valueOf(data.getPasseggeriAnimali()) != 0) {
 						try {
 							cabinaInternaAnimali = driver.findElement(By.xpath("//div[@data-id='C4G']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
 						} catch (Exception e) {
-							e.printStackTrace();
 							esito.setErrori("Cabina Quadrupla Interna per Animali non disponibile.");
 						}
 						Generic.scrollPage(driver, "1200");
@@ -153,8 +151,6 @@ public class PreventivoPageMOBY {
 						Generic.clickByXPath(driver, "//div[@data-id='C4G']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
 						Thread.sleep(1000);
 					}else {
-						System.out.println("AWAACCCHICHIòòòòòòòò");
-
 						try {
 							cabinaInterna = driver.findElement(By.xpath("//div[@data-id='C4']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
 						} catch (Exception e) {
@@ -168,8 +164,6 @@ public class PreventivoPageMOBY {
 					}
 				} else if (data.getSistemazione().toUpperCase().contains("CAB. ESTERNA")){
 					if(Integer.valueOf(data.getPasseggeriAnimali()) != 0) {
-						System.out.println("FINIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-
 						try {
 							cabinaEsternaAnimali = driver.findElement(By.xpath("//div[@data-id='C4EG']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
 						} catch (Exception e) {
@@ -181,8 +175,6 @@ public class PreventivoPageMOBY {
 						Generic.clickByXPath(driver, "//div[@data-id='C4EG']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
 						Thread.sleep(1000);
 					} else {
-						System.out.println("APAPOJAAAAAAAAAAAAAAAAAA");
-
 						try {
 							cabinaEsterna = driver.findElement(By.xpath("//div[@data-id='C4E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
 						} catch (Exception e) {

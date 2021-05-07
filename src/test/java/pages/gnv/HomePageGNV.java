@@ -44,7 +44,6 @@ public class HomePageGNV {
 			cliccaAdutiGNV(driver, esito);
 			cliccaBambiniGNV(driver, esito);
 			cliccaAnimaliGNV(driver, esito);
-			cliccaContinuaGNV(driver, esito);
 		}
 	}
 
@@ -230,8 +229,8 @@ public class HomePageGNV {
 
 	private static void gestioneVeicoloGNV(WebDriver driver, EsitoSito esito) throws Throwable {
 		if (esito.getErrori() == null && !esito.getDatiCsv().getVeicolo().equalsIgnoreCase("no")) {
-			Thread.sleep(1000);
-			Generic.clickByXPath(driver, "//div[@class='journey-summary-block no-wizard-active search-active last']");
+			Thread.sleep(500);
+			Generic.clickByXPath(driver, "//div[@class='journey-summary-block search-active last']/i[@class='journey-summary-block--arrow-icon gnv-fe-icon-arrow-light-right']");
 			if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
 				Thread.sleep(500);
 				List<WebElement> elements = driver.findElements(By.xpath("//div[@class='counter-wrapper orange']//button[@class='input-number-increment']"));
