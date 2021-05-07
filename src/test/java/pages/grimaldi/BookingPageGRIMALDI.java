@@ -81,6 +81,10 @@ public class BookingPageGRIMALDI {
 	
 	private static void aggiungiSistemazioniPasseggeriGrimaldi(WebDriver driver, EsitoSito sito) throws Throwable {
 		if(sito.getErrori() == null) {
+			Thread.sleep(1000);
+			while(driver.findElement(By.id("accLeg1Select")).getAttribute("style").contains("none")) {
+				Thread.sleep(1000);
+			}
 			selezionaSistemazioneGrimaldi(driver, sito);
 		}
 		if(sito.getErrori() == null) {
@@ -89,8 +93,7 @@ public class BookingPageGRIMALDI {
 				
 	}
 	
-	private static void selezionaSistemazioneGrimaldi(WebDriver driver, EsitoSito sito) throws Throwable {
-		Thread.sleep(5000);
+	private static void selezionaSistemazioneGrimaldi(WebDriver driver, EsitoSito sito) throws Throwable {		
 		Generic.clickById(driver, "accLeg1Select");
 		Thread.sleep(2000);
 		try {

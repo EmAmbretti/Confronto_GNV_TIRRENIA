@@ -25,10 +25,10 @@ public class RecuperaImportoPageGRIMALDI {
 				do {
 					try {
 						driver.findElement(By.xpath("//*[@id=\"calendar_wrap\"]/div[1]/h2"));
-						Thread.sleep(2000);
+						Thread.sleep(1000);
 						flag=false;
 					}catch(Exception e) {
-						Thread.sleep(3000);
+						Thread.sleep(2000);
 						flag=true;
 					}
 				}

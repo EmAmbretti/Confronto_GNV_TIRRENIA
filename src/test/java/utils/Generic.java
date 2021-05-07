@@ -352,12 +352,12 @@ public class Generic {
 	public static void switchPage(WebDriver driver, EsitoSito esito) throws Throwable {
 		if(esito.getErrori() == null) {
 			Thread.sleep(2000);
-			String mainWindow = driver.getWindowHandle();
 			int pagine= driver.getWindowHandles().size();
 			new WebDriverWait(driver, 10).until(ExpectedConditions.numberOfWindowsToBe(pagine));
 			int i = 1;
 			for(String existingWindows : driver.getWindowHandles()) {
 				if(i==pagine) {
+					driver.close();
 					driver.switchTo().window(existingWindows);
 				}else {
 					i ++;

@@ -24,6 +24,7 @@ import model.Differenza;
 
 public class ExcelMaker {
 
+	private static CellStyle percStyle = null;
 	private static CellStyle greenBGStyle = null;
 	private static CellStyle greenFontStyle = null;
 	private static CellStyle redFontStyle = null;
@@ -308,6 +309,7 @@ public class ExcelMaker {
 				differenzaFormula.setCellFormula("IF(F"+(prezzoGLFormula.getRowIndex()+1)+"=\"\", \"\", SUM(F"+(prezzoGLFormula.getRowIndex()+1)+"-G"+(prezzoGLFormula.getRowIndex()+1)+"))");
 				//percentualeDifferenzaFormula.setCellFormula("IF(AND(M"+(prezzoGLFormula.getRowIndex()+1)+"=\"\",G"+(prezzoGLFormula.getRowIndex()+1)+"=\"\"), \"\", M"+(prezzoGLFormula.getRowIndex()+1)+"/G"+(prezzoGLFormula.getRowIndex()+1)+")");
 				percentualeDifferenzaFormula.setCellFormula("IF(OR(M"+(prezzoGLFormula.getRowIndex()+1)+"=\"\",G"+(prezzoGLFormula.getRowIndex()+1)+"=\"\"), \"\", M"+(prezzoGLFormula.getRowIndex()+1)+"/G"+(prezzoGLFormula.getRowIndex()+1)+")");
+				percentualeDifferenzaFormula.setCellStyle(percStyle);
 				//percentualeDifferenzaFormula.setCellFormula("SE(ISERROR(IF(AND(M"+(prezzoGLFormula.getRowIndex()+1)+"=\"\",G"+(prezzoGLFormula.getRowIndex()+1)+"=\"\"), \"\", M"+(prezzoGLFormula.getRowIndex()+1)+"/G"+(prezzoGLFormula.getRowIndex()+1)+")),\"\",M"+(prezzoGLFormula.getRowIndex()+1)+"/G"+(prezzoGLFormula.getRowIndex()+1)+")");
 																					//=SE(VAL.ERRORE(SE(E(M5="";G5=""); ""; M5/G5));"";M5/G5)
 																					//=IF(AND(H+INDEX="";G+INDEX=""); ""; H+INDEX/G+INDEX)
@@ -343,6 +345,12 @@ public class ExcelMaker {
 		green.setColor(IndexedColors.GREEN.getIndex());
 		greenFontStyle.setFont(green);
 		setBorder(greenFontStyle);
+		
+		
+		percStyle = fileExcel.createCellStyle();
+		percStyle.setDataFormat((short) 0xa);
+		setBorder(percStyle);
+		
 
 		greenBGStyle = fileExcel.createCellStyle();
 		greenBGStyle.setFillForegroundColor(IndexedColors.GREEN.getIndex());

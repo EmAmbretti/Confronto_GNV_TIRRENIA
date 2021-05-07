@@ -56,63 +56,63 @@ public class PreventivoPageTIRRENIA {
 					Thread.sleep(1000);
 				}else {
 					try {
-						cabinaInterna = driver.findElement(By.xpath("//div[@data-id='C4']//div[@class='box-componente-quantita cabina']/div/div"));
+						cabinaInterna = driver.findElement(By.xpath("//div[@data-id='KC4']//div[@class='box-componente-quantita cabina']/div/div"));
 					} catch (Exception e) {
 						e.printStackTrace();
 						sito.setErrori("Cabina Quadrupla Interna non disponibile.");
 					}
 					Generic.scrollPage(driver, "700");
 					Thread.sleep(1000);
-					Generic.clickByXPath(driver, "//div[@data-id='C4']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
+					Generic.clickByXPath(driver, "//div[@data-id='KC4']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
 					Thread.sleep(1000);
 				}
 			} else if (sito.getDatiCsv().getSistemazione().toUpperCase().contains("CAB. ESTERNA")){
 				if(Integer.valueOf(sito.getDatiCsv().getPasseggeriAnimali()) != 0) {
 					try {
-						cabinaEsternaAnimali = driver.findElement(By.xpath("//div[@data-id='C4EG']//div[@class='box-componente-quantita cabina']/div/div"));
+						cabinaEsternaAnimali = driver.findElement(By.xpath("//div[@data-id='KC4EG']//div[@class='box-componente-quantita cabina']/div/div"));
 					} catch (Exception e) {
 						e.printStackTrace();
 						sito.setErrori("Cabina Quadrupla Esterna per Animali non disponibile.");
 					}
 					Generic.scrollPage(driver, "1200");
 					Thread.sleep(1000);
-					Generic.clickByXPath(driver, "//div[@data-id='C4EG']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
+					Generic.clickByXPath(driver, "//div[@data-id='KC4EG']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
 					Thread.sleep(1000);
 				} else {
 					try {
-						cabinaEsterna = driver.findElement(By.xpath("//div[@data-id='C4E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
+						cabinaEsterna = driver.findElement(By.xpath("//div[@data-id='KC4E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
 					} catch (Exception e) {
 						e.printStackTrace();
 						sito.setErrori("Cabina Quadrupla Esterna non disponibile.");
 					}
 					Generic.scrollPage(driver, "700");
 					Thread.sleep(1000);
-					Generic.clickByXPath(driver, "//div[@data-id='C4E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
+					Generic.clickByXPath(driver, "//div[@data-id='KC4E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
 					Thread.sleep(1000);
 				}
 			}
 		} else {
 			if(sito.getDatiCsv().getSistemazione().toUpperCase().contains("CAB. INTERNA")){
 				try {
-					cabinaInterna = driver.findElement(By.xpath("//div[@data-id='C2']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
+					cabinaInterna = driver.findElement(By.xpath("//div[@data-id='KC2']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
 				} catch (Exception e) {
 					e.printStackTrace();
 					sito.setErrori("Cabina Doppia Interna non disponibile.");
 				}
 				Generic.scrollPage(driver, "700");
 				Thread.sleep(1000);
-				Generic.clickByXPath(driver, "//div[@data-id='C2']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
+				Generic.clickByXPath(driver, "//div[@data-id='KC2']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
 				Thread.sleep(1000);
 			} else if (sito.getDatiCsv().getSistemazione().toUpperCase().contains("CAB. ESTERNA")){
 				try {
-					cabinaEsterna = driver.findElement(By.xpath("//div[@data-id='C2E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
+					cabinaEsterna = driver.findElement(By.xpath("//div[@data-id='KC2E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']"));
 				} catch (Exception e) {
 					e.printStackTrace();
 					sito.setErrori("Cabina Doppia Esterna non disponibile.");
 				}
 				Generic.scrollPage(driver, "700");
 				Thread.sleep(1000);
-				Generic.clickByXPath(driver, "//div[@data-id='C2E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
+				Generic.clickByXPath(driver, "//div[@data-id='KC2E']//div[@class='box-componente-quantita cabina']/div/div/button[@class='button right plus']");
 				Thread.sleep(1000);
 			}
 		}
@@ -125,7 +125,6 @@ public class PreventivoPageTIRRENIA {
 	}
 
 	private static void gestioneVeicolo(WebDriver driver, EsitoSito sito)throws Throwable{
-					System.out.println("eccomiiiiiiiiiiiiiiiiiii   "+sito.getDatiCsv().getVeicolo());
 		if (sito.getErrori() == null && !sito.getDatiCsv().getVeicolo().equalsIgnoreCase("no")) {
 
 			Generic.clickByXPath(driver, "//div[@class='content-mobile-select']//button");
