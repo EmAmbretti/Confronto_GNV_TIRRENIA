@@ -66,57 +66,106 @@ public class PrestazioniPageCF {
 
 	private static void gestioneVeicoloCF(WebDriver driver, EsitoSito esito) {
 		System.out.println("\nMetodo gestioneVeicoloCF");
-		
-		Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[1]/div[2]/button[1]");
-		
+		Generic.scrollPage(driver, "750");
+		Generic.clickByXPath(driver, "//*[@id='content']/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[1]/div[2]/button[1]");
+								  
 		if (esito.getErrori() == null && !esito.getDatiCsv().getVeicolo().equalsIgnoreCase("no")) {
 			
 			ArrayList<WebElement> listaDivAuto = Generic.getElementListByXPath(driver, "//div[@class='travel-go']/div/div[@class='choice']/ul/li");
+			// 																															  ul/li/div[2]/div[2]/div[1]/div[3]/label
+			//																															  /ul/li/div[2]/div/div[1]/div[2]/div/input
 			for (int i = 0; i < listaDivAuto.size(); i++) {
-				
-				if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
-					//listaDivAuto.get(i).findElement(By.xpath())
-					if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div/span").getText().toUpperCase().equals("AUTO")){
-						// button/span
-						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("MODIFICARE") 
-								|| Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("SCEGLIERE")){
-							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").click();
+					if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
+						System.out.println("\nSCELTA CAR");
+						// ALTEZZA : NON LO SO, LUNGHEZZA: NON MENO DI 4, LARGHEZZA: NON LO SO
+						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//div/span").getText().toUpperCase().equals("AUTO")){
+							/*if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[2]/span").getText().toUpperCase().contains("MODIFICARE") ){
+							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[2]/span").click();
+						}
+						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[1]").getText().toUpperCase().contains("SCEGLIERE")) {
+							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[1]").click();
+						}*/
+							if(clicca_Scegliere_Modificare_Veicolo(driver, listaDivAuto.get(i))){
+								Generic.waitSeconds(2);
+								Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div[2]/div[2]/div[1]/div[2]/label").click();
+								Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div[2]/button[2]").click();
+								break;
+							}
+						}
+		
+					} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
+						System.out.println("\nSCELTA VEI 5 MT");
+						// ALTEZZA : NON LO SO, LUNGHEZZA: DAI 5 A 6, LARGHEZZA: NON LO SO
+						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//div/span").getText().toUpperCase().contains("FURGONE")){
+							/*if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[2]/span").getText().toUpperCase().contains("MODIFICARE") ){
+							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[2]/span").click();
+						}
+						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[1]").getText().toUpperCase().contains("SCEGLIERE")) {
+							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[1]").click();
+						}*/
+						if(clicca_Scegliere_Modificare_Veicolo(driver, listaDivAuto.get(i))){
+							Generic.waitSeconds(2);
+							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "div[2]/div/div[1]/div[2]/label").click();
+							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "div[2]/div/div[1]/div[2]/div/input").sendKeys("550");
+							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div[2]/button[2]").click();
+							break;
 						}
 					}
-	
-				} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
-					if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div/span").getText().toUpperCase().contains("FURGONE")){
-						// button/span
-						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("MODIFICARE") 
-								|| Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("SCEGLIERE")){
-							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").click();
+		
+					} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CMP")) { 
+						System.out.println("\nSCELTA CMP");
+						// ALTEZZA : NON LO SO, LUNGHEZZA: OLTRE 7 , LARGHEZZA: NON LO SO
+						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//div/span").getText().toUpperCase().contains("CAMPER")){
+							/*if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[2]/span").getText().toUpperCase().contains("MODIFICARE") ){
+								Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[2]/span").click();
+							}
+							if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[1]").getText().toUpperCase().contains("SCEGLIERE")) {
+								Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[1]").click();
+							}*/
+							if(clicca_Scegliere_Modificare_Veicolo(driver, listaDivAuto.get(i))){
+								Generic.waitSeconds(2);
+								Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "div[2]/div/div[1]/div[2]").click();
+								Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "div[2]/div/div[1]/div[2]/div/input").sendKeys("750");
+								Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div[2]/button[2]").click();
+								break;
+							}
+							
+						}
+						
+					} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("MOTO")) {
+						System.out.println("\nSCELTA MOTO");
+						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//div/span").getText().toUpperCase().contains("MOTO")){
+							/*if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[2]/span").getText().toUpperCase().contains("MODIFICARE") ){
+							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[2]/span").click();
+						}
+						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[1]").getText().toUpperCase().contains("SCEGLIERE")) {
+							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//button[1]").click();
+						}*/
+							clicca_Scegliere_Modificare_Veicolo(driver, listaDivAuto.get(i));
+							break;
 						}
 					}
-	
-				} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CMP")) { 
-					if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div/span").getText().toUpperCase().contains("CAMPER")){
-						// button/span
-						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("MODIFICARE") 
-								|| Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("SCEGLIERE")){
-							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").click();
-						}
-					}
-					
-				} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("MOTO")) {
-					if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div/span").getText().toUpperCase().contains("MOTO")){
-						// button/span
-						if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("MODIFICARE") 
-								|| Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").getText().toUpperCase().equals("SCEGLIERE")){
-							Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "button/span").click();
-						}
-					}
-				}
 			}
+			Generic.waitSeconds(2);
+			System.out.println("\n");
 		} else {
 			Generic.clickByXPath(driver,
 					"//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[5]/span/span[1]");
 			System.out.println("Non ci sono veicoli da inserire.");
 		}
+	}
+	
+	private static boolean clicca_Scegliere_Modificare_Veicolo(WebDriver driver, WebElement div_Veicolo) {
+		boolean flag = false;
+		if(Generic.getChildElementByXPath(driver, div_Veicolo, ".//button[2]/span").getText().toUpperCase().contains("MODIFICARE") ){
+			Generic.getChildElementByXPath(driver, div_Veicolo, ".//button[2]/span").click();
+			flag = true;
+		}
+		if(Generic.getChildElementByXPath(driver, div_Veicolo, ".//button[1]").getText().toUpperCase().contains("SCEGLIERE")) {
+			Generic.getChildElementByXPath(driver, div_Veicolo, ".//button[1]").click();
+			flag = true;
+		}
+		return flag;
 	}
 
 	// Click + "Bici":
@@ -124,10 +173,11 @@ public class PrestazioniPageCF {
 
 	private static void gestioneSistemazione(WebDriver driver, EsitoSito sito) {
 		System.out.println("\nMetodo gestioneSistemazione");
+		Generic.waitSeconds(3);
 		// LISTA CONTENENTE TUTTE LE SISTEMAZIONI VISIBILI A FRONT END
 		ArrayList<WebElement> elementList = Generic.getElementListByXPath(driver,
 				"//*[@id='content']/div/div[1]/section/div[2]/div[2]/div[1]/div[4]/div[4]/div/div[1]/div[2]/ul/li[@class='choice-item choice-item--withHead']/div[2]");
-
+		//		 //*[@id="content"]/div/div[1]/section/div[2]/div[2]/div[1]/div[4]/div[4]/div/div[1]/div[2]/ul/li[1]/div[2]/div[2]/div/button[1]
 		for (int i = 0; i < elementList.size(); i++) {
 			if (sito.getDatiCsv().getSistemazione().toUpperCase().contains("POLTRON")) {
 				if (elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText().toUpperCase()
@@ -136,19 +186,24 @@ public class PrestazioniPageCF {
 					int numeroPasseggeriAdulti = Integer.valueOf(sito.getDatiCsv().getPasseggeriAdulti());
 					while (whilev < numeroPasseggeriAdulti) {
 						whilev++;
+						// CLICK BUTTON +
 						elementList.get(i).findElement(By.xpath(".//div//div[@class='quantity']/button[2]")).click();
 					}
 				}
 			}
 
-			System.out.println("SISTEMAZIONE CSV: "+sito.getDatiCsv().getSistemazione()+", SISTEMAZIONE SITO: "+elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText());
 			if (sito.getDatiCsv().getSistemazione().toUpperCase().contains("ESTERNA")) {
 				if (elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText().toLowerCase()
 						.contains("cabina esclusiva con oblò")) {
+					// CLICK SCEGLIERE
 					elementList.get(i).findElement(By.xpath(".//div/button[1]")).click();
-					elementList.get(i).findElement(By.xpath(".//div/div/div/div/div/div[@class='quantity']/button[1]"))
+					Generic.waitSeconds(2);
+					// CLICK BUTTON +
+					elementList.get(i).findElement(By.xpath(".//div[2]/div/div[1]/div/div/div/button[2]"))
 							.click();
-					elementList.get(i).findElement(By.xpath(".//div[2]/div/button[2]")).click();
+					Generic.waitSeconds(2);
+					// CLICK CLOSE
+					elementList.get(i).findElement(By.xpath(".//div[2]/div/button[1]")).click();
 					break;
 				}
 			}
@@ -156,10 +211,15 @@ public class PrestazioniPageCF {
 			if (sito.getDatiCsv().getSistemazione().toUpperCase().contains("INTERNA")) {
 				if (elementList.get(i).findElement(By.xpath(".//div[@class='item-title']/span[1]")).getText().toLowerCase()
 						.contains("cabina esclusiva senza oblò")) {
-					elementList.get(i).findElement(By.xpath(".//div/button[1]")).click();
-					elementList.get(i).findElement(By.xpath(".//div/div/div/div/div/div[@class='quantity']/button[1]"))
+					// CLICK SCEGLIERE
+					elementList.get(i).findElement(By.xpath(".//div[2]/button[1]")).click();
+					Generic.waitSeconds(2);
+					// CLICK BUTTON +
+					elementList.get(i).findElement(By.xpath(".//div[2]/div/div[1]/div/div/div/button[2]"))
 							.click();
-					elementList.get(i).findElement(By.xpath(".//div[2]/div/button[2]")).click();
+					Generic.waitSeconds(2);
+					// CLICK CLOSE
+					elementList.get(i).findElement(By.xpath(".//div[2]/div/button[1]")).click();
 					break;
 				}
 			}
