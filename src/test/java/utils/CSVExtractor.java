@@ -105,6 +105,7 @@ public class CSVExtractor {
 				}
 			}
 		try {
+			System.out.println("CDT : "+id);
 			return csvData.get(dataIndex);
 		} catch (Exception e) {
 			System.out.println("CASO DI TEST NON TROVATO PER L'ID SELEZIONATO");

@@ -13,7 +13,17 @@ import utils.Translator;
 
 public class SceltaPageCF {
 
-	public static void sceltaViaggio(WebDriver driver, EsitoSito sito) {
+	public static void automationSceltaPage(WebDriver driver, EsitoSito sito) {
+		impostazioneVeicoloNull(driver, sito);
+		sceltaViaggio(driver, sito);
+	}
+	
+	private static void impostazioneVeicoloNull(WebDriver driver, EsitoSito sito) {
+		Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/div[2]/input");
+		Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/div[2]/div/div/ul[1]/li[5]/span/label");
+	}
+	
+	private static void sceltaViaggio(WebDriver driver, EsitoSito sito) {
 		System.out.println("\nMetodo sceltaViaggio");
 		if(sito.getErrori()==null) {
 			

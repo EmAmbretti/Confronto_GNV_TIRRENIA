@@ -16,7 +16,7 @@ public class CorsicaFerries {
 		try {
 			WebDriver driver = BeforeAndAfter.before("CORSICA FERRIES");
 			HomePageCF.scegliTrattaEData(driver, sito);
-			SceltaPageCF.sceltaViaggio(driver, sito);
+			SceltaPageCF.automationSceltaPage(driver, sito);
 			PrestazioniPageCF.automationPaginaPrestazioni(driver, sito);
 		} catch (Exception e) {
 			e.printStackTrace();
