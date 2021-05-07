@@ -1,5 +1,6 @@
 package utils;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,6 +12,7 @@ import java.util.TreeMap;
 
 import javax.swing.GroupLayout.Alignment;
 
+import org.apache.poi.sl.draw.binding.CTPresetColor;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -27,6 +29,9 @@ import model.Differenza;
 
 public class ExcelMaker2 {
 
+	private static CellStyle greenBGStyle = null;
+	private static CellStyle greenFontStyle = null;
+	private static CellStyle redFontStyle = null;
 	private static CellStyle certerStyle = null;
 	private static CellStyle errorStyle = null;
 	private static CellStyle warningStyle = null;
@@ -77,13 +82,8 @@ public class ExcelMaker2 {
 				//HSSFWorkbook fileExcel = new HSSFWorkbook();
 				//HSSFSheet foglio = fileExcel.createSheet("Esito " + dateTime.format(formatterDateTime));
 				
-				createStyles(fileExcel);
-				for(int i=0;i<=11;i++) {
-					foglio.setDefaultColumnStyle(0, certerStyle);
-				}
-				
-
 				////////////////
+				createStyles(fileExcel);
 				foglio.setColumnWidth(7, 900);
 				foglio.setColumnWidth(8, 900);
 				foglio.setColumnWidth(9, 900);
@@ -92,13 +92,10 @@ public class ExcelMaker2 {
 
 				Row riga0 = foglio.createRow((short) 0);
 				
-				
-				
 				foglio.addMergedRegion(new CellRangeAddress(0, 0, 1, 2));
 				foglio.addMergedRegion(new CellRangeAddress(0, 0, 3, 5));
 				foglio.addMergedRegion(new CellRangeAddress(0, 0, 6, 7));
 				foglio.addMergedRegion(new CellRangeAddress(0, 0, 8, 10));
-				foglio.addMergedRegion(new CellRangeAddress(0, 0, 11, 12));
 				
 				riga0.createCell(0).setCellValue("Up to: ");
 				
@@ -112,7 +109,7 @@ public class ExcelMaker2 {
 				
 				int x=0;
 				for (LocalDate data : mappaConfronti.keySet()) {					
-					
+					Cell cell;
 					Row rigaIntestazione1 = null;
 					x++;
 					if (foglio.getRow(x) == null) {
@@ -127,9 +124,20 @@ public class ExcelMaker2 {
 					
 					// RIGA1 GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA ? 
 					rigaIntestazione1.createCell(1).setCellValue("COMBINAZIONI");
+					cell=rigaIntestazione1.getCell(1);
+					cell.setCellStyle(certerStyle);
+					
 					rigaIntestazione1.createCell(4).setCellValue("PARTENZA");
+					cell=rigaIntestazione1.getCell(4);
+					cell.setCellStyle(certerStyle);
+
 					rigaIntestazione1.createCell(7).setCellValue("SCONTI");
+					cell=rigaIntestazione1.getCell(7);
+					cell.setCellStyle(certerStyle);
+					
 					rigaIntestazione1.createCell(11).setCellValue("LIV.");
+					cell=rigaIntestazione1.getCell(11);
+					cell.setCellStyle(certerStyle);
 					
 					Row rigaIntestazione2 = null;
 					x++;
@@ -147,10 +155,19 @@ public class ExcelMaker2 {
 					rigaIntestazione2.createCell(3).setCellValue("Sistemazione");
 					rigaIntestazione2.createCell(4).setCellValue(data.getDayOfMonth()+"/"+data.getMonthValue()+"/"+data.getYear());
 					rigaIntestazione2.createCell(7).setCellValue("Ch");
+					cell=rigaIntestazione2.getCell(7);
+					cell.setCellStyle(greenBGStyle);
 					rigaIntestazione2.createCell(8).setCellValue("ND");
+					cell=rigaIntestazione2.getCell(8);
+					cell.setCellStyle(greenBGStyle);
 					rigaIntestazione2.createCell(9).setCellValue("ND");
+					cell=rigaIntestazione2.getCell(9);
+					cell.setCellStyle(greenBGStyle);
 					rigaIntestazione2.createCell(10).setCellValue("ND");
+					cell=rigaIntestazione2.getCell(10);
+					cell.setCellStyle(greenBGStyle);
 					rigaIntestazione2.createCell(11).setCellValue("pid");
+					
 					
 					Row rigaIntestazione3 = null;
 					x++;
@@ -172,6 +189,11 @@ public class ExcelMaker2 {
 					rigaIntestazione3.createCell(11).setCellValue("Δ%");
 					
 					x = fillExcelWithDifferences(mappaConfronti.get(data), foglio, x) + 2;
+					
+					for(int i=0;i<=11;i++) {
+						foglio.autoSizeColumn(i);
+					}
+					
 				}
 						
 				FileOutputStream fileOut = new FileOutputStream(filename);
@@ -184,8 +206,10 @@ public class ExcelMaker2 {
 				System.out.println("ERRORE EME002: " + ex.getMessage());
 				ex.printStackTrace();
 			}
+		}else {
+			System.out.println("MAPPA CONFRONTI VUOTA");
 		}
-	
+		
 	}
 
 	private static int fillExcelWithDifferences(ArrayList<Differenza> diff, XSSFSheet foglio, int rowNumber) {
@@ -211,6 +235,10 @@ public class ExcelMaker2 {
 				Cell prezzoCompetitor = riga.createCell(6);
 				Cell differenza = riga.createCell(7);
 				Cell percentualeDifferenza = riga.createCell(11);
+				
+				
+				
+				
 
 				// CDT ID
 				if(diff.get(index).getGrimaldi().getDatiCsv().getPasseggeriBambini()==null) {
@@ -232,8 +260,17 @@ public class ExcelMaker2 {
 				}
 				
 				if(diff.get(index).getGrimaldi().getErrori()==null && diff.get(index).getCompetitor().getErrori()==null) {
-					differenza.setCellValue(diff.get(index).getDifferenzaPrezzo());
-					percentualeDifferenza.setCellValue(diff.get(index).getDifferenzaPrezzoPercentuale());
+					differenza.setCellValue("€ "+diff.get(index).getDifferenzaPrezzo());
+					percentualeDifferenza.setCellValue(Math.abs(diff.get(index).getDifferenzaPrezzoPercentuale())+" %");
+					if(diff.get(index).getDifferenzaPrezzo()<0) {
+						System.out.println("eccomi");
+						differenza.setCellStyle(greenFontStyle);
+						percentualeDifferenza.setCellValue("- "+diff.get(index).getDifferenzaPrezzoPercentuale()+" %");
+						percentualeDifferenza.setCellStyle(greenFontStyle);
+					}else if(diff.get(index).getDifferenzaPrezzo()>0){
+						differenza.setCellStyle(redFontStyle);
+						percentualeDifferenza.setCellStyle(redFontStyle);
+					}
 				} else {
 					differenza.setCellValue("\\");
 					percentualeDifferenza.setCellValue("\\");
@@ -255,6 +292,22 @@ public class ExcelMaker2 {
 		
 		certerStyle = fileExcel.createCellStyle();
 		certerStyle.setAlignment(HorizontalAlignment.CENTER);
+		
+		redFontStyle = fileExcel.createCellStyle();
+		Font red = fileExcel.createFont();
+		red.setColor(IndexedColors.RED.getIndex());
+		redFontStyle.setFont(red);
+		
+		greenFontStyle = fileExcel.createCellStyle();
+		Font green = fileExcel.createFont();
+		green.setColor(IndexedColors.GREEN.getIndex());
+		greenFontStyle.setFont(green);
+		
+		greenBGStyle = fileExcel.createCellStyle();
+		greenBGStyle.setFillForegroundColor(IndexedColors.GREEN.getIndex());;
+		greenBGStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		
+		
 
 		warningStyle = fileExcel.createCellStyle();
 		warningStyle.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
