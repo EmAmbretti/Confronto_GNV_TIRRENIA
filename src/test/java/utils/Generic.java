@@ -79,10 +79,11 @@ public class Generic {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(0," + scroll + ")");
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		System.out.println("SCROLL VERTICALE: "+scroll);
 	}
 
 	public static Double confrontoPrezzi(WebDriver driver, Double importo1, String nomeSitoImp1, Double importo2,

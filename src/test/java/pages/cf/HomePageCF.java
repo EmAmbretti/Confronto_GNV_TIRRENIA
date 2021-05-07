@@ -13,6 +13,7 @@ public class HomePageCF {
 		
 	public static void scegliTrattaEData(WebDriver driver, EsitoSito sito) {
 		driver.get("https://www.corsica-ferries.it/");
+		driver.manage().window().maximize();
 		Generic.clickByXPath(driver, "//*[@id='popup-cookie']/div/button[2]");
 		scegliTratta(driver, sito);
 		scegliDataViaggio(driver, sito);
