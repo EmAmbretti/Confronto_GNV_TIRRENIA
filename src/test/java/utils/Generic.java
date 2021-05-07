@@ -420,6 +420,17 @@ public class Generic {
 	
 	public static WebElement getChildElementByXPath(WebDriver driver, WebElement parentElement, String xpath) {
 		WebElement element = null;
+		// .//
+		if(xpath.charAt(0) != '.') {
+			xpath = "." + xpath;
+		}
+		if(xpath.charAt(1) != '/') {
+			xpath = "/" + xpath;
+		}
+		if(xpath.charAt(2) != '/') {
+			xpath = "/" + xpath;
+		}
+		
 		try {
 				element = parentElement.findElement(By.xpath(xpath));
 			if (element != null) {
