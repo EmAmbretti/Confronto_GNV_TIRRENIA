@@ -25,16 +25,12 @@ public class CSVExtractor {
 				csvObject.setId(list.get(x)[0]);
 				csvObject.setCollegamento(list.get(x)[1]);	
 				csvObject.setTrattaAndata(list.get(x)[2]);
-				csvObject.setAnno(list.get(x)[3]);
-				csvObject.setMeseAndata(list.get(x)[4]);
-				csvObject.setGiornoAndata(list.get(x)[5]);
-				csvObject.setPasseggeriAdulti(list.get(x)[6]);
-				csvObject.setPasseggeriBambini(list.get(x)[7]);
-				csvObject.setPasseggeriAnimali(list.get(x)[8]);
-				csvObject.setVeicolo(list.get(x)[9]);
-				csvObject.setSistemazione(list.get(x)[10]);
-				csvObject.setFasciaOraria(list.get(x)[11]);
-				csvObject.setStagione(list.get(x)[12]);
+				csvObject.setPasseggeriAdulti(list.get(x)[3]);
+				csvObject.setPasseggeriBambini(list.get(x)[4]);
+				csvObject.setPasseggeriAnimali(list.get(x)[5]);
+				csvObject.setVeicolo(list.get(x)[6]);
+				csvObject.setSistemazione(list.get(x)[7]);
+				csvObject.setFasciaOraria(list.get(x)[8]);
 
 				String[] tratta=csvObject.getTrattaAndata().split(" - ");
 				String partenza = tratta[0];

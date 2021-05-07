@@ -1,0 +1,21 @@
+ID,COLLEGAMENTO,TRATTA,PASSADULTI,PASSBAMBINI,PASSANIMALI,VEICOLI,Sistemazione,FASCIA ORARIA
+TestCase1,Sardegna,Civitavecchia - Olbia,2,2,1,No,Poltrona,DIURNO
+TestCase2,Sicilia,Napoli - Palermo,2,1,0,No,Poltrona,NOTTURNO
+TestCase3,Sicilia,Napoli - Palermo,3,1,0,Si,Poltrona,DIURNO
+TestCase4,,Olbia - Civitavecchia,1,0,0,No,Poltrona,NOTTURNO
+TestCase5,,Olbia - Civitavecchia,2,1,0,No,Poltrona,DIURNO
+TestCase6,,Olbia - Civitavecchia,3,1,0,Si,Poltrona,NOTTURNO
+TestCase7,Sardegna,Olbia - Civitavecchia,1,0,0,No,Poltrona,DIURNO
+TestCase8,Sardegna,Olbia - Civitavecchia,2,1,0,No,Poltrona,NOTTURNO
+TestCase9,Sardegna,Olbia - Civitavecchia,3,1,0,Si,Poltrona,DIURNO
+TC9,,Livorno - Olbia,2,0,0,No,Ponte,NOTTURNO
+TC10,,Livorno - Olbia,2,0,0,No,2 Poltrone,NOTTURNO
+TC11,,Livorno - Olbia,2,0,0,No,Cab. Interna,NOTTURNO
+TC12,,Livorno - Olbia,2,0,0,No,Cab. Esterna,DIURNO
+TC13,,Livorno - Olbia,2,0,0,MOTO,2 Poltrone,NOTTURNO
+TC14,,Livorno - Olbia,2,0,0,CAR,Cab. Interna,DIURNO
+TC15,,Livorno - Olbia,2,0,0,CAR,Cab. Esterna,NOTTURNO
+TC16,,Livorno - Olbia,2,0,0,VEI 5 mt,Ponte,DIURNO
+TC17,,Livorno - Olbia,2,0,0,CMP,Ponte,NOTTURNO
+TC18,,Livorno - Olbia,2,2,0,CAR,Cab. Interna,DIURNO
+TC19,,Livorno - Olbia,2,2,0,CAR,Cab. Esterna,NOTTURNO
