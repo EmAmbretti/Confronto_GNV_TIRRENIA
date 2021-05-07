@@ -12,31 +12,36 @@ public class HomePageMOBY {
 
 	public static void selezionaItinerarioMOBY(WebDriver driver, EsitoSito esito, CSVData data) throws Throwable {
 		utenteApreBrowserMOBY(driver, esito);
-		selezionaSoloAndataMOBY(driver);
+		selezionaSoloAndataMOBY(driver, esito);
 		selezionaTrattaMOBY(driver, esito, data);
 		selezionaDataMOBY(driver, esito);
 		cliccaCerca(driver, esito);
 	}
 
 	private static void utenteApreBrowserMOBY(WebDriver driver, EsitoSito esito) throws Throwable {
-		Generic.utente_apre_browser(driver, "https://www.moby.it/", esito.getSito());
+		Generic.utente_apre_browser(driver, "https://www.moby.it/", esito.getSito(), esito);
 	}
 
-	private static void selezionaSoloAndataMOBY(WebDriver driver) throws Throwable {
-		Generic.clickByXPath(driver, "//*[@id=\"widget-home\"]/form/div[2]/label[2]/span[2]");
-		Thread.sleep(2000);
+	private static void selezionaSoloAndataMOBY(WebDriver driver, EsitoSito esito) throws Throwable {
+		if(esito.getErrori() == null) {
+			Generic.clickByXPath(driver, "//*[@id=\"widget-home\"]/form/div[2]/label[2]/span[2]");
+			Thread.sleep(2000);
+		}
+
 	}
 
 	private static void selezionaTrattaMOBY(WebDriver driver, EsitoSito esito, CSVData data) throws Throwable {
-		Generic.clickByXPath(driver, "//*[@id=\"widget-home\"]/form/div[2]/div[1]/div/div[1]/div/span");
-		Thread.sleep(1000);			
-		try {
-			Generic.clickByXPath(driver, "/html/body/div/div/span/span/ul/li/span/ul/li/span[contains(.,'" + data.getTrattaAndata() + "')]");
-		}catch (Exception e){
-			esito.setErrori("la tratta per questo sito non è disponibile.");
-			System.out.println("L'elemento TRATTA: " + data.getTrattaAndata() + " non è disponibile.");
+		if(esito.getErrori() == null) {
+			Generic.clickByXPath(driver, "//*[@id=\"widget-home\"]/form/div[2]/div[1]/div/div[1]/div/span");
+			Thread.sleep(1000);			
+			try {
+				Generic.clickByXPath(driver, "/html/body/div/div/span/span/ul/li/span/ul/li/span[contains(.,'" + data.getTrattaAndata() + "')]");
+			}catch (Exception e){
+				esito.setErrori("la tratta per questo sito non è disponibile.");
+				System.out.println("L'elemento TRATTA: " + data.getTrattaAndata() + " non è disponibile.");
+			}
+			Thread.sleep(5000);
 		}
-		Thread.sleep(5000);
 	}
 
 	private static void selezionaDataMOBY(WebDriver driver, EsitoSito esito) throws Throwable {
@@ -60,7 +65,7 @@ public class HomePageMOBY {
 						System.out.println(element.getText());
 						break;
 					}else {
-						cliccaFrecciaAvanti(driver);
+						cliccaFrecciaAvanti(driver, esito);
 						Thread.sleep(1000);
 					}
 				} catch (Exception e) {
@@ -105,12 +110,14 @@ public class HomePageMOBY {
 		}
 	}
 
-	private static void cliccaFrecciaAvanti(WebDriver driver) {
-		try {
-			driver.findElement(By.xpath("//*[@id=\"customGuid1\"]/div/ul/li[1]/div/div[1]/table/thead/tr[1]/th[3]/span")).click();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("L'elemento FRECCIA AVANTI non è stato trovato!");
+	private static void cliccaFrecciaAvanti(WebDriver driver, EsitoSito esito) {
+		if(esito.getErrori() == null) {
+			try {
+				driver.findElement(By.xpath("//*[@id=\"customGuid1\"]/div/ul/li[1]/div/div[1]/table/thead/tr[1]/th[3]/span")).click();
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("L'elemento FRECCIA AVANTI non è stato trovato!");
+			}
 		}
 	}
 

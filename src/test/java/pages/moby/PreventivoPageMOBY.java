@@ -14,60 +14,66 @@ public class PreventivoPageMOBY {
 		inserisciPasseggeriMoby(driver, esito, data);
 		gestioneVeicoloMoby(driver, esito, data);
 		selezionaSistemazione(driver, esito, data);
-		cliccaContinua(driver);
+		cliccaContinua(driver, esito);
 	}
 
 	private static void inserisciPasseggeriMoby(WebDriver driver, EsitoSito esito, CSVData data) throws Throwable {
 		if (esito.getErrori() == null) {
 			for (int i = 1; i < Integer.valueOf(data.getPasseggeriAdulti()); i++) {
-				cliccaTastoPiuAdulti(driver);
+				cliccaTastoPiuAdulti(driver, esito);
 				Thread.sleep(1000);
 			}
 			for (int i = 0; i < Integer.valueOf(data.getPasseggeriBambini()); i++) {
-				cliccaTastoPiuBambini(driver);
+				cliccaTastoPiuBambini(driver, esito);
 				Thread.sleep(1000);
 			}
 			for (int i = 0; i < Integer.valueOf(data.getPasseggeriAnimali()); i++) {
-				cliccaTastoPiuAnimali(driver);
+				cliccaTastoPiuAnimali(driver, esito);
 				Thread.sleep(1000);
 			}
 			Thread.sleep(1000);
 		}
 	}
 
-	private static void cliccaTastoPiuAdulti(WebDriver driver) {
-		try {
-			driver.findElement(By.xpath("//*[@id=\"mobyGuid22\"]/div/div/button[2]")).click();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("L'elemento FRECCIA ADULTI non è stato trovato!");
-		}
-	}
-
-	private static void cliccaTastoPiuBambini(WebDriver driver) {
-		try {
-			driver.findElement(By.xpath("//*[@id=\"mobyGuid23\"]/div/div/button[2]")).click();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("L'elemento FRECCIA BAMBINI non è stato trovato!");
-		}
-	}
-
-	private static void cliccaTastoPiuAnimali(WebDriver driver) {	
-		try {
-			WebElement tastoPiu = driver.findElement(By.xpath("//div[@class='box-componente-quantita Animali']/div/div/button[2]"));
-			tastoPiu.click();
-			Thread.sleep(1000);
-			WebElement tastoConferma = driver.findElement(By.xpath("/html/body/div[13]/div[7]/div/button"));
-			if(tastoConferma.isDisplayed()) {
-				tastoConferma.click();
-				Thread.sleep(1000);
+	private static void cliccaTastoPiuAdulti(WebDriver driver, EsitoSito esito) {
+		if(esito.getErrori() == null) {
+			try {
+				driver.findElement(By.xpath("//*[@id=\"mobyGuid22\"]/div/div/button[2]")).click();
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("L'elemento FRECCIA ADULTI non è stato trovato!");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("L'elemento FRECCIA ANIMALI non è stato trovato!");
-			System.exit(0);
+		}
+	}
+
+	private static void cliccaTastoPiuBambini(WebDriver driver, EsitoSito esito) {
+		if(esito.getErrori() == null) {
+			try {
+				driver.findElement(By.xpath("//*[@id=\"mobyGuid23\"]/div/div/button[2]")).click();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("L'elemento FRECCIA BAMBINI non è stato trovato!");
+			}
+		}
+	}
+
+	private static void cliccaTastoPiuAnimali(WebDriver driver, EsitoSito esito) {	
+		if(esito.getErrori() == null) {
+			try {
+				WebElement tastoPiu = driver.findElement(By.xpath("//div[@class='box-componente-quantita Animali']/div/div/button[2]"));
+				tastoPiu.click();
+				Thread.sleep(1000);
+				WebElement tastoConferma = driver.findElement(By.xpath("/html/body/div[13]/div[7]/div/button"));
+				if(tastoConferma.isDisplayed()) {
+					tastoConferma.click();
+					Thread.sleep(1000);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("L'elemento FRECCIA ANIMALI non è stato trovato!");
+				System.exit(0);
+			}
 		}
 	}
 
@@ -138,7 +144,6 @@ public class PreventivoPageMOBY {
 					Thread.sleep(2000);
 				}
 			} else if (passeggeri > 2) {
-				System.out.println("SIAM CAPIONI D'ITALIAAAA");
 				if(data.getSistemazione().toUpperCase().contains("CAB. INTERNA")){
 					if(Integer.valueOf(data.getPasseggeriAnimali()) != 0) {
 						try {
@@ -220,8 +225,10 @@ public class PreventivoPageMOBY {
 		Thread.sleep(3000);
 	}
 
-	private static void cliccaContinua(WebDriver driver) throws Throwable {
-		Generic.clickById(driver, "buttonNextPage");
-		Thread.sleep(3000);
+	private static void cliccaContinua(WebDriver driver, EsitoSito esito) throws Throwable {
+		if(esito.getErrori() == null) {
+			Generic.clickById(driver, "buttonNextPage");
+			Thread.sleep(3000);
+		}
 	}
 }

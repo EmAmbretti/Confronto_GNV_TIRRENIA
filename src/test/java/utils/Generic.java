@@ -9,11 +9,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.joda.time.LocalTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,12 +25,27 @@ import model.EsitoSito;
 
 public class Generic {
 
-	public static void utente_apre_browser(WebDriver driver, String url, String nomeSito) throws Throwable {
+	public static void utente_apre_browser(WebDriver driver, String url, String nomeSito, EsitoSito esito) throws Throwable {
 		driver = BeforeAndAfter.driver;
 		System.out.println("Opening URL: " + nomeSito);
-		driver.get(url);
-		driver.manage().window().maximize();
-		Thread.sleep(4000);
+		driver.manage().timeouts().pageLoadTimeout(1, TimeUnit.SECONDS);
+		for(int i = 1; i < 5; i ++) {
+			try {
+				driver.get(url);
+				break;
+			} catch (WebDriverException we) {
+				System.out.println("URL non caricato.");
+				if (i == 4) {
+					System.out.println("CIABBè");
+					esito.setErrori("Il server non ha risposto.");
+					driver.quit();
+				}
+			}
+		}
+		if(esito.getErrori() == null) {
+			driver.manage().window().maximize();
+			Thread.sleep(4000);
+		}	
 	}
 
 	public static List<WebElement> findElementsByInnerText(WebElement parent, String rex) {
@@ -150,7 +167,7 @@ public class Generic {
 
 	public static void sendKeysByXPath(WebDriver driver, String xpath, String toSend) {
 		try {
-				WebElement element = getElementByXPath(driver, xpath);
+			WebElement element = getElementByXPath(driver, xpath);
 			if (element != null) {
 				element.sendKeys(toSend);
 				System.out.println("TESTO INSERITO, sendKeysByXPath: "+xpath);
@@ -165,12 +182,12 @@ public class Generic {
 			}
 		}
 	}
-	
+
 	public static WebElement getElementByXPath(WebDriver driver, String xpath) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 		WebElement element = null;
 		try {
-				element = driver.findElement(By.xpath(xpath));
+			element = driver.findElement(By.xpath(xpath));
 			if (element != null) {
 				System.out.println("getElementByXPath: "+xpath);
 			}
@@ -185,7 +202,7 @@ public class Generic {
 		}
 		return element;
 	}
-	
+
 	public static WebElement getElementById(WebDriver driver, String id) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
 		WebElement element = null;
@@ -205,7 +222,7 @@ public class Generic {
 
 	public static void sendKeysByList(WebDriver driver, String xpath, String toSend, int index) {
 		try {
-				List<WebElement> elementList = getElementListByXPath(driver, xpath);
+			List<WebElement> elementList = getElementListByXPath(driver, xpath);
 			if (elementList != null) {
 				elementList.get(index).sendKeys(toSend);
 				System.out.println("TESTO INSERITO, sendKeysByXPath: "+xpath);
@@ -240,24 +257,24 @@ public class Generic {
 
 	public static void clickByList(WebDriver driver, String xPath, int index) {
 		try {
-		List<WebElement> elementList = getElementListByXPath(driver, xPath);
-		elementList.get(index).click();
+			List<WebElement> elementList = getElementListByXPath(driver, xPath);
+			elementList.get(index).click();
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("elemento lista non trovato");
 		}
 	}
-	
+
 	public static ArrayList<WebElement> getElementListByXPath(WebDriver driver, String xPath) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
 		ArrayList<WebElement> elementList = null;
 		try {
-		elementList = (ArrayList<WebElement>) driver.findElements(By.xpath(xPath));
-		if(elementList!=null && elementList.size()>0) {
-		System.out.println("ELEMENTI RECUPERATI: "+xPath+" (getElementListByXPath)");
-		} else {
-			System.out.println("!ERRORE! getElementListByXPath NULL or VOID: " + xPath);
-		}
+			elementList = (ArrayList<WebElement>) driver.findElements(By.xpath(xPath));
+			if(elementList!=null && elementList.size()>0) {
+				System.out.println("ELEMENTI RECUPERATI: "+xPath+" (getElementListByXPath)");
+			} else {
+				System.out.println("!ERRORE! getElementListByXPath NULL or VOID: " + xPath);
+			}
 		} catch (Exception e) {
 			System.out.print("\n\n!ERRORE! getElementListByXPath: ");
 			System.out.print(xPath);
@@ -326,12 +343,12 @@ public class Generic {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static String getTextFromXPath(WebDriver driver, String xPath) {
 		WebElement element = getElementByXPath(driver, xPath);
 		return element.getText();
 	}
-	
+
 	public static void switchPage(WebDriver driver, EsitoSito esito) throws Throwable {
 		if(esito.getErrori() == null) {
 			Thread.sleep(2000);
@@ -349,7 +366,7 @@ public class Generic {
 			Thread.sleep(5000);
 		}
 	}
-	
+
 
 	public static String controlloFasciaOraria(String orario, EsitoSito esito) {
 		String startDiurno = Config.get("inizio_orario_diurno");
@@ -373,10 +390,10 @@ public class Generic {
 		}else {
 			esito.setErrori("fascia"+esito.getDatiCsv().getFasciaOraria()+ "non disponibile");
 			return "fascia"+esito.getDatiCsv().getFasciaOraria()+ "non disponibile";
-			
+
 		}
 	}
-	
+
 	/*public static int controlloStagione(CSVData data) {
 		if(data.getStagione().equalsIgnoreCase("Alta")) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -396,7 +413,7 @@ public class Generic {
 			return -1;
 		}
 	}*/
-	
+
 	public static void waitSeconds(int seconds) {
 		try {
 			Thread.sleep(seconds*1000);
@@ -404,7 +421,7 @@ public class Generic {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void nowLoadingByXpath(WebDriver driver, String xpath) throws Throwable{
 		boolean flag=true;
 		while(flag){
@@ -417,15 +434,15 @@ public class Generic {
 			}
 		}
 	}
-	
+
 	public static String changeXPathForChildElement(String xpath) {
 		// .//
-				/*
+		/*
 				 div
 				 /div
 				 //div
 				 .//div
-				 */
+		 */
 		if(xpath.charAt(0) != '.') {
 			xpath = "." + xpath;
 		}
@@ -437,14 +454,14 @@ public class Generic {
 		}
 		return xpath;
 	}
-	
+
 	public static WebElement getChildElementByXPath(WebDriver driver, WebElement parentElement, String xpath) {
 		WebElement element = null;
-		
+
 		xpath = changeXPathForChildElement(xpath);
-		
+
 		try {
-				element = parentElement.findElement(By.xpath(xpath));
+			element = parentElement.findElement(By.xpath(xpath));
 			if (element != null) {
 				System.out.println("getChildElementByXPath: "+xpath);
 			}
@@ -459,7 +476,7 @@ public class Generic {
 		}
 		return element;
 	}
-	
+
 	public static String meseDaInteroAStringa(int mese) {
 		switch (mese) {
 		case 1:
@@ -521,11 +538,11 @@ public class Generic {
 
 	public static int controlloStagione(String stagione) {
 		if(stagione.equalsIgnoreCase("Alta")) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDate data1 = LocalDate.parse(Config.get("inizio_alta_stagione"), formatter);
-		LocalDate data2 = LocalDate.parse(Config.get("fine_alta_stagione"), formatter);
-		int t = (int) ChronoUnit.DAYS.between(data1,data2);
-		return t;
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate data1 = LocalDate.parse(Config.get("inizio_alta_stagione"), formatter);
+			LocalDate data2 = LocalDate.parse(Config.get("fine_alta_stagione"), formatter);
+			int t = (int) ChronoUnit.DAYS.between(data1,data2);
+			return t;
 		}
 		else if(stagione.equalsIgnoreCase("Bassa")) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -538,5 +555,5 @@ public class Generic {
 			return -1;
 		}
 	}
-	
+
 }

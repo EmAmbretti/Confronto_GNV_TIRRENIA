@@ -15,7 +15,7 @@ public class DisponibilitaPageMOBY {
 
 	public static void selezionaCorsa(WebDriver driver, EsitoSito esito) throws Throwable {
 		controlloCorsa(driver, esito);
-		cliccaContinua(driver);
+		cliccaContinua(driver, esito);
 	}
 
 	private static void controlloCorsa(WebDriver driver, EsitoSito esito) throws Throwable {
@@ -52,8 +52,10 @@ public class DisponibilitaPageMOBY {
 		}
 	}
 
-	private static void cliccaContinua(WebDriver driver) throws Throwable {
+	private static void cliccaContinua(WebDriver driver, EsitoSito esito) throws Throwable {
+		if(esito.getErrori() == null) {
 		Generic.clickById(driver, "buttonNextPage");
 		Thread.sleep(2000);
+		}
 	}
 }

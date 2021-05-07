@@ -7,29 +7,30 @@ import utils.Generic;
 
 public class ServiziPageMOBY {
 
-	public static void continuaPopUp(WebDriver driver, EsitoSito sito) throws Throwable {
-		cliccaContinua(driver, sito);
-		chiudiPopUp(driver);
+	public static void continuaPopUp(WebDriver driver, EsitoSito esito) throws Throwable {
+		cliccaContinua(driver, esito);
+		chiudiPopUp(driver, esito);
 	}
 
-	private static void cliccaContinua(WebDriver driver, EsitoSito sito) throws Throwable {
-		if(sito.getErrori() == null) {
+	private static void cliccaContinua(WebDriver driver, EsitoSito esito) throws Throwable {
+		if(esito.getErrori() == null) {
 			Generic.clickById(driver, "buttonNextPage");
 			Thread.sleep(5000);
 		}
 	}
 
-	private static void chiudiPopUp(WebDriver driver) throws Throwable {
-		Generic.clickByXPath(driver, "//button[@class='cancel'][contains(.,'No, grazie')]");
-		Thread.sleep(1000);
-		try {
+	private static void chiudiPopUp(WebDriver driver, EsitoSito esito) throws Throwable {
+		if(esito.getErrori() == null) {
 			Generic.clickByXPath(driver, "//button[@class='cancel'][contains(.,'No, grazie')]");
-			Thread.sleep(2000);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Secondo PopUp non trovato!");
+			Thread.sleep(1000);
+			try {
+				Generic.clickByXPath(driver, "//button[@class='cancel'][contains(.,'No, grazie')]");
+				Thread.sleep(2000);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Secondo PopUp non trovato!");
+			}
 		}
-
 	}
 
 	//	private static void chiudiPopUp(WebDriver driver, boolean assicurazione) {
