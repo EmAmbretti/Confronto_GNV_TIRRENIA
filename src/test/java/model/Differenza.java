@@ -1,12 +1,12 @@
 package model;
 
 public class Differenza {
-	
+
 	EsitoSito grimaldi;
 	EsitoSito competitor;
 	Double differenzaPrezzo;
 	int differenzaPrezzoPercentuale;
-	
+
 	public EsitoSito getGrimaldi() {
 		return grimaldi;
 	}
@@ -38,13 +38,17 @@ public class Differenza {
 	public void setDifferenzaPrezzoPercentuale(int differenzaPrezzoPercentuale) {
 		this.differenzaPrezzoPercentuale = differenzaPrezzoPercentuale;
 	}
-	
+
 	public Differenza(EsitoSito grimaldi, EsitoSito competitor) {
 		this.grimaldi = grimaldi;
 		this.competitor = competitor;
-		if(grimaldi.getErrori()==null&&competitor.getErrori()==null) {
-		differenzaPrezzo = Double.valueOf(grimaldi.getPrezzo()) - Double.valueOf(competitor.getPrezzo());
-		differenzaPrezzoPercentuale = 100 - (int) Math.round((Double.valueOf(grimaldi.getPrezzo()) / Double.valueOf(competitor.getPrezzo()) * 100));
+		if(grimaldi.getErrori() == null && competitor.getErrori() == null) {
+			System.out.println("GRIMALDI : " + grimaldi.getPrezzo());
+			System.out.println("COMPETITOR: " + competitor.getPrezzo());
+			if(grimaldi.getPrezzo() != null && competitor.getPrezzo() != null) {
+				differenzaPrezzo = Double.valueOf(grimaldi.getPrezzo()) - Double.valueOf(competitor.getPrezzo());
+				differenzaPrezzoPercentuale = 100 - (int) Math.round((Double.valueOf(grimaldi.getPrezzo()) / Double.valueOf(competitor.getPrezzo()) * 100));
+			}
 		}
 	}
 

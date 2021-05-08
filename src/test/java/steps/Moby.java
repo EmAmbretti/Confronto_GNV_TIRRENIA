@@ -13,7 +13,7 @@ import utils.BeforeAndAfter;
 
 public class Moby {
 	
-	public static EsitoSito allMethods(CSVData testData) throws Throwable {
+	public static EsitoSito allMethods(CSVData testData) {
 		
 		WebDriver driver = BeforeAndAfter.before("MOBY");
 		EsitoSito sitoMOBY = new EsitoSito("MOBY", testData); 
@@ -21,8 +21,10 @@ public class Moby {
 		DisponibilitaPageMOBY.selezionaCorsa(driver, sitoMOBY);
 		PreventivoPageMOBY.inserimentoDatiMoby(driver, sitoMOBY, testData);
 		ServiziPageMOBY.continuaPopUp(driver, sitoMOBY);
-		RecuperaImportoPageMOBY.recuperaImportoMoby(driver, sitoMOBY);
+		RecuperaImportoPageMOBY.recuperaImportoMOBY(driver, sitoMOBY);
+		driver.quit();
 		return sitoMOBY;
+		
 	}
 
 }
