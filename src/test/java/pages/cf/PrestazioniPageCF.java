@@ -3,6 +3,7 @@ package pages.cf;
 import java.util.ArrayList;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -81,21 +82,21 @@ public class PrestazioniPageCF {
 					Generic.clickByXPath(driver,
 							"//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[5]/span/span[1]");
 
-					ArrayList<WebElement> listaDivAuto = Generic.getElementListByXPath(driver,
+					ArrayList<WebElement> listaDivVeicoli = Generic.getElementListByXPath(driver,
 							"//div[@class='travel-go']/div/div[@class='choice']/ul/li");
 					// //*[@id="content"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[3]/div/div
-					for (int i = 0; i < listaDivAuto.size(); i++) {
+					for (int i = 0; i < listaDivVeicoli.size(); i++) {
 						if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
 							System.out.println("\nSCELTA CAR");
 							// ALTEZZA : NON LO SO, LUNGHEZZA: NON MENO DI 4, LARGHEZZA: NON LO SO
-							if (Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//div/span").getText()
+							if (Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i), ".//div/span").getText()
 									.toUpperCase().equals("AUTO")) {
 								
-								if (clicca_Scegliere_Modificare_Veicolo(driver, listaDivAuto.get(i))) {
+								if (clicca_Scegliere_Modificare_Veicolo(driver, listaDivVeicoli.get(i))) {
 									Generic.waitSeconds(2);
-									Generic.getChildElementByXPath(driver, listaDivAuto.get(i),
+									Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i),
 											"/div[2]/div[2]/div[1]/div[2]/label").click();
-									Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div[2]/button[2]")
+									Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i), "/div[2]/button[2]")
 											.click();
 									break;
 								}
@@ -104,16 +105,16 @@ public class PrestazioniPageCF {
 						} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
 							System.out.println("\nSCELTA VEI 5 MT");
 							// ALTEZZA : NON LO SO, LUNGHEZZA: DAI 5 A 6, LARGHEZZA: NON LO SO
-							if (Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//div/span").getText()
+							if (Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i), ".//div/span").getText()
 									.toUpperCase().contains("FURGONE")) {
 								
-								if (clicca_Scegliere_Modificare_Veicolo(driver, listaDivAuto.get(i))) {
+								if (clicca_Scegliere_Modificare_Veicolo(driver, listaDivVeicoli.get(i))) {
 									Generic.waitSeconds(2);
-									Generic.getChildElementByXPath(driver, listaDivAuto.get(i),
+									Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i),
 											"div[2]/div/div[1]/div[2]/label").click();
-									Generic.getChildElementByXPath(driver, listaDivAuto.get(i),
+									Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i),
 											"div[2]/div/div[1]/div[2]/div/input").sendKeys("550");
-									Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div[2]/button[2]")
+									Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i), "/div[2]/button[2]")
 											.click();
 									break;
 								}
@@ -122,16 +123,16 @@ public class PrestazioniPageCF {
 						} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CMP")) {
 							System.out.println("\nSCELTA CMP");
 							// ALTEZZA : NON LO SO, LUNGHEZZA: OLTRE 7 , LARGHEZZA: NON LO SO
-							if (Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//div/span").getText()
+							if (Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i), ".//div/span").getText()
 									.toUpperCase().contains("CAMPER")) {
 								
-								if (clicca_Scegliere_Modificare_Veicolo(driver, listaDivAuto.get(i))) {
+								if (clicca_Scegliere_Modificare_Veicolo(driver, listaDivVeicoli.get(i))) {
 									Generic.waitSeconds(2);
-									Generic.getChildElementByXPath(driver, listaDivAuto.get(i),
+									Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i),
 											"div[2]/div/div[1]/div[2]").click();
-									Generic.getChildElementByXPath(driver, listaDivAuto.get(i),
+									Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i),
 											"div[2]/div/div[1]/div[2]/div/input").sendKeys("750");
-									Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div[2]/button[2]")
+									Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i), "/div[2]/button[2]")
 											.click();
 									break;
 								}
@@ -140,15 +141,18 @@ public class PrestazioniPageCF {
 
 						} else if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("MOTO")) {
 							System.out.println("\nSCELTA MOTO");
-							if (Generic.getChildElementByXPath(driver, listaDivAuto.get(i), ".//div/span").getText()
+							if (Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i), ".//div/span").getText()
 									.toUpperCase().contains("MOTO")) {
-								
-								clicca_Scegliere_Modificare_Veicolo(driver, listaDivAuto.get(i));
+								if(!clicca_Scegliere_Modificare_Veicolo(driver, listaDivVeicoli.get(i))) {
+									
+									if(Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i), "/div/div").getText().toLowerCase().contains("questo servizio non è compatibile con le vostre prestazioni")) {
+										esito.setErrori("MOTO NON DISPONIBILE");
+										break;
+									}
+								}
 								break;
-							} else if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div/div").getText().toLowerCase().contains("questo servizio non è compatibile con le vostre prestazioni")) {
-								esito.setErrori("MOTO NON DISPONIBILE");
-								break;
-							}
+							} 
+							
 						}
 					}
 					Generic.waitSeconds(2);

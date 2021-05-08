@@ -78,16 +78,24 @@ public class HomePageCF {
 			Generic.clickByXPath(driver, "/html/body/div[7]/div/div/div/table/tbody/tr[1]/td/table/tbody/tr/td[2]/div/select[1]");
 			
 			// SCELTA MESE 
+			boolean flagMese = false;
 			ArrayList<WebElement> listaMesiAnno = Generic.getElementListByXPath(driver, "/html/body/div[7]/div/div/div/table/tbody/tr[1]/td/table/tbody/tr/td[2]/div/select[1]/option");
-			if(listaMesiAnno!=null && !listaMesiAnno.isEmpty()) {	
+			if(listaMesiAnno!=null && !listaMesiAnno.isEmpty()) {
 				for (WebElement webElement : listaMesiAnno) {
 					if(webElement.getText().toLowerCase().equals(sito.getDatiCsv().getMeseAndata().toLowerCase() + " " + sito.getDatiCsv().getAnno().toLowerCase()) ) {
 						webElement.click(); 
 						Generic.clickByXPath(driver, "/html/body/div[7]/div/div/div/table/tbody/tr[1]/td/table/tbody/tr/td[2]/div/select[1]");
+						flagMese = true;
 					}
 				}
 			} else {
 				sito.setErrori("ERRORE CF: ERRORE NELLA SCELTA DATA");
+			}
+			
+			if(!flagMese) {
+				if(sito.getErrori()==null) {
+					sito.setErrori("DATA CORRISPONDENTE ALLA RICHIESTA NON TROVATA");
+				}
 			}
 			
 			if(sito.getErrori()==null) {
