@@ -75,9 +75,11 @@ public class PrestazioniPageCF {
 				System.out.println("\nMetodo gestioneVeicoloCF");
 				Generic.scrollPage(driver, "750");
 				Generic.clickByXPath(driver,
-						"//*[@id='content']/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[1]/div[2]/button[1]");
+						"//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[5]/span/span[1]");
 
 				if (!esito.getDatiCsv().getVeicolo().equalsIgnoreCase("no")) {
+					Generic.clickByXPath(driver,
+							"//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[5]/span/span[1]");
 
 					ArrayList<WebElement> listaDivAuto = Generic.getElementListByXPath(driver,
 							"//div[@class='travel-go']/div/div[@class='choice']/ul/li");

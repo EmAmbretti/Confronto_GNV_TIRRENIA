@@ -90,24 +90,26 @@ public class HomePageCF {
 				sito.setErrori("ERRORE CF: ERRORE NELLA SCELTA DATA");
 			}
 			
-			System.out.println("\nScelta Giorno...");
-			// SCELTA GIORNO
-			ArrayList<WebElement> listaGiorni = Generic.getElementListByXPath(driver, "//table[@class='datePickerDays']/tbody/tr/td/div");
-			if(listaGiorni!=null && !listaGiorni.isEmpty()) {
-				for (int i=0; i<listaGiorni.size(); i++) {
-					if(!listaGiorni.get(i).getText().equals("1")) {
-						listaGiorni.remove(i);
-						i--;
-					} else {
-						break;
-					}
-				}
-			} else {
-				sito.setErrori("ERRORE CF: ERRORE NELLA SCELTA DATA");
-			}
-			
 			if(sito.getErrori()==null) {
-				listaGiorni.get( (Integer.valueOf(sito.getDatiCsv().getGiornoAndata() ) - 1 ) ).click();
+				System.out.println("\nScelta Giorno...");
+				// SCELTA GIORNO
+				ArrayList<WebElement> listaGiorni = Generic.getElementListByXPath(driver, "//table[@class='datePickerDays']/tbody/tr/td/div");
+				if(listaGiorni!=null && !listaGiorni.isEmpty()) {
+					for (int i=0; i<listaGiorni.size(); i++) {
+						if(!listaGiorni.get(i).getText().equals("1")) {
+							listaGiorni.remove(i);
+							i--;
+						} else {
+							break;
+						}
+					}
+				} else {
+					sito.setErrori("ERRORE CF: ERRORE NELLA SCELTA DATA");
+				}
+				
+				if(sito.getErrori()==null) {
+					listaGiorni.get( (Integer.valueOf(sito.getDatiCsv().getGiornoAndata() ) - 1 ) ).click();
+				}
 			}
 		} else {
 			System.out.println("ERRORI: "+sito.getErrori()+"\n");
