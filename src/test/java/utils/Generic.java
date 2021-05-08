@@ -27,7 +27,7 @@ public class Generic {
 
 	public static void utente_apre_browser(WebDriver driver, String url, String nomeSito, EsitoSito esito) {
 		System.out.println("Opening URL: " + nomeSito);
-		driver.manage().timeouts().pageLoadTimeout(1, TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		for(int i = 1; i < 5; i ++) {
 			try {
 				driver.get(url);
