@@ -83,6 +83,7 @@ public class PrestazioniPageCF {
 
 					ArrayList<WebElement> listaDivAuto = Generic.getElementListByXPath(driver,
 							"//div[@class='travel-go']/div/div[@class='choice']/ul/li");
+					// //*[@id="content"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[3]/div/div
 					for (int i = 0; i < listaDivAuto.size(); i++) {
 						if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
 							System.out.println("\nSCELTA CAR");
@@ -143,6 +144,9 @@ public class PrestazioniPageCF {
 									.toUpperCase().contains("MOTO")) {
 								
 								clicca_Scegliere_Modificare_Veicolo(driver, listaDivAuto.get(i));
+								break;
+							} else if(Generic.getChildElementByXPath(driver, listaDivAuto.get(i), "/div/div").getText().toLowerCase().contains("questo servizio non è compatibile con le vostre prestazioni")) {
+								esito.setErrori("MOTO NON DISPONIBILE");
 								break;
 							}
 						}
