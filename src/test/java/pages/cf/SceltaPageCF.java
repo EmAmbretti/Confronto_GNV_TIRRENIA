@@ -14,25 +14,28 @@ import utils.Translator;
 public class SceltaPageCF {
 
 	public static void automationSceltaPage(WebDriver driver, EsitoSito sito) {
-		impostazioneVeicoloNull(driver, sito);
-		sceltaViaggio(driver, sito);
+		if(sito.getErrori()== null) {
+			impostazioneVeicoloNull(driver, sito);
+			sceltaViaggio(driver, sito);
+		}
 	}
 	
 	private static void impostazioneVeicoloNull(WebDriver driver, EsitoSito sito) {
-		System.out.println("\nMetodo impostazioneVeicoloNull");
-		try {
-			Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/div[2]/input");
-			Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/div[2]/div/div/ul[1]/li[5]/span/label");
-		} catch (Exception e) {
-			System.out.println("ERRORE NELL'IMPOSTAZIONE DEL VEICOLO A NULL");
-			sito.setErrori("ERRORE CF: ERRORE NELLA SCELTA VIAGGIO");
+		if(sito.getErrori()==null) {
+			System.out.println("\nMetodo impostazioneVeicoloNull");
+			try {
+				Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/div[2]/input");
+				Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/div[2]/div/div/ul[1]/li[5]/span/label");
+			} catch (Exception e) {
+				System.out.println("ERRORE NELL'IMPOSTAZIONE DEL VEICOLO A NULL");
+				sito.setErrori("ERRORE CF: ERRORE NELLA SCELTA VIAGGIO");
+			}
 		}
 	}
 	
 	private static void sceltaViaggio(WebDriver driver, EsitoSito sito) {
-		System.out.println("\nMetodo sceltaViaggio");
 		if(sito.getErrori()==null) {
-			
+			System.out.println("\nMetodo sceltaViaggio");
 			Generic.waitSeconds(3);
 			
 			// RECUPERA LISTA VIAGGI

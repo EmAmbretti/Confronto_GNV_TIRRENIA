@@ -12,8 +12,8 @@ import utils.Generic;
 public class PrestazioniPageCF {
 
 	public static void automationPaginaPrestazioni(WebDriver driver, EsitoSito sito) {
-		System.out.println("\nAutomationPaginaPrestazioni");
 		if (sito.getErrori() == null) {
+			System.out.println("\nAutomationPaginaPrestazioni");
 			gestionePasseggeri(driver, sito);
 			gestioneVeicoloCF(driver, sito);
 			gestioneSistemazione(driver, sito);
@@ -24,8 +24,8 @@ public class PrestazioniPageCF {
 	}
 
 	private static void gestionePasseggeri(WebDriver driver, EsitoSito esito) {
-		System.out.println("\nMetodo gestionePasseggeri");
 		if(esito.getErrori() == null) {
+			System.out.println("\nMetodo gestionePasseggeri");
 			try {
 				Generic.waitSeconds(3);
 	
