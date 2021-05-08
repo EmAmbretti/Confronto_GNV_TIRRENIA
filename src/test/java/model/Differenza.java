@@ -42,7 +42,7 @@ public class Differenza {
 	public Differenza(EsitoSito grimaldi, EsitoSito competitor) {
 		this.grimaldi = grimaldi;
 		this.competitor = competitor;
-		if(grimaldi.getErrori()==null) {
+		if(grimaldi.getErrori()==null&&competitor.getErrori()==null) {
 		differenzaPrezzo = Double.valueOf(grimaldi.getPrezzo()) - Double.valueOf(competitor.getPrezzo());
 		differenzaPrezzoPercentuale = 100 - (int) Math.round((Double.valueOf(grimaldi.getPrezzo()) / Double.valueOf(competitor.getPrezzo()) * 100));
 		}

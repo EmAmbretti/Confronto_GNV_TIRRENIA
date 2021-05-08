@@ -25,7 +25,7 @@ public class HomePageGRIMALDI {
 	}
 
 	private static void utenteApreBrowserGRIMALDI(WebDriver driver, EsitoSito esito) throws Throwable {
-		Generic.utente_apre_browser(driver, "https://www.grimaldi-lines.com/it", esito.getSito());
+		Generic.utente_apre_browser(driver, "https://www.grimaldi-lines.com/it", esito.getSito(), esito);
 	}
 	
 	private static void cliccaSelezionaAndata(WebDriver driver) {

@@ -22,7 +22,7 @@ public class HomePageTIRRENIA {
 	}
 	
 	private static void utenteApreBrowserTIRRENIA(WebDriver driver, EsitoSito esito) throws Throwable {
-		Generic.utente_apre_browser(driver, "https://www.tirrenia.it/", esito.getSito());
+		Generic.utente_apre_browser(driver, "https://www.tirrenia.it/", esito.getSito(), esito);
 	}
 	
 	private static void inserisciPasseggeri(WebDriver driver, EsitoSito sito) throws Throwable {
@@ -45,7 +45,9 @@ public class HomePageTIRRENIA {
 		Generic.clickById(driver, "homePassAnd");
 		Thread.sleep(1000);
 		WebElement paxAdulti= driver.findElement(By.xpath("//div[@class='center cabine text']"));
-		while(!paxAdulti.getText().equals(sito.getDatiCsv().getPasseggeriAdulti())) {
+		while(!paxAdulti.getText().contains(sito.getDatiCsv().getPasseggeriAdulti())) {
+			System.out.println("paxAdulti: "+paxAdulti.getText());
+			System.out.println("datiCSV: "+sito.getDatiCsv().getPasseggeriAdulti());
 			try {
 			Generic.clickByXPath(driver, "//div[@class='box-componente-quantita adulto']//button[@class='button right plus']");
 			Thread.sleep(500);	

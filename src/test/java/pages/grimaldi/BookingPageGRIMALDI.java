@@ -149,6 +149,8 @@ public class BookingPageGRIMALDI {
 			}else {
 				return "Cabina Esterna Uso Esclusivo (max 4 persone)";
 			}
+		}else if(sito.getSistemazione().equalsIgnoreCase("Ponte")){
+			return "Passaggio Ponte";
 		}else {
 			return sito.getSistemazione();
 		}	
