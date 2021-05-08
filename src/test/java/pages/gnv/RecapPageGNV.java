@@ -12,7 +12,7 @@ import utils.Generic;
 
 public class RecapPageGNV {
 
-	public static void recuperoImportoGNV(WebDriver driver, EsitoSito esito) throws Throwable {
+	public static void recuperoImportoGNV(WebDriver driver, EsitoSito esito) {
 		if(esito.getErrori()==null) {
 			selezionaSistemazioneGNV(driver, esito);
 			scegliServizi(driver, esito);
@@ -21,7 +21,7 @@ public class RecapPageGNV {
 		}
 	}
 
-	private static void selezionaSistemazioneGNV(WebDriver driver, EsitoSito esito) throws InterruptedException {
+	private static void selezionaSistemazioneGNV(WebDriver driver, EsitoSito esito) {
 		if(esito.getErrori()==null) {
 			HashMap<String, List<WebElement>> mappa = new HashMap<String, List<WebElement>>();
 			int i = 0;
@@ -35,14 +35,19 @@ public class RecapPageGNV {
 			} else if(esito.getDatiCsv().getSistemazione().equalsIgnoreCase("CAB. ESTERNA")) {
 				sistemazione = "CABINA VISTA MARE";
 			}
-			Thread.sleep(7000);
+			try {
+				Thread.sleep(7000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			mappa.put("listaOrari", driver.findElements(By.xpath("//li[@class='list-inline-item departure-time']")));
 			mappa.put("listaSistemazioni", driver.findElements(By.xpath("//div[@class='card-solution--title d-inline']")));
 			mappa.put("listaPostiLetto", driver.findElements(By.xpath("//span[contains(.,'posti letto')]")));
 			mappa.put("listaSeleziona",driver.findElements(By.xpath("//div[@class='card-solution__btn']")));
 
 			try {
-			//	WebElement	check = Generic.getElementByXPath(driver, "//*[@id='nav-tabContent']/div[2]/p");
+				//	WebElement	check = Generic.getElementByXPath(driver, "//*[@id='nav-tabContent']/div[2]/p");
 				WebElement check = driver.findElement(By.xpath("//*[@id='nav-tabContent']/div[2]/p"));
 				flag = true;
 				esito.setErrori(check.getText());
@@ -70,7 +75,12 @@ public class RecapPageGNV {
 									System.out.println("posti letto = 4");
 									mappa.get("listaSeleziona").get(i).click();
 									flag=true;
-									Thread.sleep(1000);
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
 									break;
 								}
 							} else if(passeggeri==3) {
@@ -79,7 +89,12 @@ public class RecapPageGNV {
 									System.out.println("Posti letto = 3");
 									mappa.get("listaSeleziona").get(i).click();
 									flag=true;
-									Thread.sleep(1000);
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
 									break;
 								}else {
 									int	x=0;
@@ -91,7 +106,12 @@ public class RecapPageGNV {
 												System.out.println("sto nel if che contiene 4 posti letto");
 												mappa.get("listaSeleziona").get(x).click();
 												flag=true;
-												Thread.sleep(1000);
+												try {
+													Thread.sleep(1000);
+												} catch (InterruptedException e) {
+													// TODO Auto-generated catch block
+													e.printStackTrace();
+												}
 												break;
 											}
 										}
@@ -105,7 +125,12 @@ public class RecapPageGNV {
 									System.out.println("Posti letto = 2");
 									mappa.get("listaSeleziona").get(i).click();
 									flag=true;
-									Thread.sleep(1000);
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
 									break;
 								}
 							} 
@@ -123,7 +148,12 @@ public class RecapPageGNV {
 							System.out.println("posti letto = 4 parte 2");
 							mappa.get("listaSeleziona").get(x).click();
 							flag=true;
-							Thread.sleep(1000);
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							break;
 						}
 					}
@@ -137,7 +167,12 @@ public class RecapPageGNV {
 			if (i == mappa.get("listaSeleziona").size()) {
 				esito.setErrori("la sistemazione \"" + esito.getDatiCsv().getSistemazione() + "\" non è disponibile.");
 			}
-			Thread.sleep(1000);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		try {
 			cliccaContinaGNV(driver, esito);
@@ -147,17 +182,17 @@ public class RecapPageGNV {
 		}
 	}
 
-	private static void scegliServizi(WebDriver driver, EsitoSito esito) throws Throwable {
+	private static void scegliServizi(WebDriver driver, EsitoSito esito) {
 		if(esito.getErrori()==null)
 			cliccaContinaGNV(driver, esito);
 	}
 
-	private static void scegliAssicurazione(WebDriver driver, EsitoSito esito) throws Throwable {
+	private static void scegliAssicurazione(WebDriver driver, EsitoSito esito) {
 		if(esito.getErrori()==null)
 			cliccaContinaGNV(driver, esito);
 	}
 
-	private static void cliccaContinaGNV(WebDriver driver, EsitoSito esito) throws Throwable {
+	private static void cliccaContinaGNV(WebDriver driver, EsitoSito esito) {
 		if(esito.getErrori()==null) {
 			try {
 				Generic.clickByXPath(driver,
@@ -168,7 +203,12 @@ public class RecapPageGNV {
 
 			}
 		}
-		Thread.sleep(2000);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private static void recuperaPrezzoGNV(WebDriver driver, EsitoSito esito) {
