@@ -18,8 +18,11 @@ public class HomePageCF {
 		Generic.clickByXPath(driver, "//*[@id='popup-cookie']/div/button[2]");
 		scegliTratta(driver, sito);
 		scegliDataViaggio(driver, sito);
-		if(sito.getErrori()==null)
-		Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/button");
+		
+		// CLICK BUTTON
+		if(sito.getErrori()==null) {
+			Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/button");
+		}
 	}
 	
 	private static void scegliTratta(WebDriver driver, EsitoSito sito) {
@@ -37,17 +40,28 @@ public class HomePageCF {
 		
 		// SCELTA TRATTA
 		boolean flag = false;
-		for (WebElement webElement : listaViaggi) {
-			if(webElement.getText().contains(sito.getDatiCsv().getComunePartenza()) && webElement.getText().contains(sito.getDatiCsv().getComuneArrivo())) {
-				String trattaRecuperataDalSito = webElement.getText();
-				String[] tratte = trattaRecuperataDalSito.split(sito.getDatiCsv().getComunePartenza());
-				if(tratte[1].contains("➔")) {
-				webElement.click();
-				flag = true;
-				break;
+		if(listaViaggi!=null && !listaViaggi.isEmpty()) {
+			for (WebElement webElement : listaViaggi) {
+				if(webElement.getText().contains(sito.getDatiCsv().getComunePartenza()) && webElement.getText().contains(sito.getDatiCsv().getComuneArrivo())) {
+					String trattaRecuperataDalSito = webElement.getText();
+					String[] tratte = null;
+					try {
+					 tratte = trattaRecuperataDalSito.split(sito.getDatiCsv().getComunePartenza());
+					} catch (Exception e) {
+						System.out.println("ERRORE CF: ERRORE SPLIT TRATTA");
+						sito.setErrori("ERRORE CF: ERRORE NEL RECUPERARE LISTA TRATTE");
+					}
+					if(tratte[1].contains("➔")) {
+					webElement.click();
+					flag = true;
+					break;
+					}
 				}
 			}
+		} else {
+			sito.setErrori("ERRORE CF: ERRORE NEL RECUPERARE LISTA TRATTE");
 		}
+		
 		if(!flag) {
 			sito.setErrori("TRATTA NON TROVATA SUL SITO CORSICA FERRIES");
 		}
@@ -65,25 +79,36 @@ public class HomePageCF {
 			
 			// SCELTA MESE 
 			ArrayList<WebElement> listaMesiAnno = Generic.getElementListByXPath(driver, "/html/body/div[7]/div/div/div/table/tbody/tr[1]/td/table/tbody/tr/td[2]/div/select[1]/option");
-			for (WebElement webElement : listaMesiAnno) {
-				if(webElement.getText().toLowerCase().equals(sito.getDatiCsv().getMeseAndata().toLowerCase() + " " + sito.getDatiCsv().getAnno().toLowerCase()) ) {
-					webElement.click(); 
-					Generic.clickByXPath(driver, "/html/body/div[7]/div/div/div/table/tbody/tr[1]/td/table/tbody/tr/td[2]/div/select[1]");
+			if(listaMesiAnno!=null && !listaMesiAnno.isEmpty()) {	
+				for (WebElement webElement : listaMesiAnno) {
+					if(webElement.getText().toLowerCase().equals(sito.getDatiCsv().getMeseAndata().toLowerCase() + " " + sito.getDatiCsv().getAnno().toLowerCase()) ) {
+						webElement.click(); 
+						Generic.clickByXPath(driver, "/html/body/div[7]/div/div/div/table/tbody/tr[1]/td/table/tbody/tr/td[2]/div/select[1]");
+					}
 				}
+			} else {
+				sito.setErrori("ERRORE CF: ERRORE NELLA SCELTA DATA");
 			}
 			
 			System.out.println("\nScelta Giorno...");
 			// SCELTA GIORNO
 			ArrayList<WebElement> listaGiorni = Generic.getElementListByXPath(driver, "//table[@class='datePickerDays']/tbody/tr/td/div");
-			for (int i=0; i<listaGiorni.size(); i++) {
-				if(!listaGiorni.get(i).getText().equals("1")) {
-					listaGiorni.remove(i);
-					i--;
-				} else {
-					break;
+			if(listaGiorni!=null && !listaGiorni.isEmpty()) {
+				for (int i=0; i<listaGiorni.size(); i++) {
+					if(!listaGiorni.get(i).getText().equals("1")) {
+						listaGiorni.remove(i);
+						i--;
+					} else {
+						break;
+					}
 				}
+			} else {
+				sito.setErrori("ERRORE CF: ERRORE NELLA SCELTA DATA");
 			}
-			listaGiorni.get( (Integer.valueOf(sito.getDatiCsv().getGiornoAndata() ) - 1 ) ).click();
+			
+			if(sito.getErrori()==null) {
+				listaGiorni.get( (Integer.valueOf(sito.getDatiCsv().getGiornoAndata() ) - 1 ) ).click();
+			}
 		} else {
 			System.out.println("ERRORI: "+sito.getErrori()+"\n");
 		}

@@ -30,25 +30,32 @@ public class Translator {
 	}
 	
 	public static void modificaTratta(EsitoSito sito){
-				
-		if(editCity(sito.getDatiCsv().getComunePartenza(), sito)!=null) {
-			sito.getDatiCsv().setComunePartenza(editCity(sito.getDatiCsv().getComunePartenza(), sito));
+		try {
+			if(editCity(sito.getDatiCsv().getComunePartenza(), sito)!=null) {
+				sito.getDatiCsv().setComunePartenza(editCity(sito.getDatiCsv().getComunePartenza(), sito));
+			}
+			
+			if(editCity(sito.getDatiCsv().getComuneArrivo(), sito)!=null) {
+				sito.getDatiCsv().setComuneArrivo(editCity(sito.getDatiCsv().getComuneArrivo(), sito));
+			}
+		} catch (Exception e) {
+			System.out.println("ERRORE NELLA MODIFICA TRATTA PER: "+sito.getDatiCsv().getComunePartenza() + " - "+sito.getDatiCsv().getComuneArrivo());
+			e.printStackTrace();
 		}
-		
-		if(editCity(sito.getDatiCsv().getComuneArrivo(), sito)!=null) {
-			sito.getDatiCsv().setComuneArrivo(editCity(sito.getDatiCsv().getComuneArrivo(), sito));
-		}
-		
 	}
 	
 	public static void traduciTratta(EsitoSito sito){
-		
-		if(translateCity(sito.getDatiCsv().getComunePartenza())!=null) {
-			sito.getDatiCsv().setComunePartenza(translateCity(sito.getDatiCsv().getComunePartenza()));
-		} 
-
-		if(translateCity(sito.getDatiCsv().getComuneArrivo())!=null) {
-			sito.getDatiCsv().setComuneArrivo(translateCity(sito.getDatiCsv().getComuneArrivo()));
+		try {
+			if(translateCity(sito.getDatiCsv().getComunePartenza())!=null) {
+				sito.getDatiCsv().setComunePartenza(translateCity(sito.getDatiCsv().getComunePartenza()));
+			} 
+	
+			if(translateCity(sito.getDatiCsv().getComuneArrivo())!=null) {
+				sito.getDatiCsv().setComuneArrivo(translateCity(sito.getDatiCsv().getComuneArrivo()));
+			}
+		} catch (Exception e) {
+			System.out.println("ERRORE NELLA TRADUZIONE TRATTA PER: "+sito.getDatiCsv().getComunePartenza() + " - "+sito.getDatiCsv().getComuneArrivo());
+			e.printStackTrace();
 		}
 	}
 	

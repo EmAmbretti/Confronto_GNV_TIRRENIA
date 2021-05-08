@@ -20,8 +20,13 @@ public class SceltaPageCF {
 	
 	private static void impostazioneVeicoloNull(WebDriver driver, EsitoSito sito) {
 		System.out.println("\nMetodo impostazioneVeicoloNull");
-		Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/div[2]/input");
-		Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/div[2]/div/div/ul[1]/li[5]/span/label");
+		try {
+			Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/div[2]/input");
+			Generic.clickByXPath(driver, "//*[@id=\"search-form-single\"]/div[4]/div[2]/div/div/ul[1]/li[5]/span/label");
+		} catch (Exception e) {
+			System.out.println("ERRORE NELL'IMPOSTAZIONE DEL VEICOLO A NULL");
+			sito.setErrori("ERRORE CF: ERRORE NELLA SCELTA VIAGGIO");
+		}
 	}
 	
 	private static void sceltaViaggio(WebDriver driver, EsitoSito sito) {
@@ -30,6 +35,7 @@ public class SceltaPageCF {
 			
 			Generic.waitSeconds(3);
 			
+			// RECUPERA LISTA VIAGGI
 			ArrayList<WebElement> righeTabella = Generic.getElementListByXPath(driver, "//*[@id='SearchView']/div[1]/div/div/div[2]/div/div[1]/div/div/div[3]/div/div[3]/table/tbody/tr");
 					
 			Translator.traduciTratta(sito);
@@ -76,6 +82,9 @@ public class SceltaPageCF {
 						}
 					}
 				}
+			} else {
+				System.out.println("ERRORE CF: ERRORE NEL RECUPERARE LISTA TABELLA VIAGGI");
+				sito.setErrori("ERRORE CF: ERRORE NEL RECUPERO LISTA VIAGGI");
 			}
 			
 			if(!trattaTrovata) {
@@ -94,8 +103,9 @@ public class SceltaPageCF {
 			
 			//SCROLL DA AGGIUNGERE
 			// CLICK BUTTON AVANTI
-			Generic.clickByXPath(driver, "//*[@id=\"SearchView\"]/div[3]/button");
-			
+			if(sito.getErrori()== null) {
+				Generic.clickByXPath(driver, "//*[@id=\"SearchView\"]/div[3]/button");
+			}
 		}
 		
 	}
