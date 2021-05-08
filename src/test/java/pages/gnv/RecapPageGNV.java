@@ -42,10 +42,11 @@ public class RecapPageGNV {
 			mappa.put("listaSeleziona",driver.findElements(By.xpath("//div[@class='card-solution__btn']")));
 
 			try {
-				WebElement	check = Generic.getElementByXPath(driver, "//*[@id='nav-tabContent']/div[2]/p");
+			//	WebElement	check = Generic.getElementByXPath(driver, "//*[@id='nav-tabContent']/div[2]/p");
+				WebElement check = driver.findElement(By.xpath("//*[@id='nav-tabContent']/div[2]/p"));
 				flag = true;
 				esito.setErrori(check.getText());
-				System.out.println("QUESTO è L'ERRORE NULL??:::::"+check.getText());
+				System.out.println("QUESTO è L'ERRORE NULL??:::::" + check.getText());
 			}catch (Exception e) {
 				System.out.println("popup non visibile");
 			}
@@ -53,6 +54,15 @@ public class RecapPageGNV {
 				if (Generic.controlloFasciaOraria(mappa.get("listaOrari").get(1).getText(), esito).equalsIgnoreCase(esito.getDatiCsv().getFasciaOraria())) {
 					for (WebElement testo : mappa.get("listaSistemazioni")) {
 						if(testo.getText().contains(sistemazione)) {
+							try {
+								mappa.get("listaSeleziona").get(i).click();
+								System.out.println("ho cliccato");
+								flag=true;
+								Thread.sleep(1000);
+								break;
+							}catch (Exception e) {
+								esito.setErrori(sistemazione+"non trovata");
+							}
 							System.out.println("PAsseggeri sono::" + passeggeri);
 							if(passeggeri>=4) {
 								System.out.println("Sto a 4");
@@ -74,7 +84,7 @@ public class RecapPageGNV {
 								}else {
 									int	x=0;
 									for(WebElement appoggio: mappa.get("listaSistemazioni")) {
-										System.out.println("sto nel secondo for__135");
+										System.out.println("sto nel secondo for__77");
 										if(appoggio.getText().contains(sistemazione)) {
 											System.out.println("rifacio controllo sistemazione");
 											if(mappa.get("listaPostiLetto").get(x).getText().contains("4")) {
@@ -89,20 +99,20 @@ public class RecapPageGNV {
 									}
 									break;
 								}
-							}
-						} else if(passeggeri<=2) {
-							System.out.println("sto a 2");
-							if(mappa.get("listaPostiLetto").get(i).getText().contains("2")) {
-								System.out.println("Posti letto = 2");
-								mappa.get("listaSeleziona").get(i).click();
-								flag=true;
-								Thread.sleep(1000);
-								break;
-							}
-						} 
+							} else if(passeggeri<=2) {
+								System.out.println("sto a 2");
+								if(mappa.get("listaPostiLetto").get(i).getText().contains("2")) {
+									System.out.println("Posti letto = 2");
+									mappa.get("listaSeleziona").get(i).click();
+									flag=true;
+									Thread.sleep(1000);
+									break;
+								}
+							} 
+						}
+						i++;
 					}
 				}
-				i++;
 			}
 			if(i==mappa.get("listaSeleziona").size()) {
 				int x=0;

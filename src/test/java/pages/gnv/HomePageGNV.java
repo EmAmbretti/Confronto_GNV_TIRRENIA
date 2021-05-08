@@ -14,21 +14,26 @@ public class HomePageGNV {
 
 	public static void selezionaItinerarioGNV(WebDriver driver, EsitoSito esito) throws Throwable {
 		if(esito.getErrori()==null) {
-		utenteApreBrowserGNV(driver, esito);
-		closePopupGNV(driver, esito);
-		selezionaViaggioGNV(driver, esito);
-		scegliTrattaGNV(driver,esito);
-		controlloMeseGNV(driver, esito);
-		cliccaDataSceltaGNV(driver, esito);
-		inserisciPasseggeriGNV(driver, esito);
-		gestioneVeicoloGNV(driver, esito);
-		cliccaCercaGNV(driver, esito);
+			utenteApreBrowserGNV(driver, esito);
+			closePopupGNV(driver, esito);
+			selezionaViaggioGNV(driver, esito);
+			closePopupGNV(driver, esito);
+			scegliTrattaGNV(driver,esito);
+			closePopupGNV(driver, esito);
+			closePopupGNV(driver, esito);
+			controlloMeseGNV(driver, esito);
+			closePopupGNV(driver, esito);
+			cliccaDataSceltaGNV(driver, esito);
+			closePopupGNV(driver, esito);
+			inserisciPasseggeriGNV(driver, esito);
+			gestioneVeicoloGNV(driver, esito);
+			cliccaCercaGNV(driver, esito);
 		}
 	}
 
 	private static void utenteApreBrowserGNV(WebDriver driver, EsitoSito sito) throws Throwable {
 		if(sito.getErrori()==null)
-			Generic.utente_apre_browser(driver, "https://www.gnv.it/it", sito.getSito());
+			Generic.utente_apre_browser(driver, "https://www.gnv.it/it", sito.getSito(), sito);
 	}
 
 	private static void scegliTrattaGNV(WebDriver driver, EsitoSito esito) throws Throwable {
@@ -52,13 +57,13 @@ public class HomePageGNV {
 		if(sito.getErrori()==null) {
 			try {
 				driver.findElement(By.xpath("//*[@id=\"iubenda-cs-banner\"]/div/div/div/div[2]/div[2]/button[2]")).click();
-				Thread.sleep(5000);
+				Thread.sleep(2000);
 			} catch (org.openqa.selenium.NoSuchElementException e) {
 				e.printStackTrace();
 			}
 			try {
 				driver.findElement(By.xpath("//*[@id=\"closeXButton\"]/span/p/span")).click();
-				Thread.sleep(5000);
+				Thread.sleep(3000);
 			} catch (org.openqa.selenium.NoSuchElementException e) {
 				System.out.println("AMBIENTE NON TROVATO");
 			}
@@ -135,36 +140,46 @@ public class HomePageGNV {
 
 	private static void controlloMeseGNV(WebDriver driver, EsitoSito esito) throws Throwable {
 		if (esito.getErrori() == null) {
+			boolean flag = false;
 			do {
 				Thread.sleep(2000);
 				WebElement element = driver.findElement(By.xpath(
-						"//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[1]/span"));
-				if (element.getText().contains(esito.getDatiCsv().getMeseAndata())) {
+						"//*[@id='main-container']/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[1]/div/div[1]/span"));
+				if (element.getText().toUpperCase().contains(esito.getDatiCsv().getMeseAndata())) {
+					flag = true;
 					break;
 				} else {
 					cliccaFrecciaAvantiGNV(driver, esito);
 				}
-			} while (true);
+			} while (flag);
 			Thread.sleep(1000);
 		}
 	}
 
 	private static void cliccaDataSceltaGNV(WebDriver driver, EsitoSito esito) throws Throwable {
 		if (esito.getErrori() == null) {
+			boolean flag = false;
 			for (int j = 1; j <= 5; j++) {
 				for (int i = 1; i <= 7; i++) {
-					WebElement element = driver.findElement(By.xpath(
-							"//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div["
-									+ j + "]/div[" + i + "]/div"));
-					if (element.getText().equals(esito.getDatiCsv().getGiornoAndata())) {
+					/*	WebElement element = driver.findElement(By.xpath(
+							"//*[@id='main-container']/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div["
+									+ j + "]/div[" + i + "]/div"));*/
+					WebElement element = driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[1]/div/div[2]/div[2]/div["+j+"]/div["+i+"]/div"));
+					if (element.getText().equals(esito.getDatiCsv().getGiornoAndata()) && esito.getErrori()==null) {
 						Thread.sleep(2000);
 						try {
 							element.click();
+							flag = true;
 							break;
 						} catch (Exception e) {
 							esito.setErrori("Il giorno scelto non è disponibile per questo sito.");
+							System.out.println("Il giorno scelto non è disponibile per questo sito.");
+							break;
 						}
 					}
+				}
+				if(!flag) {
+					break;
 				}
 			}
 			cliccaContinuaGNV(driver, esito);
