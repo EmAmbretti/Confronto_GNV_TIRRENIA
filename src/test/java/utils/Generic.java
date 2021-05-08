@@ -191,14 +191,12 @@ public class Generic {
 			if (element != null) {
 				System.out.println("getElementByXPath: "+xpath);
 			}
-		} catch (Exception e) {
-			System.out.print("\n\n!ERRORE! getElementByXPath: ");
-			System.out.print(xpath);
-			if(e instanceof org.openqa.selenium.NoSuchElementException) {
-				System.out.println(": Selenium.NoSuchElementException\n\n");
-			} else {
-				System.out.println(": "+e.getLocalizedMessage()+ "\n\n");
-			}
+		} catch (org.openqa.selenium.NoSuchElementException e) {
+			System.out.println("\n\n!ERRORE! getElementByXPath: "+ xpath+". NoSuchElement");
+		} catch (org.openqa.selenium.TimeoutException e) {
+			System.out.println("\n\n!ERRORE! getElementByXPath: "+ xpath+". TimeOutException");
+		}catch (Exception e) {
+			System.out.println("\n\n!ERRORE! getElementByXPath: "+ xpath+". "+e.getLocalizedMessage());
 		}
 		return element;
 	}
@@ -208,14 +206,12 @@ public class Generic {
 		WebElement element = null;
 		try {
 			element = driver.findElement(By.id(id));
-		} catch (Exception e) {
-			System.out.print("\n\n!ERRORE! getElementById: ");
-			System.out.print(id);
-			if (e instanceof org.openqa.selenium.NoSuchElementException) {
-				System.out.println(": Selenium.NoSuchElementException\n\n");
-			} else {
-				System.out.println(": " + e.getLocalizedMessage());
-			}
+		} catch (org.openqa.selenium.NoSuchElementException e) {
+			System.out.println("\n\n!ERRORE! getElementById: "+ id+". NoSuchElement");
+		} catch (org.openqa.selenium.TimeoutException e) {
+			System.out.println("\n\n!ERRORE! getElementById: "+ id+". TimeOutException");
+		}catch (Exception e) {
+			System.out.println("\n\n!ERRORE! getElementById: "+ id+". "+e.getLocalizedMessage());
 		}
 		return element;
 	}
@@ -275,14 +271,12 @@ public class Generic {
 			} else {
 				System.out.println("!ERRORE! getElementListByXPath NULL or VOID: " + xPath);
 			}
-		} catch (Exception e) {
-			System.out.print("\n\n!ERRORE! getElementListByXPath: ");
-			System.out.print(xPath);
-			if(e instanceof org.openqa.selenium.NoSuchElementException) {
-				System.out.println(": Selenium.NoSuchElementException\n\n");
-			} else {
-				System.out.println(": "+e.getLocalizedMessage()+ "\n\n");
-			}
+		} catch (org.openqa.selenium.NoSuchElementException e) {
+			System.out.println("\n\n!ERRORE! getElementListByXPath: "+ xPath+". NoSuchElement");
+		} catch (org.openqa.selenium.TimeoutException e) {
+			System.out.println("\n\n!ERRORE! getElementListByXPath: "+ xPath+". TimeOutException");
+		}catch (Exception e) {
+			System.out.println("\n\n!ERRORE! getElementListByXPath: "+ xPath+". "+e.getLocalizedMessage());
 		}
 		return elementList;
 	}
