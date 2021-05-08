@@ -36,42 +36,43 @@ public class SceltaPageCF {
 			boolean trattaTrovata = false;
 			
 			ArrayList <WebElement> tratteDaValutare = new ArrayList <WebElement>();
-			
-			for (int i = 0; i < righeTabella.size(); i++) {
-				WebElement tratta = null;
-				boolean flag = false;
-				try {
-					tratta = righeTabella.get(i).findElement(By.xpath(".//td[1]/div/div[1]"));
-					flag = true;
-				} catch (NoSuchElementException e) {
-					System.out.println("TRATTA NON TROVATA PER QUESTO xPath");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				if(flag) {
-					String testoTratta = tratta.getText().replace("\n", " ");
-					if(testoTratta.contains(sito.getDatiCsv().getComunePartenza()) && testoTratta.contains(sito.getDatiCsv().getComuneArrivo())){
-						String orario = null;
-						
-						try {
-							orario = righeTabella.get(i).findElement(By.xpath(".//td[2]/div/span/span[1]")).getText().split(":")[0];
-						
-							// SE DIURNO E..
-							if(Integer.valueOf(orario)<18 && sito.getDatiCsv().getFasciaOraria().contains("DIURN")) {
-								righeTabella.get(i).click();
-								trattaTrovata = true;
-								break;
-								// SE NOTTURNO E..
-							} else if(Integer.valueOf(orario)>18 && sito.getDatiCsv().getFasciaOraria().contains("NOTTURN")){
-								//righeTabella.get(i).click();
-								trattaTrovata = true;
-								tratteDaValutare.add(righeTabella.get(i));
-							}
+			if(righeTabella!=null && !righeTabella.isEmpty()) {
+				for (int i = 0; i < righeTabella.size(); i++) {
+					WebElement tratta = null;
+					boolean flag = false;
+					try {
+						tratta = righeTabella.get(i).findElement(By.xpath(".//td[1]/div/div[1]"));
+						flag = true;
+					} catch (NoSuchElementException e) {
+						System.out.println("TRATTA NON TROVATA PER QUESTO xPath");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					if(flag) {
+						String testoTratta = tratta.getText().replace("\n", " ");
+						if(testoTratta.contains(sito.getDatiCsv().getComunePartenza()) && testoTratta.contains(sito.getDatiCsv().getComuneArrivo())){
+							String orario = null;
 							
-						} catch (NoSuchElementException e) {
-							System.out.println("ORARIO NON TROVATO PER QUESTO XPATH");
-						} catch (Exception e) {
-							e.printStackTrace();
+							try {
+								orario = righeTabella.get(i).findElement(By.xpath(".//td[2]/div/span/span[1]")).getText().split(":")[0];
+							
+								// SE DIURNO E..
+								if(Integer.valueOf(orario)<18 && sito.getDatiCsv().getFasciaOraria().contains("DIURN")) {
+									righeTabella.get(i).click();
+									trattaTrovata = true;
+									break;
+									// SE NOTTURNO E..
+								} else if(Integer.valueOf(orario)>18 && sito.getDatiCsv().getFasciaOraria().contains("NOTTURN")){
+									//righeTabella.get(i).click();
+									trattaTrovata = true;
+									tratteDaValutare.add(righeTabella.get(i));
+								}
+								
+							} catch (NoSuchElementException e) {
+								System.out.println("ORARIO NON TROVATO PER QUESTO XPATH");
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}
 				}

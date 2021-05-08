@@ -25,8 +25,7 @@ import model.EsitoSito;
 
 public class Generic {
 
-	public static void utente_apre_browser(WebDriver driver, String url, String nomeSito, EsitoSito esito) throws Throwable {
-		driver = BeforeAndAfter.driver;
+	public static void utente_apre_browser(WebDriver driver, String url, String nomeSito, EsitoSito esito) {
 		System.out.println("Opening URL: " + nomeSito);
 		driver.manage().timeouts().pageLoadTimeout(1, TimeUnit.SECONDS);
 		for(int i = 1; i < 5; i ++) {
@@ -44,7 +43,7 @@ public class Generic {
 		}
 		if(esito.getErrori() == null) {
 			driver.manage().window().maximize();
-			Thread.sleep(4000);
+			waitSeconds(4);
 		}	
 	}
 
@@ -184,9 +183,9 @@ public class Generic {
 	}
 
 	public static WebElement getElementByXPath(WebDriver driver, String xpath) {
-		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 		WebElement element = null;
 		try {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 			element = driver.findElement(By.xpath(xpath));
 			if (element != null) {
 				System.out.println("getElementByXPath: "+xpath);
@@ -202,9 +201,9 @@ public class Generic {
 	}
 
 	public static WebElement getElementById(WebDriver driver, String id) {
-		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
 		WebElement element = null;
 		try {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
 			element = driver.findElement(By.id(id));
 		} catch (org.openqa.selenium.NoSuchElementException e) {
 			System.out.println("\n\n!ERRORE! getElementById: "+ id+". NoSuchElement");
@@ -262,9 +261,9 @@ public class Generic {
 	}
 
 	public static ArrayList<WebElement> getElementListByXPath(WebDriver driver, String xPath) {
-		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
 		ArrayList<WebElement> elementList = null;
 		try {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
 			elementList = (ArrayList<WebElement>) driver.findElements(By.xpath(xPath));
 			if(elementList!=null && elementList.size()>0) {
 				System.out.println("ELEMENTI RECUPERATI: "+xPath+" (getElementListByXPath)");

@@ -12,8 +12,9 @@ import utils.Translator;
 public class HomePageCF {
 		
 	public static void scegliTrattaEData(WebDriver driver, EsitoSito sito) {
-		driver.get("https://www.corsica-ferries.it/");
-		driver.manage().window().maximize();
+		
+		Generic.utente_apre_browser(driver, "https://www.corsica-ferries.it/", sito.getSito(), sito);
+
 		Generic.clickByXPath(driver, "//*[@id='popup-cookie']/div/button[2]");
 		scegliTratta(driver, sito);
 		scegliDataViaggio(driver, sito);
