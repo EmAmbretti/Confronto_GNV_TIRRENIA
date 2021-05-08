@@ -2,6 +2,7 @@ package utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -278,22 +279,25 @@ public class ExcelMaker {
 				veicolo.setCellValue(diff.get(index).getGrimaldi().getDatiCsv().getVeicolo());
 				sistemazione.setCellValue(diff.get(index).getGrimaldi().getDatiCsv().getSistemazione());
 				if (diff.get(index).getGrimaldi().getErrori() == null) {
-					prezzoGLScraping.setCellValue("€ " + (diff.get(index).getGrimaldi().getPrezzo()));
+					prezzoGLScraping.setCellValue("€ " + (diff.get(index).getGrimaldi().getPrezzo()).replace(".", ","));
 				} else {
 					prezzoGLScraping.setCellValue(diff.get(index).getGrimaldi().getErrori());
 				}
 				if (diff.get(index).getCompetitor().getErrori() == null) {
-					prezzoCompetitor.setCellValue("€ " + diff.get(index).getCompetitor().getPrezzo());
+					prezzoCompetitor.setCellValue("€ " + diff.get(index).getCompetitor().getPrezzo().replace(".", ","));
 				} else {
 					prezzoCompetitor.setCellValue(diff.get(index).getCompetitor().getErrori());
 				}
 
 				if (diff.get(index).getGrimaldi().getErrori() == null
 						&& diff.get(index).getCompetitor().getErrori() == null) {
-					String diffScrapString="€ "+String.valueOf(diff.get(index).getDifferenzaPrezzo()).replace(".", ",");
+			        DecimalFormat df = new DecimalFormat("###.##");
+					String diffScrapString="€ "+String.valueOf(df.format(diff.get(index).getDifferenzaPrezzo()));
+					diffScrapString = diffScrapString.replace(".", ",");
 					differenzaScraping.setCellValue(diffScrapString);
 					
-					String percDiffScrapString=String.valueOf(Math.abs(diff.get(index).getDifferenzaPrezzoPercentuale())).replace(".", ",")+" %";
+					String percDiffScrapString=String.valueOf(Math.abs(diff.get(index).getDifferenzaPrezzoPercentuale()))+" %";
+					percDiffScrapString=percDiffScrapString.replace(".", ",");
 					percentualeDifferenzaScraping.setCellValue(percDiffScrapString);
 					
 					

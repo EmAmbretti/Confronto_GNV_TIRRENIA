@@ -271,7 +271,7 @@ public class PrestazioniPageCF {
 			
 					sito.setPrezzo(
 							Generic.getElementByXPath(driver, "//*[@id=\"content\"]/div/div[2]/div/div/div[2]/div[2]/div/div[2]")
-									.getText());
+									.getText().replace(",", ".").replace(" ", "").replace("€", ""));
 					System.out.println("PREZZO RECUPERATO: " + sito.getPrezzo());
 				}
 			} catch (Exception e) {
