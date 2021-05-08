@@ -290,9 +290,13 @@ public class ExcelMaker {
 
 				if (diff.get(index).getGrimaldi().getErrori() == null
 						&& diff.get(index).getCompetitor().getErrori() == null) {
-					differenzaScraping.setCellValue("€ " + diff.get(index).getDifferenzaPrezzo());
-					percentualeDifferenzaScraping
-							.setCellValue(Math.abs(diff.get(index).getDifferenzaPrezzoPercentuale()) + " %");
+					String diffScrapString="€ "+String.valueOf(diff.get(index).getDifferenzaPrezzo()).replace(".", ",");
+					differenzaScraping.setCellValue(diffScrapString);
+					
+					String percDiffScrapString=String.valueOf(Math.abs(diff.get(index).getDifferenzaPrezzoPercentuale())).replace(".", ",")+" %";
+					percentualeDifferenzaScraping.setCellValue(percDiffScrapString);
+					
+					
 					if (diff.get(index).getDifferenzaPrezzo() < 0) {
 						differenzaScraping.setCellStyle(greenFontStyle);
 						percentualeDifferenzaScraping

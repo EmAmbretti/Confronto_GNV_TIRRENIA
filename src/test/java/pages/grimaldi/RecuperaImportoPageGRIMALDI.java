@@ -80,7 +80,7 @@ public class RecuperaImportoPageGRIMALDI {
 				}catch(org.openqa.selenium.NoSuchElementException e) {
 					prezzoGrimaldi=driver.findElement(By.xpath("//*[@id=\"frm-STANDARD\"]/div/div[2]/div[2]/div[1]")).getText();
 				}
-				String prezzoPerEsitoGrimaldi=prezzoGrimaldi.replace("€", "");
+				String prezzoPerEsitoGrimaldi=prezzoGrimaldi.replace("€", "").replace(",", ".");
 				System.out.println(prezzoPerEsitoGrimaldi);
 				sito.setPrezzo(prezzoPerEsitoGrimaldi);
 			}

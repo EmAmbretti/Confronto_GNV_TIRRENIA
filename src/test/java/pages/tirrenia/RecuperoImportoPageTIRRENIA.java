@@ -18,7 +18,6 @@ public class RecuperoImportoPageTIRRENIA {
 			}
 			prezzoTIRRENIA = (Double.parseDouble(priceTIRRENIA));
 			System.out.println("Prezzo: " + prezzoTIRRENIA);
-			priceTIRRENIA = priceTIRRENIA.replace(".", ",");
 			esito.setPrezzo(priceTIRRENIA);
 		}else {
 			System.out.println("Eventuali errori: "+ esito.getErrori());
