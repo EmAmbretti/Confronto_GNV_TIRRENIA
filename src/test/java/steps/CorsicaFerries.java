@@ -18,6 +18,7 @@ public class CorsicaFerries {
 			HomePageCF.scegliTrattaEData(driver, sito);
 			SceltaPageCF.automationSceltaPage(driver, sito);
 			PrestazioniPageCF.automationPaginaPrestazioni(driver, sito);
+			driver.quit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			sito.setErrori("ERRORE GENERICO");

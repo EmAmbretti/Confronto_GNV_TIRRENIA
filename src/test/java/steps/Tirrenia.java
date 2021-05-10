@@ -23,8 +23,7 @@ public class Tirrenia {
 		PreventivoPageTIRRENIA.inserimentoSistemazione(driver, sitoTIRRENIA);
 		ServiziPageTIRRENIA.continuaPopUp(driver, sitoTIRRENIA);
 		RecuperoImportoPageTIRRENIA.recuperaImportoTIRRENIA(driver, sitoTIRRENIA);
-		driver.manage();
-		driver.close();
+		driver.quit();
 		return sitoTIRRENIA;
 	}
 	

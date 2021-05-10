@@ -20,8 +20,7 @@ public class GrimaldiLines {
 		Generic.switchPage(driver,sitoGRIMALDI);
 		BookingPageGRIMALDI.compilaDatiBookingGRIMALDI(driver, sitoGRIMALDI);
 		RecuperaImportoPageGRIMALDI.recuperaImportoGrimaldi(driver, sitoGRIMALDI);
-		driver.manage();
-		driver.close();
+		driver.quit();
 		return sitoGRIMALDI;
 	}
 	
