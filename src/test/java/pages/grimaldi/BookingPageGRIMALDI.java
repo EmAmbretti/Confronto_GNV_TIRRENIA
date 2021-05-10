@@ -121,8 +121,6 @@ public class BookingPageGRIMALDI {
 						break;
 					}
 					i++;
-					System.out.println("stringa: "+sistemazione);
-					System.out.println("i++, "+(i-1)+" -> " +i);
 					sistemazione=sistemazione.replace((i-1)+"", i+"");
 				}	
 			if(i>4&&!sistemazione.equalsIgnoreCase("Poltrona")&&!sistemazione.equalsIgnoreCase("Ponte")) {
