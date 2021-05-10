@@ -35,9 +35,7 @@ public class HomePageCF {
 		
 		// RECUPERO LISTA VIAGGI 
 		ArrayList<WebElement> listaViaggi = Generic.getElementListByXPath(driver, "/html/body/div/ul/li");
-		System.out.println("PART "+sito.getDatiCsv().getComunePartenza()+", ARR"+sito.getDatiCsv().getComuneArrivo());
 		Translator.modificaTratta(sito);
-		System.out.println("PART "+sito.getDatiCsv().getComunePartenza()+", ARR"+sito.getDatiCsv().getComuneArrivo());
 		// SCELTA TRATTA
 		boolean flag = false;
 		if(listaViaggi!=null && !listaViaggi.isEmpty()) {

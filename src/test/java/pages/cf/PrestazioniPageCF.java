@@ -157,8 +157,6 @@ public class PrestazioniPageCF {
 					System.out.println("\n");
 
 				} else {
-					Generic.clickByXPath(driver,
-							"//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[5]/span/span[1]");
 					System.out.println("Non ci sono veicoli da inserire.");
 				}
 			} catch (Exception e) {
@@ -263,17 +261,43 @@ public class PrestazioniPageCF {
 		
 				Generic.waitSeconds(4);
 		
-				ArrayList<WebElement> elementList = Generic.getElementListByXPath(driver,
+				ArrayList<WebElement> divPrezzi = Generic.getElementListByXPath(driver,
 						"//*[@id='content']/div/div[1]/section/div[2]/div[2]/div[1]/div[8]/div[2]/div/div[@class='BookingRateSummary-item']");
-				if(elementList!=null && !elementList.isEmpty()) {
+				
+				ArrayList<Double> prezzi = new ArrayList<Double>();
+				
+				if(divPrezzi!=null && !divPrezzi.isEmpty()) {
 					
-					for (int i = 0; i < elementList.size(); i++) {
-						if (elementList.get(i).findElement(By.xpath(".//div[1]/span[@class='price-name']")).getText()
+					for (int i = 0; i < divPrezzi.size(); i++) {
+						if (divPrezzi.get(i).findElement(By.xpath(".//div[1]/span[@class='price-name']")).getText().toUpperCase()
+								.contains("RESIDENTE")) {
+							divPrezzi.remove(i);
+							i--;
+						} else {
+							prezzi.add(Double.valueOf( divPrezzi.get(i).findElement(By.xpath(".//div[2]")).getText().replace(",", ".").replace("€", "") ));
+						}
+						/*if (elementList.get(i).findElement(By.xpath(".//div[1]/span[@class='price-name']")).getText()
 								.contains("STANDARD")) {
 							elementList.get(i).findElement(By.xpath(".//div[2]")).click();
 							break;
+						}*/
+					}
+					
+					int indicePrezzoMigliore = -1;
+					Double prezzoMigliore = -1.0;
+					for (int i = 0; i<prezzi.size(); i++) {
+						if(i==0) {
+							prezzoMigliore = prezzi.get(i);
+							indicePrezzoMigliore = i;
+						} else {
+							if(prezzi.get(i) < prezzoMigliore) {
+								prezzoMigliore = prezzi.get(i);
+								indicePrezzoMigliore = i;
+							}
 						}
 					}
+					
+					divPrezzi.get(indicePrezzoMigliore);
 				
 					Generic.scrollPage(driver, "document.body.scrollHeight");
 			
