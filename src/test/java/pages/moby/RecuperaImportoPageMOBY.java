@@ -6,30 +6,22 @@ import model.EsitoSito;
 
 public class RecuperaImportoPageMOBY {
 
-	public static double recuperaImportoMOBY(WebDriver driver, EsitoSito esito) {
+	public static void recuperaImportoMOBY(WebDriver driver, EsitoSito esito) {
 		String priceMoby = null;
-		Double prezzoMoby = null;
 		if(esito.getErrori() == null) {
 			System.out.println("Start method: recuperaImportoMOBY");
 			try {
-
-				try {
-					priceMoby = driver.findElement(By.id("toolbarTotalePreventivo")).getAttribute("data-totale");		
-				} catch (Exception e) {
-					esito.setErrori("Non è possibile rilasciare un preventivo!");
-					e.printStackTrace();
-				}						
-				prezzoMoby = (Double.parseDouble(priceMoby));
-				System.out.println("Prezzo: " + prezzoMoby);	
-			} catch(Exception e) {
-				esito.setErrori("Preventivo non disponibile.");
+				priceMoby = driver.findElement(By.id("toolbarTotalePreventivo")).getAttribute("data-totale");
+				System.out.println("Prezzo: " + priceMoby);
+			} catch (Exception e) {
+				esito.setErrori("Non è possibile rilasciare un preventivo!");
 				System.out.println("ERRORE: recuperaImportoMOBY");
-			}		
+			}							
+
+			String prezzoPerEsitoMoby = priceMoby.replace("€", "").replace(",", ".");
+			System.out.println(prezzoPerEsitoMoby);
+			esito.setPrezzo(prezzoPerEsitoMoby);
 		}
-		if(prezzoMoby == null) {
-				prezzoMoby = 0.0;
-			}
-		return prezzoMoby;
 	}
 
 }

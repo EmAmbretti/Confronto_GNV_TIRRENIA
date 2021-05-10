@@ -28,7 +28,7 @@ public class ServiziPageMOBY {
 
 	private static void chiudiPopUpMOBY(WebDriver driver, EsitoSito esito) {
 		if(esito.getErrori() == null) {
-			System.out.println("Start method: selezionaSistemazioneMOBY");
+			System.out.println("Start method: chiudiPopUpMOBY");
 			try {
 				Generic.clickByXPath(driver, "//button[@class='cancel'][contains(.,'No, grazie')]");
 				Thread.sleep(1000);
