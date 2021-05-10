@@ -15,7 +15,7 @@ public class GNV {
 		EsitoSito esito = new EsitoSito("GNV", data);
 		HomePageGNV.selezionaItinerarioGNV(driver, esito);
 		RecapPageGNV.recuperoImportoGNV(driver, esito);
-		//driver.quit();
+		driver.quit();
 		return esito;
 	}
 

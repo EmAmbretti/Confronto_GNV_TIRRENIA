@@ -36,7 +36,7 @@ public class RecapPageGNV {
 				sistemazione = "CABINA VISTA MARE";
 			}
 			try {
-				Thread.sleep(7000);
+				Thread.sleep(9000);
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -56,6 +56,7 @@ public class RecapPageGNV {
 				System.out.println("popup non visibile");
 			}
 			if(esito.getErrori()==null) {
+				if(mappa.get("listaOrari")!=null && mappa.get("listaOrari").size()>0) {
 				if (Generic.controlloFasciaOraria(mappa.get("listaOrari").get(1).getText(), esito).equalsIgnoreCase(esito.getDatiCsv().getFasciaOraria())) {
 					for (WebElement testo : mappa.get("listaSistemazioni")) {
 						if(testo.getText().contains(sistemazione)) {
@@ -137,6 +138,13 @@ public class RecapPageGNV {
 						}
 						i++;
 					}
+				}else {
+					esito.setErrori(esito.getDatiCsv().getFasciaOraria()+" non disponibile");
+					System.out.println(esito.getDatiCsv().getFasciaOraria()+" non disponibile");
+				}
+				}else {
+					System.out.println("N.D");
+					esito.setErrori("N.D");
 				}
 			}
 			if(i==mappa.get("listaSeleziona").size()) {

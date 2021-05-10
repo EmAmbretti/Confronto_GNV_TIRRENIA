@@ -19,6 +19,12 @@ public class HomePageGNV {
 			selezionaViaggioGNV(driver, esito);
 			closePopupGNV(driver, esito);
 			scegliTrattaGNV(driver, esito);
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			closePopupGNV(driver, esito);
 			// closePopupGNV(driver, esito);
 			controlloMeseGNV(driver, esito);
@@ -303,7 +309,7 @@ public class HomePageGNV {
 				Generic.waitSeconds(1);
 				List<WebElement> elements = driver.findElements(
 						By.xpath("//div[@class='counter-wrapper orange']//button[@class='input-number-increment']"));
-				if (elements != null) {
+				if (elements != null && elements.size()>0) {
 					System.out.println("lista::::" + elements.size());
 					System.out.println("ECCOMI");
 					elements.get(0).click();
