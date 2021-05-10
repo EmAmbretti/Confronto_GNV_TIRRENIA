@@ -14,7 +14,7 @@ public class PreventivoPageMOBY {
 		inserisciPasseggeriMOBY(driver, esito, data);
 		gestioneVeicoloMOBY(driver, esito, data);
 		selezionaSistemazioneMOBY(driver, esito, data);
-		cliccaContinuaMOBY(driver, esito);
+		//cliccaContinuaMOBY(driver, esito);
 	}
 
 	private static void inserisciPasseggeriMOBY(WebDriver driver, EsitoSito esito, CSVData data) {
@@ -104,10 +104,12 @@ public class PreventivoPageMOBY {
 						}
 					} else if (data.getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
 						ArrayList<WebElement> elements = Generic.getElementListByXPath(driver,
-								"//li[@class='option']/a[@class='fg-color'][contains(.,'Auto con lunghezza da 4,01m a 5m')]");
+								"//li[@class='option']/a[@class='fg-color'][contains(.,'Camper nel garage Cat.9C')]");
 						if (elements != null) {
 							Generic.clickByXPath(driver,
-									"//li[@class='option']/a[@class='fg-color'][contains(.,'Auto con lunghezza da 4,01m a 5m')]");
+									"//li[@class='option']/a[@class='fg-color'][contains(.,'Camper nel garage Cat.9C')]");
+							Generic.sendKeysByXPath(driver, "//input[@id='veicoloLungAndata']", "500");
+							Generic.sendKeysByXPath(driver, "//input[@id='veicoloAltAndata']", "260");
 						} else {
 							System.out.println(data.getVeicolo() + " non disponibile per questa tratta");
 							esito.setErrori(data.getVeicolo() + " non disponibile per questa tratta");

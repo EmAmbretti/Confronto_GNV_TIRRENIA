@@ -20,7 +20,7 @@ public class Moby {
 		HomePageMOBY.selezionaItinerarioMOBY(driver, sitoMOBY, testData);
 		DisponibilitaPageMOBY.selezionaCorsa(driver, sitoMOBY);
 		PreventivoPageMOBY.inserimentoDatiMoby(driver, sitoMOBY, testData);
-		ServiziPageMOBY.continuaPopUp(driver, sitoMOBY);
+		//ServiziPageMOBY.continuaPopUp(driver, sitoMOBY);
 		RecuperaImportoPageMOBY.recuperaImportoMOBY(driver, sitoMOBY);
 		driver.quit();
 		return sitoMOBY;
