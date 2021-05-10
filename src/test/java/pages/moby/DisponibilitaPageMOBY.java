@@ -22,7 +22,10 @@ public class DisponibilitaPageMOBY {
 		if(esito.getErrori() == null) {
 			System.out.println("Start method: controlloCorsaMOBY");
 			try {
-				boolean flag = false;
+				boolean controlloNave = false;
+				boolean controlloPartenza = false;
+				boolean controlloDestinazione = false;
+				boolean controlloOrario = false;
 				HashMap<String, List<WebElement>> map = new HashMap<String, List<WebElement>>();
 				int i=0;
 				map.put("nave", driver.findElements(By.xpath("//*[@id=\"bookingAndata\"]/div/div/div[1]/div/div[3]/div[1]/div[1]/div")));
@@ -31,25 +34,41 @@ public class DisponibilitaPageMOBY {
 				map.put("orario", driver.findElements(By.xpath("//span[@class='date bold fg-color']")));
 				for(WebElement element : map.get("nave")) {
 					if(element.getAttribute("data-resource").contains("moby")) {
+						controlloNave = true;
 						if(map.get("partenza").get(i).getText().equalsIgnoreCase(esito.getDatiCsv().getComunePartenza())) {
+							controlloPartenza = true;
 							if(map.get("destinazione").get(i).getText().equalsIgnoreCase(esito.getDatiCsv().getComuneArrivo())) {
+								controlloDestinazione = true;
 								if(Generic.controlloFasciaOraria(map.get("orario").get(i).getText(), esito).equalsIgnoreCase(esito.getDatiCsv().getFasciaOraria())) {
 									element.click();
-									flag = true;
+									controlloOrario = true;
 									Thread.sleep(500);
 									break;
-								} else {
-									System.out.println("ERRORE: fascia oraria non disponibile.");
-									esito.setErrori("La fascia oraria scelta per questo sito non è disponibile.");
-								}
+								} 
+//								else {
+//									System.out.println("ERRORE: fascia oraria non disponibile.");
+//									esito.setErrori("La fascia oraria scelta per questo sito non è disponibile.");
+//								}
 							}
 						}
 					}
 					i++;
 				}
-				if(!flag) {
-					System.out.println("ERRORE: TRATTA");
-					esito.setErrori("La tratta per questo sito non è disponibile.");
+				if (!controlloOrario) {
+					System.out.println("ERRORE: ORARIO");
+					esito.setErrori("La fascia oraria per questo sito non è disponibile.");
+				}
+				if (!controlloDestinazione) {
+					System.out.println("ERRORE: DESTINAZIONE");
+					esito.setErrori("La destinazione per questo sito non è disponibile.");
+				}
+				if (!controlloPartenza) {
+					System.out.println("ERRORE: PARTENZA");
+					esito.setErrori("La partenza per questo sito non è disponibile.");
+				}
+				if (!controlloNave) {
+					System.out.println("ERRORE: PARTENZA");
+					esito.setErrori("La nave MOBY per questo sito non è disponibile.");
 				}
 			} catch (Exception e) {
 				esito.setErrori("Corsa non disponibile");
