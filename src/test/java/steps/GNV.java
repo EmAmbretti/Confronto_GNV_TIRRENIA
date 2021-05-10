@@ -10,12 +10,12 @@ import utils.BeforeAndAfter;
 
 public class GNV {
 	
-	public static EsitoSito allMethods(CSVData data) throws Throwable {
+	public static EsitoSito allMethods(CSVData data) {
 		WebDriver driver = BeforeAndAfter.before("GNV");
 		EsitoSito esito = new EsitoSito("GNV", data);
 		HomePageGNV.selezionaItinerarioGNV(driver, esito);
 		RecapPageGNV.recuperoImportoGNV(driver, esito);
-		driver.quit();
+		//driver.quit();
 		return esito;
 	}
 

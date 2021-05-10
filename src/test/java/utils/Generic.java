@@ -469,6 +469,30 @@ public class Generic {
 		}
 		return element;
 	}
+	
+	public static ArrayList<WebElement> getChildElementsByXPath(WebDriver driver, WebElement parentElement, String xpath){
+
+		ArrayList <WebElement> elements = null;
+
+		xpath = changeXPathForChildElement(xpath);
+
+		try {
+			elements = (ArrayList<WebElement>) parentElement.findElements(By.xpath(xpath));
+			if (elements != null) {
+				System.out.println("getChildElementsByXPath: "+xpath);
+			}
+		} catch (Exception e) {
+			System.out.print("\n\n!ERRORE! getChildElementsByXPath: ");
+			System.out.print(xpath);
+			if(e instanceof org.openqa.selenium.NoSuchElementException) {
+				System.out.println(": Selenium.NoSuchElementException\n\n");
+			} else {
+				System.out.println(": "+e.getLocalizedMessage()+ "\n\n");
+			}
+		}
+		return elements;
+	
+	}
 
 	public static String meseDaInteroAStringa(int mese) {
 		switch (mese) {

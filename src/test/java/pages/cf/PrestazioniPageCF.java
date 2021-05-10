@@ -144,6 +144,7 @@ public class PrestazioniPageCF {
 									
 									if(Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i), "/div/div").getText().toLowerCase().contains("questo servizio non è compatibile con le vostre prestazioni")) {
 										esito.setErrori("MOTO NON DISPONIBILE");
+										System.out.println("MOTO NON DISPONIBILE. ");
 										break;
 									}
 								}
