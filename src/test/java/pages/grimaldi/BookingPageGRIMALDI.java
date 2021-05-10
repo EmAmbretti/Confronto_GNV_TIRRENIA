@@ -249,7 +249,7 @@ public class BookingPageGRIMALDI {
 				Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
 				//Mirko
 				Thread.sleep(1000);
-				Generic.sendKeysById(driver, "mtlCar", "7");
+				Generic.sendKeysById(driver, "mtlCar", "75");
 				Thread.sleep(1000);
 				//Mirko
 				Generic.clickById(driver, "createcar");

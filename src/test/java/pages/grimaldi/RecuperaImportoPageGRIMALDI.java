@@ -50,20 +50,31 @@ public class RecuperaImportoPageGRIMALDI {
 			List<WebElement> dateList = driver.findElements(By.xpath("//a/div[1]"));
 			List<WebElement> orarioList = driver.findElements(By.xpath("//div/a/div/span"));
 			int i=0;
-			boolean esitoData=false;
+			boolean esitoData=false, esitoSistemazione=true;
 			for(WebElement element:dateList) {
 				if(element.getText().equalsIgnoreCase(data)) {
 					esitoData = true;
-					if(Generic.controlloFasciaOraria(orarioList.get(i).getText(),sito).equalsIgnoreCase(sito.getDatiCsv().getFasciaOraria())) {
-						element.click();
-						break;
-					}
+
+					if(!orarioList.get(i).getText().contains("non disponibile")) {
+						if(Generic.controlloFasciaOraria(orarioList.get(i).getText(),sito).equalsIgnoreCase(sito.getDatiCsv().getFasciaOraria())) {
+							element.click();
+							esitoSistemazione=true;
+							break;
+						}	
+					}else {
+						esitoSistemazione=false;
+					}	
 				}
 				i++;	
 			}
 			if(i>=dateList.size()) {
 				if(esitoData) {
-					sito.setErrori("Errore: fascia oraria non disponibile!");
+					if(!esitoSistemazione) {
+						sito.setErrori("Errore: sistemazione non disponibile per questa data/fascia oraria");
+					}else {
+						sito.setErrori("Errore: fascia oraria non disponibile!");
+					}
+					
 				}else {
 					sito.setErrori("Errore: giorno non disponibile");
 				}
@@ -79,7 +90,7 @@ public class RecuperaImportoPageGRIMALDI {
 					prezzoGrimaldi=driver.findElement(By.xpath("//*[@id=\"frm-SPECIAL\"]/div/div[2]/div[2]/div[1]")).getText();
 				}catch(org.openqa.selenium.NoSuchElementException e) {
 					prezzoGrimaldi=driver.findElement(By.xpath("//*[@id=\"frm-STANDARD\"]/div/div[2]/div[2]/div[1]")).getText();
-				}
+				}	
 				String prezzoPerEsitoGrimaldi=prezzoGrimaldi.replace("€", "").replace(",", ".");
 				System.out.println(prezzoPerEsitoGrimaldi);
 				sito.setPrezzo(prezzoPerEsitoGrimaldi);
