@@ -206,13 +206,14 @@ public class HomePageGNV {
 			System.out.println("\nScelta Giorno...");
 			// SCELTA GIORNO
 			ArrayList<WebElement> calendario = Generic.getElementListByXPath(driver,
-					"//div[@class='single ng-star-inserted']");
+					"//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div");
 			//// *[@id="main-container"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[1]/div/div[2]/div[2]/div[1]/div[1]/div
+			ArrayList<WebElement> listaGiorni = null;
 			for (WebElement webElement : calendario) {
 				if (Generic.getChildElementByXPath(driver, webElement, "/div/div[@class='monthName']/span").getText()
 						.toUpperCase().contains(esito.getDatiCsv().getMeseAndata())) {
 
-					ArrayList<WebElement> listaGiorni = Generic.getChildElementsByXPath(driver, webElement, "/div/div/div/div/div/div[@class='date-text']");
+					listaGiorni = Generic.getChildElementsByXPath(driver, webElement, "/div/div/div/div/div/div[@class='date-text']");
 					if (listaGiorni != null && !listaGiorni.isEmpty()) {
 						for (int i = 0; i < listaGiorni.size(); i++) {
 							if (!listaGiorni.get(i).getText().equals("1")) {
@@ -222,22 +223,22 @@ public class HomePageGNV {
 								break;
 							}
 						}
+						break;
 					} else {
 						esito.setErrori("ERRORE CF: ERRORE NELLA SCELTA DATA");
 					}
-
-					if (esito.getErrori() == null) {
-						try {
-							listaGiorni.get((Integer.valueOf(esito.getDatiCsv().getGiornoAndata()) - 1)).click();
-							cliccaContinuaGNV(driver, esito);
-						} catch (Exception e) {
-							System.out.println("\nERRORE SCELTA GIORNO");
-							esito.setErrori("ERRORE SCELTA GIORNO");
-						}
-					}
 				}
-
 			}
+			if (esito.getErrori() == null) {
+				try {
+					listaGiorni.get((Integer.valueOf(esito.getDatiCsv().getGiornoAndata()) - 1)).click();
+					cliccaContinuaGNV(driver, esito);
+				} catch (Exception e) {
+					System.out.println("\nERRORE SCELTA GIORNO");
+					esito.setErrori("ERRORE SCELTA GIORNO");
+				}
+			}
+			
 		}
 		Generic.waitSeconds(1);
 	}
