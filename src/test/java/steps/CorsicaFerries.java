@@ -8,11 +8,13 @@ import pages.cf.HomePageCF;
 import pages.cf.PrestazioniPageCF;
 import pages.cf.SceltaPageCF;
 import utils.BeforeAndAfter;
+import utils.Generic;
 
 public class CorsicaFerries {
 	
 	public static EsitoSito automation(CSVData testData) {
-		EsitoSito sito = new EsitoSito("CORSICA FERRIES", testData);
+		CSVData datiCSV = Generic.clonaOggetto(testData);
+		EsitoSito sito = new EsitoSito("CORSICA FERRIES", datiCSV);
 		try {
 			WebDriver driver = BeforeAndAfter.before("CORSICA FERRIES");
 			HomePageCF.scegliTrattaEData(driver, sito);

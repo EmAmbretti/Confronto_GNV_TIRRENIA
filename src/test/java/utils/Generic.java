@@ -578,4 +578,26 @@ public class Generic {
 		js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
 	}
 
+	public static CSVData clonaOggetto(CSVData object) {
+		CSVData datiCSV = null;
+		if(object!=null) {
+			datiCSV = new CSVData();
+			datiCSV.setAnno(object.getAnno());
+			datiCSV.setComuneArrivo(object.getComuneArrivo());
+			datiCSV.setComunePartenza(object.getComunePartenza());
+			datiCSV.setFasciaOraria(object.getFasciaOraria());
+			datiCSV.setGiornoAndata(object.getGiornoAndata());
+			datiCSV.setId(object.getId());
+			datiCSV.setMeseAndata(object.getMeseAndata());
+			datiCSV.setPasseggeriAdulti(object.getPasseggeriAdulti());
+			datiCSV.setPasseggeriAnimali(object.getPasseggeriAnimali());
+			datiCSV.setPasseggeriBambini(object.getPasseggeriBambini());
+			datiCSV.setSistemazione(object.getSistemazione());
+			datiCSV.setTrattaAndata(object.getTrattaAndata());
+			datiCSV.setVeicolo(object.getVeicolo());
+			datiCSV.setCollegamento(object.getCollegamento());
+		}
+		
+		return datiCSV;
+	}
 }
