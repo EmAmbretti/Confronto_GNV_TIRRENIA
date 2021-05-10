@@ -20,11 +20,11 @@ public class HomePageGNV {
 			closePopupGNV(driver, esito);
 			scegliTrattaGNV(driver,esito);
 			closePopupGNV(driver, esito);
-			closePopupGNV(driver, esito);
+			//closePopupGNV(driver, esito);
 			controlloMeseGNV(driver, esito);
 			closePopupGNV(driver, esito);
 			cliccaDataSceltaGNV(driver, esito);
-			closePopupGNV(driver, esito);
+		//	closePopupGNV(driver, esito);
 			inserisciPasseggeriGNV(driver, esito);
 			gestioneVeicoloGNV(driver, esito);
 			cliccaCercaGNV(driver, esito);
@@ -59,7 +59,8 @@ public class HomePageGNV {
 				driver.findElement(By.xpath("//*[@id=\"iubenda-cs-banner\"]/div/div/div/div[2]/div[2]/button[2]")).click();
 				Thread.sleep(2000);
 			} catch (org.openqa.selenium.NoSuchElementException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
+				System.out.println("AMBIENTE NON TROVATO");
 			}
 			try {
 				driver.findElement(By.xpath("//*[@id=\"closeXButton\"]/span/p/span")).click();
@@ -166,7 +167,7 @@ public class HomePageGNV {
 									+ j + "]/div[" + i + "]/div"));*/
 					WebElement element = driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[1]/div/div[2]/div[2]/div["+j+"]/div["+i+"]/div"));
 					if (element.getText().equals(esito.getDatiCsv().getGiornoAndata()) && esito.getErrori()==null) {
-						Thread.sleep(2000);
+						Thread.sleep(1000);
 						try {
 							element.click();
 							flag = true;
