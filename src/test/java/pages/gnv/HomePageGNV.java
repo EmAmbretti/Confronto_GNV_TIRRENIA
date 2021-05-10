@@ -143,7 +143,7 @@ public class HomePageGNV {
 		if (esito.getErrori() == null) {
 			boolean flag = false;
 			do {
-				Thread.sleep(2000);
+				Thread.sleep(3000);
 				WebElement element = driver.findElement(By.xpath(
 						"//*[@id='main-container']/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[1]/div/div[1]/span"));
 				if (element.getText().toUpperCase().contains(esito.getDatiCsv().getMeseAndata())) {
@@ -167,7 +167,7 @@ public class HomePageGNV {
 									+ j + "]/div[" + i + "]/div"));*/
 					WebElement element = driver.findElement(By.xpath("//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[1]/div/div[2]/div[2]/div["+j+"]/div["+i+"]/div"));
 					if (element.getText().equals(esito.getDatiCsv().getGiornoAndata()) && esito.getErrori()==null) {
-						Thread.sleep(1000);
+						Thread.sleep(3000);
 						try {
 							element.click();
 							flag = true;
@@ -180,6 +180,8 @@ public class HomePageGNV {
 					}
 				}
 				if(!flag) {
+					esito.setErrori("Generic error");
+					System.out.println("Generic error");
 					break;
 				}
 			}
