@@ -191,13 +191,13 @@ public class ExcelMaker {
 
 					// rigaIntestazione3 GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA
 					// ?
-					rigaIntestazione3.createCell(4).setCellValue("GL Scraping");
-					rigaIntestazione3.createCell(5).setCellValue("GL Formula");
+					rigaIntestazione3.createCell(4).setCellValue("GL PrezzoWeb");
+					rigaIntestazione3.createCell(5).setCellValue("GL PriceList");
 					rigaIntestazione3.createCell(6).setCellValue(mappaConfronti.get(data).get(0).getCompetitor().getSito());
-					rigaIntestazione3.createCell(7).setCellValue("Δ Scraping");
-					rigaIntestazione3.createCell(11).setCellValue("Δ% Scraping");
-					rigaIntestazione3.createCell(12).setCellValue("Δ Formula");
-					rigaIntestazione3.createCell(13).setCellValue("Δ% Formula");
+					rigaIntestazione3.createCell(7).setCellValue("Δ PrezzoWeb");
+					rigaIntestazione3.createCell(11).setCellValue("Δ% PrezzoWeb");
+					rigaIntestazione3.createCell(12).setCellValue("Δ PriceList");
+					rigaIntestazione3.createCell(13).setCellValue("Δ% PriceList");
 
 					x = fillExcelWithDifferences(mappaConfronti.get(data), foglio, x) + 2;
 
