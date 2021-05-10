@@ -3,6 +3,7 @@ package pages.cf;
 import java.util.ArrayList;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -74,16 +75,13 @@ public class PrestazioniPageCF {
 			try {
 				System.out.println("\nMetodo gestioneVeicoloCF");
 				Generic.scrollPage(driver, "750");
-				Generic.clickByXPath(driver,
-						"//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[5]/span/span[1]");
-
+				Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[5]/span/span[1]");
+				Generic.waitSeconds(1);
 				if (!esito.getDatiCsv().getVeicolo().equalsIgnoreCase("no")) {
-					Generic.clickByXPath(driver,
-							"//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[5]/span/span[1]");
-
+					Generic.clickByXPath(driver, "//*[@id=\"content\"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[5]/span/span[1]");
+					Generic.waitSeconds(1);
 					ArrayList<WebElement> listaDivVeicoli = Generic.getElementListByXPath(driver,
 							"//div[@class='travel-go']/div/div[@class='choice']/ul/li");
-					// //*[@id="content"]/div/div[1]/section/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[1]/ul/li[3]/div/div
 					for (int i = 0; i < listaDivVeicoli.size(); i++) {
 						if (esito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
 							System.out.println("\nSCELTA CAR");
@@ -174,6 +172,8 @@ public class PrestazioniPageCF {
 		try {
 			if (Generic.getChildElementByXPath(driver, div_Veicolo, ".//button[2]/span").getText().toUpperCase()
 					.contains("MODIFICARE")) {
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", Generic.getChildElementByXPath(driver, div_Veicolo, ".//button[2]/span"));
 				Generic.getChildElementByXPath(driver, div_Veicolo, ".//button[2]/span").click();
 				flag = true;
 			}

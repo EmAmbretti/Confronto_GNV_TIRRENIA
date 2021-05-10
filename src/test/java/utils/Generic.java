@@ -548,5 +548,10 @@ public class Generic {
 			return -1;
 		}
 	}
+	
+	public static void evidenziaElemento(WebDriver driver, WebElement element) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
+	}
 
 }
