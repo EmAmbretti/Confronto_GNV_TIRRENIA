@@ -28,7 +28,10 @@ public class RecapPageGNV {
 			boolean flag = false;
 			int passeggeri = Integer.valueOf(esito.getDatiCsv().getPasseggeriAdulti()) + Integer.valueOf(esito.getDatiCsv().getPasseggeriBambini());
 			String sistemazione = "";
-			if(esito.getDatiCsv().getSistemazione().equalsIgnoreCase("POLTRONA")) {
+			if (esito.getDatiCsv().getSistemazione().equalsIgnoreCase("PONTE")) {
+				System.out.println("Passaggio ponte N.D");
+				esito.setErrori("Passaggio ponte N.D");
+			}else if(esito.getDatiCsv().getSistemazione().equalsIgnoreCase("POLTRONA")) {
 				sistemazione = "POLTRON";
 			} else if(esito.getDatiCsv().getSistemazione().equalsIgnoreCase("CAB. INTERNA")) {
 				sistemazione = "CABINA INTERNA";
@@ -57,91 +60,91 @@ public class RecapPageGNV {
 			}
 			if(esito.getErrori()==null) {
 				if(mappa.get("listaOrari")!=null && mappa.get("listaOrari").size()>0) {
-				if (Generic.controlloFasciaOraria(mappa.get("listaOrari").get(1).getText(), esito).equalsIgnoreCase(esito.getDatiCsv().getFasciaOraria())) {
-					for (WebElement testo : mappa.get("listaSistemazioni")) {
-						if(testo.getText().contains(sistemazione)) {
-							try {
-								mappa.get("listaSeleziona").get(i).click();
-								System.out.println("ho cliccato");
-								flag=true;
-								Thread.sleep(1000);
-								break;
-							}catch (Exception e) {
-								esito.setErrori(sistemazione+"non trovata");
-							}
-							System.out.println("PAsseggeri sono::" + passeggeri);
-							if(passeggeri>=4) {
-								System.out.println("Sto a 4");
-								if(mappa.get("listaPostiLetto").get(i).getText().contains("4")) {
-									System.out.println("posti letto = 4");
+					if (Generic.controlloFasciaOraria(mappa.get("listaOrari").get(1).getText(), esito).equalsIgnoreCase(esito.getDatiCsv().getFasciaOraria())) {
+						for (WebElement testo : mappa.get("listaSistemazioni")) {
+							if(testo.getText().contains(sistemazione)) {
+								try {
 									mappa.get("listaSeleziona").get(i).click();
+									System.out.println("ho cliccato");
 									flag=true;
-									try {
-										Thread.sleep(1000);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
+									Thread.sleep(1000);
 									break;
+								}catch (Exception e) {
+									esito.setErrori(sistemazione+"non trovata");
 								}
-							} else if(passeggeri==3) {
-								System.out.println("sto a 3");
-								if(mappa.get("listaPostiLetto").get(i).getText().contains("3")) {
-									System.out.println("Posti letto = 3");
-									mappa.get("listaSeleziona").get(i).click();
-									flag=true;
-									try {
-										Thread.sleep(1000);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									break;
-								}else {
-									int	x=0;
-									for(WebElement appoggio: mappa.get("listaSistemazioni")) {
-										System.out.println("sto nel secondo for__77");
-										if(appoggio.getText().contains(sistemazione)) {
-											System.out.println("rifacio controllo sistemazione");
-											if(mappa.get("listaPostiLetto").get(x).getText().contains("4")) {
-												System.out.println("sto nel if che contiene 4 posti letto");
-												mappa.get("listaSeleziona").get(x).click();
-												flag=true;
-												try {
-													Thread.sleep(1000);
-												} catch (InterruptedException e) {
-													// TODO Auto-generated catch block
-													e.printStackTrace();
-												}
-												break;
-											}
+								System.out.println("PAsseggeri sono::" + passeggeri);
+								if(passeggeri>=4) {
+									System.out.println("Sto a 4");
+									if(mappa.get("listaPostiLetto").get(i).getText().contains("4")) {
+										System.out.println("posti letto = 4");
+										mappa.get("listaSeleziona").get(i).click();
+										flag=true;
+										try {
+											Thread.sleep(1000);
+										} catch (InterruptedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
 										}
-										x++;
+										break;
 									}
-									break;
-								}
-							} else if(passeggeri<=2) {
-								System.out.println("sto a 2");
-								if(mappa.get("listaPostiLetto").get(i).getText().contains("2")) {
-									System.out.println("Posti letto = 2");
-									mappa.get("listaSeleziona").get(i).click();
-									flag=true;
-									try {
-										Thread.sleep(1000);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
+								} else if(passeggeri==3) {
+									System.out.println("sto a 3");
+									if(mappa.get("listaPostiLetto").get(i).getText().contains("3")) {
+										System.out.println("Posti letto = 3");
+										mappa.get("listaSeleziona").get(i).click();
+										flag=true;
+										try {
+											Thread.sleep(1000);
+										} catch (InterruptedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										break;
+									}else {
+										int	x=0;
+										for(WebElement appoggio: mappa.get("listaSistemazioni")) {
+											System.out.println("sto nel secondo for__77");
+											if(appoggio.getText().contains(sistemazione)) {
+												System.out.println("rifacio controllo sistemazione");
+												if(mappa.get("listaPostiLetto").get(x).getText().contains("4")) {
+													System.out.println("sto nel if che contiene 4 posti letto");
+													mappa.get("listaSeleziona").get(x).click();
+													flag=true;
+													try {
+														Thread.sleep(1000);
+													} catch (InterruptedException e) {
+														// TODO Auto-generated catch block
+														e.printStackTrace();
+													}
+													break;
+												}
+											}
+											x++;
+										}
+										break;
 									}
-									break;
-								}
-							} 
+								} else if(passeggeri<=2) {
+									System.out.println("sto a 2");
+									if(mappa.get("listaPostiLetto").get(i).getText().contains("2")) {
+										System.out.println("Posti letto = 2");
+										mappa.get("listaSeleziona").get(i).click();
+										flag=true;
+										try {
+											Thread.sleep(1000);
+										} catch (InterruptedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										break;
+									}
+								} 
+							}
+							i++;
 						}
-						i++;
+					}else {
+						esito.setErrori(esito.getDatiCsv().getFasciaOraria()+" non disponibile");
+						System.out.println(esito.getDatiCsv().getFasciaOraria()+" non disponibile");
 					}
-				}else {
-					esito.setErrori(esito.getDatiCsv().getFasciaOraria()+" non disponibile");
-					System.out.println(esito.getDatiCsv().getFasciaOraria()+" non disponibile");
-				}
 				}else {
 					System.out.println("N.D");
 					esito.setErrori("N.D");
@@ -224,13 +227,13 @@ public class RecapPageGNV {
 			try {
 				String importo = driver.findElement(By.xpath("//button[@id='cartDropdown']/span[@class='price']"))
 						.getText();
-				esito.setPrezzo(importo);
-				System.out.println("PREZZO GNV: " + importo);
+				String prezzoPerEsitoGNV=importo.replace(" €", "").replace(",", ".");
+				System.out.println(prezzoPerEsitoGNV);
+				esito.setPrezzo(prezzoPerEsitoGNV);
+				System.out.println("PREZZO GNV: " + prezzoPerEsitoGNV);
 			}catch (Exception e) {
 				esito.setErrori("prezzo non recuperato");
 			}
-
-
 		}
 	}
 }
