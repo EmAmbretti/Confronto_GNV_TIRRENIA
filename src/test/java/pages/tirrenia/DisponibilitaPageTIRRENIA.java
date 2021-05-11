@@ -46,7 +46,7 @@ public class DisponibilitaPageTIRRENIA {
 		}
 		if(!flag) {
 			System.out.println("ERRORE: TRATTA");
-			esito.setErrori("La tratta per questo sito non è disponibile.");
+			esito.setErrori("Errore: data non disponibile.");
 		}
 	}
 	private static void cliccaAvanti(WebDriver driver) throws Throwable {

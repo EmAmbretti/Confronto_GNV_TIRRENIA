@@ -31,7 +31,7 @@ public class BookingPageGRIMALDI {
 		}
 		if(sito.getErrori() == null) {
 			selezionaGiornoGimaldi(driver, sito);
-			Thread.sleep(5000);
+			Thread.sleep(1000);
 		}	
 	}
 	
@@ -81,9 +81,9 @@ public class BookingPageGRIMALDI {
 	
 	private static void aggiungiSistemazioniPasseggeriGrimaldi(WebDriver driver, EsitoSito sito) throws Throwable {
 		if(sito.getErrori() == null) {
-			Thread.sleep(1000);
-			while(driver.findElement(By.id("accLeg1Select")).getAttribute("style").contains("none")) {
-				Thread.sleep(1000);
+			while(driver.findElement(By.id("btAccLeg1")).getAttribute("style").contains("none")) {
+				System.out.println("attendo caricamento sistemazioni...");
+				Thread.sleep(1500);
 			}
 			selezionaSistemazioneGrimaldi(driver, sito);
 		}
@@ -228,17 +228,30 @@ public class BookingPageGRIMALDI {
 					sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
 				}
 			} else if (sito.getDatiCsv().getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
-				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Veicolo')]");
+//				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Veicolo')]");
+//				if(elements!=null) {
+//				Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Veicolo')]");
+//				Thread.sleep(1000);
+//				Generic.clickByXPath(driver, "//tr[@id=\"setVehLH\"]/td[1]/div[5]/div[1]");
+//				Thread.sleep(1000);
+////				Generic.clickByXPath(driver, "//input[@id='mtlCar']");
+//				Generic.sendKeysByXPath(driver, "//input[@id='mtlCar']", "550");
+//				Generic.clickById(driver, "createcar");
+//				}else {
+//					System.out.println(sito.getDatiCsv().getVeicolo() + "non disponibile per questa tratta");
+//					sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
+//				}
+				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
 				if(elements!=null) {
-				Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Veicolo')]");
+				Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
+				//Mirko
 				Thread.sleep(1000);
-				Generic.clickByXPath(driver, "//tr[@id=\"setVehLH\"]/td[1]/div[5]/div[1]");
+				Generic.sendKeysById(driver, "mtlCar", "501");
 				Thread.sleep(1000);
-//				Generic.clickByXPath(driver, "//input[@id='mtlCar']");
-				Generic.sendKeysByXPath(driver, "//input[@id='mtlCar']", "550");
+				//Mirko
 				Generic.clickById(driver, "createcar");
 				}else {
-					System.out.println(sito.getDatiCsv().getVeicolo() + "non disponibile per questa tratta");
+					System.out.println(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
 					sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
 				}
 			} else if (sito.getDatiCsv().getVeicolo().equalsIgnoreCase("CMP")) {
