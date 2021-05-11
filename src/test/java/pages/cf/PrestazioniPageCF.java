@@ -108,9 +108,7 @@ public class PrestazioniPageCF {
 								if (clicca_Scegliere_Modificare_Veicolo(driver, listaDivVeicoli.get(i))) {
 									Generic.waitSeconds(2);
 									Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i),
-											"div[2]/div/div[1]/div[2]/label").click();
-									Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i),
-											"div[2]/div/div[1]/div[2]/div/input").sendKeys("550");
+											"div[2]/div/div[1]/div[1]/label").click();
 									Generic.getChildElementByXPath(driver, listaDivVeicoli.get(i), "/div[2]/button[2]")
 											.click();
 									break;
