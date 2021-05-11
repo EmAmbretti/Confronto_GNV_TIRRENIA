@@ -247,32 +247,32 @@ public class BookingPageGRIMALDI {
 					sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
 				}
 			} else if (sito.getDatiCsv().getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
-				//				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Veicolo')]");
-				//				if(elements!=null) {
-				//				Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Veicolo')]");
-				//				Thread.sleep(1000);
-				//				Generic.clickByXPath(driver, "//tr[@id=\"setVehLH\"]/td[1]/div[5]/div[1]");
-				//				Thread.sleep(1000);
-				////				Generic.clickByXPath(driver, "//input[@id='mtlCar']");
-				//				Generic.sendKeysByXPath(driver, "//input[@id='mtlCar']", "550");
-				//				Generic.clickById(driver, "createcar");
-				//				}else {
-				//					System.out.println(sito.getDatiCsv().getVeicolo() + "non disponibile per questa tratta");
-				//					sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
-				//				}
-				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
-				if(elements!=null) {
-					Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
-					//Mirko
-					Thread.sleep(1000);
-					Generic.sendKeysById(driver, "mtlCar", "501");
-					Thread.sleep(1000);
-					//Mirko
-					Generic.clickById(driver, "createcar");
-				}else {
-					System.out.println(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
-					sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
-				}
+								ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Veicolo')]");
+								if(elements!=null) {
+								Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Veicolo')]");
+								Thread.sleep(1000);
+								Generic.clickByXPath(driver, "//tr[@id=\"setVehLH\"]/td[1]/div[5]/div[1]");
+								Thread.sleep(1000);
+				//				Generic.clickByXPath(driver, "//input[@id='mtlCar']");
+								Generic.sendKeysByXPath(driver, "//input[@id='mtlCar']", "501");
+								Generic.clickById(driver, "createcar");
+								}else {
+									System.out.println(sito.getDatiCsv().getVeicolo() + "non disponibile per questa tratta");
+									sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
+								}
+//				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
+//				if(elements!=null) {
+//					Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
+//					//Mirko
+//					Thread.sleep(1000);
+//					Generic.sendKeysById(driver, "mtlCar", "501");
+//					Thread.sleep(1000);
+//					//Mirko
+//					Generic.clickById(driver, "createcar");
+//				}else {
+//					System.out.println(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
+//					sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
+//				}
 			} else if (sito.getDatiCsv().getVeicolo().equalsIgnoreCase("CMP")) {
 				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
 				if(elements!=null) {
