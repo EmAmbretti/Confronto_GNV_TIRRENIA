@@ -191,7 +191,7 @@ public class PreventivoPageTIRRENIA {
 			}
 		}
 		boolean scrollo=true;
-		if(!sito.getDatiCsv().getSistemazione().toUpperCase().contains("POLTRON")) {
+		if(!sito.getDatiCsv().getSistemazione().toUpperCase().contains("POLTRON")&&!sito.getDatiCsv().getSistemazione().toUpperCase().contains("PONTE")) {
 			do {
 				try {
 					sistemazione.click();
