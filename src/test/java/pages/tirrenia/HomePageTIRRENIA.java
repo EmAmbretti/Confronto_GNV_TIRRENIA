@@ -169,6 +169,6 @@ public class HomePageTIRRENIA {
 	}
 	private static void cliccaSuCerca(WebDriver driver, EsitoSito sito) throws Throwable {
 		Generic.clickByXPath(driver, "//button[@type='submit'][@class='button']");
-		Thread.sleep(2000);
+		Thread.sleep(3000);
 	}
 }

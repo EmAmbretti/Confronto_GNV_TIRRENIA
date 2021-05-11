@@ -46,7 +46,7 @@ public class DisponibilitaPageTIRRENIA {
 		}
 		if(!flag) {
 			System.out.println("ERRORE: TRATTA");
-			esito.setErrori("Errore: data non disponibile.");
+			esito.setErrori("Errore: fascia oraria non disponibile.");
 		}
 	}
 	private static void cliccaAvanti(WebDriver driver) throws Throwable {

@@ -96,11 +96,22 @@ public class BookingPageGRIMALDI {
 	private static void selezionaSistemazioneGrimaldi(WebDriver driver, EsitoSito sito) throws Throwable {		
 		Generic.clickById(driver, "accLeg1Select");
 		Thread.sleep(2000);
-		try {
-			Generic.clickByXPath(driver, "//*[@id=\"accBox\"]/div/div[2]/span");
+		boolean ripeti=true;
+		do {
+			try {
+			WebElement element=driver.findElement(By.xpath("//*[@id=\\\"accBox\\\"]/div/div[2]/span"));
+			if(!element.getText().contains("Ponte")) {
+				Thread.sleep(1500);
+				System.out.println("Attendo caricamento sistemazione...");
+			}else {
+				ripeti=false;
+			}
 		} catch (Exception e) {
-			sito.setErrori("Nessuna sistemazione disponibile per i criteri selezionati.");
+			Thread.sleep(1500);
+			System.out.println("Attendo caricamento sistemazione...");
 		}
+		}while(ripeti);
+		
 		if(sito.getErrori() == null) {
 			
 				String sistemazione=setSistemazioneString(sito.getDatiCsv());
