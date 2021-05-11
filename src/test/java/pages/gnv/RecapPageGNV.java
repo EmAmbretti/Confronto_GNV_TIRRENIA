@@ -31,7 +31,8 @@ public class RecapPageGNV {
 			if (esito.getDatiCsv().getSistemazione().equalsIgnoreCase("PONTE")) {
 				System.out.println("Passaggio ponte N.D");
 				esito.setErrori("Passaggio ponte N.D");
-			}else if(esito.getDatiCsv().getSistemazione().equalsIgnoreCase("POLTRONA")) {
+				flag=true;
+			} else if(esito.getDatiCsv().getSistemazione().equalsIgnoreCase("POLTRONA")) {
 				sistemazione = "POLTRON";
 			} else if(esito.getDatiCsv().getSistemazione().equalsIgnoreCase("CAB. INTERNA")) {
 				sistemazione = "CABINA INTERNA";
