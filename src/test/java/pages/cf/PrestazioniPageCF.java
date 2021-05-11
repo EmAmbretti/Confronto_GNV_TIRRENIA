@@ -258,8 +258,10 @@ public class PrestazioniPageCF {
 		if (sito.getErrori()== null) {
 			try {
 				System.out.println("\nMetodo sceltaTariffa");
-		
-				Generic.waitSeconds(4);
+
+				Generic.scrollPage(driver, "document.body.scrollHeight");
+				
+				Generic.waitSeconds(5);
 		
 				ArrayList<WebElement> divPrezzi = Generic.getElementListByXPath(driver,
 						"//*[@id='content']/div/div[1]/section/div[2]/div[2]/div[1]/div[8]/div[2]/div/div[@class='BookingRateSummary-item']");
@@ -284,23 +286,16 @@ public class PrestazioniPageCF {
 					}
 					
 					int indicePrezzoMigliore = -1;
-					Double prezzoMigliore = -1.0;
+					Double prezzoMigliore = Double.MAX_VALUE;
 					for (int i = 0; i<prezzi.size(); i++) {
-						if(i==0) {
-							prezzoMigliore = prezzi.get(i);
-							indicePrezzoMigliore = i;
-						} else {
-							if(prezzi.get(i) < prezzoMigliore) {
+						if(prezzi.get(i) < prezzoMigliore) {
 								prezzoMigliore = prezzi.get(i);
 								indicePrezzoMigliore = i;
-							}
 						}
 					}
 					
-					divPrezzi.get(indicePrezzoMigliore);
+					divPrezzi.get(indicePrezzoMigliore).click();
 				
-					Generic.scrollPage(driver, "document.body.scrollHeight");
-			
 					Generic.waitSeconds(3);
 			
 					sito.setPrezzo(
