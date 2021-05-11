@@ -23,14 +23,13 @@ public class CSVExtractor {
 				CSVData csvObject = new CSVData();
 				
 				csvObject.setId(list.get(x)[0]);
-				csvObject.setCollegamento(list.get(x)[1]);	
-				csvObject.setTrattaAndata(list.get(x)[2]);
-				csvObject.setPasseggeriAdulti(list.get(x)[3]);
-				csvObject.setPasseggeriBambini(list.get(x)[4]);
-				csvObject.setPasseggeriAnimali(list.get(x)[5]);
-				csvObject.setVeicolo(list.get(x)[6]);
-				csvObject.setSistemazione(list.get(x)[7]);
-				csvObject.setFasciaOraria(list.get(x)[8]);
+				csvObject.setPasseggeriAdulti(list.get(x)[1]);
+				csvObject.setPasseggeriBambini(list.get(x)[2]);
+				csvObject.setPasseggeriAnimali(list.get(x)[3]);
+				csvObject.setVeicolo(list.get(x)[4]);
+				csvObject.setSistemazione(list.get(x)[5]);
+				
+				csvObject.setTrattaAndata(Config.get("tratta"));
 
 				String[] tratta=csvObject.getTrattaAndata().split(" - ");
 				String partenza = tratta[0];

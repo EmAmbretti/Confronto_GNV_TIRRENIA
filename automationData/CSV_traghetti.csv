@@ -1,11 +1,21 @@
-ID,COLLEGAMENTO,TRATTA,ANNO,MESE,GIORNO,PASSADULTI,PASSBAMBINI,PASSANIMALI,VEICOLI,Sistemazione,FASCIA ORARIA,STAGIONE
-TestCase1,Sardegna,Civitavecchia - Olbia,2021,Agosto,5,2,2,1,No,Poltrona,DIURNO,ALTA
-TestCase2,Sicilia,Napoli - Palermo,2021,Agosto,2,2,1,0,No,Poltrona,NOTTURNO,BASSA
-TestCase3,Sicilia,Napoli - Palermo,2021,Agosto,2,3,1,0,Si,Poltrona,DIURNO,ALTA
-TestCase4,,Olbia - Civitavecchia,2021,Agosto,2,1,0,0,No,Poltrona,NOTTURNO,BASSA
-TestCase5,,Olbia - Civitavecchia,2021,Agosto,2,2,1,0,No,Poltrona,DIURNO,ALTA
-TestCase6,,Olbia - Civitavecchia,2021,Agosto,2,3,1,0,Si,Poltrona,NOTTURNO,BASSA
-TestCase7,Sardegna,Olbia - Civitavecchia,2021,Agosto,1,1,0,0,No,Poltrona,DIURNO,ALTA
-TestCase8,Sardegna,Olbia - Civitavecchia,2021,Agosto,1,2,1,0,No,Poltrona,NOTTURNO,BASSA
-TestCase9,Sardegna,Olbia - Civitavecchia,2021,Agosto,1,3,1,0,Si,Poltrona,DIURNO,ALTA
-TC9,,Livorno - Olbia,2021,Agosto,12,2,0,0,No,Poltrona,NOTTURNO,BASSA
+ID,PASSADULTI,PASSBAMBINI,PASSANIMALI,VEICOLI,Sistemazione
+TestCase1,2,2,1,No,Poltrona
+TestCase2,2,1,0,No,Poltrona
+TestCase3,3,1,0,Si,Poltrona
+TestCase4,1,0,0,No,Poltrona
+TestCase5,2,1,0,No,Poltrona
+TestCase6,3,1,0,Si,Poltrona
+TestCase7,1,0,0,No,Poltrona
+TestCase8,2,1,0,No,Poltrona
+TC1,2,2,0,MOTO,2 Poltrone
+TC9,2,0,0,No,Ponte
+TC10,2,0,0,No,2 Poltrone
+TC11,2,0,0,No,Cab. Interna
+TC12,2,0,0,No,Cab. Esterna
+TC13,2,0,0,MOTO,2 Poltrone
+TC14,2,0,0,CAR,Cab. Interna
+TC15,2,0,0,CAR,Cab. Esterna
+TC16,2,0,0,VEI 5 mt,Ponte
+TC17,2,0,0,CMP,Ponte
+TC18,2,2,0,CAR,Cab. Interna
+TC19,2,2,0,CAR,Cab. Esterna

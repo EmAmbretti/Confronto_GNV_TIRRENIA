@@ -119,8 +119,7 @@ public class ExcelMaker {
 				
 				riga0.createCell(7).setCellStyle(standardStyle);
 				
-				riga0.createCell(8).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi()
-						.getDatiCsv().getFasciaOraria());
+				riga0.createCell(8).setCellValue(Config.get("fasciaOraria").toUpperCase());
 				
 				riga0.createCell(9).setCellStyle(standardStyle);
 				riga0.createCell(10).setCellStyle(standardStyle);

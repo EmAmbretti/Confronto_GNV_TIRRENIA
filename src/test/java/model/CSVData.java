@@ -3,7 +3,6 @@ package model;
 public class CSVData {
 	
 		private String id = null;
-		private String collegamento = null;
 		private String trattaAndata = null;
 		private String anno = null;
 		private String meseAndata = null;
@@ -13,7 +12,6 @@ public class CSVData {
 		private String passeggeriAnimali = null;
 		private String veicolo = null;
 		private String sistemazione = null;
-		private String fasciaOraria = null;
 		private String comunePartenza = null;
 		private String comuneArrivo = null;
 		
@@ -39,15 +37,14 @@ public class CSVData {
 					data[i] = null;
 
 			this.id = data[0];
-			this.collegamento = data[1];
-			this.trattaAndata = data[2];
-			this.meseAndata = data[3];
-			this.giornoAndata = data[4];
-			this.passeggeriAdulti = data[5];
-			this.passeggeriBambini = data[6];
-			this.passeggeriAnimali = data[7];
-			this.veicolo = data[8];
-			this.sistemazione = data[9];
+			this.trattaAndata = data[1];
+			this.meseAndata = data[1];
+			this.giornoAndata = data[2];
+			this.passeggeriAdulti = data[3];
+			this.passeggeriBambini = data[4];
+			this.passeggeriAnimali = data[5];
+			this.veicolo = data[6];
+			this.sistemazione = data[7];
 		}
 
 		public CSVData() {
@@ -63,14 +60,6 @@ public class CSVData {
 			this.id=id;
 		}
 		
-		public String getCollegamento() {
-			return collegamento;
-		}
-
-		public void setCollegamento(String collegamento) {
-			this.collegamento = collegamento;
-		}
-
 		public String getTrattaAndata() {
 			return trattaAndata;
 		}
@@ -137,7 +126,7 @@ public class CSVData {
 
 		@Override
 		public String toString() {
-			return "CSVData [tipologia=" + id + ", collegamento=" + collegamento + ", trattaAndata="
+			return "CSVData [tipologia=" + id + ", trattaAndata="
 					+ trattaAndata + ", meseAndata=" + meseAndata + ", giornoAndata=" + giornoAndata
 					+ ", passeggeriAdulti=" + passeggeriAdulti + ", passeggeriBambini=" + passeggeriBambini
 					+ ", passeggeriAnimali=" + passeggeriAnimali + ", veicolo=" + veicolo + ", sistemazione=" + sistemazione +"]";
@@ -151,13 +140,6 @@ public class CSVData {
 			this.anno = anno;
 		}
 
-		public String getFasciaOraria() {
-			return fasciaOraria;
-		}
-
-		public void setFasciaOraria(String fasciaOraria) {
-			this.fasciaOraria = fasciaOraria;
-		}
 
 
 }

@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import model.EsitoSito;
+import utils.Config;
 import utils.Generic;
 
 
@@ -39,7 +40,7 @@ public class DisponibilitaPageMOBY {
 							controlloPartenza = true;
 							if(map.get("destinazione").get(i).getText().equalsIgnoreCase(esito.getDatiCsv().getComuneArrivo())) {
 								controlloDestinazione = true;
-								if(Generic.controlloFasciaOraria(map.get("orario").get(i).getText(), esito).equalsIgnoreCase(esito.getDatiCsv().getFasciaOraria())) {
+								if(Generic.controlloFasciaOraria(map.get("orario").get(i).getText(), esito).equalsIgnoreCase(Config.get("fasciaOraria").toUpperCase())) {
 									element.click();
 									controlloOrario = true;
 									Thread.sleep(500);

@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import model.EsitoSito;
+import utils.Config;
 import utils.Generic;
 import utils.Translator;
 
@@ -66,12 +67,12 @@ public class SceltaPageCF {
 								orario = righeTabella.get(i).findElement(By.xpath(".//td[2]/div/span/span[1]")).getText().split(":")[0];
 							
 								// SE DIURNO E..
-								if(Integer.valueOf(orario)<18 && sito.getDatiCsv().getFasciaOraria().contains("DIURN")) {
+								if(Integer.valueOf(orario)<18 && Config.get("fasciaOraria").toUpperCase().contains("DIURN")) {
 									righeTabella.get(i).click();
 									trattaTrovata = true;
 									break;
 									// SE NOTTURNO E..
-								} else if(Integer.valueOf(orario)>18 && sito.getDatiCsv().getFasciaOraria().contains("NOTTURN")){
+								} else if(Integer.valueOf(orario)>18 && Config.get("fasciaOraria").toUpperCase().contains("NOTTURN")){
 									//righeTabella.get(i).click();
 									trattaTrovata = true;
 									tratteDaValutare.add(righeTabella.get(i));
@@ -94,7 +95,7 @@ public class SceltaPageCF {
 				System.out.println("NESSUNA TRATTA TROVATA PER LA FASCIA ORARIA RICHIESTA");
 				sito.setErrori("NESSUNA TRATTA TROVATA PER LA FASCIA ORARIA RICHIESTA");
 			} else {
-				if(sito.getDatiCsv().getFasciaOraria().contains("NOTTURN") ) {
+				if(Config.get("fasciaOraria").toUpperCase().contains("NOTTURN") ) {
 					if(tratteDaValutare.isEmpty()) {
 						System.out.println("NESSUNA TRATTA TROVATA PER LA FASCIA ORARIA RICHIESTA");
 						sito.setErrori("NESSUNA TRATTA TROVATA PER LA FASCIA ORARIA RICHIESTA");

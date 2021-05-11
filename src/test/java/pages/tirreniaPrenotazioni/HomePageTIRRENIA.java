@@ -40,7 +40,7 @@ public class HomePageTIRRENIA {
 	private static void controlloCollegamentoTirrenia(WebDriver driver, CSVData sito, EsitoSito esito) throws Throwable {
 		for(int i = 1; i <= 4; i ++) {
 			WebElement element = driver.findElement(By.xpath("//*[@id=\"ContentPlaceHolder1_motore_ddl_destinazioni\"]/option[" + i + "]"));
-			if(element.getText().equalsIgnoreCase(sito.getCollegamento())) {
+			if(element.getText().equalsIgnoreCase("collegamento")) {
 				element.click();
 				Thread.sleep(2000);
 				break;				

@@ -13,7 +13,7 @@ public class TirreniaPrenotazioni {
 
 	public static void stepTirrenia(WebDriver driver, CSVData testData) throws Throwable {
 		EsitoSito sitoTIRRENIA = new EsitoSito("TIRRENIA",testData);
-		Generic.utente_apre_browser(driver, "https://www.tirrenia-prenotazioni.it", sitoTIRRENIA.getSito());
+		//Generic.utente_apre_browser(driver, "https://www.tirrenia-prenotazioni.it", sitoTIRRENIA.getSito());
 		HomePageTIRRENIA.bypassFrame(driver);
 		HomePageTIRRENIA.inserisciDatiTirrenia(driver, sitoTIRRENIA, testData);
 		Generic.switchPage(driver,sitoTIRRENIA); 

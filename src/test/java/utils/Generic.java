@@ -381,8 +381,8 @@ public class Generic {
 		}else if(orarioInt>=controlloInizioNotturno && orarioInt <=controlloFineNotturno) {
 			return "NOTTURNO";
 		}else {
-			esito.setErrori("fascia"+esito.getDatiCsv().getFasciaOraria()+ "non disponibile");
-			return "fascia"+esito.getDatiCsv().getFasciaOraria()+ "non disponibile";
+			esito.setErrori("fascia "+Config.get("fasciaOraria")+ "non disponibile");
+			return "fascia "+Config.get("fasciaOraria")+ "non disponibile";
 
 		}
 	}
@@ -585,7 +585,6 @@ public class Generic {
 			datiCSV.setAnno(object.getAnno());
 			datiCSV.setComuneArrivo(object.getComuneArrivo());
 			datiCSV.setComunePartenza(object.getComunePartenza());
-			datiCSV.setFasciaOraria(object.getFasciaOraria());
 			datiCSV.setGiornoAndata(object.getGiornoAndata());
 			datiCSV.setId(object.getId());
 			datiCSV.setMeseAndata(object.getMeseAndata());
@@ -595,7 +594,6 @@ public class Generic {
 			datiCSV.setSistemazione(object.getSistemazione());
 			datiCSV.setTrattaAndata(object.getTrattaAndata());
 			datiCSV.setVeicolo(object.getVeicolo());
-			datiCSV.setCollegamento(object.getCollegamento());
 		}
 		
 		return datiCSV;

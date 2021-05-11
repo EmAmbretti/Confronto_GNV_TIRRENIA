@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import model.EsitoSito;
+import utils.Config;
 import utils.Generic;
 
 public class RecuperaImportoPageGRIMALDI {
@@ -56,7 +57,7 @@ public class RecuperaImportoPageGRIMALDI {
 					esitoData = true;
 
 					if(!orarioList.get(i).getText().contains("non disponibile")) {
-						if(Generic.controlloFasciaOraria(orarioList.get(i).getText(),sito).equalsIgnoreCase(sito.getDatiCsv().getFasciaOraria())) {
+						if(Generic.controlloFasciaOraria(orarioList.get(i).getText(),sito).equalsIgnoreCase(Config.get("fasciaOraria").toUpperCase())) {
 							element.click();
 							esitoSistemazione=true;
 							break;

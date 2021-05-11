@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import model.EsitoSito;
+import utils.Config;
 import utils.Generic;
 
 public class RecapPageGNV {
@@ -61,7 +62,7 @@ public class RecapPageGNV {
 			}
 			if(esito.getErrori()==null) {
 				if(mappa.get("listaOrari")!=null && mappa.get("listaOrari").size()>0) {
-					if (Generic.controlloFasciaOraria(mappa.get("listaOrari").get(1).getText(), esito).equalsIgnoreCase(esito.getDatiCsv().getFasciaOraria())) {
+					if (Generic.controlloFasciaOraria(mappa.get("listaOrari").get(1).getText(), esito).equalsIgnoreCase(Config.get("fasciaOraria"))) {
 						for (WebElement testo : mappa.get("listaSistemazioni")) {
 							if(testo.getText().contains(sistemazione)) {
 								try {
@@ -143,8 +144,8 @@ public class RecapPageGNV {
 							i++;
 						}
 					}else {
-						esito.setErrori(esito.getDatiCsv().getFasciaOraria()+" non disponibile");
-						System.out.println(esito.getDatiCsv().getFasciaOraria()+" non disponibile");
+						esito.setErrori(Config.get("fasciaOraria").toUpperCase()+" non disponibile");
+						System.out.println(Config.get("fasciaOraria").toUpperCase()+" non disponibile");
 					}
 				}else {
 					System.out.println("N.D");

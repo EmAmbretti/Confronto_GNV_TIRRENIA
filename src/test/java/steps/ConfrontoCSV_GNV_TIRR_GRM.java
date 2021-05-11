@@ -29,7 +29,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	@Given("^utente apre browser GNV GNV_TIRR_GRM$")
 	public void utente_apre_browser_GNV() throws Throwable {
-		Generic.utente_apre_browser(driver, "https://www.gnv.it/it", sitoGNV.getSito());
+		//Generic.utente_apre_browser(driver, "https://www.gnv.it/it", sitoGNV.getSito());
 	}
 
 	@When("^utente chiude popup GNV_TIRR_GRM$") 
@@ -85,7 +85,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	@When("^utente apre browser TIRR GNV_TIRR_GRM$")
 	public void utente_apre_browser_TIRRENIA() throws Throwable {
-		Generic.utente_apre_browser(driver, "https://www.tirrenia-prenotazioni.it", sitoTIRRENIA.getSito());
+		//Generic.utente_apre_browser(driver, "https://www.tirrenia-prenotazioni.it", sitoTIRRENIA.getSito());
 		
 	}
 	
@@ -128,7 +128,7 @@ public class ConfrontoCSV_GNV_TIRR_GRM {
 	
 	@When("^utente apre browser GRM GNV_TIRR_GRM$")
 	public void utente_apre_browser_GRM_GNV_TIRR_GRM() throws Throwable {
-		Generic.utente_apre_browser(driver, "https://www.grimaldi-lines.com/it", sitoGRIMALDI.getSito());
+		//Generic.utente_apre_browser(driver, "https://www.grimaldi-lines.com/it", sitoGRIMALDI.getSito());
 	}
 
 	@When("^utente bypassa frame GRM GNV_TIRR_GRM$")

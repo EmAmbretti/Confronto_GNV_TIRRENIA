@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import model.EsitoSito;
+import utils.Config;
 import utils.Generic;
 
 public class DisponibilitaPageTIRRENIA {
@@ -33,7 +34,7 @@ public class DisponibilitaPageTIRRENIA {
 			if(element.getAttribute("data-resource").contains("tirrenia")) {
 				if(map.get("partenza").get(i).getText().equalsIgnoreCase(esito.getDatiCsv().getComunePartenza())) {
 					if(map.get("destinazione").get(i).getText().equalsIgnoreCase(esito.getDatiCsv().getComuneArrivo())) {
-						if(Generic.controlloFasciaOraria(map.get("orario").get(i).getText(), esito).equalsIgnoreCase(esito.getDatiCsv().getFasciaOraria())) {
+						if(Generic.controlloFasciaOraria(map.get("orario").get(i).getText(), esito).equalsIgnoreCase(Config.get("fasciaOraria").toUpperCase())) {
 							element.click();
 							flag = true;
 							Thread.sleep(500);
