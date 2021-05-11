@@ -29,11 +29,13 @@ public class ExcelMaker {
 	private static CellStyle greenBGStyle = null;
 	private static CellStyle greenFontStyle = null;
 	private static CellStyle redFontStyle = null;
-	private static CellStyle certerStyle = null;
 	private static CellStyle errorStyle = null;
 	private static CellStyle warningStyle = null;
 	private static CellStyle standardStyle = null;
 	private static CellStyle tinyStyle = null;
+	private static CellStyle lightBlueBGStyle = null;
+	private static CellStyle turquoiseBGStyle = null;
+	private static CellStyle lightTurquoiseBGStyle = null;
 	private static DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("dd.MM.yyyy, HH.mm");
 	private static DateTimeFormatter formatterDateTimeFileName = DateTimeFormatter.ofPattern("dd_MM_yyyy-HH_mm");
 
@@ -98,21 +100,37 @@ public class ExcelMaker {
 				foglio.addMergedRegion(new CellRangeAddress(0, 0, 8, 10));
 
 				riga0.createCell(0).setCellValue("Up to: ");
-
+				
 				riga0.createCell(1).setCellValue(formatterDateTime.format(dateTime));
+				riga0.getCell(1).setCellStyle(standardStyle);
+				
+				riga0.createCell(2).setCellStyle(standardStyle);
+				
 				riga0.createCell(3).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi()
 						.getDatiCsv().getTrattaAndata());
+				riga0.getCell(3).setCellStyle(standardStyle);
+				
+				riga0.createCell(4).setCellStyle(standardStyle);
+				riga0.createCell(5).setCellStyle(standardStyle);
+				riga0.createCell(6).setCellStyle(standardStyle);
+				
 				riga0.createCell(6).setCellValue(Config.get("stagione"));
+				riga0.getCell(6).setCellStyle(standardStyle);
+				
+				riga0.createCell(7).setCellStyle(standardStyle);
+				
 				riga0.createCell(8).setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getGrimaldi()
 						.getDatiCsv().getFasciaOraria());
+				
+				riga0.createCell(9).setCellStyle(standardStyle);
+				riga0.createCell(10).setCellStyle(standardStyle);
+				
 				riga0.createCell(11)
 						.setCellValue(mappaConfronti.get(mappaConfronti.firstKey()).get(0).getCompetitor().getSito());
-
-				// GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA ?
+				riga0.getCell(11).setCellStyle(standardStyle);
 
 				int x = 0;
 				for (LocalDate data : mappaConfronti.keySet()) {
-					Cell cell;
 					Row rigaIntestazione1 = null;
 					x++;
 					if (foglio.getRow(x) == null) {
@@ -130,20 +148,27 @@ public class ExcelMaker {
 
 					// RIGA1 GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA ?
 					rigaIntestazione1.createCell(1).setCellValue("COMBINAZIONI");
-					cell = rigaIntestazione1.getCell(1);
-					cell.setCellStyle(certerStyle);
+					rigaIntestazione1.getCell(1).setCellStyle(turquoiseBGStyle);
 
+					rigaIntestazione1.createCell(2).setCellStyle(standardStyle);
+					rigaIntestazione1.createCell(3).setCellStyle(standardStyle);
+					
 					rigaIntestazione1.createCell(4).setCellValue("PARTENZA");
-					cell = rigaIntestazione1.getCell(4);
-					cell.setCellStyle(certerStyle);
-
+					rigaIntestazione1.getCell(4).setCellStyle(lightBlueBGStyle);
+					
+					rigaIntestazione1.createCell(5).setCellStyle(standardStyle);
+					rigaIntestazione1.createCell(6).setCellStyle(standardStyle);
+					
 					rigaIntestazione1.createCell(7).setCellValue("SCONTI");
-					cell = rigaIntestazione1.getCell(7);
-					cell.setCellStyle(certerStyle);
-
+					rigaIntestazione1.getCell(7).setCellStyle(lightBlueBGStyle);
+					
+					rigaIntestazione1.createCell(8).setCellStyle(standardStyle);
+					rigaIntestazione1.createCell(9).setCellStyle(standardStyle);
+					rigaIntestazione1.createCell(10).setCellStyle(standardStyle);
+					rigaIntestazione1.createCell(11).setCellStyle(standardStyle);
+					
 					rigaIntestazione1.createCell(11).setCellValue("LIV.");
-					cell = rigaIntestazione1.getCell(11);
-					cell.setCellStyle(certerStyle);
+					rigaIntestazione1.getCell(11).setCellStyle(lightBlueBGStyle);
 
 					Row rigaIntestazione2 = null;
 					x++;
@@ -154,29 +179,40 @@ public class ExcelMaker {
 					}
 
 					foglio.addMergedRegion(
-							new CellRangeAddress(rigaIntestazione2.getRowNum(), rigaIntestazione2.getRowNum(), 4, 5));
+							new CellRangeAddress(rigaIntestazione2.getRowNum(), rigaIntestazione2.getRowNum(), 4, 6));
 
 					// rigaIntestazione2 GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA
 					// ?
 					rigaIntestazione2.createCell(1).setCellValue("Pax");
-					;
+					rigaIntestazione2.getCell(1).setCellStyle(lightBlueBGStyle);
+					
 					rigaIntestazione2.createCell(2).setCellValue("Veicolo");
+					rigaIntestazione2.getCell(2).setCellStyle(lightBlueBGStyle);
+					
 					rigaIntestazione2.createCell(3).setCellValue("Sistemazione");
+					rigaIntestazione2.getCell(3).setCellStyle(lightBlueBGStyle);
+					
 					rigaIntestazione2.createCell(4)
 							.setCellValue(data.getDayOfMonth() + "/" + data.getMonthValue() + "/" + data.getYear());
+					rigaIntestazione2.getCell(4).setCellStyle(turquoiseBGStyle);
+					
+					rigaIntestazione2.createCell(5).setCellStyle(standardStyle);
+					rigaIntestazione2.createCell(6).setCellStyle(standardStyle);
+					
 					rigaIntestazione2.createCell(7).setCellValue("Ch");
-					cell = rigaIntestazione2.getCell(7);
-					cell.setCellStyle(greenBGStyle);
+					rigaIntestazione2.getCell(7).setCellStyle(greenBGStyle);
+					
 					rigaIntestazione2.createCell(8).setCellValue("ND");
-					cell = rigaIntestazione2.getCell(8);
-					cell.setCellStyle(greenBGStyle);
+					rigaIntestazione2.getCell(8).setCellStyle(greenBGStyle);
+					
 					rigaIntestazione2.createCell(9).setCellValue("ND");
-					cell = rigaIntestazione2.getCell(9);
-					cell.setCellStyle(greenBGStyle);
+					rigaIntestazione2.getCell(9).setCellStyle(greenBGStyle);
+					
 					rigaIntestazione2.createCell(10).setCellValue("ND");
-					cell = rigaIntestazione2.getCell(10);
-					cell.setCellStyle(greenBGStyle);
-					rigaIntestazione2.createCell(11).setCellValue("pid");
+					rigaIntestazione2.getCell(10).setCellStyle(greenBGStyle);
+
+					rigaIntestazione2.createCell(11).setCellValue("pld");
+					rigaIntestazione2.getCell(11).setCellStyle(standardStyle);
 
 					Row rigaIntestazione3 = null;
 					x++;
@@ -192,13 +228,26 @@ public class ExcelMaker {
 					// rigaIntestazione3 GESTIRE COMBINAZIONE DATA / TRATTA / PREZZO, CON UNA MAPPA
 					// ?
 					rigaIntestazione3.createCell(4).setCellValue("GL PrezzoWeb");
-					rigaIntestazione3.createCell(5).setCellValue("GL PriceList");
-					rigaIntestazione3.createCell(6).setCellValue(mappaConfronti.get(data).get(0).getCompetitor().getSito());
-					rigaIntestazione3.createCell(7).setCellValue("Δ PrezzoWeb");
-					rigaIntestazione3.createCell(11).setCellValue("Δ% PrezzoWeb");
-					rigaIntestazione3.createCell(12).setCellValue("Δ PriceList");
-					rigaIntestazione3.createCell(13).setCellValue("Δ% PriceList");
+					rigaIntestazione3.getCell(4).setCellStyle(lightTurquoiseBGStyle);
 
+					rigaIntestazione3.createCell(5).setCellValue("GL PriceList");
+					rigaIntestazione3.getCell(5).setCellStyle(lightTurquoiseBGStyle);
+					
+					rigaIntestazione3.createCell(6).setCellValue(mappaConfronti.get(data).get(0).getCompetitor().getSito());
+					rigaIntestazione3.getCell(6).setCellStyle(lightTurquoiseBGStyle);
+					
+					rigaIntestazione3.createCell(7).setCellValue("Δ PrezzoWeb");
+					rigaIntestazione3.getCell(7).setCellStyle(lightTurquoiseBGStyle);
+					
+					rigaIntestazione3.createCell(11).setCellValue("Δ% PrezzoWeb");
+					rigaIntestazione3.getCell(11).setCellStyle(lightTurquoiseBGStyle);
+					
+					rigaIntestazione3.createCell(12).setCellValue("Δ PriceList");
+					rigaIntestazione3.getCell(12).setCellStyle(lightTurquoiseBGStyle);
+					
+					rigaIntestazione3.createCell(13).setCellValue("Δ% PriceList");
+					rigaIntestazione3.getCell(13).setCellStyle(lightTurquoiseBGStyle);
+					
 					x = fillExcelWithDifferences(mappaConfronti.get(data), foglio, x) + 2;
 
 				}
@@ -339,30 +388,50 @@ public class ExcelMaker {
 		setBorder(errorStyle);
 		// errorStyle.setWrapText(true);
 
-		certerStyle = fileExcel.createCellStyle();
-		certerStyle.setAlignment(HorizontalAlignment.CENTER);
-
 		redFontStyle = fileExcel.createCellStyle();
 		Font red = fileExcel.createFont();
 		red.setColor(IndexedColors.RED.getIndex());
 		redFontStyle.setFont(red);
 		setBorder(redFontStyle);
+		redFontStyle.setAlignment(HorizontalAlignment.CENTER);
 
 		greenFontStyle = fileExcel.createCellStyle();
 		Font green = fileExcel.createFont();
 		green.setColor(IndexedColors.GREEN.getIndex());
 		greenFontStyle.setFont(green);
 		setBorder(greenFontStyle);
-		
+		greenFontStyle.setAlignment(HorizontalAlignment.CENTER);
 		
 		percStyle = fileExcel.createCellStyle();
 		percStyle.setDataFormat((short) 0xa);
 		setBorder(percStyle);
+		percStyle.setAlignment(HorizontalAlignment.CENTER);
 		
-
 		greenBGStyle = fileExcel.createCellStyle();
-		greenBGStyle.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+		greenBGStyle.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
 		greenBGStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		setBorder(greenBGStyle);
+		
+		turquoiseBGStyle = fileExcel.createCellStyle();
+		turquoiseBGStyle.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
+		turquoiseBGStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		setBorder(turquoiseBGStyle);
+		turquoiseBGStyle.setAlignment(HorizontalAlignment.CENTER);
+		
+		lightBlueBGStyle = fileExcel.createCellStyle();
+		lightBlueBGStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+		lightBlueBGStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		Font white = fileExcel.createFont();
+		white.setColor(IndexedColors.WHITE.getIndex());
+		lightBlueBGStyle.setFont(white);
+		setBorder(lightBlueBGStyle);
+		lightBlueBGStyle.setAlignment(HorizontalAlignment.CENTER);
+		
+		lightTurquoiseBGStyle = fileExcel.createCellStyle();
+		lightTurquoiseBGStyle.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
+		lightTurquoiseBGStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		setBorder(lightTurquoiseBGStyle);
+		lightTurquoiseBGStyle.setAlignment(HorizontalAlignment.CENTER);
 
 		warningStyle = fileExcel.createCellStyle();
 		warningStyle.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
@@ -371,6 +440,7 @@ public class ExcelMaker {
 
 		standardStyle = fileExcel.createCellStyle();
 		setBorder(standardStyle);
+		standardStyle.setAlignment(HorizontalAlignment.CENTER);
 
 		tinyStyle = fileExcel.createCellStyle();
 		setBorder(tinyStyle);
