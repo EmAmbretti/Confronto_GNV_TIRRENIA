@@ -276,7 +276,12 @@ public class PrestazioniPageCF {
 							divPrezzi.remove(i);
 							i--;
 						} else {
-							prezzi.add(Double.valueOf( divPrezzi.get(i).findElement(By.xpath(".//div[2]")).getText().replace(",", ".").replace("€", "") ));
+							if(divPrezzi.get(i).findElement(By.xpath(".//div[2]")).getText().contains("\n")) {
+								prezzi.add(Double.valueOf( divPrezzi.get(i).findElement(By.xpath(".//div[2]")).getText().split("\n")[1].replace(",", ".").replace("€", "") ));
+							} else {
+								prezzi.add(Double.valueOf( divPrezzi.get(i).findElement(By.xpath(".//div[2]")).getText().replace(",", ".").replace("€", "") ));
+							}
+							
 						}
 						/*if (elementList.get(i).findElement(By.xpath(".//div[1]/span[@class='price-name']")).getText()
 								.contains("STANDARD")) {

@@ -30,7 +30,6 @@ public class CSVExtractor {
 				csvObject.setSistemazione(list.get(x)[5]);
 				
 				csvObject.setTrattaAndata(Config.get("tratta"));
-
 				String[] tratta=csvObject.getTrattaAndata().split(" - ");
 				String partenza = tratta[0];
 				String arrivo = tratta[1];

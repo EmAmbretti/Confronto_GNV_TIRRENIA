@@ -36,15 +36,16 @@ public class HomePageCF {
 		// RECUPERO LISTA VIAGGI 
 		ArrayList<WebElement> listaViaggi = Generic.getElementListByXPath(driver, "/html/body/div/ul/li");
 		Translator.modificaTratta(sito);
+		
 		// SCELTA TRATTA
 		boolean flag = false;
 		if(listaViaggi!=null && !listaViaggi.isEmpty()) {
 			for (WebElement webElement : listaViaggi) {
-				if(webElement.getText().contains(sito.getDatiCsv().getComunePartenza()) && webElement.getText().contains(sito.getDatiCsv().getComuneArrivo())) {
+				if(webElement.getText().toUpperCase().contains(sito.getDatiCsv().getComunePartenza().toUpperCase()) && webElement.getText().toUpperCase().contains(sito.getDatiCsv().getComuneArrivo().toUpperCase())) {
 					String trattaRecuperataDalSito = webElement.getText();
 					String[] tratte = null;
 					try {
-					 tratte = trattaRecuperataDalSito.split(sito.getDatiCsv().getComunePartenza());
+					 tratte = trattaRecuperataDalSito.toUpperCase().split(sito.getDatiCsv().getComunePartenza().toUpperCase());
 					} catch (Exception e) {
 						System.out.println("ERRORE CF: ERRORE SPLIT TRATTA");
 						sito.setErrori("ERRORE CF: ERRORE NEL RECUPERARE LISTA TRATTE");
