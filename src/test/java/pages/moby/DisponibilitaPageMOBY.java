@@ -35,21 +35,16 @@ public class DisponibilitaPageMOBY {
 				map.put("orario", driver.findElements(By.xpath("//span[@class='date bold fg-color']")));
 				for(WebElement element : map.get("nave")) {
 					if(element.getAttribute("data-resource").contains("moby")) {
-						controlloNave = true;
 						if(map.get("partenza").get(i).getText().equalsIgnoreCase(esito.getDatiCsv().getComunePartenza())) {
 							controlloPartenza = true;
 							if(map.get("destinazione").get(i).getText().equalsIgnoreCase(esito.getDatiCsv().getComuneArrivo())) {
 								controlloDestinazione = true;
-								if(Generic.controlloFasciaOraria(map.get("orario").get(i).getText(), esito).equalsIgnoreCase(Config.get("fasciaOraria").toUpperCase())) {
-									element.click();
-									controlloOrario = true;
-									Thread.sleep(500);
-									break;
+								if(Generic.controlloFasciaOraria(map.get("orario").get(i).getText(), esito).equalsIgnoreCase(Config.get("fasciaOraria").toUpperCase())) {									element.click();
+								controlloNave = true;
+								controlloOrario = true;
+								Thread.sleep(500);
+								break;
 								} 
-//								else {
-//									System.out.println("ERRORE: fascia oraria non disponibile.");
-//									esito.setErrori("La fascia oraria scelta per questo sito non è disponibile.");
-//								}
 							}
 						}
 					}
@@ -57,19 +52,19 @@ public class DisponibilitaPageMOBY {
 				}
 				if (!controlloOrario) {
 					System.out.println("ERRORE: ORARIO");
-					esito.setErrori("La fascia oraria per questo sito non è disponibile.");
+					esito.setErrori("La fascia oraria per questo itinerario non è disponibile.");
 				}
 				if (!controlloDestinazione) {
 					System.out.println("ERRORE: DESTINAZIONE");
-					esito.setErrori("La destinazione per questo sito non è disponibile.");
+					esito.setErrori("La destinazione per questo itinerario non è disponibile.");
 				}
 				if (!controlloPartenza) {
 					System.out.println("ERRORE: PARTENZA");
-					esito.setErrori("La partenza per questo sito non è disponibile.");
+					esito.setErrori("La partenza per questo itinerario non è disponibile.");
 				}
 				if (!controlloNave) {
-					System.out.println("ERRORE: PARTENZA");
-					esito.setErrori("La nave MOBY per questo sito non è disponibile.");
+					System.out.println("ERRORE: NAVE");
+					esito.setErrori("La tratta per questo itinerario non è disponibile.");
 				}
 			} catch (Exception e) {
 				esito.setErrori("Corsa non disponibile");
@@ -91,5 +86,5 @@ public class DisponibilitaPageMOBY {
 			}
 		}
 	}
-	
+
 }

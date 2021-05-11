@@ -1,6 +1,9 @@
 package pages.moby;
 
+import java.util.ArrayList;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -47,20 +50,25 @@ public class HomePageMOBY {
 	private static void selezionaTrattaMOBY(WebDriver driver, EsitoSito esito, CSVData data) {
 		if(esito.getErrori() == null) {
 			System.out.println("Start method: selezionaTrattaMOBY");
-			try {	
-				Generic.clickByXPath(driver, "//*[@id=\"widget-home\"]/form/div[2]/div[1]/div/div[1]/div/span");
-				Thread.sleep(1000);			
-				try {
-					Generic.clickByXPath(driver, "/html/body/div/div/span/span/ul/li/span/ul/li/span[contains(.,'" + data.getTrattaAndata() + "')]");
-				}catch (Exception e){
-					esito.setErrori("la tratta per questo sito non è disponibile.");
-					System.out.println("L'elemento TRATTA: " + data.getTrattaAndata() + " non è disponibile.");
-				}
-				Thread.sleep(5000);
+			WebElement trattaDaTrovare = null;
+			Generic.clickByXPath(driver, "//*[@id=\"widget-home\"]/form/div[2]/div[1]/div/div[1]/div/span[@class='jcf-select jcf-unselectable jcf-select-select-picker']");
+			try{
+				Thread.sleep(2000);
 			} catch (Exception e) {
-				esito.setErrori("Tratta non disponibile.");
-				System.out.println("ERRORE: selezionaTratta");
+				System.out.println("ATTESA?");
 			}
+			System.out.println("PROVO A TROVARE ELEMENTO");
+			JavascriptExecutor je = (JavascriptExecutor) driver;
+			try {
+				System.out.println("STO NEL TRY 81");
+				trattaDaTrovare = driver.findElement(By.xpath("/html/body/div/div/span/span/ul/li/span/ul/li/span[contains(.,'" + data.getTrattaAndata() + "')]"));
+				je.executeScript("arguments[0].scrollIntoView(true);", trattaDaTrovare);
+				trattaDaTrovare.click();
+				Thread.sleep(5000);
+			}catch (Exception e){
+				esito.setErrori("la tratta per questo sito non è disponibile.");
+				System.out.println("L'elemento TRATTA: " + data.getTrattaAndata() + " non è disponibile.");
+			}		
 		}
 	}
 
