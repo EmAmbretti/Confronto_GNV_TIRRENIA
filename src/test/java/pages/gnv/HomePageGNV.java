@@ -46,7 +46,8 @@ public class HomePageGNV {
 	private static void scegliTrattaGNV(WebDriver driver, EsitoSito esito) {
 		if (esito.getErrori() == null) {
 			cliccaSoloAndataGNV(driver, esito);
-			selezionaTrattaGNV(driver, esito);
+			//selezionaTrattaGNV(driver, esito);
+			selezionaTrattaGNV_2(driver, esito);
 			cliccaContinuaGNV(driver, esito);
 		}
 	}
@@ -108,6 +109,40 @@ public class HomePageGNV {
 			} catch (Exception e) {
 				e.printStackTrace();
 				esito.setErrori("la tratta per questo sito non è disponibile.");
+			}
+		}
+	}
+	
+	private static void selezionaTrattaGNV_2(WebDriver driver, EsitoSito sito) {
+		if(sito.getErrori()==null) {
+			try {
+				boolean flag = false;
+				ArrayList<WebElement> listaPartenza = Generic.getElementListByXPath(driver, "//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[1]/app-booking-wizard-step1/div/div/app-travel-viewer-map/div/div[2]/div[1]/div/div[1]/perfect-scrollbar/div/div/dl/div/dd/label/span");
+				for (WebElement element : listaPartenza) {
+					if(element.getText().toUpperCase().contains(sito.getDatiCsv().getComunePartenza().toUpperCase())) {
+						element.click();
+						flag = true;
+						break;
+					}
+				}
+				
+				if(flag) {
+					ArrayList<WebElement> listaDestinazioni = Generic.getElementListByXPath(driver, "//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[1]/app-booking-wizard-step1/div/div/app-travel-viewer-map/div/div[2]/div[1]/div/div[2]/perfect-scrollbar/div/div/dl/div/dd/label/span");
+					for (WebElement element : listaDestinazioni) {
+						if(element.getText().toUpperCase().contains(sito.getDatiCsv().getComuneArrivo().toUpperCase())) {
+							element.click();
+							flag = true;
+							break;
+						}
+					}
+				}
+				
+				if(!flag) {
+					sito.setErrori("TRATTA NON TROVATA");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				sito.setErrori("TRATTA NON TROVATA");
 			}
 		}
 	}
