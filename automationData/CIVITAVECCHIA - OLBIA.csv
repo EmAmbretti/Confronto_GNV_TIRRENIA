@@ -1,0 +1,12 @@
+ID,PASSADULTI,PASSBAMBINI,PASSANIMALI,VEICOLI,Sistemazione
+TestCase1,2,0,0,No,Ponte
+TestCase2,2,0,0,No,Poltrona
+TestCase3,2,0,0,No,Cab. Interna
+TestCase4,2,0,0,No,Cab. Esterna
+TestCase5,2,0,0,MOTO,Poltrona
+TestCase6,2,0,0,CAR,Cab. Interna
+TestCase7,2,0,0,CAR,Cab. Esterna
+TestCase8,2,0,0,VEI FINO a 7 mt,Ponte
+TestCase9,2,0,0,CMP,Ponte
+TestCase10,2,2,0,CAR,Cab. Interna
+TestCase11,2,2,0,CAR,Cab. Esterna

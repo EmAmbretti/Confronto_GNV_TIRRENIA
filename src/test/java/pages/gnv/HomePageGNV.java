@@ -380,7 +380,7 @@ public class HomePageGNV {
 					Generic.clickByList(driver,
 							"//div[@class='counter-wrapper orange']//button[@class='input-number-increment']", 2);
 					Generic.clickByXPath(driver, "//select[@id='height']");
-					Generic.clickByXPath(driver, "//option[contains(.,'Inferiore a  2,9m')]");
+					Generic.clickByXPath(driver, "//option[contains(.,'Tra 2,9m  e 4,2m')][@class='ng-star-inserted']");
 					Generic.clickByXPath(driver, "//select[@id='length']");
 					Generic.clickByXPath(driver, "//select[@id='length']/option[contains(.,'Tra 6m  e 7m')]");
 					Generic.clickByXPath(driver, "//span[@class='gnv-icon icon-right ng-star-inserted']");
@@ -398,6 +398,22 @@ public class HomePageGNV {
 					System.out.println(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
 					esito.setErrori(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
 				}
+			} else if(esito.getDatiCsv().getVeicolo().equalsIgnoreCase("VEI 7 mt") || esito.getDatiCsv().getVeicolo().equalsIgnoreCase("VEI FINO A 7 mt")) {
+				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver,
+						"//div[@class='counter-wrapper orange']//button[@class='input-number-increment']");
+				if (elements != null) {
+					Generic.clickByList(driver,
+							"//div[@class='counter-wrapper orange']//button[@class='input-number-increment']", 1);
+					Generic.clickByXPath(driver, "//select[@id='height']");
+					Generic.clickByXPath(driver,"//option[contains(.,'Inferiore a  2,9m')]");
+					Generic.clickByXPath(driver, "//select[@id='length']");
+					Generic.clickByXPath(driver, "//select[@id='length']/option[contains(.,'Tra 6m  e 7m')]");
+					Generic.clickByXPath(driver, "//span[@class='gnv-icon icon-right ng-star-inserted']");
+				} else {
+					System.out.println(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
+					esito.setErrori(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
+				}
+				
 			}
 		}
 	}
