@@ -197,7 +197,7 @@ public class HomePageGNV {
 				} else {
 					cliccaFrecciaAvantiGNV(driver, esito);
 				}
-			} while (flag);
+			} while (!flag);
 			Generic.waitSeconds(1);
 		}
 	}
