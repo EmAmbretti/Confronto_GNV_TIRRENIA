@@ -7,93 +7,110 @@ import java.util.TreeMap;
 import model.CSVData;
 import model.Differenza;
 import model.EsitoSito;
-import steps.CorsicaFerries;
-import steps.GNV;
-import steps.GrimaldiLines;
-import steps.Moby;
-import steps.Tirrenia;
 import utils.CSVExtractor;
 import utils.Config;
 import utils.ExcelMaker;
 import utils.Generic;
 import utils.Path;
+import utils.Validation;
 
 public class StartFor {
 
 	public static void main(String[] args) {
 
-		TreeMap<LocalDate, ArrayList<Differenza>> mappaConfronti = new TreeMap<LocalDate, ArrayList<Differenza>>();
+		args = new String[1];
+		args[0] = "C:\\Users\\giovanni.sorrentino\\Desktop\\config.properties";
 
-		ArrayList<CSVData> datiCSV = CSVExtractor.process(Path.PATH);
+		if (Validation.propertiesFilePathCheck(args[0])) {
+			if (Validation.propertiesFileValuesCheck()) {
 
-		LocalDate dataInizio = null;
-		LocalDate dataFine = null;
+				TreeMap<LocalDate, ArrayList<Differenza>> mappaConfronti = new TreeMap<LocalDate, ArrayList<Differenza>>();
 
-		dataInizio = Generic.setDataInizio("ALTA");
-		dataFine = Generic.setDataFine("ALTA");
+				ArrayList<CSVData> datiCSV = CSVExtractor.process(Config.get("path_csv"));
 
-		LocalDate dataPrenotazione = dataInizio;
+				LocalDate dataInizio = null;
+				LocalDate dataFine = null;
 
-		int numeroDiGiorniDaLanciare = Generic.controlloStagione(Config.get("stagione"));
+				dataInizio = Generic.setDataInizio("ALTA");
+				dataFine = Generic.setDataFine("ALTA");
 
-		for (int i = 0; i <= numeroDiGiorniDaLanciare; i++) {
-			try {
-				ArrayList<Differenza> listaDifferenze = new ArrayList<Differenza>();
+				LocalDate dataPrenotazione = dataInizio;
 
-				for (int x = 0; x < datiCSV.size(); x++) {
+				int numeroDiGiorniDaLanciare = Generic.controlloStagione(Config.get("stagione"));
+
+				for (int i = 0; i <= numeroDiGiorniDaLanciare; i++) {
 					try {
-						Generic.setDataPrenotazioneNelModelCSV(datiCSV.get(x), dataPrenotazione);
+						ArrayList<Differenza> listaDifferenze = new ArrayList<Differenza>();
+						int prezzoDaEliminare = 10;
+						for (int x = 0; x < datiCSV.size(); x++) {
+							try {
+								Generic.setDataPrenotazioneNelModelCSV(datiCSV.get(x), dataPrenotazione);
+								EsitoSito esitoGrimaldi = new EsitoSito("grimaldi", datiCSV.get(i));
+								EsitoSito esitoTirrenia = new EsitoSito("tirrenia", datiCSV.get(i));
 
-						EsitoSito esitoGrimaldi = null;
-						try {
-							esitoGrimaldi = GrimaldiLines.stepGrimaldi(datiCSV.get(x));
-						} catch (Throwable e) {
-							e.printStackTrace();
+								esitoGrimaldi.setPrezzo(String.valueOf(100 + (prezzoDaEliminare * (x + 1))));
+								esitoTirrenia.setPrezzo(String.valueOf(120 + (prezzoDaEliminare * (x + 1))));
+
+								Differenza diff = new Differenza(esitoGrimaldi, esitoTirrenia);
+								listaDifferenze.add(diff);
+
+//								EsitoSito esitoGrimaldi = null;
+//								try {
+//									esitoGrimaldi = GrimaldiLines.stepGrimaldi(datiCSV.get(x));
+//								} catch (Throwable e) {
+//									e.printStackTrace();
+//								}
+//								EsitoSito esitoCompetitor = null;
+//								if (Config.get("competitor").equalsIgnoreCase("GNV")) {
+//									try {
+//										esitoCompetitor = GNV.allMethods(datiCSV.get(x));
+//									} catch (Throwable e) {
+//										e.printStackTrace();
+//									}
+//								} else if (Config.get("competitor").equalsIgnoreCase("TIRRENIA")) {
+//									try {
+//										esitoCompetitor = Tirrenia.stepTirrenia(datiCSV.get(x));
+//									} catch (Throwable e) {
+//										e.printStackTrace();
+//									}
+//								} else if (Config.get("competitor").equalsIgnoreCase("MOBY")) {
+//									esitoCompetitor = Moby.allMethods(datiCSV.get(x));
+//								} else if (Config.get("competitor").equalsIgnoreCase("CF")
+//										|| Config.get("competitor").equalsIgnoreCase("CORSICA FERRIES")) {
+//									esitoCompetitor = CorsicaFerries.automation(datiCSV.get(x));
+//								} else {
+//									System.out.println("Competitor non riconosciuto");
+//								}
+//
+//								Differenza diff = new Differenza(esitoGrimaldi, esitoCompetitor);
+//								listaDifferenze.add(diff);
+
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
-						EsitoSito esitoCompetitor = null;
-						if (Config.get("competitor").equalsIgnoreCase("GNV")) {
-							try {
-								esitoCompetitor = GNV.allMethods(datiCSV.get(x));
-							} catch (Throwable e) {
-								e.printStackTrace();
-							}
-						} else if (Config.get("competitor").equalsIgnoreCase("TIRRENIA")) {
-							try {
-								esitoCompetitor = Tirrenia.stepTirrenia(datiCSV.get(x));
-							} catch (Throwable e) {
-								e.printStackTrace();
-							}
-						} else if (Config.get("competitor").equalsIgnoreCase("MOBY")) {
-							esitoCompetitor = Moby.allMethods(datiCSV.get(x));
-						} else if (Config.get("competitor").equalsIgnoreCase("CF")
-								|| Config.get("competitor").equalsIgnoreCase("CORSICA FERRIES")) {
-							esitoCompetitor = CorsicaFerries.automation(datiCSV.get(x));
+
+						if (!listaDifferenze.isEmpty()) {
+							mappaConfronti.put(dataPrenotazione, listaDifferenze);
 						} else {
-							System.out.println("Competitor non riconosciuto");
+							System.out.println("LISTA DIFFERENZE VUOTA");
 						}
 
-						Differenza diff = new Differenza(esitoGrimaldi, esitoCompetitor);
-						listaDifferenze.add(diff);
+						if (!dataPrenotazione.equals(dataFine)) {
+							dataPrenotazione = dataPrenotazione.plusDays(1);
+						} else {
+							break;
+						}
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
-
-				if (!listaDifferenze.isEmpty()) {
-					mappaConfronti.put(dataPrenotazione, listaDifferenze);
-				} else {
-					System.out.println("LISTA DIFFERENZE VUOTA");
-				}
-
-				if (!dataPrenotazione.equals(dataFine)) {
-					dataPrenotazione = dataPrenotazione.plusDays(1);
-				} else {
-					break;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+				ExcelMaker.createReport(mappaConfronti, Config.get("path_cartella_di_destinazione"));
+			} else {
+				System.out.println("PATH FILE PROPERTIES ERRATO");
 			}
+
 		}
-		ExcelMaker.createReport(mappaConfronti, Config.get("path_cartella_di_destinazione"));
+
 	}
 }
