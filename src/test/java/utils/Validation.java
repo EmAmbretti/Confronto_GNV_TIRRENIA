@@ -23,24 +23,21 @@ public class Validation {
 	}
 
 	public static boolean propertiesFileValuesCheck() {
-		boolean flag = true;
+		boolean flag = false;
 
 		if (checkCompetitor()) {
 			if (checkOrario()) {
 				if (checkStagione()) {
 					if(csvFilePathCheck()) {
 						if(csvHeaderDataCheck()) {
-							if (!folderDestinationCheck()) {
-								flag = false;
+							if (folderDestinationCheck()) {
+								flag = true;
 							}
 						}
-						
 					}
-					
 				}
 			}
 		}
-
 		return flag;
 	}
 
