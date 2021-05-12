@@ -312,6 +312,7 @@ public class PrestazioniPageCF {
 				sito.setErrori("ERRORE SCELTA TARIFFA");
 			}
 		}
+		System.out.println("\n-------------- CF TERMINATO ------------");
 	}
 
 }
