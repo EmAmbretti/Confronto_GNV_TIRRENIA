@@ -69,27 +69,6 @@ public class Generic {
 		return null;
 	}
 
-	public static List<WebElement> findElementsByAttribute(WebElement parent, String attr, String rex) {
-		List<WebElement> childs = parent.findElements(By.cssSelector("*"));
-		List<WebElement> found = new ArrayList<>();
-		for (int i = 0; i < childs.size(); ++i) {
-			WebElement entry = childs.get(i);
-			String a = entry.getAttribute(attr);
-			if (attr.matches(rex))
-				found.add(entry);
-		}
-		return found;
-	}
-
-	public static WebElement findElementByAttribute(List<WebElement> l, String attr, String rex) {
-		for (int i = 0; i < l.size(); ++i) {
-			WebElement entry = l.get(i);
-			String a = entry.getAttribute(attr);
-			if (attr.matches(rex))
-				return entry;
-		}
-		return null;
-	}
 
 	public static void scrollPage(WebDriver driver, String scroll) {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
