@@ -598,4 +598,25 @@ public class Generic {
 		
 		return datiCSV;
 	}
+	
+	public static String toCamelCase(String frase) {
+		boolean minuscolo=true;
+		String fraseCamelCase="";
+		frase=frase.toLowerCase();
+		for(int i=0;i<frase.length();i++) {
+			String x = frase.charAt(i)+"";
+			if(x.hashCode()>=97&&x.hashCode()<=122) {
+				if(minuscolo) {
+					fraseCamelCase+=x.toUpperCase();
+					minuscolo=false;
+				}else {
+					fraseCamelCase+=x;
+				}
+			}else {
+				fraseCamelCase+=x;
+				minuscolo=true;
+			}
+		}
+		return fraseCamelCase;
+	}
 }
