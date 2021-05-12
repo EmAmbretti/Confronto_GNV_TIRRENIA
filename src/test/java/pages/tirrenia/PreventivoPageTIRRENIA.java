@@ -218,20 +218,22 @@ public class PreventivoPageTIRRENIA {
 			Generic.clickByXPath(driver, "//div[@class='content-mobile-select']//button");
 			if (sito.getDatiCsv().getVeicolo().equalsIgnoreCase("CAR")) {
 				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver,
-						"//li[@class='option']/a[@class='fg-color'][contains(.,'Auto con lunghezza fino a 4m')]");
+						"//li[@class='option']/a[@class='fg-color'][contains(.,'Auto con lunghezza da 4,01m a 5m')]");
 				if (elements != null) {
 					Generic.clickByXPath(driver,
-							"//li[@class='option']/a[@class='fg-color'][contains(.,'Auto con lunghezza fino a 4m')]");
+							"//li[@class='option']/a[@class='fg-color'][contains(.,'Auto con lunghezza da 4,01m a 5m')]");
 				} else {
 					System.out.println(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
 					sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
 				}
 			} else if (sito.getDatiCsv().getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
 								ArrayList<WebElement> elements = Generic.getElementListByXPath(driver,
-										"//li[@class='option']/a[@class='fg-color'][contains(.,'Auto con lunghezza da 4,01m a 5m')]");
+										"//li[@class='option']/a[@class='fg-color'][contains(.,'Camper nel garage')]");
 								if (elements != null) {
 									Generic.clickByXPath(driver,
-											"//li[@class='option']/a[@class='fg-color'][contains(.,'Auto con lunghezza da 4,01m a 5m')]");
+											"//li[@class='option']/a[@class='fg-color'][contains(.,'Camper nel garage')]");
+									Generic.sendKeysByXPath(driver, "//input[@id='veicoloLungAndata']", "500");
+									Generic.sendKeysByXPath(driver, "//input[@id='veicoloAltAndata']", "260");
 								} else {
 									System.out.println(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
 									sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
@@ -253,7 +255,7 @@ public class PreventivoPageTIRRENIA {
 				if (elements != null) {
 					Generic.clickByXPath(driver,
 							"//li[@class='option']/a[@class='fg-color'][contains(.,'Camper nel garage')]");
-					Generic.sendKeysByXPath(driver, "//input[@id='veicoloLungAndata']", "701");
+					Generic.sendKeysByXPath(driver, "//input[@id='veicoloLungAndata']", "750");
 					Generic.sendKeysByXPath(driver, "//input[@id='veicoloAltAndata']", "260");
 				} else {
 					System.out.println(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
