@@ -51,7 +51,7 @@ public class ExcelMaker {
 		if (flag) {
 			try {
 				LocalDateTime dateTime = LocalDateTime.now();
-				String filename = path + File.separator + "Esito_Confronto_Grimaldi_"+Config.get("competitor")+"_"+Config.get("tratta")+"_"
+				String filename = path + File.separator + "RIVEL_"+Config.get("competitor")+"_"+Config.get("tratta").replace(" ", "")+"_"
 						+ dateTime.format(formatterDateTimeFileName);
 
 				boolean flagForFile = true;
