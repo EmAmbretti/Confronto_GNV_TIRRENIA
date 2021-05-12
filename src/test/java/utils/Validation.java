@@ -163,13 +163,13 @@ public class Validation {
 			List<String[]> list = new ArrayList<>();
 			String line = "";
 			while ((line = reader.readLine()) != null) {
-				String[] array = line.split(";");
+				String[] array = line.split(",");
 				list.add(array);
 			}
 
 			try {
 				boolean flagCheckHeader = true;
-				if (list.get(0).length == 5) {
+				if (list.get(0).length == 6) {
 					// CONTROLLO A CASCATA DELL'HEADER
 					if (list.get(0)[0].contains("ID")) {
 						if (list.get(0)[1].equalsIgnoreCase("PASSADULTI")) {
@@ -204,6 +204,7 @@ public class Validation {
 						System.out.println("ERRORE V004: ELEMENTO 1 DELL'HEADER DIVERSO DA ID");
 					}
 				} else {
+					flagCheckHeader = false;
 					System.out.println("ERRORE V003: NUMERO COLONNE CSV ERRATO");
 				}
 
