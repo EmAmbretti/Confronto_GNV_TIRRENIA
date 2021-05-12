@@ -44,8 +44,6 @@ public class Differenza {
 		this.competitor = competitor;
 		if(grimaldi!=null && competitor!=null) {
 			if(grimaldi.getErrori() == null && competitor.getErrori() == null) {
-				System.out.println("GRIMALDI : " + grimaldi.getPrezzo());
-				System.out.println("COMPETITOR: " + competitor.getPrezzo());
 				if(grimaldi.getPrezzo() != null && competitor.getPrezzo() != null) {
 					differenzaPrezzo = Double.valueOf(grimaldi.getPrezzo()) - Double.valueOf(competitor.getPrezzo());
 					differenzaPrezzoPercentuale = 100 - (int) Math.round((Double.valueOf(grimaldi.getPrezzo()) / Double.valueOf(competitor.getPrezzo()) * 100));

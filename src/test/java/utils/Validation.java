@@ -63,12 +63,12 @@ public class Validation {
 	
 	private static boolean checkVeicoli(String veicolo) {
 		boolean flag = true;
-
 		switch (veicolo.toUpperCase()) {
 		case "MOTO":
 		case "CAR":
-		case "VEI 5MT":
+		case "VEI 5 MT":
 		case "CMP":
+		case "NO":
 			break;
 		default:
 			System.out.println("VEICOLO NON RICONOSCIUTO");
@@ -82,8 +82,7 @@ public class Validation {
 		boolean flag = true;
 		
 		sistemazione = sistemazione.toUpperCase();
-		
-		if(!sistemazione.equalsIgnoreCase("CAB. INTERNA") || !sistemazione.equalsIgnoreCase("CAB. ESTERNA") || !sistemazione.equalsIgnoreCase("PONTE") || !sistemazione.contains("POLTRON")) {
+		if(!sistemazione.equalsIgnoreCase("CAB. INTERNA") && !sistemazione.equalsIgnoreCase("CAB. ESTERNA") && !sistemazione.equalsIgnoreCase("PONTE") && !sistemazione.contains("POLTRON")) {
 			flag = false;
 		}
 		return flag;
@@ -278,7 +277,7 @@ public class Validation {
 												System.out.println("Sistemazione inserita in modo errato");
 												return false;
 											} else {
-												System.out.println("RIGA CSV num.+"+numeroRiga+" CORRETTA");
+												System.out.println("RIGA CSV num."+numeroRiga+" CORRETTA");
 												flag = true;
 											}
 										} else {
