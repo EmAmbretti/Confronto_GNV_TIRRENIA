@@ -619,4 +619,22 @@ public class Generic {
 		}
 		return fraseCamelCase;
 	}
+	
+	public static String toPath(String path) {
+		boolean backSlash=false;
+		String pathDaRestituire="";
+		for(int i=0;i<path.length();i++) {
+			String x = path.charAt(i)+"";
+			if(x.hashCode()==92) {
+				if(!backSlash) {
+					pathDaRestituire+="\\\\";
+					backSlash=true;
+				}	
+			}else {
+				pathDaRestituire+=x;
+				backSlash=false;
+			}
+		}
+		return pathDaRestituire;
+	}
 }
