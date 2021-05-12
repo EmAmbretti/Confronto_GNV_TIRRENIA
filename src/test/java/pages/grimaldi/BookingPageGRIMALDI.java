@@ -81,11 +81,19 @@ public class BookingPageGRIMALDI {
 
 	private static void aggiungiSistemazioniPasseggeriGrimaldi(WebDriver driver, EsitoSito sito) throws Throwable {
 		if(sito.getErrori() == null) {
+			int i=1;
 			while(driver.findElement(By.id("btAccLeg1")).getAttribute("style").contains("none")) {
 				System.out.println("attendo caricamento sistemazioni...");
 				Thread.sleep(1500);
+				if(i>=10) {
+					sito.setErrori("Errore: timeOut caricamento pagina.");
+					break;
+				}
 			}
-			selezionaSistemazioneGrimaldi(driver, sito);
+			if(sito.getErrori() == null){
+				selezionaSistemazioneGrimaldi(driver, sito);
+			}
+
 		}
 		if(sito.getErrori() == null) {
 			inseriscoPasseggeriGrimaldi(driver, sito);			
@@ -97,26 +105,35 @@ public class BookingPageGRIMALDI {
 		Generic.clickById(driver, "accLeg1Select");
 		Thread.sleep(2000);
 		boolean ripeti=true;
+		int tempo=1;
 		do {
 			try {
 				WebElement element=driver.findElement(By.xpath("//*[@id=\"accBox\"]/div/div[2]/span"));
 				System.out.println("testo elemento sist. "+element.getText());
 				if(!element.getText().contains("Ponte")) {
 					Thread.sleep(1500);
-
 					System.out.println("Attendo caricamento sistemazione...");
+					tempo++;
 				}else {
 					ripeti=false;
 				}
 			} catch (Exception e) {
 				Thread.sleep(1500);
 				System.out.println("Attendo caricamento sistemazione...");
+				tempo++;
+			}
+			if(tempo>=10) {
+				sito.setErrori("Errore: timeOut caricamento pagina");
+				break;
 			}
 		}while(ripeti);
 
-		Generic.clickByXPath(driver, "//*[@id=\"accBox\"]/div/div[2]/span");
-		Thread.sleep(1000);
-		
+		if(sito.getErrori() == null) {
+			Generic.clickByXPath(driver, "//*[@id=\"accBox\"]/div/div[2]/span");
+			Thread.sleep(1000);	
+		}
+
+
 		if(sito.getErrori() == null) {
 
 			String sistemazione=setSistemazioneString(sito.getDatiCsv());
@@ -125,9 +142,7 @@ public class BookingPageGRIMALDI {
 			List<WebElement> elementList = driver.findElements(By.xpath("//*[@id=\"accBox\"]/div/div[3]/div/ul/li"));
 			while(i<=4) {
 				for(WebElement element:elementList) {
-					System.out.println("elemento trovato: "+element.getText());
 					if(element.getText().equalsIgnoreCase(sistemazione)) {
-						System.out.println("trovato");
 						element.click();
 						flag=true;
 						break;
@@ -247,39 +262,39 @@ public class BookingPageGRIMALDI {
 					sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
 				}
 			} else if (sito.getDatiCsv().getVeicolo().equalsIgnoreCase("VEI 5 mt")) {
-								ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Veicolo')]");
-								if(elements!=null) {
-								Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Veicolo')]");
-								Thread.sleep(1000);
-								Generic.clickByXPath(driver, "//tr[@id=\"setVehLH\"]/td[1]/div[5]/div[1]");
-								Thread.sleep(1000);
-				//				Generic.clickByXPath(driver, "//input[@id='mtlCar']");
-								Generic.sendKeysByXPath(driver, "//input[@id='mtlCar']", "501");
-								Generic.clickById(driver, "createcar");
-								}else {
-									System.out.println(sito.getDatiCsv().getVeicolo() + "non disponibile per questa tratta");
-									sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
-								}
-//				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
-//				if(elements!=null) {
-//					Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
-//					//Mirko
-//					Thread.sleep(1000);
-//					Generic.sendKeysById(driver, "mtlCar", "501");
-//					Thread.sleep(1000);
-//					//Mirko
-//					Generic.clickById(driver, "createcar");
-//				}else {
-//					System.out.println(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
-//					sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
-//				}
+				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Veicolo')]");
+				if(elements!=null) {
+					Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Veicolo')]");
+					Thread.sleep(1000);
+					Generic.clickByXPath(driver, "//tr[@id=\"setVehLH\"]/td[1]/div[5]/div[1]");
+					Thread.sleep(1000);
+					//				Generic.clickByXPath(driver, "//input[@id='mtlCar']");
+					Generic.sendKeysByXPath(driver, "//input[@id='mtlCar']", "501");
+					Generic.clickById(driver, "createcar");
+				}else {
+					System.out.println(sito.getDatiCsv().getVeicolo() + "non disponibile per questa tratta");
+					sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
+				}
+				//				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
+				//				if(elements!=null) {
+				//					Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
+				//					//Mirko
+				//					Thread.sleep(1000);
+				//					Generic.sendKeysById(driver, "mtlCar", "501");
+				//					Thread.sleep(1000);
+				//					//Mirko
+				//					Generic.clickById(driver, "createcar");
+				//				}else {
+				//					System.out.println(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
+				//					sito.setErrori(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
+				//				}
 			} else if (sito.getDatiCsv().getVeicolo().equalsIgnoreCase("CMP")) {
 				ArrayList<WebElement> elements = Generic.getElementListByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
 				if(elements!=null) {
 					Generic.clickByXPath(driver, "//div[@id='carBox']/div/div[3]/div/ul/li[contains(text(),'Camper')]");
 					//Mirko
 					Thread.sleep(1000);
-					Generic.sendKeysById(driver, "mtlCar", "75");
+					Generic.sendKeysById(driver, "mtlCar", "7");
 					Thread.sleep(1000);
 					//Mirko
 					Generic.clickById(driver, "createcar");

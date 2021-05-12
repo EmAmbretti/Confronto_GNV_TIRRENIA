@@ -253,7 +253,7 @@ public class PreventivoPageTIRRENIA {
 				if (elements != null) {
 					Generic.clickByXPath(driver,
 							"//li[@class='option']/a[@class='fg-color'][contains(.,'Camper nel garage')]");
-					Generic.sendKeysByXPath(driver, "//input[@id='veicoloLungAndata']", "750");
+					Generic.sendKeysByXPath(driver, "//input[@id='veicoloLungAndata']", "701");
 					Generic.sendKeysByXPath(driver, "//input[@id='veicoloAltAndata']", "260");
 				} else {
 					System.out.println(sito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");
