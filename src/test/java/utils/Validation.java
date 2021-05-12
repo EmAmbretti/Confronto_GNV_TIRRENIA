@@ -60,6 +60,34 @@ public class Validation {
 		}
 		return flag;
 	}
+	
+	private static boolean checkVeicoli(String veicolo) {
+		boolean flag = true;
+
+		switch (veicolo.toUpperCase()) {
+		case "MOTO":
+		case "CAR":
+		case "VEI 5MT":
+		case "CMP":
+			break;
+		default:
+			System.out.println("VEICOLO NON RICONOSCIUTO");
+			flag = false;
+			break;
+		}
+		return flag;
+	}
+	
+	private static boolean checkSistemazione(String sistemazione) {
+		boolean flag = true;
+		
+		sistemazione = sistemazione.toUpperCase();
+		
+		if(!sistemazione.equalsIgnoreCase("CAB. INTERNA") || !sistemazione.equalsIgnoreCase("CAB. ESTERNA") || !sistemazione.equalsIgnoreCase("PONTE") || !sistemazione.contains("POLTRON")) {
+			flag = false;
+		}
+		return flag;
+	}
 
 	private static boolean checkStagione() {
 		String stagione = Config.get("stagione");
@@ -219,6 +247,69 @@ public class Validation {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public static boolean csvRowCheck(String[] rigaCsv, int numeroRiga) {
+		boolean flag = false;
+		try {
+					if (rigaCsv[0] != null && !rigaCsv[0].isEmpty()) {
+						if (rigaCsv[1] != null && !rigaCsv[1].isEmpty()) {
+							if(!Pattern.compile("[0-9]{1,2}").matcher(rigaCsv[1]).matches()) {
+								System.out.println("PassAdulti inserito in modo errato");
+								return false;
+							}
+							if (rigaCsv[2] != null && !rigaCsv[2].isEmpty()) {
+								if(!Pattern.compile("[0-9]{1,2}").matcher(rigaCsv[2]).matches()) {
+									System.out.println("PassBambini inserito in modo errato");
+									return false;
+								}
+								if (rigaCsv[3] != null && !rigaCsv[3].isEmpty()) {
+									if(!Pattern.compile("[0-9]{1,2}").matcher(rigaCsv[3]).matches()) {
+										System.out.println("PassAnimali inserito in modo errato");
+										return false;
+									}
+									if (rigaCsv[4] != null && !rigaCsv[4].isEmpty()) {
+										if(!checkVeicoli(rigaCsv[4])) {
+											System.out.println("Veicolo inserito in modo errato");
+											return false;
+										}
+										if (rigaCsv[5] != null && !rigaCsv[5].isEmpty()) {
+											if(!checkSistemazione(rigaCsv[5])) {
+												System.out.println("Sistemazione inserita in modo errato");
+												return false;
+											} else {
+												System.out.println("RIGA CSV num.+"+numeroRiga+" CORRETTA");
+												flag = true;
+											}
+										} else {
+											System.out.println(
+													"ERRORE V002: Sistemazione non presente o vuoto in riga "
+															+ numeroRiga);
+										}
+									} else {
+										System.out.println("ERRORE V002: Veicoli non presente o vuoto in riga "
+												+ numeroRiga);
+									}
+								} else {
+									System.out.println(
+											"ERRORE V002: PassAnimali non presente o vuoto in riga "
+													+ numeroRiga);
+								}
+							} else {
+								System.out.println(
+										"ERRORE V002: PassBambini non presente o vuoto in riga " + numeroRiga);
+							}
+						} else {
+							System.out.println("ERRORE V002: PassAdulti non presente o vuoto in riga " + numeroRiga);
+						}
+					} else {
+						System.out.println("ERRORE V002: ID non presente o vuoto in riga " + numeroRiga);
+					}
+		} catch (
+		Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
 	}
 
 }

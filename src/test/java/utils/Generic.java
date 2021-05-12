@@ -554,14 +554,14 @@ public class Generic {
 		return dataFine;}
 
 	public static int controlloStagione(String stagione) {
-		if(stagione.equalsIgnoreCase("Alta")) {
+		if(stagione.equalsIgnoreCase("Alta") || stagione.equalsIgnoreCase("Alto")) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			LocalDate data1 = LocalDate.parse(Config.get("inizio_alta_stagione"), formatter);
 			LocalDate data2 = LocalDate.parse(Config.get("fine_alta_stagione"), formatter);
 			int t = (int) ChronoUnit.DAYS.between(data1,data2);
 			return t;
 		}
-		else if(stagione.equalsIgnoreCase("Bassa")) {
+		else if(stagione.equalsIgnoreCase("Bassa") || stagione.equalsIgnoreCase("Basso")) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			LocalDate data1 = LocalDate.parse(Config.get("inizio_bassa_stagione"), formatter);
 			LocalDate data2 = LocalDate.parse(Config.get("fine_bassa_stagione"), formatter);

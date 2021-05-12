@@ -20,6 +20,7 @@ public class CSVExtractor {
 				list.add(array);
 			}
 			for (int x = 1; x < list.size(); x++) {
+				if(Validation.csvRowCheck(list.get(x), x)) {
 				CSVData csvObject = new CSVData();
 				
 				csvObject.setId(list.get(x)[0]);
@@ -38,6 +39,7 @@ public class CSVExtractor {
 				csvObject.setComuneArrivo(arrivo);
 				
 				datiOfferte.add(csvObject);
+				}
 			}
 		} catch (Exception e) {
 			System.out.print(", ERRORE");
