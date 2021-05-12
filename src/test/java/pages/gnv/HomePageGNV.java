@@ -45,6 +45,7 @@ public class HomePageGNV {
 
 	private static void scegliTrattaGNV(WebDriver driver, EsitoSito esito) {
 		if (esito.getErrori() == null) {
+			System.out.println("Scelgo tratta...");
 			cliccaSoloAndataGNV(driver, esito);
 			//selezionaTrattaGNV(driver, esito);
 			selezionaTrattaGNV_2(driver, esito);
@@ -54,6 +55,7 @@ public class HomePageGNV {
 
 	private static void inserisciPasseggeriGNV(WebDriver driver, EsitoSito esito) {
 		if (esito.getErrori() == null) {
+			System.out.println("Inserisco passeggeri...");
 			cliccaAdutiGNV(driver, esito);
 			cliccaBambiniGNV(driver, esito);
 			cliccaAnimaliGNV(driver, esito);
@@ -92,7 +94,7 @@ public class HomePageGNV {
 			}
 		}
 	}
-
+/*
 	private static void selezionaTrattaGNV(WebDriver driver, EsitoSito esito) {
 		if (esito.getErrori() == null) {
 			String[] tratte = esito.getDatiCsv().getTrattaAndata().split(" - ");
@@ -112,7 +114,7 @@ public class HomePageGNV {
 			}
 		}
 	}
-	
+	*/
 	private static void selezionaTrattaGNV_2(WebDriver driver, EsitoSito sito) {
 		if(sito.getErrori()==null) {
 			try {
@@ -200,7 +202,7 @@ public class HomePageGNV {
 		}
 	}
 
-	private static void cliccaDataSceltaGNV(WebDriver driver, EsitoSito esito) {
+	/*private static void cliccaDataSceltaGNV(WebDriver driver, EsitoSito esito) {
 		if (esito.getErrori() == null) {
 			boolean flag = false;
 			for (int j = 1; j <= 5; j++) {
@@ -209,7 +211,7 @@ public class HomePageGNV {
 					 * WebElement element = driver.findElement(By.xpath(
 					 * "//*[@id='main-container']/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[2]/div/div[2]/div[2]/div["
 					 * + j + "]/div[" + i + "]/div"));
-					 */
+					 //
 					WebElement element = driver.findElement(By.xpath(
 							"//*[@id=\"main-container\"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[1]/div/div[2]/div[2]/div["
 									+ j + "]/div[" + i + "]/div"));
@@ -234,7 +236,7 @@ public class HomePageGNV {
 			Generic.waitSeconds(1);
 		}
 	}
-
+*/
 	private static void cliccaDataSceltaGNV_2(WebDriver driver, EsitoSito esito) {
 		// //*[@id="main-container"]/main/div[1]/div[2]/div/div[1]/app-root/section/app-booking-widget/div[1]/app-wizard/div/app-wizard-step[2]/app-booking-wizard-step2/div/div/app-travel-viewer-dates/div/div[2]/app-calendar/div/div[2]/div[1]/div/div[2]/div[2]/div/div/div
 		if (esito.getErrori() == null) {

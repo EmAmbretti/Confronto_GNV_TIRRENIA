@@ -24,6 +24,7 @@ public class RecapPageGNV {
 
 	private static void selezionaSistemazioneGNV(WebDriver driver, EsitoSito esito) {
 		if(esito.getErrori()==null) {
+			System.out.println("Seleziona sistemazione...");
 			HashMap<String, List<WebElement>> mappa = new HashMap<String, List<WebElement>>();
 			int i = 0;
 			boolean flag = false;
@@ -56,7 +57,7 @@ public class RecapPageGNV {
 				WebElement check = driver.findElement(By.xpath("//*[@id='nav-tabContent']/div[2]/p"));
 				flag = true;
 				esito.setErrori(check.getText());
-				System.out.println("QUESTO è L'ERRORE NULL??:::::" + check.getText());
+				System.out.println("ERRORE:" + check.getText());
 			}catch (Exception e) {
 				System.out.println("popup non visibile");
 			}
@@ -67,18 +68,14 @@ public class RecapPageGNV {
 							if(testo.getText().contains(sistemazione)) {
 								try {
 									mappa.get("listaSeleziona").get(i).click();
-									System.out.println("ho cliccato");
 									flag=true;
 									Thread.sleep(1000);
 									break;
 								}catch (Exception e) {
 									esito.setErrori(sistemazione+"non trovata");
 								}
-								System.out.println("PAsseggeri sono::" + passeggeri);
 								if(passeggeri>=4) {
-									System.out.println("Sto a 4");
 									if(mappa.get("listaPostiLetto").get(i).getText().contains("4")) {
-										System.out.println("posti letto = 4");
 										mappa.get("listaSeleziona").get(i).click();
 										flag=true;
 										try {
@@ -90,9 +87,7 @@ public class RecapPageGNV {
 										break;
 									}
 								} else if(passeggeri==3) {
-									System.out.println("sto a 3");
 									if(mappa.get("listaPostiLetto").get(i).getText().contains("3")) {
-										System.out.println("Posti letto = 3");
 										mappa.get("listaSeleziona").get(i).click();
 										flag=true;
 										try {
@@ -105,11 +100,8 @@ public class RecapPageGNV {
 									}else {
 										int	x=0;
 										for(WebElement appoggio: mappa.get("listaSistemazioni")) {
-											System.out.println("sto nel secondo for__77");
 											if(appoggio.getText().contains(sistemazione)) {
-												System.out.println("rifacio controllo sistemazione");
 												if(mappa.get("listaPostiLetto").get(x).getText().contains("4")) {
-													System.out.println("sto nel if che contiene 4 posti letto");
 													mappa.get("listaSeleziona").get(x).click();
 													flag=true;
 													try {
@@ -126,9 +118,7 @@ public class RecapPageGNV {
 										break;
 									}
 								} else if(passeggeri<=2) {
-									System.out.println("sto a 2");
 									if(mappa.get("listaPostiLetto").get(i).getText().contains("2")) {
-										System.out.println("Posti letto = 2");
 										mappa.get("listaSeleziona").get(i).click();
 										flag=true;
 										try {
@@ -155,10 +145,8 @@ public class RecapPageGNV {
 			if(i==mappa.get("listaSeleziona").size()) {
 				int x=0;
 				for(WebElement appoggio: mappa.get("listaSistemazioni")) {
-					System.out.println("sto nel for giu a tutto");
 					if(appoggio.getText().contains(sistemazione)) {
 						if(mappa.get("listaPostiLetto").get(x).getText().contains("4")) {
-							System.out.println("posti letto = 4 parte 2");
 							mappa.get("listaSeleziona").get(x).click();
 							flag=true;
 							try {
@@ -226,6 +214,7 @@ public class RecapPageGNV {
 
 	private static void recuperaPrezzoGNV(WebDriver driver, EsitoSito esito) {
 		if (esito.getErrori() == null) {
+			System.out.println("Recupero prezzo...");
 			try {
 				String importo = driver.findElement(By.xpath("//button[@id='cartDropdown']/span[@class='price']"))
 						.getText();

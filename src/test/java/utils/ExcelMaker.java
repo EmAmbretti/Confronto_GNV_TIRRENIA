@@ -51,7 +51,7 @@ public class ExcelMaker {
 		if (flag) {
 			try {
 				LocalDateTime dateTime = LocalDateTime.now();
-				String filename = path + File.separator + "Esito_Confronto_Grimaldi_"
+				String filename = path + File.separator + "Esito_Confronto_Grimaldi_"+Config.get("competitor")+"_"+Config.get("tratta")+"_"
 						+ dateTime.format(formatterDateTimeFileName);
 
 				boolean flagForFile = true;
@@ -79,7 +79,7 @@ public class ExcelMaker {
 				filename += ".xlsx";
 				XSSFWorkbook fileExcel = new XSSFWorkbook();
 				XSSFSheet foglio = fileExcel
-						.createSheet("Esito_Confronto_Grimaldi_" + dateTime.format(formatterDateTime));
+						.createSheet(Config.get("tratta")+"_"+Config.get("fasciaOraria"));
 				// HSSFWorkbook fileExcel = new HSSFWorkbook();
 				// HSSFSheet foglio = fileExcel.createSheet("Esito " +
 				// dateTime.format(formatterDateTime));

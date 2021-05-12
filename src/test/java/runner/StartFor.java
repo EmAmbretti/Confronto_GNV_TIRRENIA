@@ -8,7 +8,9 @@ import model.CSVData;
 import model.Differenza;
 import model.EsitoSito;
 import steps.CorsicaFerries;
+import steps.GNV;
 import steps.GrimaldiLines;
+import steps.Moby;
 import steps.Tirrenia;
 import utils.CSVExtractor;
 import utils.Config;
@@ -53,9 +55,9 @@ public class StartFor {
 		dataFine = Generic.setDataFine("ALTA");
 
 		LocalDate dataPrenotazione = dataInizio;
-		
+
 		int numeroDiGiorniDaLanciare = Generic.controlloStagione(Config.get("stagione"));
-		
+
 		for (int i = 0; i <= numeroDiGiorniDaLanciare; i++) {
 			System.out.println("i: "+i);
 
@@ -67,28 +69,9 @@ public class StartFor {
 			for (int x = 0; x < datiCSV.size(); x++) {
 				System.out.println("X: "+x+", DATA PRENOTAZIONE: "+dataPrenotazione);
 				Generic.setDataPrenotazioneNelModelCSV(datiCSV.get(x), dataPrenotazione);
-				/*
-				EsitoSito esitoGrimaldi = null;
-				EsitoSito esitoTirrenia = null;
-				try {
-					esitoGrimaldi = GrimaldiLines.stepGrimaldi(datiCSV.get(i));
-				} catch (Throwable e) {
-					e.printStackTrace();
-				}
 
-				try {
-					esitoTirrenia = Tirrenia.stepTirrenia(datiCSV.get(i));
-				} catch (Throwable e) {
-					e.printStackTrace();
-				}
-				 */
-				//EsitoSito esitoGrimaldi = new EsitoSito("grimaldi", datiCSV.get(x));
-				//EsitoSito esitoTirrenia = new EsitoSito("tirrenia", datiCSV.get(x));
-				
-				
-				
 				///////////////////test con step
-				
+
 				EsitoSito esitoGrimaldi = null;
 				try {
 					esitoGrimaldi = GrimaldiLines.stepGrimaldi(datiCSV.get(x));
@@ -96,41 +79,29 @@ public class StartFor {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-//				EsitoSito esitoTirrenia = null;
-//				try {
-//					esitoTirrenia = Tirrenia.stepTirrenia(datiCSV.get(x));
-//				} catch (Throwable e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-				EsitoSito esitoCorsicaFerries= null;
-				try {
-					esitoCorsicaFerries = CorsicaFerries.automation(datiCSV.get(x));
-				}catch(Throwable e) {
-					e.printStackTrace();
+				EsitoSito esitoCompetitor= null;
+				if(Config.get("competitor").equalsIgnoreCase("GNV")) {
+					try {
+						esitoCompetitor = GNV.allMethods(datiCSV.get(x));
+					}catch(Throwable e) {
+						e.printStackTrace();
+					}
+				} else if(Config.get("competitor").equalsIgnoreCase("TIRRENIA")) {
+					try {
+						esitoCompetitor = Tirrenia.stepTirrenia(datiCSV.get(x));
+					} catch (Throwable e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else if(Config.get("competitor").equalsIgnoreCase("MOBY")) {
+					esitoCompetitor = Moby.allMethods(datiCSV.get(x));
+				} else if(Config.get("competitor").equalsIgnoreCase("CF") || Config.get("competitor").equalsIgnoreCase("CORSICA FERRIES")){
+					esitoCompetitor = CorsicaFerries.automation(datiCSV.get(x));
 				}
-				
-				//////////////////////fine test con step
-				
-				
-				
-				
-				//////////////////// test senza step
-				
-//				EsitoSito esitoGrimaldi = new EsitoSito("GRIMALDI", datiCSV.get(0));
-//				EsitoSito esitoTirrenia = new EsitoSito("TIRRENIA", datiCSV.get(0));
-//				esitoGrimaldi.setPrezzo(String.valueOf(100 + (prezzoDaEliminare * (x+1))));
-//				esitoTirrenia.setPrezzo(String.valueOf(120 + (prezzoDaEliminare * (x+1))));
-				
-				
-				/////////////////////fine test senza step
 
-				
-				
-
-				Differenza diff = new Differenza(esitoGrimaldi, esitoCorsicaFerries);
+				Differenza diff = new Differenza(esitoGrimaldi, esitoCompetitor);
 				listaDifferenze.add(diff);
-				
+
 			}
 
 			if(!listaDifferenze.isEmpty()) {
@@ -138,16 +109,16 @@ public class StartFor {
 			} else {
 				System.out.println("LISTA DIFFERENZE VUOTA");
 			}
-			
+
 			if (!dataPrenotazione.equals(dataFine)) {
-				System.out.println("AUMENTO LA DATAAAAAAAAAAAAAAAAAA");
+				System.out.println("AUMENTO LA DATA");
 				dataPrenotazione = dataPrenotazione.plusDays(1);
 			} else {
 				break;
 			}
 
-			
+
 		}
-		ExcelMaker.createReport(mappaConfronti, "C:\\Users\\mirko.terracciano\\Desktop\\ReportTest");
+		ExcelMaker.createReport(mappaConfronti, Config.get("path_cartella_di_destinazione"));
 	}
 }
