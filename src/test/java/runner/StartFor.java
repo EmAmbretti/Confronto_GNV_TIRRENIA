@@ -68,6 +68,8 @@ public class StartFor {
 						} else if (Config.get("competitor").equalsIgnoreCase("CF")
 								|| Config.get("competitor").equalsIgnoreCase("CORSICA FERRIES")) {
 							esitoCompetitor = CorsicaFerries.automation(datiCSV.get(x));
+						} else {
+							System.out.println("Competitor non riconosciuto");
 						}
 
 						Differenza diff = new Differenza(esitoGrimaldi, esitoCompetitor);

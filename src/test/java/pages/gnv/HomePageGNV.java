@@ -45,7 +45,7 @@ public class HomePageGNV {
 
 	private static void scegliTrattaGNV(WebDriver driver, EsitoSito esito) {
 		if (esito.getErrori() == null) {
-			System.out.println("Scelgo tratta...");
+			System.out.println("\nScelgo tratta...");
 			cliccaSoloAndataGNV(driver, esito);
 			//selezionaTrattaGNV(driver, esito);
 			selezionaTrattaGNV_2(driver, esito);
@@ -55,7 +55,7 @@ public class HomePageGNV {
 
 	private static void inserisciPasseggeriGNV(WebDriver driver, EsitoSito esito) {
 		if (esito.getErrori() == null) {
-			System.out.println("Inserisco passeggeri...");
+			System.out.println("\nInserisco passeggeri...");
 			cliccaAdutiGNV(driver, esito);
 			cliccaBambiniGNV(driver, esito);
 			cliccaAnimaliGNV(driver, esito);
@@ -285,7 +285,7 @@ public class HomePageGNV {
 		if (sito.getErrori() == null) {
 			if (Integer.valueOf(sito.getDatiCsv().getPasseggeriAdulti()) != 0) {
 				for (int i = 0; i < Integer.valueOf(sito.getDatiCsv().getPasseggeriAdulti()); i++) {
-					System.out.println("ADULTI:::" + Integer.valueOf(sito.getDatiCsv().getPasseggeriAdulti()));
+					System.out.println("ADULTI:" + Integer.valueOf(sito.getDatiCsv().getPasseggeriAdulti()));
 					Generic.waitSeconds(1);
 					try {
 						Generic.clickByXPath(driver,
@@ -302,7 +302,7 @@ public class HomePageGNV {
 		if (esito.getErrori() == null) {
 			if (Integer.valueOf(esito.getDatiCsv().getPasseggeriBambini()) != 0) {
 				for (int i = 0; i < Integer.valueOf(esito.getDatiCsv().getPasseggeriBambini()); i++) {
-					System.out.println("BAMBINI:::" + Integer.valueOf(esito.getDatiCsv().getPasseggeriBambini()));
+					System.out.println("BAMBINI:" + Integer.valueOf(esito.getDatiCsv().getPasseggeriBambini()));
 					Generic.waitSeconds(1);
 					try {
 						Generic.clickByXPath(driver,
@@ -319,7 +319,7 @@ public class HomePageGNV {
 		if (esito.getErrori() == null) {
 			if (Integer.valueOf(esito.getDatiCsv().getPasseggeriAnimali()) != 0) {
 				for (int i = 0; i < Integer.valueOf(esito.getDatiCsv().getPasseggeriAnimali()); i++) {
-					System.out.println("ANIMALI::::" + Integer.valueOf(esito.getDatiCsv().getPasseggeriAnimali()));
+					System.out.println("ANIMALI:" + Integer.valueOf(esito.getDatiCsv().getPasseggeriAnimali()));
 					Generic.waitSeconds(1);
 					Generic.clickByXPath(driver, "//app-counter-wrapper[4]//button[@class='input-number-increment']");
 				}
@@ -348,8 +348,6 @@ public class HomePageGNV {
 				List<WebElement> elements = driver.findElements(
 						By.xpath("//div[@class='counter-wrapper orange']//button[@class='input-number-increment']"));
 				if (elements != null && elements.size()>0) {
-					System.out.println("lista::::" + elements.size());
-					System.out.println("ECCOMI");
 					elements.get(0).click();
 					Generic.waitSeconds(1);
 					Generic.clickByXPath(driver, "//select[@id='height']");
@@ -384,7 +382,7 @@ public class HomePageGNV {
 					Generic.clickByXPath(driver, "//select[@id='height']");
 					Generic.clickByXPath(driver, "//option[contains(.,'Inferiore a  2,9m')]");
 					Generic.clickByXPath(driver, "//select[@id='length']");
-					Generic.clickByXPath(driver, "//select[@id='length']/option[contains(.,'Tra 7m  e 8m')]");
+					Generic.clickByXPath(driver, "//select[@id='length']/option[contains(.,'Tra 6m  e 7m')]");
 					Generic.clickByXPath(driver, "//span[@class='gnv-icon icon-right ng-star-inserted']");
 				} else {
 					System.out.println(esito.getDatiCsv().getVeicolo() + " non disponibile per questa tratta");

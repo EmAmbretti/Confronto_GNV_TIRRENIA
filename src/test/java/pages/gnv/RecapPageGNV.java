@@ -24,7 +24,7 @@ public class RecapPageGNV {
 
 	private static void selezionaSistemazioneGNV(WebDriver driver, EsitoSito esito) {
 		if(esito.getErrori()==null) {
-			System.out.println("Seleziona sistemazione...");
+			System.out.println("\nSeleziona sistemazione...");
 			HashMap<String, List<WebElement>> mappa = new HashMap<String, List<WebElement>>();
 			int i = 0;
 			boolean flag = false;
