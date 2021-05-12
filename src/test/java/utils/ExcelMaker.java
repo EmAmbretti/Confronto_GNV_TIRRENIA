@@ -289,6 +289,7 @@ public class ExcelMaker {
 				
 				
 				// RIGA ITERATA
+				Cell id = riga.createCell(0);
 				Cell passeggeri = riga.createCell(1);
 				Cell veicolo = riga.createCell(2);
 				Cell sistemazione = riga.createCell(3);
@@ -300,6 +301,7 @@ public class ExcelMaker {
 				Cell differenzaFormula = riga.createCell(12);
 				Cell percentualeDifferenzaFormula = riga.createCell(13);
 								
+				id.setCellStyle(standardStyle);
 				passeggeri.setCellStyle(standardStyle);
 				veicolo.setCellStyle(standardStyle);
 				sistemazione.setCellStyle(standardStyle);
@@ -316,7 +318,7 @@ public class ExcelMaker {
 				riga.createCell(9).setCellStyle(standardStyle);
 				riga.createCell(10).setCellStyle(standardStyle);
 
-				// CDT ID
+				id.setCellValue(diff.get(index).getGrimaldi().getDatiCsv().getId());
 				if (diff.get(index).getGrimaldi().getDatiCsv().getPasseggeriBambini() == null) {
 					passeggeri
 							.setCellValue(diff.get(index).getGrimaldi().getDatiCsv().getPasseggeriAdulti() + " adulti");

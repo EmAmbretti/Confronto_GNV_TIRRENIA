@@ -69,6 +69,7 @@ public class Validation {
 		case "VEI 5 MT":
 		case "CMP":
 		case "NO":
+		case "VEI 7 MT":
 			break;
 		default:
 			System.out.println("VEICOLO NON RICONOSCIUTO");
@@ -253,28 +254,28 @@ public class Validation {
 		try {
 					if (rigaCsv[0] != null && !rigaCsv[0].isEmpty()) {
 						if (rigaCsv[1] != null && !rigaCsv[1].isEmpty()) {
-							if(!Pattern.compile("[0-9]{1,2}").matcher(rigaCsv[1]).matches()) {
-								System.out.println("PassAdulti inserito in modo errato");
+							if(!Pattern.compile("[0-9]{1}").matcher(rigaCsv[1]).matches()) {
+								System.out.println("RIGA CSV num."+numeroRiga+" ERRATA: PassAdulti inserito in modo errato");
 								return false;
 							}
 							if (rigaCsv[2] != null && !rigaCsv[2].isEmpty()) {
-								if(!Pattern.compile("[0-9]{1,2}").matcher(rigaCsv[2]).matches()) {
-									System.out.println("PassBambini inserito in modo errato");
+								if(!Pattern.compile("[0-9]{1}").matcher(rigaCsv[2]).matches()) {
+									System.out.println("RIGA CSV num."+numeroRiga+" ERRATA: PassBambini inserito in modo errato");
 									return false;
 								}
 								if (rigaCsv[3] != null && !rigaCsv[3].isEmpty()) {
-									if(!Pattern.compile("[0-9]{1,2}").matcher(rigaCsv[3]).matches()) {
-										System.out.println("PassAnimali inserito in modo errato");
+									if(!Pattern.compile("[0-9]{1}").matcher(rigaCsv[3]).matches()) {
+										System.out.println("RIGA CSV num."+numeroRiga+" ERRATA: PassAnimali inserito in modo errato");
 										return false;
 									}
 									if (rigaCsv[4] != null && !rigaCsv[4].isEmpty()) {
 										if(!checkVeicoli(rigaCsv[4])) {
-											System.out.println("Veicolo inserito in modo errato");
+											System.out.println("RIGA CSV num."+numeroRiga+" ERRATA: Veicolo inserito in modo errato");
 											return false;
 										}
 										if (rigaCsv[5] != null && !rigaCsv[5].isEmpty()) {
 											if(!checkSistemazione(rigaCsv[5])) {
-												System.out.println("Sistemazione inserita in modo errato");
+												System.out.println("RIGA CSV num."+numeroRiga+" ERRATA: Sistemazione inserita in modo errato");
 												return false;
 											} else {
 												System.out.println("RIGA CSV num."+numeroRiga+" CORRETTA");
