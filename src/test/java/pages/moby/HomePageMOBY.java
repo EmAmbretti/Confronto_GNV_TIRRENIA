@@ -16,7 +16,7 @@ public class HomePageMOBY {
 	public static void selezionaItinerarioMOBY(WebDriver driver, EsitoSito esito, CSVData data) {
 		utenteApreBrowserMOBY(driver, esito);
 		selezionaSoloAndataMOBY(driver, esito);
-		selezionaTrattaMOBY(driver, esito, data);
+		selezionaTrattaMOBY(driver, esito);
 		selezionaDataMOBY(driver, esito);
 		cliccaCercaMOBY(driver, esito);
 	}
@@ -47,27 +47,22 @@ public class HomePageMOBY {
 
 	}
 
-	private static void selezionaTrattaMOBY(WebDriver driver, EsitoSito esito, CSVData data) {
+	private static void selezionaTrattaMOBY(WebDriver driver, EsitoSito esito) {
 		if(esito.getErrori() == null) {
 			System.out.println("Start method: selezionaTrattaMOBY");
 			WebElement trattaDaTrovare = null;
 			Generic.clickByXPath(driver, "//*[@id=\"widget-home\"]/form/div[2]/div[1]/div/div[1]/div/span[@class='jcf-select jcf-unselectable jcf-select-select-picker']");
-			try{
-				Thread.sleep(2000);
-			} catch (Exception e) {
-				System.out.println("ATTESA?");
-			}
-			System.out.println("PROVO A TROVARE ELEMENTO");
+			Generic.waitSeconds(2);
 			JavascriptExecutor je = (JavascriptExecutor) driver;
 			try {
-				System.out.println("STO NEL TRY 81");
-				trattaDaTrovare = driver.findElement(By.xpath("/html/body/div/div/span/span/ul/li/span/ul/li/span[contains(.,'" + data.getTrattaAndata() + "')]"));
+				String trattaFinale = Generic.toCamelCase(esito.getDatiCsv().getTrattaAndata());
+				trattaDaTrovare = driver.findElement(By.xpath("/html/body/div/div/span/span/ul/li/span/ul/li/span[contains(.,'" + trattaFinale + "')]"));
 				je.executeScript("arguments[0].scrollIntoView(true);", trattaDaTrovare);
 				trattaDaTrovare.click();
 				Thread.sleep(5000);
 			}catch (Exception e){
 				esito.setErrori("la tratta per questo sito non è disponibile.");
-				System.out.println("L'elemento TRATTA: " + data.getTrattaAndata() + " non è disponibile.");
+				System.out.println("L'elemento TRATTA: " + esito.getDatiCsv().getTrattaAndata() + " non è disponibile.");
 			}		
 		}
 	}
